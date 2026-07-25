@@ -127,37 +127,127 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ==========================================
 // 4. BANCO DE QUESTÕES (RENDERIZAÇÃO E FILTRO)
 // ==========================================
-function renderizarBanco() {
-  const container = document.getElementById('bancoQuestoesContainer');
-  if (!container) return;  
+// ==========================================
+// 8. ALGORITMO DE PAGINAÇÃO AUTOMÁTICA (CORRIGIDO)
+// ==========================================
+async function renderizarProva() {
+  const container = document.getElementById('conteudoProvasContainer');
+  const containerAlerta = document.getElementById('containerAlertaExt');
+  if (!container) return;
   
-  const filtroSelect = document.getElementById('filtroDescritor');
-  const filtro = filtroSelect ? filtroSelect.value : 'todos';
   container.innerHTML = '';
+  if (containerAlerta) containerAlerta.innerHTML = '';
 
-  const filtradas = bancoQuestoes.filter(q => filtro === 'todos' || q.descritor === filtro);
+  let numeroQuestao = 1;
+  let paginaAtualIndex = 1;
 
-  if (filtradas.length === 0) {
-    container.innerHTML = `<div style="font-size:0.8rem; color:#ef4444; padding:8px; text-align:center;">Nenhuma questão encontrada.</div>`;
-    return;
+  // Cria a primeira folha A4
+  let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
+  container.appendChild(folhaAtual);
+
+  for (let index = 0; index < listaQuestoesProva.length; index++) {
+    const item = listaQuestoesProva[index];
+
+    // TRATAMENTO DA QUEBRA MANUALLY SOLICITADA
+    if (item.tipo === 'quebra_pagina') {
+      const divisor = document.createElement('div');
+      divisor.className = 'divisor-quebra-pagina';
+      divisor.innerHTML = `
+        <span>--- QUEBRA DE PÁGINA MANUAL ---</span>
+        <div class="controles-questao" style="opacity:1; visibility:visible;">
+          <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖ Remover Quebra</button>
+        </div>
+      `;
+      container.appendChild(divisor);
+
+      // Avança para uma nova folha
+      paginaAtualIndex++;
+      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
+      folhaAtual = novaFolhaObj.folha;
+      gridAtual = novaFolhaObj.grid;
+      container.appendChild(folhaAtual);
+      continue;
+    }
+
+    // Cria o Card da Questão
+    const card = document.createElement('div');
+    card.className = 'card-questao';
+    if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
+
+    let letras = ['A', 'B', 'C', 'D', 'E'];
+    let htmlOpcoes = '';
+
+    if (item.tipo === 'objetiva' && item.opcoes && item.opcoes.length > 0) {
+      htmlOpcoes = '<ul class="opcoes-multipla-list">';
+      item.opcoes.forEach((op, idx) => {
+        htmlOpcoes += `<li><b>${letras[idx] || '•'})</b> ${op}</li>`;
+      });
+      htmlOpcoes += '</ul>';
+    } else {
+      htmlOpcoes = `<div class="linhas-respostas-aberta"></div><div class="linhas-respostas-aberta"></div>`;
+    }
+
+    card.innerHTML = `
+      <div class="cabecalho-questao-topo">
+        <span class="tag-questao">QUESTÃO ${numeroQuestao++}</span>
+        
+        <div class="controles-questao">
+          <button type="button" class="btn-espaco" title="Aumentar espaço" onclick="alterarEspacoExtra(${index}, 15)">↕ +</button>
+          <button type="button" class="btn-espaco" title="Reduzir espaço" onclick="alterarEspacoExtra(${index}, -15)">↕ -</button>
+          <button type="button" class="btn-mover" title="Subir" onclick="moverQuestao(${index}, -1)">▲</button>
+          <button type="button" class="btn-mover" title="Descer" onclick="moverQuestao(${index}, 1)">▼</button>
+          <button type="button" class="btn-del" title="Excluir" onclick="removerItemProva('${item.idUnico}')">✖</button>
+        </div>
+
+        <span class="tag-descritor">${item.descritor || ''}</span>
+      </div>
+      <div class="linha-divisoria-questao"></div>
+      <p class="enunciado-texto">${item.enunciado}</p>
+      ${htmlOpcoes}
+    `;
+
+    // Insere o card para medir a altura
+    gridAtual.appendChild(card);
+
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      await MathJax.typesetPromise([card]);
+    }
+
+    // VERIFICAÇÃO DE ESTOURO DA FOLHA
+    // Altura máxima tolerada para o conteúdo interno da folha A4 em pixels
+    const ALTURA_MAXIMA_GRID = 880; 
+
+    if (gridAtual.scrollHeight > ALTURA_MAXIMA_GRID) {
+      // Se estourou, remove a questão da folha atual
+      gridAtual.removeChild(card);
+
+      // Se a folha já estava vazia e estourou, a questão é gigante sozinha
+      if (gridAtual.children.length === 0) {
+        gridAtual.appendChild(card);
+        folhaAtual.classList.add('folha-estourada');
+        if (containerAlerta) {
+          containerAlerta.innerHTML = `
+            <div class="alerta-estouro-banner">
+              ⚠️ A Questão ${numeroQuestao - 1} ultrapassa o limite de uma página A4!
+            </div>`;
+        }
+      } else {
+        // Cria automaticamente uma nova Folha A4 e coloca a questão nela
+        paginaAtualIndex++;
+        const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
+        folhaAtual = novaFolhaObj.folha;
+        gridAtual = novaFolhaObj.grid;
+        container.appendChild(folhaAtual);
+
+        // Insere a questão no topo da nova folha
+        gridAtual.appendChild(card);
+      }
+    }
   }
 
-  filtradas.forEach(q => {
-    const item = document.createElement('div');
-    item.className = 'item-banco';
-    const qId = q.id || q.idUnico;
-
-    item.innerHTML = `
-      <div class="item-banco-texto" title="${q.enunciado.replace(/"/g, '&quot;')}">
-        <b>[${q.descritor}]</b> ${q.enunciado}
-      </div>
-      <div class="item-banco-acoes">
-        <button type="button" class="btn-add-banco" title="Adicionar" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
-        <button type="button" class="btn-ver-banco" title="Ver" onclick="abrirPreviaQuestaoBanco('${qId}')">👁️</button>
-      </div>
-    `;
-    container.appendChild(item);
-  });
+  // Atualiza contador no topo
+  const info = document.getElementById('infoPaginas');
+  if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
 function atualizarFiltroDescritores() {
