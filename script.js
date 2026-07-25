@@ -65,8 +65,8 @@ function inicializarResizer() {
 // ==========================================
 async function carregarBancosExternos() {
   bancoQuestoes = [
-    { id: 'bq_d2_1', descritor: 'D2', tipo: 'objetiva', enunciado: 'Texto da questão...', opcoes: ['A', 'B', 'C', 'D'] },
-    { id: 'bq_d36_1', descritor: 'D36', tipo: 'objetiva', enunciado: 'Texto da questão...', opcoes: ['A', 'B', 'C', 'D'] }
+    { id: 'bq_d1_1', descritor: 'D1', tipo: 'objetiva', enunciado: 'Qual é a área de um terreno retangular com 10m por 20m?', opcoes: ['100 m²', '200 m²', '300 m²', '400 m²'] },
+    { id: 'bq_d1_2', descritor: 'D1', tipo: 'subjetiva', enunciado: 'Desenhe um retângulo no espaço abaixo:', opcoes: [] }
   ];
 
   const arquivos = ['questoes/d1.json', 'questoes/d2.json', 'questoes/d36.json'];
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await carregarBancosExternos();
   } catch (e) {
-    console.error("Erro ao carregar arquivos JSON:", e);
+    console.error("Erro no carregamento externo:", e);
   }
   salvarEstadoHistorico();
   renderizarProva();
@@ -408,7 +408,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. ALGORITMO CORRIGIDO DE PAGINAÇÃO AUTOMÁTICA
+// 8. ALGORITMO CORRIGIDO DE PAGINAÇÃO E ALTURA DA PÁGINA
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -424,11 +424,13 @@ function renderizarProva() {
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
 
-  const ALTURA_MAXIMA_A4 = 1000;
+  // Espaço máximo vertical disponível em pixels para as questões dentro do A4 (descontando o cabeçalho)
+  const ALTURA_MAXIMA_GRID = 780; 
 
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
 
+    // Quebra manual de página
     if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
@@ -448,6 +450,7 @@ function renderizarProva() {
       continue;
     }
 
+    // Criar Card da Questão
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -484,19 +487,21 @@ function renderizarProva() {
       ${htmlOpcoes}
     `;
 
+    // Adiciona ao grid da página para medir a soma real das questões
     gridAtual.appendChild(card);
 
     if (window.MathJax && window.MathJax.typesetPromise) {
       MathJax.typesetPromise([card]).catch(err => console.warn(err));
     }
 
-    const alturaTotalFolha = folhaAtual.scrollHeight;
+    // Cálculo exato: Soma da altura de todas as questões presentes na folha atual
+    const alturaAtualGrid = gridAtual.offsetHeight || gridAtual.scrollHeight;
 
-    if (alturaTotalFolha > ALTURA_MAXIMA_A4) {
-      gridAtual.removeChild(card);
-
-      if (gridAtual.children.length === 0) {
-        gridAtual.appendChild(card);
+    // Se o conjunto de questões ultrapassar a altura máxima da folha A4
+    if (alturaAtualGrid > ALTURA_MAXIMA_GRID) {
+      
+      // Se a questão atual é a ÚNICA na página e mesmo assim passou da altura limite:
+      if (gridAtual.children.length === 1) {
         folhaAtual.classList.add('folha-estourada');
         if (containerAlerta) {
           containerAlerta.innerHTML = `
@@ -505,17 +510,22 @@ function renderizarProva() {
             </div>`;
         }
       } else {
+        // Se a página já tem outras questões, remove esta última e move para uma NOVA PÁGINA A4
+        gridAtual.removeChild(card);
+
         paginaAtualIndex++;
         const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
         folhaAtual = novaFolhaObj.folha;
         gridAtual = novaFolhaObj.grid;
         container.appendChild(folhaAtual);
 
+        // Insere na nova folha
         gridAtual.appendChild(card);
       }
     }
   }
 
+  // Atualiza o total de páginas no painel superior
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
