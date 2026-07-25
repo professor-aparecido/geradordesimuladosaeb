@@ -4,24 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerador de Simulados SAEB</title>
+  
+  <!-- Estilos CSS da aplicação -->
   <link rel="stylesheet" href="style.css">
-  <!-- MathJax para suporte a LaTeX / fórmulas matemáticas -->
+  
+  <!-- MathJax para renderização de fórmulas matemáticas e suporte a TeX -->
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 </head>
 <body>
 
+  <!-- CONTAINER PRINCIPAL DO APP -->
   <div class="app-container" id="appContainer">
     
-    <!-- PAINEL LATERAL ESQUERDO -->
+    <!-- ========================================== -->
+    <!-- PAINEL LATERAL ESQUERDO (CONFIGURAÇÕES)     -->
+    <!-- ========================================== -->
     <aside class="sidebar-painel" id="sidebarPainel">
-      <h2>Configurações da Prova</h2>
+      <h2>1. Configurações da Prova</h2>
 
-      <!-- Seção Logo e Dados -->
+      <!-- Upload da Logomarca -->
       <div class="grupo-campo">
         <label>Logo da Escola (Imagem):</label>
         <input type="file" id="inputLogo" accept="image/*" onchange="carregarLogo(event)">
       </div>
 
+      <!-- Dados do Cabeçalho -->
       <div class="grupo-campo">
         <label>Nome da Escola:</label>
         <input type="text" id="inputNomeEscola" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR" oninput="atualizarCabecalho()">
@@ -54,19 +61,23 @@
         <input type="text" id="inputBimestre" value="2º BIMESTRE" oninput="atualizarCabecalho()">
       </div>
 
+      <!-- Botões Globais (Reiniciar, Desfazer, Refazer) -->
       <div class="acoes-principais">
         <button type="button" class="btn-perigo" onclick="reiniciarTudo()">🔄 Reiniciar Prova</button>
         <button type="button" class="btn-secundario" onclick="desfazerAcao()">↩️ Desfazer</button>
         <button type="button" class="btn-secundario" onclick="refazerAcao()">↪️ Refazer</button>
       </div>
 
+      <!-- Botão para Inserir Quebra de Página Manual -->
       <button type="button" class="btn-sucesso" style="width: 100%; margin-top: 5px;" onclick="inserirQuebraPagina()">
         ✂️ Inserir Quebra de Página Manual
       </button>
 
       <hr class="divisor-secao">
 
-      <!-- Seção 2: Banco de Questões -->
+      <!-- ========================================== -->
+      <!-- BANCO DE QUESTÕES INTEGRADO                -->
+      <!-- ========================================== -->
       <h3>2. Banco de Questões</h3>
       <div class="grupo-campo">
         <label for="filtroDescritor">Filtrar por Descritor:</label>
@@ -75,13 +86,16 @@
         </select>
       </div>
 
+      <!-- Lista Rolável de Questões do Banco -->
       <div class="banco-container" id="bancoQuestoesContainer">
-        <!-- Renderizado dinamicamente via script.js -->
+        <!-- Itens inseridos dinamicamente pelo script.js -->
       </div>
 
       <hr class="divisor-secao">
 
-      <!-- Seção 3: Criar Nova Questão -->
+      <!-- ========================================== -->
+      <!-- CRIAR NOVA QUESTÃO / PERSONALIZADA         -->
+      <!-- ========================================== -->
       <h3>3. Criar Nova Questão (Suporte a TeX)</h3>
       <div class="grupo-campo">
         <label>Tipo de Questão:</label>
@@ -101,6 +115,7 @@
         <textarea id="novoEnunciado" rows="3" placeholder="Digite o enunciado da questão..."></textarea>
       </div>
 
+      <!-- Campos das Opções (A, B, C, D) -->
       <div id="containerOpcoesCriacao">
         <div class="grupo-campo">
           <label>Opção A:</label>
@@ -126,27 +141,31 @@
       </div>
     </aside>
 
-    <!-- BARRA REDIMENSIONÁVEL (RESISER) -->
+    <!-- BARRA CENTRAL REDIMENSIONÁVEL (RESIZER) -->
     <div class="resizer" id="resizer"></div>
 
-    <!-- ÁREA DE IMPRESSÃO / FOLHA A4 (LADO DIREITO) -->
+    <!-- ========================================== -->
+    <!-- ÁREA DE PRÉ-VISUALIZAÇÃO / FOLHAS A4       -->
+    <!-- ========================================== -->
     <main class="area-impressao">
+      <!-- Barra Superior de Ferramentas -->
       <div class="barra-ferramentas-topo">
         <span id="infoPaginas">Total de Páginas: 1</span>
         <button type="button" class="btn-sucesso" onclick="imprimirProva()">🖨️ Baixar PDF / Imprimir</button>
       </div>
 
-      <!-- BANNER DE AVISO EXTERNO -->
+      <!-- Banner de Alerta (Aparece se uma questão individual exceder a página) -->
       <div id="containerAlertaExt" style="width: 210mm;"></div>
 
+      <!-- Container Dinâmico onde as Páginas A4 serão renderizadas -->
       <div id="conteudoProvasContainer">
-        <!-- Páginas A4 da Prova serão inseridas aqui -->
+        <!-- As folhas .folha-a4 são inseridas aqui pelo JS -->
       </div>
     </main>
 
   </div>
 
-  <!-- MODAL DE PRÉVIA DA QUESTÃO -->
+  <!-- MODAL DE PRÉ-VISUALIZAÇÃO DE QUESTÕES -->
   <div id="modalPreview" class="modal-overlay oculto">
     <div class="modal-conteudo">
       <h3>Prévia da Questão</h3>
@@ -155,6 +174,7 @@
     </div>
   </div>
 
+  <!-- Script Lógico -->
   <script src="script.js"></script>
 </body>
 </html>
