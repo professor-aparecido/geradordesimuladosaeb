@@ -406,7 +406,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. PAGINAÇÃO AUTOMÁTICA COM ESPAÇAMENTO FLEXÍVEL
+// 8. PAGINAÇÃO AUTOMÁTICA COM ESPAÇAMENTO FLEXÍVEL (CORRIGIDO)
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -489,37 +489,39 @@ function renderizarProva() {
     const card = criarElementoCard(item, index);
     gridAtual.appendChild(card);
 
-    // Renderiza formulas com MathJax se houver
     if (window.MathJax && window.MathJax.typesetPromise) {
       MathJax.typesetPromise([card]).catch(err => console.warn(err));
     }
 
+    // ALTURA MÁXIMA DA FOLHA A4 EM PIXELS (Fixado para evitar altura zerada no carregamento)
+    const ALTURA_MAXIMA_A4 = 920; 
+
     // VERIFICAÇÃO AUTOMÁTICA DE ESTOURO DE PÁGINA
-    const limiteEfetivo = folhaAtual.clientHeight - 20; // Folha A4 util
-    if (folhaAtual.scrollHeight > limiteEfetivo && gridAtual.children.length > 1) {
-      // Remove o card da página cheia
+    if (folhaAtual.offsetHeight > ALTURA_MAXIMA_A4 && gridAtual.children.length > 1) {
+      // Remove o card que estourou da página atual
       gridAtual.removeChild(card);
-      numeroQuestao--; // Decrementa a numeração para re-adicionar na próxima página
+      numeroQuestao--; // Volta a numeração para usar na próxima página
 
       // DISTRIBUIÇÃO HARMÔNICA DOS ESPAÇOS SOBRANTES
-      const espacoSobrando = limiteEfetivo - folhaAtual.scrollHeight;
+      const espacoSobrando = ALTURA_MAXIMA_A4 - folhaAtual.offsetHeight;
       const qtdCardsNaFolha = gridAtual.children.length;
-      if (espacoSobrando > 0 && qtdCardsNaFolha > 1) {
-        const espacoExtraPorCard = Math.floor(espacoSobrando / (qtdCardsNaFolha * 2));
+      
+      if (espacoSobrando > 10 && qtdCardsNaFolha > 1) {
+        const espacoExtraPorCard = Math.floor(espacoSobrando / (qtdCardsNaFolha * 1.5));
         Array.from(gridAtual.children).forEach(c => {
           const marginAtual = parseInt(c.style.marginBottom || '0', 10);
           c.style.marginBottom = `${marginAtual + espacoExtraPorCard}px`;
         });
       }
 
-      // Cria a nova página e insere o card nela
+      // Cria a nova página A4
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
       gridAtual = novaFolhaObj.grid;
       container.appendChild(folhaAtual);
 
-      // Reinsere a questão na nova página
+      // Reinsere a questão na nova folha
       const novoCard = criarElementoCard(item, index);
       gridAtual.appendChild(novoCard);
       if (window.MathJax && window.MathJax.typesetPromise) {
@@ -531,7 +533,6 @@ function renderizarProva() {
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
-
 // ==========================================
 // 9. FUNÇÃO DE IMPRESSÃO
 // ==========================================
