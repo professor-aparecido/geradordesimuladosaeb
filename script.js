@@ -309,32 +309,6 @@ if (btnAdicionarDoModal) {
     });
 }
 
-
-}
-
-/**
- * Reordena a posição de uma questão (troca de índice no array)
- */
-function moverQuestaoNaProva(index, direcao) {
-    const novoIndex = index + direcao;
-
-    if (novoIndex < 0 || novoIndex >= questoesNaProva.length) return;
-
-    // Troca a ordem dos itens no array
-    const temp = questoesNaProva[index];
-    questoesNaProva[index] = questoesNaProva[novoIndex];
-    questoesNaProva[novoIndex] = temp;
-
-    renderizarProvaA4();
-}
-
-/**
- * Exclui a questão selecionada da folha de prova
- */
-function removerQuestaoDaProva(index) {
-    questoesNaProva.splice(index, 1);
-    renderizarProvaA4();
-}
 /* ==========================================================
    GERENCIAMENTO DE QUESTÕES NA PROVA A4 
    (ORDENAÇÃO, ESPAÇAMENTO E QUEBRA DE PÁGINA AUTOMÁTICA)
