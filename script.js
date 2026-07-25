@@ -31,19 +31,25 @@ let ponteiroHistorico = -1;
 let logoEscolaDataUrl = "";
 
 // ==========================================
-// INICIALIZAÇÃO
+// INICIALIZAÇÃO CORRIGIDA
 // ==========================================
 window.addEventListener("DOMContentLoaded", () => {
+  // 1. Zera a lista para não acumular itens
+  listaQuestoesProva = [];
+  
+  // 2. Carrega o banco de questões na sidebar
   carregarBancoQuestoes();
   
-  // Estado inicial com 2 questões
-  adicionarItemProva({ ...bancoQuestoesSAEB[2], idUnico: 'init-1' });
-  adicionarItemProva({ ...bancoQuestoesSAEB[0], idUnico: 'init-2' });
+  // 3. Adiciona APENAS as 2 questões iniciais de exemplo
+  listaQuestoesProva.push({ ...bancoQuestoesSAEB[2], idUnico: 'init-1' });
+  listaQuestoesProva.push({ ...bancoQuestoesSAEB[0], idUnico: 'init-2' });
 
+  // 4. Salva o estado inicial no histórico e renderiza
   salvarEstadoHistorico();
+  renderizarProva();
+  
   configurarResizer();
 });
-
 // ==========================================
 // GERENCIAMENTO DO BANCO LATERAL
 // ==========================================
