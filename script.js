@@ -310,109 +310,6 @@ if (btnAdicionarDoModal) {
 }
 
 
-/* ==========================================================
-   GERENCIAMENTO DE QUESTÕES NA PROVA A4 (MOVER, ESPAÇO, EXCLUIR)
-   ========================================================== */
-
-// Array global que gerencia as questões ativas na folha de prova
-let questoesNaProva = [];
-
-/**
- * Insere uma nova questão no array global e atualiza a renderização da folha A4
- */
-function adicionarQuestaoNaProva(questao) {
-    // Clona o objeto para criar uma instância independente com o espaçamento padrão (1rem)
-    const novaQuestao = JSON.parse(JSON.stringify(questao));
-    novaQuestao.espacoInferior = 1;
-
-    questoesNaProva.push(novaQuestao);
-    renderizarProvaA4();
-}
-
-/**
- * Redesenha a lista de questões dentro da folha A4 com barras de ferramentas atualizadas
- */
-function renderizarProvaA4() {
-    const containerQuestoes = document.querySelector('.prova-questoes-2colunas');
-    if (!containerQuestoes) return;
-
-    // Se o array estiver vazio, limpa a exibição
-    if (questoesNaProva.length === 0) {
-        containerQuestoes.innerHTML = '';
-        return;
-    }
-
-    containerQuestoes.innerHTML = '';
-
-    questoesNaProva.forEach((q, idx) => {
-        const numQuestao = idx + 1;
-        const novaColuna = document.createElement('div');
-        novaColuna.className = 'coluna-questao';
-        novaColuna.style.marginBottom = `${q.espacoInferior}rem`;
-
-        const desabilitarSubir = idx === 0 ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : '';
-        const desabilitarDescer = idx === questoesNaProva.length - 1 ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : '';
-
-        let htmlQuestao = `
-            <div class="item-questao">
-                <div class="questao-header-pilar">
-                    <div class="questao-title-group">
-                        <span class="box-num-questao">QUESTÃO ${numQuestao}</span>
-
-                        <!-- BARRA DE FERRAMENTAS DE EDIÇÃO RÁPIDA NA PROVA -->
-                        <div class="q-actions-toolbar">
-                            <button type="button" class="btn-q-action btn-q-space-plus" onclick="ajustarEspacoQuestao(${idx}, 0.5)" title="Aumentar espaço abaixo">↕ +</button>
-                            <button type="button" class="btn-q-action btn-q-space-minus" onclick="ajustarEspacoQuestao(${idx}, -0.5)" title="Diminuir espaço abaixo">↕ -</button>
-                            <button type="button" class="btn-q-action btn-q-move-up" onclick="moverQuestaoNaProva(${idx}, -1)" ${desabilitarSubir} title="Subir questão">▲</button>
-                            <button type="button" class="btn-q-action btn-q-move-down" onclick="moverQuestaoNaProva(${idx}, 1)" ${desabilitarDescer} title="Descer questão">▼</button>
-                            <button type="button" class="btn-q-action btn-q-delete" onclick="removerQuestaoDaProva(${idx})" title="Excluir questão">✖</button>
-                        </div>
-                    </div>
-
-                    ${q.descritor ? `<span class="tag-descritor">${q.descritor}</span>` : ''}
-                </div>
-
-                <p class="enunciado-pilar">${q.enunciado}</p>
-        `;
-
-        // Renderiza tabela na prova se existir
-        if (q.tabela) {
-            htmlQuestao += `<table class="tabela-questao">`;
-            if (q.tabela.cabecalhos) {
-                htmlQuestao += `<thead><tr>${q.tabela.cabecalhos.map(h => `<th>${h}</th>`).join('')}</tr></thead>`;
-            }
-            if (q.tabela.linhas) {
-                htmlQuestao += `<tbody>${q.tabela.linhas.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody>`;
-            }
-            htmlQuestao += `</table>`;
-        }
-
-        // Renderiza alternativas na prova se existirem
-        if (q.alternativas) {
-            htmlQuestao += `<div class="alternativas-prova" style="margin-top:0.5rem;">`;
-            for (let key in q.alternativas) {
-                htmlQuestao += `<div style="font-size:0.82rem; margin-bottom:2px;"><strong>(${key})</strong> ${q.alternativas[key]}</div>`;
-            }
-            htmlQuestao += `</div>`;
-        }
-
-        htmlQuestao += `</div>`;
-        novaColuna.innerHTML = htmlQuestao;
-
-        containerQuestoes.appendChild(novaColuna);
-    });
-}
-
-/**
- * Ajusta o espaçamento vertical inferior da questão selecionada
- */
-function ajustarEspacoQuestao(index, delta) {
-    if (questoesNaProva[index]) {
-        const espacoAtual = questoesNaProva[index].espacoInferior || 1;
-        const novoEspaco = Math.max(0, espacoAtual + delta);
-        questoesNaProva[index].espacoInferior = novoEspaco;
-        renderizarProvaA4();
-    }
 }
 
 /**
@@ -437,4 +334,179 @@ function moverQuestaoNaProva(index, direcao) {
 function removerQuestaoDaProva(index) {
     questoesNaProva.splice(index, 1);
     renderizarProvaA4();
+}
+/* ==========================================================
+   GERENCIAMENTO DE QUESTÕES NA PROVA A4 
+   (ORDENAÇÃO, ESPAÇAMENTO E QUEBRA DE PÁGINA AUTOMÁTICA)
+   ========================================================== */
+
+// Array global que gerencia as questões ativas na folha de prova
+let questoesNaProva = [];
+
+// Altura máxima aproximada de conteúdo útil em uma folha A4 (em pixels a 96DPI)
+const ALTURA_MAXIMA_A4_PX = 960; 
+
+/**
+ * Insere uma nova questão no array global e atualiza a renderização da folha A4
+ */
+function adicionarQuestaoNaProva(questao) {
+    const novaQuestao = JSON.parse(JSON.stringify(questao));
+    novaQuestao.espacoInferior = 1; // Padrão 1rem
+    
+    questoesNaProva.push(novaQuestao);
+    renderizarProvaA4();
+}
+
+/**
+ * Redesenha a lista de questões dentro da folha A4 com recálculo de altura
+ */
+function renderizarProvaA4() {
+    const containerQuestoes = document.querySelector('.prova-questoes-2colunas');
+    if (!containerQuestoes) return;
+
+    if (questoesNaProva.length === 0) {
+        containerQuestoes.innerHTML = '';
+        return;
+    }
+
+    containerQuestoes.innerHTML = '';
+
+    // Renderiza cada questão e verifica a altura acumulada
+    questoesNaProva.forEach((q, idx) => {
+        const numQuestao = idx + 1;
+        const novaColuna = document.createElement('div');
+        novaColuna.className = 'coluna-questao';
+        novaColuna.style.marginBottom = `${q.espacoInferior}rem`;
+        novaColuna.setAttribute('data-index', idx);
+
+        const desabilitarSubir = idx === 0 ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : '';
+        const desabilitarDescer = idx === questoesNaProva.length - 1 ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : '';
+
+        let htmlQuestao = `
+            <div class="item-questao">
+                <div class="questao-header-pilar">
+                    <div class="questao-title-group">
+                        <span class="box-num-questao">QUESTÃO ${numQuestao}</span>
+
+                        <!-- BARRA DE FERRAMENTAS DE EDIÇÃO RÁPIDA -->
+                        <div class="q-actions-toolbar">
+                            <button type="button" class="btn-q-action btn-q-space-plus" onclick="ajustarEspacoQuestao(${idx}, 0.5)" title="Aumentar espaço">↕ +</button>
+                            <button type="button" class="btn-q-action btn-q-space-minus" onclick="ajustarEspacoQuestao(${idx}, -0.5)" title="Diminuir espaço">↕ -</button>
+                            <button type="button" class="btn-q-action btn-q-move-up" onclick="moverQuestaoNaProva(${idx}, -1)" ${desabilitarSubir} title="Subir questão">▲</button>
+                            <button type="button" class="btn-q-action btn-q-move-down" onclick="moverQuestaoNaProva(${idx}, 1)" ${desabilitarDescer} title="Descer questão">▼</button>
+                            <button type="button" class="btn-q-action btn-q-delete" onclick="removerQuestaoDaProva(${idx})" title="Excluir questão">✖</button>
+                        </div>
+                    </div>
+
+                    ${q.descritor ? `<span class="tag-descritor">${q.descritor}</span>` : ''}
+                </div>
+
+                <p class="enunciado-pilar">${q.enunciado}</p>
+        `;
+
+        // Renderiza Tabela se existir no objeto
+        if (q.tabela) {
+            htmlQuestao += `<table class="tabela-questao">`;
+            if (q.tabela.cabecalhos) {
+                htmlQuestao += `<thead><tr>${q.tabela.cabecalhos.map(h => `<th>${h}</th>`).join('')}</tr></thead>`;
+            }
+            if (q.tabela.linhas) {
+                htmlQuestao += `<tbody>${q.tabela.linhas.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody>`;
+            }
+            htmlQuestao += `</table>`;
+        }
+
+        // Renderiza Alternativas
+        if (q.alternativas) {
+            htmlQuestao += `<div class="alternativas-prova" style="margin-top:0.5rem;">`;
+            for (let key in q.alternativas) {
+                htmlQuestao += `<div style="font-size:0.82rem; margin-bottom:2px;"><strong>(${key})</strong> ${q.alternativas[key]}</div>`;
+            }
+            htmlQuestao += `</div>`;
+        }
+
+        htmlQuestao += `</div>`;
+        novaColuna.innerHTML = htmlQuestao;
+
+        containerQuestoes.appendChild(novaColuna);
+    });
+
+    // Executa a verificação automática de quebra de página após renderizar
+    verificarQuebraDePagina();
+}
+
+/**
+ * LÓGICA DE ORDENAÇÃO E REORDENAMENTO DAS QUESTÕES
+ */
+function moverQuestaoNaProva(indexAtual, direcao) {
+    const novoIndex = indexAtual + direcao;
+
+    // Impede movimentação fora dos limites do array
+    if (novoIndex < 0 || novoIndex >= questoesNaProva.length) return;
+
+    // Troca as posições (Array Destructuring)
+    [questoesNaProva[indexAtual], questoesNaProva[novoIndex]] = 
+    [questoesNaProva[novoIndex], questoesNaProva[indexAtual]];
+
+    // Re-renderiza atualizando a numeração de todas as questões
+    renderizarProvaA4();
+}
+
+/**
+ * LÓGICA DE ESPAÇAMENTO VERTICAL
+ */
+function ajustarEspacoQuestao(index, delta) {
+    if (questoesNaProva[index]) {
+        const espacoAtual = questoesNaProva[index].espacoInferior || 1;
+        const novoEspaco = Math.max(0, espacoAtual + delta);
+        questoesNaProva[index].espacoInferior = novoEspaco;
+        renderizarProvaA4();
+    }
+}
+
+/**
+ * REMOÇÃO DE QUESTÃO
+ */
+function removerQuestaoDaProva(index) {
+    questoesNaProva.splice(index, 1);
+    renderizarProvaA4();
+}
+
+/**
+ * LÓGICA DE QUEBRA DE PÁGINA AUTOMÁTICA
+ * Calcula a altura dos elementos e insere divisores de página A4 onde necessário
+ */
+function verificarQuebraDePagina() {
+    const folhaA4 = document.querySelector('.folha-a4');
+    const elementosQuestoes = document.querySelectorAll('.coluna-questao');
+    
+    if (!folhaA4 || elementosQuestoes.length === 0) return;
+
+    // Limpa indicativos de quebra de página anteriores
+    document.querySelectorAll('.page-break-indicator').forEach(el => el.remove());
+
+    let alturaAcumulada = 0;
+    const alturaCabecalho = document.querySelector('.cabecalho-prova')?.offsetHeight || 200;
+    
+    // Na primeira página, consideramos o tamanho do cabeçalho da escola
+    alturaAcumulada += alturaCabecalho;
+
+    elementosQuestoes.forEach((el) => {
+        const alturaQuestao = el.offsetHeight;
+
+        // Se a adição desta questão ultrapassar o limite da folha A4
+        if (alturaAcumulada + alturaQuestao > ALTURA_MAXIMA_A4_PX) {
+            // Cria a quebra visual de página
+            const divisorPagina = document.createElement('div');
+            divisorPagina.className = 'page-break-indicator';
+            
+            // Insere a quebra de página antes da questão excedente
+            el.parentNode.insertBefore(divisorPagina, el);
+
+            // Reinicia o contador para a nova página
+            alturaAcumulada = alturaQuestao;
+        } else {
+            alturaAcumulada += alturaQuestao;
+        }
+    });
 }
