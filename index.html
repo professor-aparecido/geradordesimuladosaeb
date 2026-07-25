@@ -52,7 +52,7 @@
           <label for="inputBimestre">Bimestre:</label>
           <input type="text" id="inputBimestre" value="2º BIMESTRE" oninput="atualizarCabecalho()">
         </div>
-        <!-- NOVO SELETOR DE COLUNAS -->
+        <!-- SELETOR DE COLUNAS SOLICITADO -->
         <div class="grupo-campo">
           <label for="selectColunas">Colunas por Página:</label>
           <select id="selectColunas" onchange="atualizarCabecalho()">
@@ -123,6 +123,7 @@
         <button type="button" class="btn-print" onclick="window.print()">🖨️ Baixar PDF / Imprimir</button>
       </div>
 
+      <!-- Container para alertas do sistema (estouro/avisos) -->
       <div id="containerAlertaExt"></div>
 
       <div id="conteudoProvasContainer">
