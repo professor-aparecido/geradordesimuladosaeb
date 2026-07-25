@@ -1,450 +1,632 @@
-/* ==========================================
-   1. ESTRUTURA GERAL DA APLICAÇÃO
-   ========================================== */
+/* ========================================== */
+/* 1. CONFIGURAÇÕES GLOBAIS E RESET           */
+/* ========================================== */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Garante que padding e border não aumentem a largura do elemento */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background-color: #d8e2ec;
-  color: #333;
+    background-color: #e9ecef;
+    color: #212529;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Evita rolagem geral na página principal */
 }
 
+/* ========================================== */
+/* 2. BARRA SUPERIOR (TOPBAR)                */
+/* ========================================== */
+.topbar {
+    background-color: #1a237e; /* Azul escuro padrão */
+    color: white;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.topbar h2 span { 
+    color: #ffd600; /* Destaque amarelo na palavra SAEB */
+}
+
+.topbar-actions { 
+    display: flex; 
+    gap: 0.8rem; 
+}
+
+/* ========================================== */
+/* 3. CONTAINER PRINCIPAL E DIVISÓRIA MÓVEL  */
+/* ========================================== */
 .app-container {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 60px); /* Ocupa a altura total menos a barra superior */
+    width: 100%;
 }
 
-/* Sidebar Lateral */
-.sidebar-painel {
-  width: 380px;
-  min-width: 300px;
-  max-width: 500px;
-  background-color: #ffffff;
-  border-right: 1px solid #ccc;
-  padding: 15px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* PAINEL DA ESQUERDA (PAINEL DE CONFIGURAÇÕES) */
+.panel-builder {
+    width: 40%; /* Inicia exatamente na metade da tela (40%) */
+    min-width: 300px; /* Largura mínima ao arrastar */
+    max-width: 80%;   /* Largura máxima ao arrastar */
+    background-color: #ffffff;
+    padding: 1.5rem;
+    overflow-y: auto; /* Permite rolagem apenas no painel de edição */
 }
 
-.sidebar-painel h2 {
-  font-size: 1.1rem;
-  color: #1a365d;
-}
-
+/* BARRA DIVISÓRIA (RESIZER) */
 .resizer {
-  width: 6px;
-  background: #cbd5e1;
-  cursor: col-resize;
-  transition: background 0.2s;
+    width: 8px;
+    background-color: #ced4da;
+    cursor: col-resize; /* Cursor indicando redimensionamento horizontal */
+    position: relative;
+    transition: background-color 0.2s;
+    z-index: 5;
 }
 
-.resizer:hover {
-  background: #2563eb;
+.resizer:hover, 
+.resizer:active {
+    background-color: #1a237e; /* Fica azul ao passar o mouse ou clicar */
 }
 
-.grupo-campo {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+/* Tracinho visual no meio da barra divisória */
+.resizer::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 20px;
+    background-color: #6c757d;
 }
 
-.grupo-campo label {
-  font-size: 0.85rem;
-  font-weight: bold;
+/* ========================================== */
+/* 4. FORMULÁRIOS E CONTROLES (ESQUERDA)      */
+/* ========================================== */
+.builder-group {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
 }
 
-.grupo-campo input, 
-.grupo-campo select, 
-.grupo-campo textarea {
-  padding: 6px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.9rem;
+.builder-group h3 {
+    font-size: 1rem;
+    color: #1a237e;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.3rem;
 }
 
-.linha-dupla {
-  display: flex;
-  gap: 8px;
+.form-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 0.8rem;
 }
 
-.linha-dupla .grupo-campo {
-  flex: 1;
+.form-control label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #495057;
 }
 
-/* Botões da Sidebar */
-.botoes-acoes-top {
-  display: flex;
-  gap: 5px;
+.form-control input, 
+.form-control select, 
+.form-control textarea {
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.88rem;
 }
 
-.botoes-acoes-top button {
-  flex: 1;
-  font-size: 0.75rem;
-  padding: 6px 2px;
+/* LINHA DE DUPLOS CAMPOS (SÉRIE E TURMA) */
+.form-row {
+    display: flex;
+    gap: 0.8rem;
+    width: 100%;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: opacity 0.2s;
+/* MANTÉM SÉRIE COM TAMANHO FIXO E TURMA FLEXÍVEL */
+.form-row .form-control:first-child {
+    flex: 0 0 110px; /* Campo "Série / Etapa" travado em 110px */
 }
 
-button:hover { opacity: 0.85; }
-
-.btn-primary { background-color: #2563eb; color: white; padding: 8px; }
-.btn-secondary { background-color: #64748b; color: white; }
-.btn-danger { background-color: #dc2626; color: white; }
-.btn-quebra { background-color: #059669; color: white; padding: 8px; margin-top: 5px; }
-
-/* Banco de Questões Lista */
-.lista-banco {
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #eee;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.form-row .form-control:last-child {
+    flex: 1;         /* Campo "Turma" ocupa o resto do espaço */
+    min-width: 0;    /* IMPEDIMENTO CHAVE: Permite que o campo encolha com a barra */
 }
 
-.item-banco {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f8fafc;
-  padding: 6px;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  font-size: 0.8rem;
+/* CADASTRO DE ALTERNATIVAS (A, B, C, D) */
+.alternativas-builder label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
-.item-banco-acoes {
-  display: flex;
-  gap: 4px;
+.input-opcao {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.btn-icon {
-  padding: 4px 6px;
-  font-size: 0.75rem;
+.badge-letra {
+    background: #1a237e;
+    color: white;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
-/* ==========================================
-   2. ÁREA DE IMPRESSÃO / FOLHAS A4
-   ========================================== */
-.area-impressao {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.input-opcao input[type="text"] {
+    flex: 1;
+    padding: 0.4rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
 }
 
-.barra-ferramentas-topo {
-  width: 210mm;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0f172a;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 4px;
-  margin-bottom: 15px;
+/* ========================================== */
+/* 5. PAINEL DE PRÉ-VISUALIZAÇÃO (DIREITA)   */
+/* ========================================== */
+.panel-preview {
+    flex: 1;
+    background-color: #525659; /* Fundo cinza estilo visualizador de PDF */
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.btn-print {
-  background-color: #10b981;
-  color: white;
-  padding: 6px 12px;
+.preview-header {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
 }
 
-/* Folha A4 */
+.tag-status {
+    background-color: #2e7d32;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* ========================================== */
+/* 6. MODELO DA FOLHA DE PROVA (A4)           */
+/* ========================================== */
 .folha-a4 {
-  width: 210mm;
-  height: 297mm;
-  max-height: 297mm;
-  background-color: white;
-  padding: 12mm 15mm;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  margin-bottom: 25px;
-  position: relative;
-  box-sizing: border-box;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    min-height: 1050px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-radius: 2px;
 }
 
-/* Cabeçalhos */
-.cabecalho-oficial {
-  border: 1px solid #000;
-  padding: 8px;
-  margin-bottom: 10px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
+/* CABEÇALHO DA PROVA */
+.header-box {
+    border: 1.5px solid #000;
+    display: flex;
+    padding: 0; /* REMOVIDO: O padding da caixa externa para a linha encostar de ponta a ponta */
+    align-items: stretch; /* OBRIGATÓRIO: Faz os filhos esticarem e ocuparem toda a altura */
+    margin-bottom: 1.2rem;
 }
 
-.logo-escola {
-  width: 65px;
-  height: 65px;
-  object-fit: contain;
-  border: 1px dashed #ccc;
+/* ÁREA DA LOGO (COM LINHA VERTICAL ESTILO TABELA) */
+.logo-area {
+    width: 100px;
+    border: none;
+    
+    /* LINHA VERTICAL QUE ENCOSTA NO TOPO E NO FUNDO */
+    border-right: 1.5px solid #000; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem; /* Espaçamento interno apenas para a imagem não colar na linha */
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
-.dados-escola {
-  flex: 1;
-  font-size: 0.75rem;
+/* ÁREA DE TEXTO (Ajustado o padding que saiu do header-box) */
+.info-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem; /* O padding do conteúdo do texto fica aqui agora */
+}
+/* Garante que a imagem enviada preencha o quadro sem distorcer */
+.logo-area img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
-.dados-escola h3 {
-  font-size: 0.85rem;
-  margin-bottom: 4px;
-  text-transform: uppercase;
+.info-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.nome-escola {
+    font-size: 1.03rem;
+    font-weight: 800;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    color: #000;
 }
 
 .linha-aluno {
-  border-bottom: 1px solid #000;
-  margin: 4px 0;
-  display: block;
+    display: flex;
+    font-size: 1rem;
+    align-items: flex-end;    
 }
 
-.linha-detalhes {
-  display: flex;
-  justify-content: space-between;
+
+/* Rótulo "ALUNO(A):" igual ao Nome da Escola */
+.linha-aluno strong, 
+.linha-aluno .label-aluno {
+    font-family: 'Times New Roman', Times, serif; /* Mesma fonte do Nome da Escola */
+    font-weight: 800;                             /* Negrito forte */
+    text-transform: uppercase;                   /* Maiúsculas */
+    font-size: 1.03rem;                           /* Tamanho proporcional */
+    color: #000;
 }
 
-.titulo-prova-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #000;
-  padding-bottom: 4px;
-  margin-bottom: 10px;
+.underline-aluno {
+    flex: 1;
+    border-bottom: 1px solid #000;
+    margin-left: 0.3rem;
 }
 
-.titulo-prova-texto {
-  font-size: 0.95rem;
-  font-weight: bold;
+.linha-dados {
+    display: flex;
+    gap: 1.2rem;
+    font-size: 0.82rem;
+    align-items: center;
+    margin-top: 0.4rem;
 }
 
-.caixa-nota {
-  border: 1px solid #000;
-  padding: 4px 8px;
-  font-size: 0.75rem;
-  text-align: center;
-  font-weight: bold;
+.prof-right {
+    margin-left: auto;
 }
 
-/* Cabeçalho Compacto (Pág 2+) */
-.cabecalho-compacto {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #000;
-  padding-bottom: 4px;
-  margin-bottom: 10px;
-  font-size: 0.8rem;
-  font-weight: bold;
+/* TÍTULO E CAMPO DE NOTA */
+.titulo-nota-container {
+    display: flex;
+    justify-content: space-between; /* Distribui os elementos nas extremidades */
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;             /* Permite o alinhamento absoluto preciso do título */
 }
 
-/* Grid de Questões (Suporte a 1 e 2 Colunas) */
-.grid-questoes {
-  width: 100%;
-  flex: 1;
+.titulo-prova {
+    font-size: 1.05rem;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 0.5px;
+    
+    /* CENTRALIZAÇÃO PERFEITA NO CENTRO DA FOLHA */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-60%);
+    text-align: center;
+    white-space: nowrap; /* Evita que o título quebre linha desnecessariamente */
 }
 
-.grid-questoes.colunas-2 {
-  column-count: 2;
-  column-gap: 10mm;
-  column-rule: 1px solid #000;
-  column-fill: auto;
+.box-nota {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+    
+    /* EMPURRA A CAIXA DE NOTA PARA A EXTREMA DIREITA */
+    margin-left: auto; 
 }
 
-.grid-questoes.colunas-1 {
-  column-count: 1;
-  column-gap: 0;
-  column-rule: none;
+.campo-nota {
+    width: 80px;
+    height: 35px;
+    border: 1.5px solid #000;
+    background: #fff;
 }
 
-/* Card da Questão */
-.card-questao {
-  break-inside: avoid;
-  page-break-inside: avoid;
-  margin-bottom: 12px;
-  font-size: 0.8rem;
-  position: relative;
+/* ========================================== */
+/* 7. LAYOUT DAS QUESTÕES (1 OU 2 COLUNAS)     */
+/* ========================================== */
+/* Padrão: 2 Colunas */
+.prova-questoes-2colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
 }
 
-.cabecalho-questao-topo {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  margin-bottom: 2px;
+/* Dinâmico: Alterna para 1 Coluna via JavaScript */
+.prova-questoes-2colunas.layout-1coluna {
+    grid-template-columns: 1fr;
 }
 
-.tag-questao {
-  border: 1px solid #000;
-  padding: 1px 4px;
-  border-radius: 2px;
+.questao-header-pilar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed #000;
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.box-num-questao {
+    border: 1.5px solid #000;
+    padding: 0.1rem 0.5rem;
+    font-weight: bold;
+    font-size: 0.85rem;
 }
 
 .tag-descritor {
-  font-size: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: bold;
 }
 
-.linha-divisoria-questao {
-  border-bottom: 1px dashed #ccc;
-  margin: 3px 0 6px 0;
+.enunciado-pilar {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: justify;
+    margin-bottom: 0.8rem;
 }
 
-.enunciado-texto {
-  margin-bottom: 6px;
-  line-height: 1.25;
-  text-align: justify;
+/* Tabela interna da questão */
+.tabela-questao {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
 }
 
-.opcoes-multipla-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+.tabela-questao th, 
+.tabela-questao td {
+    border: 1px solid #000;
+    padding: 0.3rem;
+    text-align: center;
 }
 
-.linhas-respostas-aberta {
-  border-bottom: 1px solid #bbb;
-  height: 20px;
-  margin-top: 5px;
+.tabela-questao th {
+    background-color: #4285f4;
+    color: white;
 }
 
-/* Controles de Edição sobre a Questão */
-.controles-questao {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: -20px;
-  background: #1e293b;
-  padding: 2px;
-  border-radius: 3px;
-  gap: 2px;
-  z-index: 10;
+/* ========================================== */
+/* LAYOUT DAS QUESTÕES (2 COLUNAS)            */
+/* ========================================== */
+.prova-questoes-2colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    position: relative;
 }
 
-.card-questao:hover .controles-questao {
-  display: flex;
+/* Cria a linha vertical separando a coluna 1 da coluna 2 */
+.prova-questoes-2colunas > .coluna-questao:nth-child(even) {
+    border-left: 1px solid #000; /* Linha preta fina na coluna da direita */
+    padding-left: 1rem;         /* Afasta o texto da linha */
+    margin-left: -1rem;          /* Mantém o alinhamento perfeito do grid */
 }
 
-.controles-questao button {
-  background: #334155;
-  color: white;
-  padding: 2px 5px;
-  font-size: 0.65rem;
+/* ========================================== */
+/* LAYOUT DE 1 COLUNA (QUANDO SELECIONADO)    */
+/* ========================================== */
+.prova-questoes-2colunas.layout-1coluna {
+    grid-template-columns: 1fr;
 }
 
-.controles-questao button.btn-del {
-  background: #ef4444;
+/* Remove a linha e o espaçamento extra quando estiver em 1 coluna */
+.prova-questoes-2colunas.layout-1coluna > .coluna-questao:nth-child(even) {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
 }
 
-/* Divisor Visual de Quebra Manual */
-.divisor-quebra-pagina {
-  width: 210mm;
-  background-color: #fef08a;
-  border: 2px dashed #eab308;
-  padding: 8px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 0.8rem;
-  margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+/* ========================================== */
+/* 8. BOTÕES E UTILITÁRIOS                   */
+/* ========================================== */
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-/* Banner de Alerta de Estouro Preservado */
-.alerta-estouro-banner {
-  width: 210mm;
-  background-color: #fee2e2;
-  border: 1px solid #ef4444;
-  color: #991b1b;
-  padding: 8px 12px;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  font-size: 0.8rem;
-  font-weight: bold;
+.btn-primary { background: #1a237e; color: white; }
+.btn-success { background: #2e7d32; color: white; }
+.btn-outline { background: transparent; border: 1px solid white; color: white; }
+.w-100 { width: 100%; }
+
+/* Ações da Topbar */
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
-/* ==========================================
-   3. CONFIGURAÇÕES DE IMPRESSÃO / PDF
-   ========================================== */
-@media print {
-  @page {
-    size: A4 portrait;
-    margin: 0;
-  }
+/* CONTROLES DE ZOOM NA TOPBAR */
+.zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.15); /* Fundo sutil para agrupar */
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: white;
+}
 
-  html, body {
-    background: white !important;
-    width: 210mm !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
+.btn-zoom, .btn-zoom-reset {
+    background: #ffffff;
+    color: #1a237e;
+    border: none;
+    border-radius: 4px;
+    width: 26px;
+    height: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
 
-  .sidebar-painel, 
-  .resizer,
-  .barra-ferramentas-topo, 
-  .controles-questao, 
-  .divisor-quebra-pagina, 
-  .alerta-estouro-banner,
-  #containerAlertaExt {
+.btn-zoom-reset {
+    width: auto;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+}
+
+.btn-zoom:hover, .btn-zoom-reset:hover {
+    background: #ffd600; /* Amarelo de destaque do SAEB ao passar o mouse */
+    color: #000;
+}
+/* TRANSIÇÃO DE ESCALA NA FOLHA A4 */
+.folha-a4 {
+    /* ... Mantenha o CSS da folha que você já tem e adicione estas 2 linhas abaixo ... */
+    transform-origin: top center; /* Garante que o zoom expanda a partir do topo */
+    transition: transform 0.2s ease-in-out; /* Suaviza o efeito de zoom */
+}
+
+/* SELETOR DE MODO DE QUESTÕES */
+.modo-adicao-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.btn-modo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.8rem 0.5rem;
+    border: 1.5px solid #ccc;
+    background: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    color: #444;
+}
+
+.btn-modo .icon {
+    font-size: 1.2rem;
+}
+
+.btn-modo:hover {
+    border-color: #1a237e;
+    background: #e8eaf6;
+}
+
+/* Estado Ativo (Selecionado) */
+.btn-modo.active {
+    border-color: #1a237e;
+    background: #1a237e;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* CLASSE DE OCULTAÇÃO */
+.hidden {
     display: none !important;
-  }
+}
 
-  .app-container {
-    display: block !important;
-    height: auto !important;
-  }
+/* ========================================== */
+/* ESTILOS DA SEÇÃO RECOLHÍVEL (ACCORDION)    */
+/* ========================================== */
+.section-header-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+}
 
-  .area-impressao {
-    padding: 0 !important;
-    background: white !important;
-    display: block !important;
-    width: 210mm !important;
-  }
+.section-header-toggle:hover {
+    color: #1a237e;
+}
 
-  .folha-a4 {
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 12mm 15mm !important;
-    page-break-after: always !important;
-    break-after: page !important;
-    page-break-inside: avoid !important;
-    width: 210mm !important;
-    height: 297mm !important;
-    max-height: 297mm !important;
-    overflow: hidden !important;
-  }
+.section-header-toggle h3 {
+    margin: 0;
+}
 
-  .grid-questoes.colunas-2 {
-    column-count: 2 !important;
-    column-gap: 10mm !important;
-    column-rule: 1px solid #000 !important;
-    width: 100% !important;
-    flex: 1 !important;
-    column-fill: auto !important;
-  }
+.toggle-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
 
-  .grid-questoes.colunas-1 {
-    column-count: 1 !important;
-    column-gap: 0 !important;
-    column-rule: none !important;
-    width: 100% !important;
-    flex: 1 !important;
-  }
+/* Transição suave para fechar/abrir o conteúdo */
+.section-body {
+    transition: all 0.3s ease;
+}
+
+/* Classe aplicada via JS quando estiver RECOLHIDO */
+.section-body.collapsed {
+    display: none;
+}
+
+.section-header-toggle.collapsed .toggle-icon {
+    transform: rotate(-90deg); /* Gira a setinha para o lado quando recolhido */
+}
+
+/* BADGE INTERATIVO DO CABEÇALHO */
+.toggle-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #e8eaf6;
+    color: #1a237e;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.section-header-toggle:hover .toggle-badge {
+    background: #1a237e;
+    color: #ffffff;
+}
+
+.toggle-icon {
+    font-size: 0.65rem;
+    transition: transform 0.3s ease;
+}
+
+/* Quando estiver recolhido */
+.section-header-toggle.collapsed .toggle-icon {
+    transform: rotate(180deg); /* Gira a seta para baixo */
 }
