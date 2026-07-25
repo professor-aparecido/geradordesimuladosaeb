@@ -4,13 +4,15 @@
     "descritor": "D1",
     "tipo": "objetiva",
     "enunciado": "Qual é a área de um terreno retangular com 10 metros de largura por 20 metros de comprimento?",
-    "opcoes": ["100 m²", "200 m²", "300 m²", "400 m²"]
+    "opcoes": ["100 m²", "200 m²", "300 m²", "400 m²"],
+    "espacoExtra": 0
   },
   {
     "id": "d1_2",
     "descritor": "D1",
     "tipo": "subjetiva",
     "enunciado": "Desenhe um retângulo no espaço abaixo com dimensões 5 cm por 3 cm e calcule seu perímetro.",
-    "opcoes": []
+    "opcoes": [],
+    "espacoExtra": 2
   }
 ]
