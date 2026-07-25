@@ -1,3 +1,6 @@
+/* ==========================================
+   RESET E ESTILOS GERAIS DA APLICAÇÃO
+   ========================================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,7 +20,9 @@ body {
   user-select: none;
 }
 
-/* PAINEL LATERAL ESQUERDO */
+/* ==========================================
+   1. PAINEL LATERAL ESQUERDO (CONFIGURAÇÕES)
+   ========================================== */
 .sidebar-painel {
   width: 420px;
   min-width: 280px;
@@ -29,19 +34,6 @@ body {
   flex-direction: column;
   gap: 10px;
   user-select: text;
-}
-
-/* BARRA REDIMENSIONÁVEL */
-.resizer {
-  width: 8px;
-  background-color: #cbd5e1;
-  cursor: col-resize;
-  transition: background-color 0.2s;
-  z-index: 10;
-}
-
-.resizer:hover, .resizer:active {
-  background-color: #3b82f6;
 }
 
 .sidebar-painel h2, .sidebar-painel h3 {
@@ -85,7 +77,7 @@ body {
   flex: 1;
 }
 
-/* BOTÕES DA LATERAL */
+/* ESTILIZAÇÃO DOS BOTÕES */
 button {
   cursor: pointer;
   border: none;
@@ -111,7 +103,7 @@ button:hover { opacity: 0.9; }
 
 .acoes-principais button { flex: 1; font-size: 0.75rem; padding: 6px; }
 
-/* BANCO DE QUESTÕES */
+/* BANCO DE QUESTÕES NA LATERAL */
 .banco-container {
   min-height: 80px;
   max-height: 250px;
@@ -159,7 +151,24 @@ button:hover { opacity: 0.9; }
 .btn-add-banco { background-color: #10b981; color: white; }
 .btn-ver-banco { background-color: #0284c7; color: white; }
 
-/* ÁREA DE IMPRESSÃO / FOLHA A4 */
+/* ==========================================
+   2. DIVISÓRIA REDIMENSIONÁVEL (RESIZER)
+   ========================================== */
+.resizer {
+  width: 8px;
+  background-color: #cbd5e1;
+  cursor: col-resize;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.resizer:hover, .resizer:active {
+  background-color: #3b82f6;
+}
+
+/* ==========================================
+   3. ÁREA DE PRÉ-VISUALIZAÇÃO / PROVA A4
+   ========================================== */
 .area-impressao {
   flex: 1;
   background-color: #cbd5e1;
@@ -183,6 +192,7 @@ button:hover { opacity: 0.9; }
   border-radius: 6px;
 }
 
+/* DIMENSÕES EXATAS DE UMA FOLHA A4 */
 .folha-a4 {
   width: 210mm;
   height: 297mm;
@@ -197,7 +207,7 @@ button:hover { opacity: 0.9; }
   border: 2px solid transparent;
 }
 
-/* DESTAQUE DE FOLHA ESTOURADA */
+/* ESTILO CASO UMA QUESTÃO ISOLADA SUPERE O TAMANHO DA FOLHA */
 .folha-estourada {
   border: 3px solid #ef4444 !important;
   box-shadow: 0 0 12px rgba(239, 68, 68, 0.4) !important;
@@ -215,7 +225,7 @@ button:hover { opacity: 0.9; }
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* CABEÇALHO OFICIAL DA PROVA */
+/* CABEÇALHO OFICIAL IMPRESSO DA PROVA */
 .cabecalho-oficial {
   display: flex;
   border: 1.5px solid #000;
@@ -298,17 +308,22 @@ button:hover { opacity: 0.9; }
   border: 1.5px solid #000;
 }
 
-/* GRID DE QUESTÕES (2 COLUNAS) + LINHA DIVISÓRIA */
+/* ==========================================
+   GRID DE 2 COLUNAS DA PROVA (CORRIGIDO)
+   ========================================== */
 .grid-questoes {
   column-count: 2;
-  column-gap: 15mm;
-  column-rule: 1px solid #000; /* LINHA DIVISÓRIA DAS COLUNAS DA PROVA */
-  height: calc(100% - 110px);
+  column-gap: 12mm;
+  column-rule: 1px solid #000; /* Linha vertical dividindo as colunas */
+  height: calc(100% - 110px);   /* Limita a altura para respeitar o A4 */
+  column-fill: auto;             /* Impede geração de sub-colunas falsas */
+  overflow: hidden;
 }
 
 .card-questao {
-  break-inside: avoid;
-  margin-bottom: 15px;
+  break-inside: avoid;           /* NUNCA corta a questão no meio de duas colunas/páginas */
+  page-break-inside: avoid;
+  margin-bottom: 12px;
   position: relative;
 }
 
@@ -356,7 +371,7 @@ button:hover { opacity: 0.9; }
   height: 22px;
 }
 
-/* CONTROLES DE QUESTÃO NA FOLHA */
+/* CONTROLES DA QUESTÃO (BOTÕES DE EDICAO FLUTUANTES) */
 .controles-questao {
   display: flex;
   gap: 2px;
@@ -378,6 +393,7 @@ button:hover { opacity: 0.9; }
 .btn-mover { background-color: #64748b; color: white; }
 .btn-del { background-color: #ef4444; color: white; }
 
+/* MARCADOR DE QUEBRA DE PÁGINA MANUAL */
 .divisor-quebra-pagina {
   width: 210mm;
   text-align: center;
@@ -394,7 +410,7 @@ button:hover { opacity: 0.9; }
 
 .oculto { display: none !important; }
 
-/* MODAL */
+/* MODAL PREVIEW */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
@@ -413,7 +429,9 @@ button:hover { opacity: 0.9; }
   max-width: 90%;
 }
 
-/* REGRAS DE IMPRESSÃO */
+/* ==========================================
+   4. IMPRESSÃO E GERAÇÃO DE PDF (CONFIG. IMPRESSORA)
+   ========================================== */
 @media print {
   @page {
     size: A4 portrait;
@@ -425,6 +443,7 @@ button:hover { opacity: 0.9; }
     color: black !important;
   }
 
+  /* Esconde todos os elementos de interface e painéis */
   .sidebar-painel, 
   .resizer,
   .barra-ferramentas-topo, 
@@ -449,6 +468,7 @@ button:hover { opacity: 0.9; }
     display: block !important;
   }
 
+  /* Garante uma página limpa no papel A4 */
   .folha-a4 {
     box-shadow: none !important;
     margin: 0 !important;
