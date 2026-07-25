@@ -95,7 +95,7 @@ button:hover { opacity: 0.9; }
 
 .acoes-principais button { flex: 1; font-size: 0.75rem; padding: 6px; }
 
-/* BANCO DE QUESTÕES (FORMATO RESUMIDO) */
+/* BANCO DE QUESTÕES */
 .banco-container {
   min-height: 80px;
   max-height: 250px;
@@ -177,9 +177,9 @@ button:hover { opacity: 0.9; }
   box-sizing: border-box;
 }
 
-/* ESTOURO DE PÁGINA BANNER */
+/* ESTOURO DE PÁGINA BANNER E BORDA VERMELHA */
 .pagina-estourada {
-  border: 3px solid #ef4444;
+  border: 3px solid #ef4444 !important;
 }
 
 .alerta-estouro-banner {
@@ -188,8 +188,9 @@ button:hover { opacity: 0.9; }
   font-size: 0.8rem;
   font-weight: bold;
   text-align: center;
-  padding: 4px;
+  padding: 6px;
   margin-bottom: 10px;
+  border-radius: 4px;
 }
 
 /* CABEÇALHO OFICIAL DA PROVA */
@@ -388,17 +389,49 @@ button:hover { opacity: 0.9; }
   max-width: 90%;
 }
 
-/* REGRAS DE IMPRESSÃO (PDF) */
+/* REGRAS EXCLUSIVAS DE IMPRESSÃO / GERAR PDF */
 @media print {
-  body { background-color: white; }
-  .sidebar-painel, .barra-ferramentas-topo, .controles-questao, .divisor-quebra-pagina, .alerta-estouro-banner {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  
+  body { 
+    background-color: white !important; 
+    color: black !important;
+  }
+
+  /* Oculta tudo que não faz parte da folha impressa */
+  .sidebar-painel, 
+  .barra-ferramentas-topo, 
+  .controles-questao, 
+  .divisor-quebra-pagina, 
+  .alerta-estouro-banner,
+  .modal-overlay {
     display: none !important;
   }
-  .area-impressao { padding: 0; background-color: white; }
+
+  .app-container {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .area-impressao { 
+    padding: 0 !important; 
+    background-color: white !important; 
+    overflow: visible !important;
+    display: block !important;
+  }
+
   .folha-a4 {
-    box-shadow: none;
-    margin: 0;
-    page-break-after: always;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 12mm 15mm !important;
+    page-break-after: always !important;
+    break-after: page !important;
     border: none !important;
+    width: 210mm !important;
+    height: 297mm !important;
   }
 }
