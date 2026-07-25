@@ -168,16 +168,18 @@ button:hover { opacity: 0.9; }
 
 .folha-a4 {
   width: 210mm;
-  min-height: 297mm;
+  height: 297mm; /* Altura exata de uma folha A4 */
+  max-height: 297mm;
   background-color: white;
   padding: 12mm 15mm;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   margin-bottom: 25px;
   position: relative;
   box-sizing: border-box;
+  overflow: hidden; /* Evita vazar elemento na tela */
 }
 
-/* ESTOURO DE PÁGINA BANNER E BORDA VERMELHA */
+/* BANNER DE ESTOURO */
 .pagina-estourada {
   border: 3px solid #ef4444 !important;
 }
@@ -280,6 +282,7 @@ button:hover { opacity: 0.9; }
 .grid-questoes {
   column-count: 2;
   column-gap: 15mm;
+  height: calc(100% - 110px); /* Ocupa exatamente o restante da página */
 }
 
 .card-questao {
@@ -389,7 +392,7 @@ button:hover { opacity: 0.9; }
   max-width: 90%;
 }
 
-/* REGRAS EXCLUSIVAS DE IMPRESSÃO / GERAR PDF */
+/* REGRAS DE IMPRESSÃO - FORÇA A CRIAÇÃO DE NOVAS PÁGINAS NO PDF */
 @media print {
   @page {
     size: A4 portrait;
@@ -401,7 +404,6 @@ button:hover { opacity: 0.9; }
     color: black !important;
   }
 
-  /* Oculta tudo que não faz parte da folha impressa */
   .sidebar-painel, 
   .barra-ferramentas-topo, 
   .controles-questao, 
@@ -430,6 +432,7 @@ button:hover { opacity: 0.9; }
     padding: 12mm 15mm !important;
     page-break-after: always !important;
     break-after: page !important;
+    page-break-inside: avoid !important;
     border: none !important;
     width: 210mm !important;
     height: 297mm !important;
