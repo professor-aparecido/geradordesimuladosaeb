@@ -21,7 +21,7 @@ let listaQuestoesProva = [
   }
 ];
 
-let logoCarregadaUrl = 'imagens/logo.png'; // Imagem modelo da pasta imagens
+let logoCarregadaUrl = 'imagens/logopilar.png'; // Imagem modelo da pasta imagens
 let historicoEstados = [];
 let indiceHistorico = -1;
 
