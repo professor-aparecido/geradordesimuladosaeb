@@ -406,7 +406,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS
+// 8. PAGINAÇÃO AUTOMÁTICA COM ESPAÇAMENTO FLEXÍVEL
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -422,30 +422,8 @@ function renderizarProva() {
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
 
-  for (let index = 0; index < listaQuestoesProva.length; index++) {
-    const item = listaQuestoesProva[index];
-
-    // Se for quebra de página manual solicitada pelo usuário
-    if (item.tipo === 'quebra_pagina') {
-      const divisor = document.createElement('div');
-      divisor.className = 'divisor-quebra-pagina';
-      divisor.innerHTML = `
-        <span>--- QUEBRA DE PÁGINA MANUAL ---</span>
-        <div class="controles-questao" style="opacity:1; visibility:visible;">
-          <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖ Remover Quebra</button>
-        </div>
-      `;
-      container.appendChild(divisor);
-
-      paginaAtualIndex++;
-      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
-      folhaAtual = novaFolhaObj.folha;
-      gridAtual = novaFolhaObj.grid;
-      container.appendChild(folhaAtual);
-      continue;
-    }
-
-    // Criação do card da questão
+  // Auxiliar para criar o elemento da questão
+  function criarElementoCard(item, idxGeral) {
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -468,10 +446,10 @@ function renderizarProva() {
         <span class="tag-questao">QUESTÃO ${numeroQuestao++}</span>
         
         <div class="controles-questao">
-          <button type="button" class="btn-espaco" title="Aumentar espaço" onclick="alterarEspacoExtra(${index}, 15)">↕ +</button>
-          <button type="button" class="btn-espaco" title="Reduzir espaço" onclick="alterarEspacoExtra(${index}, -15)">↕ -</button>
-          <button type="button" class="btn-mover" title="Subir" onclick="moverQuestao(${index}, -1)">▲</button>
-          <button type="button" class="btn-mover" title="Descer" onclick="moverQuestao(${index}, 1)">▼</button>
+          <button type="button" class="btn-espaco" title="Aumentar espaço" onclick="alterarEspacoExtra(${idxGeral}, 15)">↕ +</button>
+          <button type="button" class="btn-espaco" title="Reduzir espaço" onclick="alterarEspacoExtra(${idxGeral}, -15)">↕ -</button>
+          <button type="button" class="btn-mover" title="Subir" onclick="moverQuestao(${idxGeral}, -1)">▲</button>
+          <button type="button" class="btn-mover" title="Descer" onclick="moverQuestao(${idxGeral}, 1)">▼</button>
           <button type="button" class="btn-del" title="Excluir" onclick="removerItemProva('${item.idUnico}')">✖</button>
         </div>
 
@@ -481,35 +459,74 @@ function renderizarProva() {
       <p class="enunciado-texto">${item.enunciado || ''}</p>
       ${htmlOpcoes}
     `;
+    return card;
+  }
 
+  // Preenchimento e quebra de páginas
+  for (let index = 0; index < listaQuestoesProva.length; index++) {
+    const item = listaQuestoesProva[index];
+
+    // Quebra manual solicitada
+    if (item.tipo === 'quebra_pagina') {
+      const divisor = document.createElement('div');
+      divisor.className = 'divisor-quebra-pagina';
+      divisor.innerHTML = `
+        <span>--- QUEBRA DE PÁGINA MANUAL ---</span>
+        <div class="controles-questao" style="opacity:1; visibility:visible;">
+          <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖ Remover Quebra</button>
+        </div>
+      `;
+      container.appendChild(divisor);
+
+      paginaAtualIndex++;
+      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
+      folhaAtual = novaFolhaObj.folha;
+      gridAtual = novaFolhaObj.grid;
+      container.appendChild(folhaAtual);
+      continue;
+    }
+
+    const card = criarElementoCard(item, index);
     gridAtual.appendChild(card);
 
+    // Renderiza formulas com MathJax se houver
     if (window.MathJax && window.MathJax.typesetPromise) {
       MathJax.typesetPromise([card]).catch(err => console.warn(err));
     }
-  }
 
-  // --- CHECAGEM DE ESTOURO SEM BLOQUEAR BOTÕES DO BANCO ---
-  setTimeout(() => {
-    const folhas = container.querySelectorAll('.folha-a4');
-    const ultimaFolha = folhas[folhas.length - 1];
+    // VERIFICAÇÃO AUTOMÁTICA DE ESTOURO DE PÁGINA
+    const limiteEfetivo = folhaAtual.clientHeight - 20; // Folha A4 util
+    if (folhaAtual.scrollHeight > limiteEfetivo && gridAtual.children.length > 1) {
+      // Remove o card da página cheia
+      gridAtual.removeChild(card);
+      numeroQuestao--; // Decrementa a numeração para re-adicionar na próxima página
 
-    if (ultimaFolha) {
-      const folhaEstourou = ultimaFolha.scrollHeight > (ultimaFolha.clientHeight + 10);
+      // DISTRIBUIÇÃO HARMÔNICA DOS ESPAÇOS SOBRANTES
+      const espacoSobrando = limiteEfetivo - folhaAtual.scrollHeight;
+      const qtdCardsNaFolha = gridAtual.children.length;
+      if (espacoSobrando > 0 && qtdCardsNaFolha > 1) {
+        const espacoExtraPorCard = Math.floor(espacoSobrando / (qtdCardsNaFolha * 2));
+        Array.from(gridAtual.children).forEach(c => {
+          const marginAtual = parseInt(c.style.marginBottom || '0', 10);
+          c.style.marginBottom = `${marginAtual + espacoExtraPorCard}px`;
+        });
+      }
 
-      if (folhaEstourou) {
-        ultimaFolha.classList.add('folha-estourada');
-        if (containerAlerta) {
-          containerAlerta.innerHTML = `
-            <div class="alerta-estouro-banner" style="background-color: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: bold; border: 1px solid #fca5a5; font-size: 0.95rem;">
-              ⚠️ A folha atual atingiu o limite de altura A4! Por favor, clique em <u>"Inserir Quebra de Página Manual"</u> para mover as novas questões para a próxima página.
-            </div>`;
-        }
-      } else {
-        ultimaFolha.classList.remove('folha-estourada');
+      // Cria a nova página e insere o card nela
+      paginaAtualIndex++;
+      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
+      folhaAtual = novaFolhaObj.folha;
+      gridAtual = novaFolhaObj.grid;
+      container.appendChild(folhaAtual);
+
+      // Reinsere a questão na nova página
+      const novoCard = criarElementoCard(item, index);
+      gridAtual.appendChild(novoCard);
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        MathJax.typesetPromise([novoCard]).catch(err => console.warn(err));
       }
     }
-  }, 200);
+  }
 
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
