@@ -338,12 +338,8 @@ function reiniciarTudo() {
   }
 }
 
-// Renderiza a prova na Folha A4
-function renderizarProva() {
-  const container = document.getElementById('conteudoProvasContainer');
-  if (!container) return;
-  container.innerHTML = '';
-
+// Criar Elemento de Folha A4
+function criarNovaFolha(numPagina) {
   const nomeEscola = document.getElementById('inputNomeEscola') ? document.getElementById('inputNomeEscola').value : '';
   const serie = document.getElementById('inputSerie') ? document.getElementById('inputSerie').value : '';
   const turma = document.getElementById('inputTurma') ? document.getElementById('inputTurma').value : '';
@@ -351,53 +347,59 @@ function renderizarProva() {
   const bimestre = document.getElementById('inputBimestre') ? document.getElementById('inputBimestre').value : '';
   const disciplina = document.getElementById('inputDisciplina') ? document.getElementById('inputDisciplina').value : '';
 
+  const folha = document.createElement('div');
+  folha.className = 'folha-a4';
+  folha.id = `folha-${numPagina}`;
+
+  let htmlCabecalho = `
+    <div class="cabecalho-oficial">
+      <div class="logo-cell">
+        ${logoCarregadaUrl ? `<img src="${logoCarregadaUrl}" alt="Logo">` : '<b>LOGO</b>'}
+      </div>
+      <div class="info-cell">
+        <div class="nome-escola">${nomeEscola}</div>
+        <div class="linha-aluno">ALUNO(A): <span class="underline"></span></div>
+        <div class="linha-detalhes">
+          <span>Série: <b>${serie}</b></span>
+          <span>Turma: ${turma || '_________'}</span>
+          <span>Data: ____/____/________</span>
+          <span class="prof-italico">Professor: ${professor}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="titulo-nota-container">
+      <div class="titulo-prova">${disciplina} - ${bimestre}</div>
+      <div class="caixa-nota-wrap">
+        <span>NOTA:</span>
+        <div class="valor-nota"></div>
+      </div>
+    </div>
+  `;
+
+  folha.innerHTML = htmlCabecalho;
+
+  const grid = document.createElement('div');
+  grid.className = 'grid-questoes';
+  folha.appendChild(grid);
+
+  return { folha, grid };
+}
+
+// Renderiza a prova na Folha A4 com cálculo dinamico de altura
+function renderizarProva() {
+  const container = document.getElementById('conteudoProvasContainer');
+  if (!container) return;
+  container.innerHTML = '';
+
   let numeroQuestao = 1;
   let paginaAtualIndex = 1;
-
-  function criarNovaFolha(numPagina) {
-    const folha = document.createElement('div');
-    folha.className = 'folha-a4';
-    folha.id = `folha-${numPagina}`;
-
-    let htmlCabecalho = `
-      <div class="cabecalho-oficial">
-        <div class="logo-cell">
-          ${logoCarregadaUrl ? `<img src="${logoCarregadaUrl}" alt="Logo">` : '<b>LOGO</b>'}
-        </div>
-        <div class="info-cell">
-          <div class="nome-escola">${nomeEscola}</div>
-          <div class="linha-aluno">ALUNO(A): <span class="underline"></span></div>
-          <div class="linha-detalhes">
-            <span>Série: <b>${serie}</b></span>
-            <span>Turma: ${turma || '_________'}</span>
-            <span>Data: ____/____/________</span>
-            <span class="prof-italico">Professor: ${professor}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="titulo-nota-container">
-        <div class="titulo-prova">${disciplina} - ${bimestre}</div>
-        <div class="caixa-nota-wrap">
-          <span>NOTA:</span>
-          <div class="valor-nota"></div>
-        </div>
-      </div>
-    `;
-
-    folha.innerHTML = htmlCabecalho;
-
-    const grid = document.createElement('div');
-    grid.className = 'grid-questoes';
-    folha.appendChild(grid);
-
-    return { folha, grid };
-  }
 
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
 
   listaQuestoesProva.forEach((item, index) => {
+    // Tratamento de Quebra de Página Manual
     if (item.tipo === 'quebra_pagina') {
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
@@ -410,7 +412,7 @@ function renderizarProva() {
       divisor.innerHTML = `
         <span>--- QUEBRA DE PÁGINA MANUAL ---</span>
         <div class="controles-questao" style="opacity:1; visibility:visible;">
-          <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖ Remover</button>
+          <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖ Remover Quebra</button>
         </div>
       `;
       container.insertBefore(divisor, folhaAtual);
@@ -460,37 +462,31 @@ function renderizarProva() {
     `;
 
     gridAtual.appendChild(card);
+
+    // AUTO-PAGINAÇÃO: Se a folha ultrapassar o limite físico (A4 tem 2 columns, capacidade ~950px total)
+    if (gridAtual.scrollHeight > gridAtual.clientHeight + 10) {
+      // Remove a última questão adicionada que transbordou
+      gridAtual.removeChild(card);
+      
+      // Cria uma nova folha
+      paginaAtualIndex++;
+      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
+      folhaAtual = novaFolhaObj.folha;
+      gridAtual = novaFolhaObj.grid;
+      container.appendChild(folhaAtual);
+
+      // Coloca a questão transbordada na nova folha
+      gridAtual.appendChild(card);
+    }
   });
 
   if (window.MathJax && window.MathJax.typesetPromise) {
     MathJax.typesetPromise([container]);
   }
 
-  // Verifica estouro das páginas após renderizar
-  setTimeout(verificarEstouroPaginas, 300);
-}
-
-// Monitora e avisa se o conteúdo ultrapassar a folha A4
-function verificarEstouroPaginas() {
-  const folhas = document.querySelectorAll('.folha-a4');
+  // Atualiza a contagem no topo
   const info = document.getElementById('infoPaginas');
-  if (info) info.innerText = `Total de Páginas: ${folhas.length}`;
-
-  folhas.forEach((folha, idx) => {
-    const bannerAntigo = folha.querySelector('.alerta-estouro-banner');
-    if (bannerAntigo) bannerAntigo.remove();
-
-    // Se o conteúdo real exceder a altura física da folha A4
-    if (folha.scrollHeight > folha.clientHeight + 5) {
-      folha.classList.add('pagina-estourada');
-      const banner = document.createElement('div');
-      banner.className = 'alerta-estouro-banner';
-      banner.innerText = `⚠️ Página ${idx + 1} está cheia! Insira uma quebra de página ou reduza o conteúdo.`;
-      folha.prepend(banner);
-    } else {
-      folha.classList.remove('pagina-estourada');
-    }
-  });
+  if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
 // Dispara a impressão/salvar como PDF
