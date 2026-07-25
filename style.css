@@ -19,7 +19,7 @@ body {
   overflow: hidden;
 }
 
-/* Sidebar */
+/* Sidebar Lateral */
 .sidebar-painel {
   width: 380px;
   min-width: 300px;
@@ -255,7 +255,7 @@ button:hover { opacity: 0.85; }
   font-weight: bold;
 }
 
-/* Grid de Questões (Configuração Dinâmica de 1 e 2 Colunas) */
+/* Grid de Questões (Suporte a 1 e 2 Colunas) */
 .grid-questoes {
   width: 100%;
   flex: 1;
@@ -324,7 +324,7 @@ button:hover { opacity: 0.85; }
   margin-top: 5px;
 }
 
-/* Controles de Edição no Card */
+/* Controles de Edição sobre a Questão */
 .controles-questao {
   display: none;
   position: absolute;
@@ -367,6 +367,19 @@ button:hover { opacity: 0.85; }
   align-items: center;
 }
 
+/* Banner de Alerta de Estouro Preservado */
+.alerta-estouro-banner {
+  width: 210mm;
+  background-color: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #991b1b;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
 /* ==========================================
    3. CONFIGURAÇÕES DE IMPRESSÃO / PDF
    ========================================== */
@@ -388,6 +401,7 @@ button:hover { opacity: 0.85; }
   .barra-ferramentas-topo, 
   .controles-questao, 
   .divisor-quebra-pagina, 
+  .alerta-estouro-banner,
   #containerAlertaExt {
     display: none !important;
   }
