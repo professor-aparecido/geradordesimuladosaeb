@@ -97,6 +97,7 @@ button:hover { opacity: 0.9; }
 
 /* BANCO DE QUESTÕES (FORMATO RESUMIDO) */
 .banco-container {
+  min-height: 80px;
   max-height: 250px;
   overflow-y: auto;
   border: 1px solid #cbd5e1;
