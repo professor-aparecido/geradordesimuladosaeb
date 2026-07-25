@@ -406,7 +406,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS (CORRIGIDO)
+// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS (VERSÃO CORRIGIDA DEFINITIVA)
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -421,8 +421,6 @@ function renderizarProva() {
 
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
-
-  let folhaLotada = false;
 
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
@@ -444,7 +442,6 @@ function renderizarProva() {
       folhaAtual = novaFolhaObj.folha;
       gridAtual = novaFolhaObj.grid;
       container.appendChild(folhaAtual);
-      folhaLotada = false;
       continue;
     }
 
@@ -490,44 +487,44 @@ function renderizarProva() {
     if (window.MathJax && window.MathJax.typesetPromise) {
       MathJax.typesetPromise([card]).catch(err => console.warn(err));
     }
-
-    // --- NOVO CÁLCULO DE LIMITE REAL DA FOLHA A4 ---
-    // Medimos a altura visível (clientHeight) x a altura total de conteúdo (scrollHeight).
-    // Damos uma tolerância de segurança de 15px para variações de fonte/margem.
-    const limiteAlturaVisual = folhaAtual.clientHeight;
-    const alturaConteudoReal = folhaAtual.scrollHeight;
-
-    if (limiteAlturaVisual > 0 && alturaConteudoReal > (limiteAlturaVisual + 15)) {
-      folhaLotada = true;
-      folhaAtual.classList.add('folha-estourada');
-    }
   }
 
-  // --- GERENCIAMENTO DE ALERTAS E BLOQUEIO ---
-  const btnsAdd = document.querySelectorAll('.btn-add-banco');
+  // --- VERIFICAÇÃO FINAL DE ESTOURO NA PÁGINA ATUAL ---
+  // Apenas verifica se a folha atual transbordou o limite A4
+  // Usamos setTimeout(0) para garantir que o navegador calculou a altura real pós-renderização
+  setTimeout(() => {
+    const todasFolhas = container.querySelectorAll('.folha-a4');
+    const ultimaFolha = todasFolhas[todasFolhas.length - 1];
+    const btnsAdd = document.querySelectorAll('.btn-add-banco');
 
-  if (folhaLotada) {
-    if (containerAlerta) {
-      containerAlerta.innerHTML = `
-        <div class="alerta-estouro-banner" style="background-color: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: bold; border: 1px solid #fca5a5; font-size: 0.95rem;">
-          ⚠️ A folha atual atingiu o limite de altura A4! Por favor, clique em <u>"Inserir Quebra de Página Manual"</u> para continuar adicionando questões.
-        </div>`;
+    if (ultimaFolha) {
+      // Checa se a altura do conteúdo ultrapassa a altura limite da folha A4 (com margem de tolerância)
+      const folhaEstaLotada = ultimaFolha.scrollHeight > (ultimaFolha.clientHeight + 10) && ultimaFolha.clientHeight > 500;
+
+      if (folhaEstaLotada) {
+        ultimaFolha.classList.add('folha-estourada');
+        if (containerAlerta) {
+          containerAlerta.innerHTML = `
+            <div class="alerta-estouro-banner" style="background-color: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: bold; border: 1px solid #fca5a5; font-size: 0.95rem;">
+              ⚠️ A folha atual atingiu o limite de altura A4! Por favor, clique em <u>"Inserir Quebra de Página Manual"</u> para continuar adicionando questões.
+            </div>`;
+        }
+        // Desabilita botões do banco para não extrapolar a folha
+        btnsAdd.forEach(btn => {
+          btn.disabled = true;
+          btn.style.opacity = '0.4';
+          btn.style.cursor = 'not-allowed';
+        });
+      } else {
+        ultimaFolha.classList.remove('folha-estourada');
+        btnsAdd.forEach(btn => {
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
+        });
+      }
     }
-    // Bloqueia a adição para não transbordar visualmente a folha A4
-    btnsAdd.forEach(btn => {
-      btn.disabled = true;
-      btn.style.opacity = '0.4';
-      btn.style.cursor = 'not-allowed';
-    });
-  } else {
-    // Mantém a folha limpa e liberada para receber mais questões
-    folhaAtual.classList.remove('folha-estourada');
-    btnsAdd.forEach(btn => {
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      btn.style.cursor = 'pointer';
-    });
-  }
+  }, 50);
 
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
