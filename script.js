@@ -21,15 +21,13 @@ let listaQuestoesProva = [
   }
 ];
 
-let logoCarregadaUrl = 'imagens/logopilar.png'; // Imagem modelo da pasta imagens
+let logoCarregadaUrl = 'imagens/logopilar.png';
 let historicoEstados = [];
 let indiceHistorico = -1;
 
 // Carrega os arquivos JSON via fetch()
 async function carregarBancosExternos() {
   bancoQuestoes = [];
-  
-  // Lista de arquivos JSON na pasta 'questoes'
   const arquivos = ['questoes/d1.json', 'questoes/d2.json', 'questoes/d36.json'];
 
   for (const arquivo of arquivos) {
@@ -38,7 +36,6 @@ async function carregarBancosExternos() {
       if (resposta.ok) {
         const dados = await resposta.json();
         if (Array.isArray(dados)) {
-          // Garante que cada questão tenha um ID único interno se não tiver
           dados.forEach((q, idx) => {
             if (!q.id && !q.idUnico) q.id = 'bq_' + Math.random().toString(36).substr(2, 9);
             else if (!q.id) q.id = q.idUnico;
@@ -110,7 +107,6 @@ function renderizarBanco() {
     const item = document.createElement('div');
     item.className = 'item-banco';
     
-    // Identificador seguro para busca
     const qId = q.id || q.idUnico;
 
     item.innerHTML = `
