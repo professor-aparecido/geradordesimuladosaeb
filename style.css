@@ -77,7 +77,7 @@ body {
   flex: 1;
 }
 
-/* ESTILIZAÇÃO DOS BOTÕES */
+/* BOTÕES DA INTERFACE */
 button {
   cursor: pointer;
   border: none;
@@ -103,7 +103,7 @@ button:hover { opacity: 0.9; }
 
 .acoes-principais button { flex: 1; font-size: 0.75rem; padding: 6px; }
 
-/* BANCO DE QUESTÕES NA LATERAL */
+/* BANCO DE QUESTÕES LATERAL */
 .banco-container {
   min-height: 80px;
   max-height: 250px;
@@ -192,7 +192,7 @@ button:hover { opacity: 0.9; }
   border-radius: 6px;
 }
 
-/* DIMENSÕES EXATAS DE UMA FOLHA A4 */
+/* DIMENSÕES RÍGIDAS DA FOLHA A4 PARA IMPRESSÃO PERFEITA */
 .folha-a4 {
   width: 210mm;
   height: 297mm;
@@ -207,7 +207,7 @@ button:hover { opacity: 0.9; }
   border: 2px solid transparent;
 }
 
-/* ESTILO CASO UMA QUESTÃO ISOLADA SUPERE O TAMANHO DA FOLHA */
+/* BORDA DE ERRO CASO UMA QUESTÃO ISOLADA SUPERE O TAMANHO DA FOLHA */
 .folha-estourada {
   border: 3px solid #ef4444 !important;
   box-shadow: 0 0 12px rgba(239, 68, 68, 0.4) !important;
@@ -309,19 +309,19 @@ button:hover { opacity: 0.9; }
 }
 
 /* ==========================================
-   GRID DE 2 COLUNAS DA PROVA (CORRIGIDO)
+   GRID DE 2 COLUNAS DA PROVA (AJUSTADO E CORRIGIDO)
    ========================================== */
 .grid-questoes {
   column-count: 2;
   column-gap: 12mm;
-  column-rule: 1px solid #000; /* Linha vertical dividindo as colunas */
-  height: calc(100% - 110px);   /* Limita a altura para respeitar o A4 */
-  column-fill: auto;             /* Impede geração de sub-colunas falsas */
-  overflow: hidden;
+  column-rule: 1px solid #000; /* Linha vertical divisória */
+  height: calc(100% - 110px);   /* Respeita o limite do cabeçalho */
+  column-fill: auto;             /* Preenche sequencialmente sem criar colunas falsas */
+  overflow: visible;             /* Permite leitura correta da altura real no JS */
 }
 
 .card-questao {
-  break-inside: avoid;           /* NUNCA corta a questão no meio de duas colunas/páginas */
+  break-inside: avoid;           /* NUNCA corta a questão ao meio nas colunas/páginas */
   page-break-inside: avoid;
   margin-bottom: 12px;
   position: relative;
@@ -371,7 +371,7 @@ button:hover { opacity: 0.9; }
   height: 22px;
 }
 
-/* CONTROLES DA QUESTÃO (BOTÕES DE EDICAO FLUTUANTES) */
+/* CONTROLES FLUTUANTES DE EDIÇÃO DAS QUESTÕES */
 .controles-questao {
   display: flex;
   gap: 2px;
@@ -430,7 +430,7 @@ button:hover { opacity: 0.9; }
 }
 
 /* ==========================================
-   4. IMPRESSÃO E GERAÇÃO DE PDF (CONFIG. IMPRESSORA)
+   4. CONFIGURAÇÕES DE IMPRESSÃO / PDF
    ========================================== */
 @media print {
   @page {
@@ -443,7 +443,7 @@ button:hover { opacity: 0.9; }
     color: black !important;
   }
 
-  /* Esconde todos os elementos de interface e painéis */
+  /* Oculta interface e elementos visuais de edição na impressão */
   .sidebar-painel, 
   .resizer,
   .barra-ferramentas-topo, 
@@ -468,7 +468,7 @@ button:hover { opacity: 0.9; }
     display: block !important;
   }
 
-  /* Garante uma página limpa no papel A4 */
+  /* Garante uma página A4 limpa e perfeita por folha gerada */
   .folha-a4 {
     box-shadow: none !important;
     margin: 0 !important;
