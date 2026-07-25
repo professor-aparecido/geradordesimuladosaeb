@@ -36,10 +36,11 @@ let logoEscolaDataUrl = "";
 window.addEventListener("DOMContentLoaded", () => {
   carregarBancoQuestoes();
   
-  // Adiciona 2 questões de exemplo no início
+  // Estado inicial com 2 questões
   adicionarItemProva({ ...bancoQuestoesSAEB[2], idUnico: 'init-1' });
   adicionarItemProva({ ...bancoQuestoesSAEB[0], idUnico: 'init-2' });
 
+  salvarEstadoHistorico();
   configurarResizer();
 });
 
@@ -225,7 +226,7 @@ function criarNovaFolha(numPagina) {
     `;
   }
 
-  // Grid de questões configurado para 1 ou 2 colunas
+  // Grid com suporte a 1 ou 2 colunas
   const grid = document.createElement('div');
   grid.className = `grid-questoes colunas-${qtdColunas}`;
   folha.appendChild(grid);
@@ -238,7 +239,7 @@ function criarNovaFolha(numPagina) {
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
-  if (!container) return;
+  if (!container) return;  
   
   container.innerHTML = '';
   const qtdColunas = document.getElementById('selectColunas')?.value || '2';
@@ -311,7 +312,7 @@ function renderizarProva() {
 
     gridAtual.appendChild(card);
 
-    // Limites de altura verticais em pixels por folha A4
+    // Limites verticais de altura dinâmicos baseados no layout
     let limiteAlturaPixel;
     if (qtdColunas === '1') {
       limiteAlturaPixel = paginaAtualIndex === 1 ? 750 : 880;
@@ -319,7 +320,7 @@ function renderizarProva() {
       limiteAlturaPixel = paginaAtualIndex === 1 ? 780 : 900;
     }
 
-    // AUTO-PAGINAÇÃO: Se ultrapassar o limite, move a questão para a próxima página
+    // AUTO-PAGINAÇÃO INTELIGENTE
     if (gridAtual.scrollHeight > limiteAlturaPixel) {
       gridAtual.removeChild(card);
 
@@ -333,7 +334,7 @@ function renderizarProva() {
     }
   }
 
-  // Renderiza fórmulas matemáticas do MathJax se presente
+  // Renderização MathJax
   if (window.MathJax && window.MathJax.typesetPromise) {
     MathJax.typesetPromise([container]).catch(err => console.warn(err));
   }
@@ -342,7 +343,6 @@ function renderizarProva() {
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
-// Atualiza o layout ao mudar dados do cabeçalho ou colunas
 function atualizarCabecalho() {
   renderizarProva();
 }
@@ -366,7 +366,7 @@ function alternarCamposOpcoes() {
 }
 
 // ==========================================
-// HISTÓRICO (DESFAZER / REFAZER / REINICIAR)
+// HISTÓRICO COMPLETO (DESFAZER / REFAZER / REINICIAR)
 // ==========================================
 function salvarEstadoHistorico() {
   historicoEstados = historicoEstados.slice(0, ponteiroHistorico + 1);
