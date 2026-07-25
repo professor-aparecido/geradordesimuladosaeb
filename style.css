@@ -812,3 +812,44 @@ body {
         display: none !important;
     }
 }
+
+/* Previne que uma questão seja cortada entre duas páginas */
+.coluna-questao,
+.item-questao {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+/* Indicador visual de quebra de página na tela (Pré-visualização) */
+.page-break-indicator {
+    width: 100%;
+    border-top: 2px dashed #dc2626;
+    margin: 1.5rem 0;
+    position: relative;
+    text-align: center;
+}
+
+.page-break-indicator::after {
+    content: '--- Quebra de Página (Fim da Folha A4) ---';
+    background-color: #f1f5f9;
+    color: #dc2626;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    position: relative;
+    top: -10px;
+}
+
+@media print {
+    /* Força quebra de página física na impressão */
+    .page-break-indicator {
+        display: block;
+        page-break-before: always;
+        border: none;
+        margin: 0;
+    }
+    .page-break-indicator::after {
+        display: none;
+    }
+}
