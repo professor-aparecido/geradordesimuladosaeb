@@ -406,7 +406,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS (CORRIGIDO)
+// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -489,13 +489,12 @@ function renderizarProva() {
     }
   }
 
-  // --- CHECAGEM DE ESTOURO SEM DESATIVAR OS BOTÕES DO BANCO ---
+  // --- CHECAGEM DE ESTOURO SEM BLOQUEAR BOTÕES DO BANCO ---
   setTimeout(() => {
     const folhas = container.querySelectorAll('.folha-a4');
     const ultimaFolha = folhas[folhas.length - 1];
 
     if (ultimaFolha) {
-      // Checa estouro comparando scrollHeight vs clientHeight do container interno ou da folha
       const folhaEstourou = ultimaFolha.scrollHeight > (ultimaFolha.clientHeight + 10);
 
       if (folhaEstourou) {
@@ -515,6 +514,7 @@ function renderizarProva() {
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
+
 // ==========================================
 // 9. FUNÇÃO DE IMPRESSÃO
 // ==========================================
