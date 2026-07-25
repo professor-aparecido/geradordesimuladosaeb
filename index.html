@@ -4,177 +4,133 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerador de Simulados SAEB</title>
-  
-  <!-- Estilos CSS da aplicação -->
   <link rel="stylesheet" href="style.css">
-  
-  <!-- MathJax para renderização de fórmulas matemáticas e suporte a TeX -->
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <!-- MathJax para suporte a fórmulas matemáticas -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
 </head>
 <body>
 
-  <!-- CONTAINER PRINCIPAL DO APP -->
-  <div class="app-container" id="appContainer">
-    
-    <!-- ========================================== -->
-    <!-- PAINEL LATERAL ESQUERDO (CONFIGURAÇÕES)     -->
-    <!-- ========================================== -->
-    <aside class="sidebar-painel" id="sidebarPainel">
+  <div class="app-container">
+    <!-- PAINEL LATERAL DE CONFIGURAÇÕES -->
+    <aside class="sidebar-painel" id="sidebar">
       <h2>1. Configurações da Prova</h2>
-
-      <!-- Upload da Logomarca da Escola -->
+      
       <div class="grupo-campo">
-        <label>Logo da Escola (Imagem):</label>
+        <label for="inputLogo">Logo da Escola (Imagem):</label>
         <input type="file" id="inputLogo" accept="image/*" onchange="carregarLogo(event)">
       </div>
 
-      <!-- Dados do Cabeçalho Oficial -->
       <div class="grupo-campo">
-        <label>Nome da Escola:</label>
-        <input type="text" id="inputNomeEscola" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR" oninput="atualizarCabecalho()">
+        <label for="inputEscola">Nome da Escola:</label>
+        <input type="text" id="inputEscola" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR" oninput="atualizarCabecalho()">
       </div>
 
       <div class="linha-dupla">
         <div class="grupo-campo">
-          <label>Série:</label>
+          <label for="inputSerie">Série:</label>
           <input type="text" id="inputSerie" value="8º ANO" oninput="atualizarCabecalho()">
         </div>
         <div class="grupo-campo">
-          <label>Turma:</label>
+          <label for="inputTurma">Turma:</label>
           <input type="text" id="inputTurma" value="A" oninput="atualizarCabecalho()">
         </div>
       </div>
 
       <div class="linha-dupla">
         <div class="grupo-campo">
-          <label>Professor:</label>
-          <input type="text" id="inputNomeProfessor" value="Aparecido Sousa" oninput="atualizarCabecalho()">
+          <label for="inputProfessor">Professor:</label>
+          <input type="text" id="inputProfessor" value="Aparecido Sousa" oninput="atualizarCabecalho()">
         </div>
         <div class="grupo-campo">
-          <label>Disciplina:</label>
+          <label for="inputDisciplina">Disciplina:</label>
           <input type="text" id="inputDisciplina" value="PROVA DE MATEMÁTICA" oninput="atualizarCabecalho()">
         </div>
       </div>
 
-      <div class="grupo-campo">
-        <label>Bimestre:</label>
-        <input type="text" id="inputBimestre" value="2º BIMESTRE" oninput="atualizarCabecalho()">
+      <div class="linha-dupla">
+        <div class="grupo-campo">
+          <label for="inputBimestre">Bimestre:</label>
+          <input type="text" id="inputBimestre" value="2º BIMESTRE" oninput="atualizarCabecalho()">
+        </div>
+        <!-- NOVO SELETOR DE COLUNAS -->
+        <div class="grupo-campo">
+          <label for="selectColunas">Colunas por Página:</label>
+          <select id="selectColunas" onchange="atualizarCabecalho()">
+            <option value="2" selected>2 Colunas (Padrão)</option>
+            <option value="1">1 Coluna (Página Inteira)</option>
+          </select>
+        </div>
       </div>
 
-      <!-- Botões de Ação Global (Reiniciar, Desfazer, Refazer) -->
-      <div class="acoes-principais">
-        <button type="button" class="btn-perigo" onclick="reiniciarTudo()">🔄 Reiniciar Prova</button>
-        <button type="button" class="btn-secundario" onclick="desfazerAcao()">↩️ Desfazer</button>
-        <button type="button" class="btn-secundario" onclick="refazerAcao()">↪️ Refazer</button>
+      <div class="botoes-acoes-top">
+        <button type="button" class="btn-danger" onclick="reiniciarProva()">🔄 Reiniciar Prova</button>
+        <button type="button" class="btn-secondary" onclick="desfazer()">↩️ Desfazer</button>
+        <button type="button" class="btn-secondary" onclick="refazer()">↪️ Refazer</button>
       </div>
 
-      <!-- Botão para Inserção Manual de Quebra de Página -->
-      <button type="button" class="btn-sucesso" style="width: 100%; margin-top: 5px;" onclick="inserirQuebraPagina()">
-        ✂️ Inserir Quebra de Página Manual
-      </button>
+      <button type="button" class="btn-quebra" onclick="inserirQuebraPaginaManual()">✂️ Inserir Quebra de Página Manual</button>
 
-      <hr class="divisor-secao">
+      <hr>
 
-      <!-- ========================================== -->
-      <!-- BANCO DE QUESTÕES INTEGRADO                -->
-      <!-- ========================================== -->
-      <h3>2. Banco de Questões</h3>
+      <h2>2. Banco de Questões</h2>
       <div class="grupo-campo">
         <label for="filtroDescritor">Filtrar por Descritor:</label>
-        <select id="filtroDescritor" onchange="filtrarBanco()">
+        <select id="filtroDescritor" onchange="filtrarBancoQuestoes()">
           <option value="todos">Todos os Descritores</option>
         </select>
       </div>
+      <div id="listaBancoQuestoes" class="lista-banco"></div>
 
-      <!-- Lista de Questões do Banco Cadastrado -->
-      <div class="banco-container" id="bancoQuestoesContainer">
-        <!-- Preenchido dinamicamente via JavaScript (script.js) -->
-      </div>
+      <hr>
 
-      <hr class="divisor-secao">
-
-      <!-- ========================================== -->
-      <!-- CRIAR NOVA QUESTÃO / PERSONALIZADA         -->
-      <!-- ========================================== -->
-      <h3>3. Criar Nova Questão (Suporte a TeX)</h3>
+      <h2>3. Criar Nova Questão (Suporte a TeX)</h2>
       <div class="grupo-campo">
-        <label>Tipo de Questão:</label>
-        <select id="novoTipoQuestao" onchange="alternarCamposOpcoes()">
-          <option value="objetiva">Múltipla Escolha (Objetiva)</option>
-          <option value="subjetiva">Discursiva (Subjetiva)</option>
+        <label for="novoTipo">Tipo de Questão:</label>
+        <select id="novoTipo" onchange="alternarCamposOpcoes()">
+          <option value="objetiva">Objetiva (Múltipla Escolha)</option>
+          <option value="subjetiva">Subjetiva (Discursiva)</option>
         </select>
       </div>
 
       <div class="grupo-campo">
-        <label>Descritor (ex: D36):</label>
-        <input type="text" id="novoDescritor" placeholder="Ex: D36, D1...">
+        <label for="novoDescritor">Descritor / Habilidade:</label>
+        <input type="text" id="novoDescritor" placeholder="Ex: D36">
       </div>
 
       <div class="grupo-campo">
-        <label>Enunciado (Formulas em \(...\)):</label>
-        <textarea id="novoEnunciado" rows="3" placeholder="Digite o enunciado da questão..."></textarea>
+        <label for="novoEnunciado">Enunciado (Use \( ... \) para matemática):</label>
+        <textarea id="novoEnunciado" rows="3" placeholder="Digite o texto da questão..."></textarea>
       </div>
 
-      <!-- Campos de Alternativas (Visíveis apenas para múltipla escolha) -->
-      <div id="containerOpcoesCriacao">
-        <div class="grupo-campo">
-          <label>Opção A:</label>
-          <input type="text" id="novaOpcaoA">
-        </div>
-        <div class="grupo-campo">
-          <label>Opção B:</label>
-          <input type="text" id="novaOpcaoB">
-        </div>
-        <div class="grupo-campo">
-          <label>Opção C:</label>
-          <input type="text" id="novaOpcaoC">
-        </div>
-        <div class="grupo-campo">
-          <label>Opção D:</label>
-          <input type="text" id="novaOpcaoD">
-        </div>
+      <div id="containerOpcoes">
+        <label>Alternativas:</label>
+        <input type="text" class="input-opcao" placeholder="Alternativa A">
+        <input type="text" class="input-opcao" placeholder="Alternativa B">
+        <input type="text" class="input-opcao" placeholder="Alternativa C">
+        <input type="text" class="input-opcao" placeholder="Alternativa D">
       </div>
 
-      <div class="linha-dupla" style="margin-top: 10px;">
-        <button type="button" class="btn-secundario" onclick="abrirPreviaNovaQuestao()">👁️ Prévia</button>
-        <button type="button" class="btn-primario" onclick="salvarNovaQuestao()">➕ Salvar Questão</button>
-      </div>
+      <button type="button" class="btn-primary" onclick="adicionarQuestaoPersonalizada()">➕ Adicionar Questão Personalizada</button>
     </aside>
 
-    <!-- BARRA CENTRAL REDIMENSIONÁVEL (RESIZER) -->
+    <!-- RESIZER PARA REDIMENSIONAR A SIDEBAR -->
     <div class="resizer" id="resizer"></div>
 
-    <!-- ========================================== -->
-    <!-- ÁREA DE PRÉ-VISUALIZAÇÃO / FOLHAS A4       -->
-    <!-- ========================================== -->
+    <!-- ÁREA CENTRAL DE VISUALIZAÇÃO/IMPRESSÃO -->
     <main class="area-impressao">
-      <!-- Barra Superior de Controle de Páginas e Impressão -->
       <div class="barra-ferramentas-topo">
         <span id="infoPaginas">Total de Páginas: 1</span>
-        <button type="button" class="btn-sucesso" onclick="imprimirProva()">🖨️ Baixar PDF / Imprimir</button>
+        <button type="button" class="btn-print" onclick="window.print()">🖨️ Baixar PDF / Imprimir</button>
       </div>
 
-      <!-- Banner de Alerta Dinâmico (Exibido quando uma única questão excede o limite A4) -->
-      <div id="containerAlertaExt" style="width: 210mm;"></div>
+      <div id="containerAlertaExt"></div>
 
-      <!-- Container Dinâmico onde as Páginas A4 são Renderizadas e Paginadas -->
       <div id="conteudoProvasContainer">
-        <!-- Folhas .folha-a4 são inseridas dinamicamente pelo script.js -->
+        <!-- As folhas A4 serão geradas dinamicamente aqui pelo JavaScript -->
       </div>
     </main>
-
   </div>
 
-  <!-- MODAL DE PRÉ-VISUALIZAÇÃO DE QUESTÕES -->
-  <div id="modalPreview" class="modal-overlay oculto">
-    <div class="modal-conteudo">
-      <h3>Prévia da Questão</h3>
-      <div id="conteudoModalPreview" style="margin: 15px 0;"></div>
-      <button type="button" class="btn-secundario" style="width: 100%;" onclick="fecharModalPreview()">Fechar</button>
-    </div>
-  </div>
-
-  <!-- Lógica Principal em JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
