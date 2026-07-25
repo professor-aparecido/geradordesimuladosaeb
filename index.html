@@ -22,13 +22,13 @@
     <aside class="sidebar-painel" id="sidebarPainel">
       <h2>1. Configurações da Prova</h2>
 
-      <!-- Upload da Logomarca -->
+      <!-- Upload da Logomarca da Escola -->
       <div class="grupo-campo">
         <label>Logo da Escola (Imagem):</label>
         <input type="file" id="inputLogo" accept="image/*" onchange="carregarLogo(event)">
       </div>
 
-      <!-- Dados do Cabeçalho -->
+      <!-- Dados do Cabeçalho Oficial -->
       <div class="grupo-campo">
         <label>Nome da Escola:</label>
         <input type="text" id="inputNomeEscola" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR" oninput="atualizarCabecalho()">
@@ -61,14 +61,14 @@
         <input type="text" id="inputBimestre" value="2º BIMESTRE" oninput="atualizarCabecalho()">
       </div>
 
-      <!-- Botões Globais (Reiniciar, Desfazer, Refazer) -->
+      <!-- Botões de Ação Global (Reiniciar, Desfazer, Refazer) -->
       <div class="acoes-principais">
         <button type="button" class="btn-perigo" onclick="reiniciarTudo()">🔄 Reiniciar Prova</button>
         <button type="button" class="btn-secundario" onclick="desfazerAcao()">↩️ Desfazer</button>
         <button type="button" class="btn-secundario" onclick="refazerAcao()">↪️ Refazer</button>
       </div>
 
-      <!-- Botão para Inserir Quebra de Página Manual -->
+      <!-- Botão para Inserção Manual de Quebra de Página -->
       <button type="button" class="btn-sucesso" style="width: 100%; margin-top: 5px;" onclick="inserirQuebraPagina()">
         ✂️ Inserir Quebra de Página Manual
       </button>
@@ -86,9 +86,9 @@
         </select>
       </div>
 
-      <!-- Lista Rolável de Questões do Banco -->
+      <!-- Lista de Questões do Banco Cadastrado -->
       <div class="banco-container" id="bancoQuestoesContainer">
-        <!-- Itens inseridos dinamicamente pelo script.js -->
+        <!-- Preenchido dinamicamente via JavaScript (script.js) -->
       </div>
 
       <hr class="divisor-secao">
@@ -111,11 +111,11 @@
       </div>
 
       <div class="grupo-campo">
-        <label>Enunciado (Use fórmulas):</label>
+        <label>Enunciado (Formulas em \(...\)):</label>
         <textarea id="novoEnunciado" rows="3" placeholder="Digite o enunciado da questão..."></textarea>
       </div>
 
-      <!-- Campos das Opções (A, B, C, D) -->
+      <!-- Campos de Alternativas (Visíveis apenas para múltipla escolha) -->
       <div id="containerOpcoesCriacao">
         <div class="grupo-campo">
           <label>Opção A:</label>
@@ -148,18 +148,18 @@
     <!-- ÁREA DE PRÉ-VISUALIZAÇÃO / FOLHAS A4       -->
     <!-- ========================================== -->
     <main class="area-impressao">
-      <!-- Barra Superior de Ferramentas -->
+      <!-- Barra Superior de Controle de Páginas e Impressão -->
       <div class="barra-ferramentas-topo">
         <span id="infoPaginas">Total de Páginas: 1</span>
         <button type="button" class="btn-sucesso" onclick="imprimirProva()">🖨️ Baixar PDF / Imprimir</button>
       </div>
 
-      <!-- Banner de Alerta (Aparece se uma questão individual exceder a página) -->
+      <!-- Banner de Alerta Dinâmico (Exibido quando uma única questão excede o limite A4) -->
       <div id="containerAlertaExt" style="width: 210mm;"></div>
 
-      <!-- Container Dinâmico onde as Páginas A4 serão renderizadas -->
+      <!-- Container Dinâmico onde as Páginas A4 são Renderizadas e Paginadas -->
       <div id="conteudoProvasContainer">
-        <!-- As folhas .folha-a4 são inseridas aqui pelo JS -->
+        <!-- Folhas .folha-a4 são inseridas dinamicamente pelo script.js -->
       </div>
     </main>
 
@@ -174,7 +174,7 @@
     </div>
   </div>
 
-  <!-- Script Lógico -->
+  <!-- Lógica Principal em JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
