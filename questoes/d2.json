@@ -1,1 +1,10 @@
-
+[
+  {
+    "id": "q1_d2",
+    "descritor": "D2",
+    "tipo": "objetiva",
+    "enunciado": "Texto da questão...",
+    "opcoes": ["A", "B", "C", "D"],
+    "espacoExtra": 0
+  }
+]
