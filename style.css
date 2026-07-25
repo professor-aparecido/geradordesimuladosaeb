@@ -176,23 +176,20 @@ button:hover { opacity: 0.9; }
   margin-bottom: 25px;
   position: relative;
   box-sizing: border-box;
-  overflow: hidden; /* Evita vazar elemento na tela */
+  overflow: hidden;
 }
 
-/* BANNER DE ESTOURO */
-.pagina-estourada {
-  border: 3px solid #ef4444 !important;
-}
-
+/* ALERTA EXTERNO DE ESTOURO */
 .alerta-estouro-banner {
   background-color: #ef4444;
   color: white;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: bold;
   text-align: center;
-  padding: 6px;
-  margin-bottom: 10px;
-  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 /* CABEÇALHO OFICIAL DA PROVA */
@@ -282,7 +279,7 @@ button:hover { opacity: 0.9; }
 .grid-questoes {
   column-count: 2;
   column-gap: 15mm;
-  height: calc(100% - 110px); /* Ocupa exatamente o restante da página */
+  height: calc(100% - 110px);
 }
 
 .card-questao {
@@ -392,7 +389,7 @@ button:hover { opacity: 0.9; }
   max-width: 90%;
 }
 
-/* REGRAS DE IMPRESSÃO - FORÇA A CRIAÇÃO DE NOVAS PÁGINAS NO PDF */
+/* REGRAS DE IMPRESSÃO */
 @media print {
   @page {
     size: A4 portrait;
