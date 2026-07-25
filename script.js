@@ -372,31 +372,42 @@ function criarNovaFolha(numPagina) {
   folha.className = 'folha-a4';
   folha.id = `folha-${numPagina}`;
 
-  folha.innerHTML = `
-    <div class="cabecalho-oficial">
-      <div class="logo-cell">
-        ${logoCarregadaUrl ? `<img src="${logoCarregadaUrl}" alt="Logo">` : '<b>LOGO</b>'}
-      </div>
-      <div class="info-cell">
-        <div class="nome-escola">${nomeEscola}</div>
-        <div class="linha-aluno">ALUNO(A): <span class="underline"></span></div>
-        <div class="linha-detalhes">
-          <span>Série: <b>${serie}</b></span>
-          <span>Turma: ${turma || '_________'}</span>
-          <span>Data: ____/____/________</span>
-          <span class="prof-italico">Professor: ${professor}</span>
+  // Se for a PÁGINA 1: Exibe o cabeçalho completo oficial
+  if (numPagina === 1) {
+    folha.innerHTML = `
+      <div class="cabecalho-oficial">
+        <div class="logo-cell">
+          ${logoCarregadaUrl ? `<img src="${logoCarregadaUrl}" alt="Logo">` : '<b>LOGO</b>'}
+        </div>
+        <div class="info-cell">
+          <div class="nome-escola">${nomeEscola}</div>
+          <div class="linha-aluno">ALUNO(A): <span class="underline"></span></div>
+          <div class="linha-detalhes">
+            <span>Série: <b>${serie}</b></span>
+            <span>Turma: ${turma || '_________'}</span>
+            <span>Data: ____/____/________</span>
+            <span class="prof-italico">Professor: ${professor}</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="titulo-nota-container">
-      <div class="titulo-prova">${disciplina} - ${bimestre}</div>
-      <div class="caixa-nota-wrap">
-        <span>NOTA:</span>
-        <div class="valor-nota"></div>
+      <div class="titulo-nota-container">
+        <div class="titulo-prova">${disciplina} - ${bimestre}</div>
+        <div class="caixa-nota-wrap">
+          <span>NOTA:</span>
+          <div class="valor-nota"></div>
+        </div>
       </div>
-    </div>
-  `;
+    `;
+  } else {
+    // Se for PÁGINA 2 em diante: Cabeçalho simples de continuação com número de página
+    folha.innerHTML = `
+      <div style="border-bottom: 1px solid #000; padding-bottom: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold;">
+        <span>${disciplina} - CONTINUAÇÃO</span>
+        <span>PÁGINA ${numPagina}</span>
+      </div>
+    `;
+  }
 
   const grid = document.createElement('div');
   grid.className = 'grid-questoes';
@@ -425,7 +436,7 @@ function renderizarProva() {
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
 
-    // TRATAMENTO DA QUEBRA DE PÁGINA MANUAL
+    // QUEBRA DE PÁGINA MANUAL
     if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
@@ -437,7 +448,6 @@ function renderizarProva() {
       `;
       container.appendChild(divisor);
 
-      // Cria a nova folha A4 para receber as questões posteriores
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
@@ -446,7 +456,7 @@ function renderizarProva() {
       continue;
     }
 
-    // MONTAGEM DO CARD DA QUESTÃO
+    // CARD DA QUESTÃO
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -483,14 +493,17 @@ function renderizarProva() {
       ${htmlOpcoes}
     `;
 
-    // Adiciona o card à folha atual
+    // Adiciona o card ao grid da folha atual
     gridAtual.appendChild(card);
 
-    // AUTO-PAGINAÇÃO: Verifica se a questão fez a folha estourar verticalmente
-    if (gridAtual.scrollHeight > gridAtual.clientHeight) {
+    // ALTURA LÍQUIDA MÁXIMA PERMITIDA (A4 = 297mm; descontando margens e o cabeçalho)
+    const limiteAlturaPixel = paginaAtualIndex === 1 ? 840 : 920;
+
+    // AUTO-PAGINAÇÃO: Se a altura total das colunas passar do limite da folha A4
+    if (gridAtual.offsetHeight > limiteAlturaPixel) {
       gridAtual.removeChild(card); // Remove da folha cheia
 
-      // Cria a nova folha
+      // Cria a nova página A4
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
@@ -502,12 +515,10 @@ function renderizarProva() {
     }
   }
 
-  // Renderiza MathJax (fórmulas matemáticas) se estiver disponível
   if (window.MathJax && window.MathJax.typesetPromise) {
     MathJax.typesetPromise([container]).catch(err => console.warn(err));
   }
 
-  // Atualiza o contador visual de páginas na barra superior
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
