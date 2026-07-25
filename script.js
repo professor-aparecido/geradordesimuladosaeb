@@ -144,7 +144,7 @@ if (folhaA4 && btnZoomIn && btnZoomOut && btnZoomReset) {
 }
 
 /* ==========================================================
-   ALTERNAR MODO DE QUESTÕES (BANCO x CRIAR)
+   ALTERNAR MODO DE QUESTÕES (BANCO x CRIAR) - [ATUALIZADO]
    ========================================================== */
 const btnModoBanco = document.getElementById('btnModoBanco');
 const btnModoCriar = document.getElementById('btnModoCriar');
@@ -158,7 +158,7 @@ if (btnModoBanco && btnModoCriar) {
         btnModoCriar.classList.remove('active');
         
         areaBancoQuestoes.classList.remove('hidden');
-        areaCriarQuestao.classList.add('hidden');
+        areaCriarQuestao.classList.add('hidden'); // Oculta o formulário de criar
     });
 
     // Clique em Criar Questão
@@ -167,7 +167,7 @@ if (btnModoBanco && btnModoCriar) {
         btnModoBanco.classList.remove('active');
         
         areaCriarQuestao.classList.remove('hidden');
-        areaBancoQuestoes.classList.remove('hidden');
+        areaBancoQuestoes.classList.add('hidden'); // Oculta o banco de questões (CORRIGIDO)
     });
 }
 
@@ -190,11 +190,13 @@ if (btnToggleCabecalho && bodyCabecalho) {
     });
 }
 
-// VARIÁVEIS DO BANCO DE QUESTÕES
+/* ==========================================================
+   LÓGICA DO BANCO DE QUESTÕES (JSON + CARDS COMPACTOS + MODAL)
+   ========================================================== */
 const filtroDescritor = document.getElementById('filtroDescritor');
 const listaQuestoesBanco = document.getElementById('listaQuestoesBanco');
 
-// MODAL
+// Elementos do Modal de Pré-visualização
 const modalPreview = document.getElementById('modalPreview');
 const modalPreviewBody = document.getElementById('modalPreviewBody');
 const btnFecharModal = document.getElementById('btnFecharModal');
@@ -202,10 +204,11 @@ const btnAdicionarDoModal = document.getElementById('btnAdicionarDoModal');
 
 let questaoSelecionadaAtual = null;
 
-// EVENTO: Quando seleciona um descritor no menu
-if (filtroDescritor) {
+// Evento ao selecionar um descritor no filtro
+if (filtroDescritor && listaQuestoesBanco) {
     filtroDescritor.addEventListener('change', async (e) => {
-        const descritor = e.target.value;
+        const descritor = e.target.value.toLowerCase(); // Garante minúsculas para o arquivo d1.json...
+        
         if (!descritor) {
             listaQuestoesBanco.innerHTML = '<p class="placeholder-text">Selecione um descritor acima para carregar as questões.</p>';
             return;
@@ -214,62 +217,76 @@ if (filtroDescritor) {
         listaQuestoesBanco.innerHTML = '<p class="placeholder-text">Carregando questões...</p>';
 
         try {
-            // Busca o arquivo JSON correspondente (ex: questoes/d36.json)
+            // Busca o arquivo dinâmico d1.json, d2.json ... d36.json dentro da pasta "questoes/"
             const response = await fetch(`questoes/${descritor}.json`);
             if (!response.ok) throw new Error("Arquivo não encontrado");
 
             const questoes = await response.json();
-            renderizarListaQuestoes(questoes);
+            renderizarListaCompacta(questoes);
 
         } catch (error) {
-            listaQuestoesBanco.innerHTML = `<p class="placeholder-text" style="color:red;">Não foi possível carregar as questões do descritor ${descritor.toUpperCase()}. Verifique se o arquivo JSON existe.</p>`;
+            listaQuestoesBanco.innerHTML = `<p class="placeholder-text" style="color: #d32f2f;">Não foi possível carregar o arquivo <strong>questoes/${descritor}.json</strong>.</p>`;
         }
     });
 }
 
-// RENDERIZA OS CARDS DA LISTA
-function renderizarListaQuestoes(questoes) {
+// Renderiza cada questão em formato de linha compacta com botões à direita
+function renderizarListaCompacta(questoes) {
     if (questoes.length === 0) {
         listaQuestoesBanco.innerHTML = '<p class="placeholder-text">Nenhuma questão cadastrada para este descritor.</p>';
         return;
     }
 
-    listaQuestoesBanco.innerHTML = ''; // Limpa a lista
+    listaQuestoesBanco.innerHTML = '';
 
-    questoes.forEach((q, index) => {
-        const card = document.createElement('div');
-        card.className = 'card-questao-banco';
-        card.innerHTML = `
-            <strong>Questão ${index + 1} (${q.descritor})</strong>
-            <p class="enunciado-resumo">${q.enunciado}</p>
-            <div class="card-actions">
-                <button class="btn btn-outline btn-sm btn-preview">👁️ Pré-visualizar</button>
-                <button class="btn btn-primary btn-sm btn-add">➕ Adicionar</button>
+    questoes.forEach((q, idx) => {
+        const item = document.createElement('div');
+        item.className = 'item-banco-compacto';
+        item.innerHTML = `
+            <span class="texto-questao-resumo" title="${q.enunciado}">
+                <strong>Q${idx + 1}:</strong> ${q.enunciado}
+            </span>
+            <div class="acoes-compactas">
+                <button type="button" class="btn-icon-sm btn-prev" title="Pré-visualizar questão">👁️</button>
+                <button type="button" class="btn-icon-sm btn-add" title="Adicionar questão à prova">➕</button>
             </div>
         `;
 
-        // Botão de Pré-visualizar
-        card.querySelector('.btn-preview').addEventListener('click', () => abrirModalPreview(q));
+        // Evento de clique para Pré-visualizar no Modal
+        item.querySelector('.btn-prev').addEventListener('click', () => abrirModalPreview(q));
 
-        // Botão de Adicionar direto
-        card.querySelector('.btn-add').addEventListener('click', () => adicionarQuestaoNaProva(q));
+        // Evento de clique para Adicionar direto na prova A4
+        item.querySelector('.btn-add').addEventListener('click', () => adicionarQuestaoNaProva(q));
 
-        listaQuestoesBanco.appendChild(card);
+        listaQuestoesBanco.appendChild(item);
     });
 }
 
-// ABRIR E FECHAR MODAL
+// Exibe a janela Modal com o conteúdo detalhado da questão
 function abrirModalPreview(questao) {
     questaoSelecionadaAtual = questao;
-    
-    // Monta o HTML do modal com o enunciado e alternativas
-    let html = `<p><strong>Descritor:</strong> ${questao.descritor}</p>`;
-    html += `<p style="margin-top:0.5rem;">${questao.enunciado}</p>`;
 
+    let html = `<p><strong>Descritor:</strong> ${questao.descritor || 'N/A'}</p>`;
+    html += `<p style="margin-top: 0.5rem; line-height: 1.4;">${questao.enunciado}</p>`;
+
+    // Se houver tabela cadastrada no JSON
+    if (questao.tabela) {
+        html += `<table class="tabela-questao" style="margin: 0.8rem 0; width:100%; border-collapse:collapse;">`;
+        if (questao.tabela.cabecalhos) {
+            html += `<thead><tr>${questao.tabela.cabecalhos.map(h => `<th style="border:1px solid #ccc; padding:4px;">${h}</th>`).join('')}</tr></thead>`;
+        }
+        if (questao.tabela.linhas) {
+            html += `<tbody>${questao.tabela.linhas.map(row => `<tr>${row.map(cell => `<td style="border:1px solid #ccc; padding:4px;">${cell}</td>`).join('')}</tr>`).join('')}</tbody>`;
+        }
+        html += `</table>`;
+    }
+
+    // Se houver alternativas cadastradas
     if (questao.alternativas) {
-        html += `<ul style="list-style:none; padding:0; margin-top:0.8rem;">`;
+        html += `<ul style="list-style: none; padding: 0; margin-top: 0.8rem;">`;
         for (let key in questao.alternativas) {
-            html += `<li style="margin-bottom:0.3rem;"><strong>${key})</strong> ${questao.alternativas[key]}</li>`;
+            const isCorreta = questao.respostaCorreta === key ? ' (Correta)' : '';
+            html += `<li style="margin-bottom: 0.3rem;"><strong>${key})</strong> ${questao.alternativas[key]} <em>${isCorreta}</em></li>`;
         }
         html += `</ul>`;
     }
@@ -278,6 +295,7 @@ function abrirModalPreview(questao) {
     modalPreview.classList.remove('hidden');
 }
 
+// Controles de fechamento e adição via Modal
 if (btnFecharModal) {
     btnFecharModal.addEventListener('click', () => modalPreview.classList.add('hidden'));
 }
@@ -291,9 +309,49 @@ if (btnAdicionarDoModal) {
     });
 }
 
-// FUNÇÃO PARA INSERIR A QUESTÃO NA FOLHA A4
+// Insere a questão selecionada dentro da folha A4
 function adicionarQuestaoNaProva(questao) {
-    console.log("Questão adicionada à prova:", questao);
-    alert(`Questão do descritor ${questao.descritor} adicionada com sucesso!`);
-    // AQUI ENTRA A SUA LÓGICA QUE RENDERIZA O HTML DA QUESTÃO DENTRO DA FOLHA A4 (.prova-questoes-2colunas)
+    const containerQuestoes = document.querySelector('.prova-questoes-2colunas');
+    if (!containerQuestoes) return;
+
+    const totalExistentes = containerQuestoes.querySelectorAll('.coluna-questao').length;
+    const numQuestao = totalExistentes + 1;
+
+    const novaColuna = document.createElement('div');
+    novaColuna.className = 'coluna-questao';
+
+    let htmlQuestao = `
+        <div class="item-questao">
+            <div class="questao-header-pilar">
+                <span class="box-num-questao">QUESTÃO ${numQuestao}</span>
+                ${questao.descritor ? `<span class="tag-descritor">${questao.descritor}</span>` : ''}
+            </div>
+            <p class="enunciado-pilar">${questao.enunciado}</p>
+    `;
+
+    // Renderiza tabela na prova se existir
+    if (questao.tabela) {
+        htmlQuestao += `<table class="tabela-questao">`;
+        if (questao.tabela.cabecalhos) {
+            htmlQuestao += `<thead><tr>${questao.tabela.cabecalhos.map(h => `<th>${h}</th>`).join('')}</tr></thead>`;
+        }
+        if (questao.tabela.linhas) {
+            htmlQuestao += `<tbody>${questao.tabela.linhas.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody>`;
+        }
+        htmlQuestao += `</table>`;
+    }
+
+    // Renderiza alternativas na prova se existirem
+    if (questao.alternativas) {
+        htmlQuestao += `<div class="alternativas-prova" style="margin-top:0.5rem;">`;
+        for (let key in questao.alternativas) {
+            htmlQuestao += `<div style="font-size:0.82rem; margin-bottom:2px;"><strong>(${key})</strong> ${questao.alternativas[key]}</div>`;
+        }
+        htmlQuestao += `</div>`;
+    }
+
+    htmlQuestao += `</div>`;
+    novaColuna.innerHTML = htmlQuestao;
+
+    containerQuestoes.appendChild(novaColuna);
 }
