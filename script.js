@@ -386,7 +386,7 @@ function criarNovaFolha(numPagina) {
   return { folha, grid };
 }
 
-// Renderiza a prova na Folha A4 com cálculo dinamico de altura
+// Renderiza a prova na Folha A4 com cálculo dinâmico de altura
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
   if (!container) return;
@@ -463,19 +463,16 @@ function renderizarProva() {
 
     gridAtual.appendChild(card);
 
-    // AUTO-PAGINAÇÃO: Se a folha ultrapassar o limite físico (A4 tem 2 columns, capacidade ~950px total)
-    if (gridAtual.scrollHeight > gridAtual.clientHeight + 10) {
-      // Remove a última questão adicionada que transbordou
+    // AUTO-PAGINAÇÃO: Só transfere para nova folha se houver questões e a altura ultrapassar o limite físico
+    if (gridAtual.children.length > 1 && gridAtual.scrollHeight > gridAtual.clientHeight + 10) {
       gridAtual.removeChild(card);
       
-      // Cria uma nova folha
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
       gridAtual = novaFolhaObj.grid;
       container.appendChild(folhaAtual);
 
-      // Coloca a questão transbordada na nova folha
       gridAtual.appendChild(card);
     }
   });
@@ -484,12 +481,12 @@ function renderizarProva() {
     MathJax.typesetPromise([container]);
   }
 
-  // Atualiza a contagem no topo
+  // Atualiza a contagem de páginas no topo
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
-// Dispara a impressão/salvar como PDF
+// Dispara a impressão / salvar como PDF
 function imprimirProva() { 
   window.print(); 
 }
