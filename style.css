@@ -314,9 +314,9 @@ button:hover { opacity: 0.9; }
   column-count: 2;
   column-gap: 12mm;
   column-rule: 1px solid #000;
-  height: calc(100% - 110px);
+  width: 100%;
+  height: auto;
   column-fill: auto;
-  overflow: hidden;
 }
 
 .card-questao {
@@ -429,7 +429,7 @@ button:hover { opacity: 0.9; }
 }
 
 /* ==========================================
-   4. CONFIGURAÇÕES DE IMPRESSÃO / PDF (CORRIGIDO)
+   4. CONFIGURAÇÕES DE IMPRESSÃO / PDF
    ========================================== */
 @media print {
   @page {
@@ -447,7 +447,7 @@ button:hover { opacity: 0.9; }
     overflow: visible !important;
   }
 
-  /* Esconde a interface de edição */
+  /* Esconde a interface de edição na impressão */
   .sidebar-painel, 
   .resizer,
   .barra-ferramentas-topo, 
@@ -473,7 +473,7 @@ button:hover { opacity: 0.9; }
     width: 210mm !important;
   }
 
-  /* Garante cada folha A4 com quebra estrita de página */
+  /* Cada folha A4 em página única */
   .folha-a4 {
     box-shadow: none !important;
     margin: 0 auto !important;
@@ -489,12 +489,13 @@ button:hover { opacity: 0.9; }
     overflow: hidden !important;
   }
 
-  /* Trava o grid para ter rigorosamente 2 colunas */
+  /* Trava rígida de 2 colunas */
   .grid-questoes {
     column-count: 2 !important;
     column-gap: 12mm !important;
     column-rule: 1px solid #000 !important;
-    height: calc(100% - 110px) !important;
+    width: 100% !important;
+    height: auto !important;
     column-fill: auto !important;
     overflow: hidden !important;
   }
