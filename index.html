@@ -10,10 +10,10 @@
 </head>
 <body>
 
-  <div class="app-container">
+  <div class="app-container" id="appContainer">
     
     <!-- PAINEL LATERAL ESQUERDO -->
-    <aside class="sidebar-painel">
+    <aside class="sidebar-painel" id="sidebarPainel">
       <h2>Configurações da Prova</h2>
 
       <!-- Seção Logo e Dados -->
@@ -126,12 +126,18 @@
       </div>
     </aside>
 
+    <!-- BARRA REDIMENSIONÁVEL (RESISER) -->
+    <div class="resizer" id="resizer"></div>
+
     <!-- ÁREA DE IMPRESSÃO / FOLHA A4 (LADO DIREITO) -->
     <main class="area-impressao">
       <div class="barra-ferramentas-topo">
         <span id="infoPaginas">Total de Páginas: 1</span>
         <button type="button" class="btn-sucesso" onclick="imprimirProva()">🖨️ Baixar PDF / Imprimir</button>
       </div>
+
+      <!-- BANNER DE AVISO EXTERNO -->
+      <div id="containerAlertaExt" style="width: 210mm;"></div>
 
       <div id="conteudoProvasContainer">
         <!-- Páginas A4 da Prova serão inseridas aqui -->
