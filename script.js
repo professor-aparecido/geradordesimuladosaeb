@@ -406,7 +406,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. RENDERIZAÇÃO ESTÁVEL E PAGINAÇÃO APÓS RENDER
+// 8. RENDERIZAÇÃO ESTÁVEL E PAGINAÇÃO INTELIGENTE
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -425,7 +425,7 @@ function renderizarProva() {
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
 
-    // Se for quebra manual
+    // TRATAMENTO DA QUEBRA DE PÁGINA MANUAL
     if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
@@ -437,6 +437,7 @@ function renderizarProva() {
       `;
       container.appendChild(divisor);
 
+      // Cria a nova folha A4 para receber as questões posteriores
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
@@ -445,7 +446,7 @@ function renderizarProva() {
       continue;
     }
 
-    // Criar o Card da Questão
+    // MONTAGEM DO CARD DA QUESTÃO
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -482,14 +483,31 @@ function renderizarProva() {
       ${htmlOpcoes}
     `;
 
+    // Adiciona o card à folha atual
     gridAtual.appendChild(card);
+
+    // AUTO-PAGINAÇÃO: Verifica se a questão fez a folha estourar verticalmente
+    if (gridAtual.scrollHeight > gridAtual.clientHeight) {
+      gridAtual.removeChild(card); // Remove da folha cheia
+
+      // Cria a nova folha
+      paginaAtualIndex++;
+      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
+      folhaAtual = novaFolhaObj.folha;
+      gridAtual = novaFolhaObj.grid;
+      container.appendChild(folhaAtual);
+
+      // Adiciona o card na nova folha
+      gridAtual.appendChild(card);
+    }
   }
 
-  // Renderizar o MathJax nas fórmulas
+  // Renderiza MathJax (fórmulas matemáticas) se estiver disponível
   if (window.MathJax && window.MathJax.typesetPromise) {
     MathJax.typesetPromise([container]).catch(err => console.warn(err));
   }
 
+  // Atualiza o contador visual de páginas na barra superior
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
