@@ -47,7 +47,6 @@ function inicializarResizer() {
   document.addEventListener('mousemove', (e) => {
     if (!isResizing) return;
     let newWidth = e.clientX;
-    // Garante que a barra fique entre 280px e 600px
     if (newWidth >= 280 && newWidth <= 600) {
       sidebar.style.width = `${newWidth}px`;
     }
@@ -65,7 +64,11 @@ function inicializarResizer() {
 // 2. CARREGAMENTO DOS JSONs EXTERNOS
 // ==========================================
 async function carregarBancosExternos() {
-  bancoQuestoes = [];
+  bancoQuestoes = [
+    { id: 'bq_d2_1', descritor: 'D2', tipo: 'objetiva', enunciado: 'Texto da questão...', opcoes: ['A', 'B', 'C', 'D'] },
+    { id: 'bq_d36_1', descritor: 'D36', tipo: 'objetiva', enunciado: 'Texto da questão...', opcoes: ['A', 'B', 'C', 'D'] }
+  ];
+
   const arquivos = ['questoes/d1.json', 'questoes/d2.json', 'questoes/d36.json'];
 
   for (const arquivo of arquivos) {
@@ -116,10 +119,13 @@ function refazerAcao() {
   }
 }
 
-// Evento disparado quando a página termina de carregar
 document.addEventListener('DOMContentLoaded', async () => {
   inicializarResizer();
-  await carregarBancosExternos();
+  try {
+    await carregarBancosExternos();
+  } catch (e) {
+    console.error("Erro ao carregar arquivos JSON:", e);
+  }
   salvarEstadoHistorico();
   renderizarProva();
 });
@@ -148,8 +154,8 @@ function renderizarBanco() {
     const qId = q.id || q.idUnico;
 
     item.innerHTML = `
-      <div class="item-banco-texto" title="${q.enunciado.replace(/"/g, '&quot;')}">
-        <b>[${q.descritor}]</b> ${q.enunciado}
+      <div class="item-banco-texto" title="${(q.enunciado || '').replace(/"/g, '&quot;')}">
+        <b>[${q.descritor || ''}]</b> ${q.enunciado || ''}
       </div>
       <div class="item-banco-acoes">
         <button type="button" class="btn-add-banco" title="Adicionar" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
@@ -247,16 +253,18 @@ function exibirModalComQuestao(descritor, enunciado, tipo, opcoes) {
   htmlPrevia += `</div>`;
 
   const containerModal = document.getElementById('conteudoModalPreview');
-  containerModal.innerHTML = htmlPrevia;
-  document.getElementById('modalPreview').classList.remove('oculto');
+  if (containerModal) {
+    containerModal.innerHTML = htmlPrevia;
+    document.getElementById('modalPreview')?.classList.remove('oculto');
 
-  if (window.MathJax && window.MathJax.typesetPromise) {
-    MathJax.typesetPromise([containerModal]);
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      MathJax.typesetPromise([containerModal]);
+    }
   }
 }
 
 function fecharModalPreview() {
-  document.getElementById('modalPreview').classList.add('oculto');
+  document.getElementById('modalPreview')?.classList.add('oculto');
 }
 
 function salvarNovaQuestao() {
@@ -287,7 +295,10 @@ function salvarNovaQuestao() {
   listaQuestoesProva.push({ ...novaQ, idUnico: 'p_' + Date.now(), espacoExtra: 0 });
 
   document.getElementById('novoEnunciado').value = '';
-  ['A', 'B', 'C', 'D'].forEach(l => document.getElementById(`novaOpcao${l}`).value = '');
+  ['A', 'B', 'C', 'D'].forEach(l => {
+    const el = document.getElementById(`novaOpcao${l}`);
+    if (el) el.value = '';
+  });
 
   salvarEstadoHistorico();
   renderizarProva();
@@ -399,7 +410,7 @@ function criarNovaFolha(numPagina) {
 // ==========================================
 // 8. ALGORITMO CORRIGIDO DE PAGINAÇÃO AUTOMÁTICA
 // ==========================================
-async function renderizarProva() {
+function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
   const containerAlerta = document.getElementById('containerAlertaExt');
   if (!container) return;
@@ -410,17 +421,14 @@ async function renderizarProva() {
   let numeroQuestao = 1;
   let paginaAtualIndex = 1;
 
-  // Cria a primeira folha A4
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
 
-  // Limite em pixels da folha A4 (297mm @ 96DPI ~ 1122px; descontando margens ~ 980px-1000px)
   const ALTURA_MAXIMA_A4 = 1000;
 
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
 
-    // TRATAMENTO DA QUEBRA MANUALLY SOLICITADA
     if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
@@ -432,7 +440,6 @@ async function renderizarProva() {
       `;
       container.appendChild(divisor);
 
-      // Inicia uma nova página
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
@@ -441,7 +448,6 @@ async function renderizarProva() {
       continue;
     }
 
-    // Cria o Card DOM da questão
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -474,26 +480,21 @@ async function renderizarProva() {
         <span class="tag-descritor">${item.descritor || ''}</span>
       </div>
       <div class="linha-divisoria-questao"></div>
-      <p class="enunciado-texto">${item.enunciado}</p>
+      <p class="enunciado-texto">${item.enunciado || ''}</p>
       ${htmlOpcoes}
     `;
 
-    // Insere no grid da folha atual para medir a altura total ocupada
     gridAtual.appendChild(card);
 
     if (window.MathJax && window.MathJax.typesetPromise) {
-      await MathJax.typesetPromise([card]);
+      MathJax.typesetPromise([card]).catch(err => console.warn(err));
     }
 
-    // VERIFICAÇÃO RIGOROSA DA FOLHA A4
     const alturaTotalFolha = folhaAtual.scrollHeight;
 
     if (alturaTotalFolha > ALTURA_MAXIMA_A4) {
-      // Retira a questão da folha cheia
       gridAtual.removeChild(card);
 
-      // Se a folha não possuía NENHUMA outra questão (apenas o cabeçalho + essa questão), 
-      // significa que a questão sozinha é maior que uma página inteira.
       if (gridAtual.children.length === 0) {
         gridAtual.appendChild(card);
         folhaAtual.classList.add('folha-estourada');
@@ -504,25 +505,21 @@ async function renderizarProva() {
             </div>`;
         }
       } else {
-        // Se já havia outras questões na folha, transfere a questão para uma NOVA página A4
         paginaAtualIndex++;
         const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
         folhaAtual = novaFolhaObj.folha;
         gridAtual = novaFolhaObj.grid;
         container.appendChild(folhaAtual);
 
-        // Adiciona o card no topo da nova folha criada
         gridAtual.appendChild(card);
       }
     }
   }
 
-  // Atualiza a contagem de páginas no topo
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
-// Aciona a impressão do navegador (Ctrl+P / Gerar PDF)
 function imprimirProva() { 
   window.print(); 
 }
