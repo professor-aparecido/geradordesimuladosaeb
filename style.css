@@ -1,50 +1,52 @@
 /* ==========================================
-   RESET E ESTILOS GERAIS DA APLICAÇÃO
+   1. ESTRUTURA GERAL DA APLICAÇÃO
    ========================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  background-color: #f1f5f9;
-  color: #1e293b;
+  background-color: #d8e2ec;
+  color: #333;
 }
 
 .app-container {
   display: flex;
   height: 100vh;
   overflow: hidden;
-  user-select: none;
 }
 
-/* ==========================================
-   1. PAINEL LATERAL ESQUERDO (CONFIGURAÇÕES)
-   ========================================== */
+/* Sidebar */
 .sidebar-painel {
-  width: 420px;
-  min-width: 280px;
-  max-width: 600px;
+  width: 380px;
+  min-width: 300px;
+  max-width: 500px;
   background-color: #ffffff;
+  border-right: 1px solid #ccc;
   padding: 15px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  user-select: text;
+  gap: 12px;
 }
 
-.sidebar-painel h2, .sidebar-painel h3 {
-  color: #0f172a;
+.sidebar-painel h2 {
   font-size: 1.1rem;
+  color: #1a365d;
 }
 
-.divisor-secao {
-  border: 0;
-  border-top: 1px solid #e2e8f0;
-  margin: 10px 0;
+.resizer {
+  width: 6px;
+  background: #cbd5e1;
+  cursor: col-resize;
+  transition: background 0.2s;
+}
+
+.resizer:hover {
+  background: #2563eb;
 }
 
 .grupo-campo {
@@ -54,18 +56,17 @@ body {
 }
 
 .grupo-campo label {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: bold;
-  color: #475569;
 }
 
 .grupo-campo input, 
 .grupo-campo select, 
 .grupo-campo textarea {
   padding: 6px 8px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .linha-dupla {
@@ -73,111 +74,79 @@ body {
   gap: 8px;
 }
 
-.linha-dupla > div, .linha-dupla > button {
+.linha-dupla .grupo-campo {
   flex: 1;
 }
 
-/* BOTÕES DA INTERFACE */
+/* Botões da Sidebar */
+.botoes-acoes-top {
+  display: flex;
+  gap: 5px;
+}
+
+.botoes-acoes-top button {
+  flex: 1;
+  font-size: 0.75rem;
+  padding: 6px 2px;
+}
+
 button {
   cursor: pointer;
   border: none;
   border-radius: 4px;
-  padding: 8px 12px;
   font-weight: bold;
-  font-size: 0.85rem;
   transition: opacity 0.2s;
 }
 
-button:hover { opacity: 0.9; }
+button:hover { opacity: 0.85; }
 
-.btn-primario { background-color: #2563eb; color: white; }
-.btn-secundario { background-color: #64748b; color: white; }
-.btn-sucesso { background-color: #10b981; color: white; }
-.btn-perigo { background-color: #ef4444; color: white; }
+.btn-primary { background-color: #2563eb; color: white; padding: 8px; }
+.btn-secondary { background-color: #64748b; color: white; }
+.btn-danger { background-color: #dc2626; color: white; }
+.btn-quebra { background-color: #059669; color: white; padding: 8px; margin-top: 5px; }
 
-.acoes-principais {
-  display: flex;
-  gap: 6px;
-  margin-top: 5px;
-}
-
-.acoes-principais button { flex: 1; font-size: 0.75rem; padding: 6px; }
-
-/* BANCO DE QUESTÕES LATERAL */
-.banco-container {
-  min-height: 80px;
-  max-height: 250px;
+/* Banco de Questões Lista */
+.lista-banco {
+  max-height: 200px;
   overflow-y: auto;
-  border: 1px solid #cbd5e1;
-  border-radius: 4px;
-  background-color: #f8fafc;
+  border: 1px solid #eee;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .item-banco {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 8px 10px;
-  border-bottom: 1px solid #e2e8f0;
-  background-color: #ffffff;
-}
-
-.item-banco-texto {
-  flex: 1;
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.85rem;
-  color: #334155;
+  align-items: center;
+  background-color: #f8fafc;
+  padding: 6px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 0.8rem;
 }
 
 .item-banco-acoes {
   display: flex;
-  align-items: center;
   gap: 4px;
-  flex-shrink: 0;
 }
 
-.btn-add-banco, .btn-ver-banco {
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.btn-add-banco { background-color: #10b981; color: white; }
-.btn-ver-banco { background-color: #0284c7; color: white; }
-
-/* ==========================================
-   2. DIVISÓRIA REDIMENSIONÁVEL (RESIZER)
-   ========================================== */
-.resizer {
-  width: 8px;
-  background-color: #cbd5e1;
-  cursor: col-resize;
-  transition: background-color 0.2s;
-  z-index: 10;
-}
-
-.resizer:hover, .resizer:active {
-  background-color: #3b82f6;
+.btn-icon {
+  padding: 4px 6px;
+  font-size: 0.75rem;
 }
 
 /* ==========================================
-   3. ÁREA DE PRÉ-VISUALIZAÇÃO / PROVA A4
+   2. ÁREA DE IMPRESSÃO / FOLHAS A4
    ========================================== */
 .area-impressao {
   flex: 1;
-  background-color: #cbd5e1;
   overflow-y: auto;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  user-select: text;
 }
 
 .barra-ferramentas-topo {
@@ -185,14 +154,20 @@ button:hover { opacity: 0.9; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
   background-color: #0f172a;
   color: white;
-  padding: 10px 15px;
-  border-radius: 6px;
+  padding: 8px 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
 }
 
-/* DIMENSÕES RÍGIDAS DA FOLHA A4 */
+.btn-print {
+  background-color: #10b981;
+  color: white;
+  padding: 6px 12px;
+}
+
+/* Folha A4 */
 .folha-a4 {
   width: 210mm;
   height: 297mm;
@@ -204,299 +179,258 @@ button:hover { opacity: 0.9; }
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
-  border: 2px solid transparent;
-}
-
-.folha-estourada {
-  border: 3px solid #ef4444 !important;
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4) !important;
-}
-
-.alerta-estouro-banner {
-  background-color: #ef4444;
-  color: white;
-  font-size: 0.85rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* CABEÇALHO OFICIAL IMPRESSO DA PROVA */
-.cabecalho-oficial {
-  display: flex;
-  border: 1.5px solid #000;
-  margin-bottom: 8px;
-}
-
-.logo-cell {
-  width: 110px;
-  border-right: 1.5px solid #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-}
-
-.logo-cell img {
-  max-width: 100%;
-  max-height: 70px;
-  object-fit: contain;
-}
-
-.info-cell {
-  flex: 1;
-  padding: 6px 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-.nome-escola {
-  font-weight: bold;
-  font-size: 0.95rem;
-  text-align: center;
+/* Cabeçalhos */
+.cabecalho-oficial {
+  border: 1px solid #000;
+  padding: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.logo-escola {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  border: 1px dashed #ccc;
+}
+
+.dados-escola {
+  flex: 1;
+  font-size: 0.75rem;
+}
+
+.dados-escola h3 {
+  font-size: 0.85rem;
   margin-bottom: 4px;
+  text-transform: uppercase;
 }
 
 .linha-aluno {
-  font-size: 0.85rem;
-  font-weight: bold;
-  display: flex;
-}
-
-.linha-aluno .underline {
-  flex: 1;
   border-bottom: 1px solid #000;
-  margin-left: 5px;
+  margin: 4px 0;
+  display: block;
 }
 
 .linha-detalhes {
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
-  margin-top: 4px;
 }
 
-.titulo-nota-container {
+.titulo-prova-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
 }
 
-.titulo-prova {
-  font-size: 1.1rem;
+.titulo-prova-texto {
+  font-size: 0.95rem;
   font-weight: bold;
-  text-transform: uppercase;
 }
 
-.caixa-nota-wrap {
+.caixa-nota {
+  border: 1px solid #000;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Cabeçalho Compacto (Pág 2+) */
+.cabecalho-compacto {
   display: flex;
-  align-items: center;
-  gap: 5px;
+  justify-content: space-between;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
   font-weight: bold;
-  font-size: 0.9rem;
 }
 
-.valor-nota {
-  width: 50px;
-  height: 35px;
-  border: 1.5px solid #000;
-}
-
-/* ==========================================
-   GRID DE 2 COLUNAS DA PROVA
-   ========================================== */
+/* Grid de Questões (Configuração Dinâmica de 1 e 2 Colunas) */
 .grid-questoes {
-  column-count: 2;
-  column-gap: 12mm;
-  column-rule: 1px solid #000;
   width: 100%;
-  height: auto;
+  flex: 1;
+}
+
+.grid-questoes.colunas-2 {
+  column-count: 2;
+  column-gap: 10mm;
+  column-rule: 1px solid #000;
   column-fill: auto;
 }
 
+.grid-questoes.colunas-1 {
+  column-count: 1;
+  column-gap: 0;
+  column-rule: none;
+}
+
+/* Card da Questão */
 .card-questao {
   break-inside: avoid;
   page-break-inside: avoid;
   margin-bottom: 12px;
+  font-size: 0.8rem;
   position: relative;
 }
 
 .cabecalho-questao-topo {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   font-weight: bold;
-  font-size: 0.85rem;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .tag-questao {
   border: 1px solid #000;
-  padding: 1px 6px;
+  padding: 1px 4px;
+  border-radius: 2px;
 }
 
 .tag-descritor {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .linha-divisoria-questao {
-  border-bottom: 1px dashed #000;
-  margin-bottom: 6px;
+  border-bottom: 1px dashed #ccc;
+  margin: 3px 0 6px 0;
 }
 
 .enunciado-texto {
-  font-size: 0.85rem;
-  line-height: 1.3;
   margin-bottom: 6px;
+  line-height: 1.25;
   text-align: justify;
 }
 
 .opcoes-multipla-list {
   list-style: none;
-  font-size: 0.85rem;
-}
-
-.opcoes-multipla-list li {
-  margin-bottom: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .linhas-respostas-aberta {
-  border-bottom: 1px solid #cbd5e1;
-  height: 22px;
+  border-bottom: 1px solid #bbb;
+  height: 20px;
+  margin-top: 5px;
 }
 
-/* CONTROLES FLUTUANTES DE EDIÇÃO */
+/* Controles de Edição no Card */
 .controles-questao {
-  display: flex;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: -20px;
+  background: #1e293b;
+  padding: 2px;
+  border-radius: 3px;
   gap: 2px;
-  opacity: 0;
-  transition: opacity 0.2s;
+  z-index: 10;
 }
 
 .card-questao:hover .controles-questao {
-  opacity: 1;
+  display: flex;
 }
 
 .controles-questao button {
-  font-size: 0.7rem;
+  background: #334155;
+  color: white;
   padding: 2px 5px;
-  border-radius: 2px;
+  font-size: 0.65rem;
 }
 
-.btn-espaco { background-color: #3b82f6; color: white; }
-.btn-mover { background-color: #64748b; color: white; }
-.btn-del { background-color: #ef4444; color: white; }
+.controles-questao button.btn-del {
+  background: #ef4444;
+}
 
-/* MARCADOR DE QUEBRA DE PÁGINA MANUAL */
+/* Divisor Visual de Quebra Manual */
 .divisor-quebra-pagina {
   width: 210mm;
-  text-align: center;
   background-color: #fef08a;
-  border: 1px dashed #ca8a04;
-  padding: 6px;
-  font-size: 0.8rem;
+  border: 2px dashed #eab308;
+  padding: 8px;
+  text-align: center;
   font-weight: bold;
+  font-size: 0.8rem;
   margin: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.oculto { display: none !important; }
-
-/* MODAL PREVIEW */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.modal-conteudo {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 500px;
-  max-width: 90%;
-}
-
 /* ==========================================
-   4. CONFIGURAÇÕES DE IMPRESSÃO / PDF
+   3. CONFIGURAÇÕES DE IMPRESSÃO / PDF
    ========================================== */
 @media print {
   @page {
     size: A4 portrait;
     margin: 0;
   }
-  
+
   html, body {
+    background: white !important;
     width: 210mm !important;
-    height: 100% !important;
-    background-color: white !important; 
-    color: black !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: visible !important;
   }
 
-  /* Esconde a interface de edição na impressão */
   .sidebar-painel, 
   .resizer,
   .barra-ferramentas-topo, 
   .controles-questao, 
   .divisor-quebra-pagina, 
-  .alerta-estouro-banner,
-  #containerAlertaExt,
-  .modal-overlay {
+  #containerAlertaExt {
     display: none !important;
   }
 
   .app-container {
     display: block !important;
     height: auto !important;
-    overflow: visible !important;
   }
 
-  .area-impressao { 
-    padding: 0 !important; 
-    background-color: white !important; 
-    overflow: visible !important;
+  .area-impressao {
+    padding: 0 !important;
+    background: white !important;
     display: block !important;
     width: 210mm !important;
   }
 
-  /* Cada folha A4 em página única */
   .folha-a4 {
     box-shadow: none !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
     padding: 12mm 15mm !important;
     page-break-after: always !important;
     break-after: page !important;
     page-break-inside: avoid !important;
-    border: none !important;
     width: 210mm !important;
     height: 297mm !important;
     max-height: 297mm !important;
-    box-sizing: border-box !important;
     overflow: hidden !important;
   }
 
-  /* Trava rígida de 2 colunas */
-  .grid-questoes {
+  .grid-questoes.colunas-2 {
     column-count: 2 !important;
-    column-gap: 12mm !important;
+    column-gap: 10mm !important;
     column-rule: 1px solid #000 !important;
     width: 100% !important;
-    height: auto !important;
+    flex: 1 !important;
     column-fill: auto !important;
-    overflow: hidden !important;
+  }
+
+  .grid-questoes.colunas-1 {
+    column-count: 1 !important;
+    column-gap: 0 !important;
+    column-rule: none !important;
+    width: 100% !important;
+    flex: 1 !important;
   }
 }
