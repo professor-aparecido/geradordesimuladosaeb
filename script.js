@@ -1,7 +1,7 @@
-// Banco global que receberá as questões via JSON
+// Banco global de questões
 let bancoQuestoes = [];
 
-// Lista de questões na prova (lado direito)
+// Lista de questões na prova
 let listaQuestoesProva = [
   {
     idUnico: 'p1',
@@ -25,7 +25,36 @@ let logoCarregadaUrl = 'imagens/logopilar.png';
 let historicoEstados = [];
 let indiceHistorico = -1;
 
-// Carrega os arquivos JSON dinamicamente
+// Configuração do Painel Redimensionável (Resizer)
+function inicializarResizer() {
+  const resizer = document.getElementById('resizer');
+  const sidebar = document.getElementById('sidebarPainel');
+  let isResizing = false;
+
+  if (!resizer || !sidebar) return;
+
+  resizer.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    document.body.style.cursor = 'col-resize';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+    let newWidth = e.clientX;
+    if (newWidth >= 280 && newWidth <= 600) {
+      sidebar.style.width = `${newWidth}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isResizing) {
+      isResizing = false;
+      document.body.style.cursor = 'default';
+    }
+  });
+}
+
+// Carrega os bancos JSON
 async function carregarBancosExternos() {
   bancoQuestoes = [];
   const arquivos = ['questoes/d1.json', 'questoes/d2.json', 'questoes/d36.json'];
@@ -78,6 +107,7 @@ function refazerAcao() {
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', async () => {
+  inicializarResizer();
   await carregarBancosExternos();
   salvarEstadoHistorico();
   renderizarProva();
@@ -97,8 +127,7 @@ function renderizarBanco() {
   if (filtradas.length === 0) {
     container.innerHTML = `
       <div style="font-size:0.8rem; color:#ef4444; padding:8px; text-align:center;">
-        Nenhuma questão encontrada.<br>
-        <small style="color:#64748b;">(Selecione 'Todos os Descritores' ou verifique a pasta 'questoes')</small>
+        Nenhuma questão encontrada.
       </div>`;
     return;
   }
@@ -106,7 +135,6 @@ function renderizarBanco() {
   filtradas.forEach(q => {
     const item = document.createElement('div');
     item.className = 'item-banco';
-    
     const qId = q.id || q.idUnico;
 
     item.innerHTML = `
@@ -386,20 +414,22 @@ function criarNovaFolha(numPagina) {
   return { folha, grid };
 }
 
-// Renderiza a prova na Folha A4 com cálculo dinâmico de altura
+// Renderiza a prova na Folha A4 com detecção de estouro e borda de atenção
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
+  const containerAlerta = document.getElementById('containerAlertaExt');
   if (!container) return;
   container.innerHTML = '';
+  if (containerAlerta) containerAlerta.innerHTML = '';
 
   let numeroQuestao = 1;
   let paginaAtualIndex = 1;
+  let houveEstouro = false;
 
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
 
   listaQuestoesProva.forEach((item, index) => {
-    // Tratamento de Quebra de Página Manual
     if (item.tipo === 'quebra_pagina') {
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
@@ -463,30 +493,31 @@ function renderizarProva() {
 
     gridAtual.appendChild(card);
 
-    // AUTO-PAGINAÇÃO: Só transfere para nova folha se houver questões e a altura ultrapassar o limite físico
-    if (gridAtual.children.length > 1 && gridAtual.scrollHeight > gridAtual.clientHeight + 10) {
-      gridAtual.removeChild(card);
-      
-      paginaAtualIndex++;
-      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
-      folhaAtual = novaFolhaObj.folha;
-      gridAtual = novaFolhaObj.grid;
-      container.appendChild(folhaAtual);
-
-      gridAtual.appendChild(card);
+    // VERIFICA SE ESTOUROU O ESPAÇO DA PÁGINA
+    if (gridAtual.scrollHeight > gridAtual.clientHeight + 5) {
+      houveEstouro = true;
+      folhaAtual.classList.add('folha-estourada');
     }
   });
+
+  // SE HOUVER ESTOURO, MOSTRA O AVISO VERMELHO FORA DA FOLHA
+  if (houveEstouro && containerAlerta) {
+    containerAlerta.innerHTML = `
+      <div class="alerta-estouro-banner">
+        ⚠️ Atenção: O conteúdo atingiu o limite da folha! Insira uma quebra de página ou reduza o espaço entre as questões.
+      </div>
+    `;
+  }
 
   if (window.MathJax && window.MathJax.typesetPromise) {
     MathJax.typesetPromise([container]);
   }
 
-  // Atualiza a contagem de páginas no topo
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
-// Dispara a impressão / salvar como PDF
+// Imprimir
 function imprimirProva() { 
   window.print(); 
 }
