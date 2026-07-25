@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerador de Simulados SAEB</title>
   <link rel="stylesheet" href="style.css">
-  <!-- MathJax para fórmulas matemáticas -->
+  <!-- MathJax para suporte a LaTeX / fórmulas matemáticas -->
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 </head>
 <body>
@@ -75,9 +75,8 @@
         </select>
       </div>
 
-      <!-- Container do banco (CSS + JS integrados) -->
       <div class="banco-container" id="bancoQuestoesContainer">
-        <!-- Questões injetadas via JavaScript -->
+        <!-- Renderizado dinamicamente via script.js -->
       </div>
 
       <hr class="divisor-secao">
@@ -127,7 +126,7 @@
       </div>
     </aside>
 
-    <!-- ÁREA DE IMPRESSÃO / FOLHA A4 (DIREITA) -->
+    <!-- ÁREA DE IMPRESSÃO / FOLHA A4 (LADO DIREITO) -->
     <main class="area-impressao">
       <div class="barra-ferramentas-topo">
         <span id="infoPaginas">Total de Páginas: 1</span>
@@ -135,13 +134,13 @@
       </div>
 
       <div id="conteudoProvasContainer">
-        <!-- Folhas A4 renderizadas via JavaScript -->
+        <!-- Páginas A4 da Prova -->
       </div>
     </main>
 
   </div>
 
-  <!-- MODAL DE PRÉVIA -->
+  <!-- MODAL DE PRÉVIA DA QUESTÃO -->
   <div id="modalPreview" class="modal-overlay oculto">
     <div class="modal-conteudo">
       <h3>Prévia da Questão</h3>
