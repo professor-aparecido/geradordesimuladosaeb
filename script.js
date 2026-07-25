@@ -37,7 +37,14 @@ async function carregarBancosExternos() {
       const resposta = await fetch(arquivo);
       if (resposta.ok) {
         const dados = await resposta.json();
-        bancoQuestoes.push(...dados);
+        if (Array.isArray(dados)) {
+          // Garante que cada questão tenha um ID único interno se não tiver
+          dados.forEach((q, idx) => {
+            if (!q.id && !q.idUnico) q.id = 'bq_' + Math.random().toString(36).substr(2, 9);
+            else if (!q.id) q.id = q.idUnico;
+          });
+          bancoQuestoes.push(...dados);
+        }
       }
     } catch (erro) {
       console.warn(`Não foi possível carregar o arquivo ${arquivo}:`, erro);
@@ -79,12 +86,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderizarProva();
 });
 
-// Renderiza o Banco de Questões (Lado Esquerdo - Resumido em 1 Linha)
+// Renderiza o Banco de Questões (Lado Esquerdo)
 function renderizarBanco() {
   const container = document.getElementById('bancoQuestoesContainer');
-  if (!container) return;
+  if (!container) return;  
   
-  const filtro = document.getElementById('filtroDescritor').value;
+  const filtroSelect = document.getElementById('filtroDescritor');
+  const filtro = filtroSelect ? filtroSelect.value : 'todos';
   container.innerHTML = '';
 
   const filtradas = bancoQuestoes.filter(q => filtro === 'todos' || q.descritor === filtro);
@@ -93,7 +101,7 @@ function renderizarBanco() {
     container.innerHTML = `
       <div style="font-size:0.8rem; color:#ef4444; padding:8px; text-align:center;">
         Nenhuma questão encontrada.<br>
-        <small style="color:#64748b;">(Verifique se os arquivos JSON estão na pasta 'questoes')</small>
+        <small style="color:#64748b;">(Selecione 'Todos os Descritores' ou verifique a pasta 'questoes')</small>
       </div>`;
     return;
   }
@@ -101,13 +109,17 @@ function renderizarBanco() {
   filtradas.forEach(q => {
     const item = document.createElement('div');
     item.className = 'item-banco';
+    
+    // Identificador seguro para busca
+    const qId = q.id || q.idUnico;
+
     item.innerHTML = `
-      <div class="item-banco-texto" title="${q.enunciado}">
+      <div class="item-banco-texto" title="${q.enunciado.replace(/"/g, '&quot;')}">
         <b>[${q.descritor}]</b> ${q.enunciado}
       </div>
       <div class="item-banco-acoes">
-        <button type="button" class="btn-add-banco" title="Adicionar à prova" onclick="adicionarDaQuestaoDoBanco('${q.id}')">➕</button>
-        <button type="button" class="btn-ver-banco" title="Visualizar questão" onclick="abrirPreviaQuestaoBanco('${q.id}')">👁️</button>
+        <button type="button" class="btn-add-banco" title="Adicionar à prova" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
+        <button type="button" class="btn-ver-banco" title="Visualizar questão" onclick="abrirPreviaQuestaoBanco('${qId}')">👁️</button>
       </div>
     `;
     container.appendChild(item);
@@ -118,10 +130,10 @@ function atualizarFiltroDescritores() {
   const select = document.getElementById('filtroDescritor');
   if (!select) return;
 
-  const descritoresUnicos = [...new Set(bancoQuestoes.map(q => q.descritor))];
+  const descritoresUnicos = [...new Set(bancoQuestoes.map(q => q.descritor).filter(Boolean))];
   
   select.innerHTML = '<option value="todos">Todos os Descritores</option>';
-  descritoresUnicos.forEach(d => {
+  descritoresUnicos.sort().forEach(d => {
     select.innerHTML += `<option value="${d}">${d}</option>`;
   });
 }
@@ -129,12 +141,12 @@ function atualizarFiltroDescritores() {
 function filtrarBanco() { renderizarBanco(); }
 
 function adicionarDaQuestaoDoBanco(id) {
-  const questao = bancoQuestoes.find(q => q.id === id);
+  const questao = bancoQuestoes.find(q => (q.id === id || q.idUnico === id));
   if (questao) {
     listaQuestoesProva.push({
       ...questao,
       idUnico: 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
-      espacoExtra: 0
+      espacoExtra: questao.espacoExtra || 0
     });
     salvarEstadoHistorico();
     renderizarProva();
@@ -142,7 +154,7 @@ function adicionarDaQuestaoDoBanco(id) {
 }
 
 function abrirPreviaQuestaoBanco(id) {
-  const q = bancoQuestoes.find(item => item.id === id);
+  const q = bancoQuestoes.find(item => (item.id === id || item.idUnico === id));
   if (q) exibirModalComQuestao(q.descritor, q.enunciado, q.tipo, q.opcoes);
 }
 
@@ -243,8 +255,10 @@ function salvarNovaQuestao() {
     if (opD) opcoes.push(opD);
   }
 
+  const idGerado = 'custom_' + Date.now();
   const novaQ = {
-    id: 'custom_' + Date.now(),
+    id: idGerado,
+    idUnico: idGerado,
     descritor: descritor,
     tipo: tipo,
     enunciado: enunciado,
@@ -334,12 +348,12 @@ function renderizarProva() {
   if (!container) return;
   container.innerHTML = '';
 
-  const nomeEscola = document.getElementById('inputNomeEscola').value;
-  const serie = document.getElementById('inputSerie').value;
-  const turma = document.getElementById('inputTurma').value;
-  const professor = document.getElementById('inputNomeProfessor').value;
-  const bimestre = document.getElementById('inputBimestre').value;
-  const disciplina = document.getElementById('inputDisciplina').value;
+  const nomeEscola = document.getElementById('inputNomeEscola') ? document.getElementById('inputNomeEscola').value : '';
+  const serie = document.getElementById('inputSerie') ? document.getElementById('inputSerie').value : '';
+  const turma = document.getElementById('inputTurma') ? document.getElementById('inputTurma').value : '';
+  const professor = document.getElementById('inputNomeProfessor') ? document.getElementById('inputNomeProfessor').value : '';
+  const bimestre = document.getElementById('inputBimestre') ? document.getElementById('inputBimestre').value : '';
+  const disciplina = document.getElementById('inputDisciplina') ? document.getElementById('inputDisciplina').value : '';
 
   let numeroQuestao = 1;
   let paginaAtualIndex = 1;
@@ -359,7 +373,7 @@ function renderizarProva() {
           <div class="linha-aluno">ALUNO(A): <span class="underline"></span></div>
           <div class="linha-detalhes">
             <span>Série: <b>${serie}</b></span>
-            <span>Turma: _________</span>
+            <span>Turma: ${turma || '_________'}</span>
             <span>Data: ____/____/________</span>
             <span class="prof-italico">Professor: ${professor}</span>
           </div>
@@ -417,13 +431,13 @@ function renderizarProva() {
     let letras = ['A', 'B', 'C', 'D', 'E'];
     let htmlOpcoes = '';
 
-    if (item.tipo === 'objetiva' && item.opcoes) {
+    if (item.tipo === 'objetiva' && item.opcoes && item.opcoes.length > 0) {
       htmlOpcoes = '<ul class="opcoes-multipla-list">';
       item.opcoes.forEach((op, idx) => {
         htmlOpcoes += `<li><b>${letras[idx] || '•'})</b> ${op}</li>`;
       });
       htmlOpcoes += '</ul>';
-    } else {
+    } else if (item.tipo === 'subjetiva' || !item.opcoes || item.opcoes.length === 0) {
       htmlOpcoes = `
         <div class="linhas-respostas-aberta"></div>
         <div class="linhas-respostas-aberta"></div>
@@ -442,7 +456,7 @@ function renderizarProva() {
           <button type="button" class="btn-del" title="Excluir Questão" onclick="removerItemProva('${item.idUnico}')">✖</button>
         </div>
 
-        <span class="tag-descritor">${item.descritor}</span>
+        <span class="tag-descritor">${item.descritor || ''}</span>
       </div>
       <div class="linha-divisoria-questao"></div>
       <p class="enunciado-texto">${item.enunciado}</p>
