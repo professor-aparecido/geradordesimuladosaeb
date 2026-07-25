@@ -1,7 +1,11 @@
-// Banco global de questões
+// ==========================================
+// VARIÁVEIS DE ESTADO E BANCO DE DADOS
+// ==========================================
+
+// Banco global de questões carregado dos JSONs externos
 let bancoQuestoes = [];
 
-// Lista de questões na prova
+// Questões atualmente inseridas na prova
 let listaQuestoesProva = [
   {
     idUnico: 'p1',
@@ -25,7 +29,9 @@ let logoCarregadaUrl = 'imagens/logopilar.png';
 let historicoEstados = [];
 let indiceHistorico = -1;
 
-// Configuração do Painel Redimensionável (Resizer)
+// ==========================================
+// 1. CONTROLADOR DA BARRA LATERAL MÓVEL (RESIZER)
+// ==========================================
 function inicializarResizer() {
   const resizer = document.getElementById('resizer');
   const sidebar = document.getElementById('sidebarPainel');
@@ -33,7 +39,7 @@ function inicializarResizer() {
 
   if (!resizer || !sidebar) return;
 
-  resizer.addEventListener('mousedown', (e) => {
+  resizer.addEventListener('mousedown', () => {
     isResizing = true;
     document.body.style.cursor = 'col-resize';
   });
@@ -41,6 +47,7 @@ function inicializarResizer() {
   document.addEventListener('mousemove', (e) => {
     if (!isResizing) return;
     let newWidth = e.clientX;
+    // Define limites mínimo (280px) e máximo (600px) para a barra lateral
     if (newWidth >= 280 && newWidth <= 600) {
       sidebar.style.width = `${newWidth}px`;
     }
@@ -54,7 +61,9 @@ function inicializarResizer() {
   });
 }
 
-// Carrega os bancos JSON
+// ==========================================
+// 2. CARREGAMENTO DOS JSONs EXTERNOS
+// ==========================================
 async function carregarBancosExternos() {
   bancoQuestoes = [];
   const arquivos = ['questoes/d1.json', 'questoes/d2.json', 'questoes/d36.json'];
@@ -81,7 +90,9 @@ async function carregarBancosExternos() {
   renderizarBanco();
 }
 
-// Histórico (Desfazer / Refazer)
+// ==========================================
+// 3. HISTÓRICO (DESFAZER E REFAZER)
+// ==========================================
 function salvarEstadoHistorico() {
   const copia = JSON.parse(JSON.stringify(listaQuestoesProva));
   historicoEstados = historicoEstados.slice(0, indiceHistorico + 1);
@@ -105,7 +116,7 @@ function refazerAcao() {
   }
 }
 
-// Inicialização
+// Inicialização do aplicativo ao carregar o DOM
 document.addEventListener('DOMContentLoaded', async () => {
   inicializarResizer();
   await carregarBancosExternos();
@@ -113,7 +124,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderizarProva();
 });
 
-// Renderiza o Banco de Questões (Painel Esquerdo)
+// ==========================================
+// 4. BANCO DE QUESTÕES (RENDERIZAÇÃO E FILTRO)
+// ==========================================
 function renderizarBanco() {
   const container = document.getElementById('bancoQuestoesContainer');
   if (!container) return;  
@@ -125,10 +138,7 @@ function renderizarBanco() {
   const filtradas = bancoQuestoes.filter(q => filtro === 'todos' || q.descritor === filtro);
 
   if (filtradas.length === 0) {
-    container.innerHTML = `
-      <div style="font-size:0.8rem; color:#ef4444; padding:8px; text-align:center;">
-        Nenhuma questão encontrada.
-      </div>`;
+    container.innerHTML = `<div style="font-size:0.8rem; color:#ef4444; padding:8px; text-align:center;">Nenhuma questão encontrada.</div>`;
     return;
   }
 
@@ -142,8 +152,8 @@ function renderizarBanco() {
         <b>[${q.descritor}]</b> ${q.enunciado}
       </div>
       <div class="item-banco-acoes">
-        <button type="button" class="btn-add-banco" title="Adicionar à prova" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
-        <button type="button" class="btn-ver-banco" title="Visualizar questão" onclick="abrirPreviaQuestaoBanco('${qId}')">👁️</button>
+        <button type="button" class="btn-add-banco" title="Adicionar" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
+        <button type="button" class="btn-ver-banco" title="Ver" onclick="abrirPreviaQuestaoBanco('${qId}')">👁️</button>
       </div>
     `;
     container.appendChild(item);
@@ -155,7 +165,6 @@ function atualizarFiltroDescritores() {
   if (!select) return;
 
   const descritoresUnicos = [...new Set(bancoQuestoes.map(q => q.descritor).filter(Boolean))];
-  
   select.innerHTML = '<option value="todos">Todos os Descritores</option>';
   descritoresUnicos.sort().forEach(d => {
     select.innerHTML += `<option value="${d}">${d}</option>`;
@@ -182,6 +191,9 @@ function abrirPreviaQuestaoBanco(id) {
   if (q) exibirModalComQuestao(q.descritor, q.enunciado, q.tipo, q.opcoes);
 }
 
+// ==========================================
+// 5. CRIAR NOVA QUESTÃO
+// ==========================================
 function alternarCamposOpcoes() {
   const tipo = document.getElementById('novoTipoQuestao').value;
   const container = document.getElementById('containerOpcoesCriacao');
@@ -195,20 +207,16 @@ function abrirPreviaNovaQuestao() {
   const tipo = document.getElementById('novoTipoQuestao').value;
 
   if (!enunciado) {
-    alert('Por favor, digite o enunciado da questão para visualizar a prévia.');
+    alert('Por favor, digite o enunciado da questão.');
     return;
   }
 
   let opcoes = [];
   if (tipo === 'objetiva') {
-    const opA = document.getElementById('novaOpcaoA').value.trim();
-    const opB = document.getElementById('novaOpcaoB').value.trim();
-    const opC = document.getElementById('novaOpcaoC').value.trim();
-    const opD = document.getElementById('novaOpcaoD').value.trim();
-    if (opA) opcoes.push(opA);
-    if (opB) opcoes.push(opB);
-    if (opC) opcoes.push(opC);
-    if (opD) opcoes.push(opD);
+    ['A', 'B', 'C', 'D'].forEach(letra => {
+      const val = document.getElementById(`novaOpcao${letra}`).value.trim();
+      if (val) opcoes.push(val);
+    });
   }
 
   exibirModalComQuestao(descritor, enunciado, tipo, opcoes);
@@ -233,20 +241,14 @@ function exibirModalComQuestao(descritor, enunciado, tipo, opcoes) {
     });
     htmlPrevia += `</ul>`;
   } else if (tipo === 'subjetiva') {
-    htmlPrevia += `
-      <div class="linhas-respostas-aberta"></div>
-      <div class="linhas-respostas-aberta"></div>
-      <div class="linhas-respostas-aberta"></div>
-    `;
+    htmlPrevia += `<div class="linhas-respostas-aberta"></div><div class="linhas-respostas-aberta"></div>`;
   }
 
   htmlPrevia += `</div>`;
 
   const containerModal = document.getElementById('conteudoModalPreview');
   containerModal.innerHTML = htmlPrevia;
-
-  const modal = document.getElementById('modalPreview');
-  modal.classList.remove('oculto');
+  document.getElementById('modalPreview').classList.remove('oculto');
 
   if (window.MathJax && window.MathJax.typesetPromise) {
     MathJax.typesetPromise([containerModal]);
@@ -269,46 +271,31 @@ function salvarNovaQuestao() {
 
   let opcoes = [];
   if (tipo === 'objetiva') {
-    const opA = document.getElementById('novaOpcaoA').value.trim();
-    const opB = document.getElementById('novaOpcaoB').value.trim();
-    const opC = document.getElementById('novaOpcaoC').value.trim();
-    const opD = document.getElementById('novaOpcaoD').value.trim();
-    if (opA) opcoes.push(opA);
-    if (opB) opcoes.push(opB);
-    if (opC) opcoes.push(opC);
-    if (opD) opcoes.push(opD);
+    ['A', 'B', 'C', 'D'].forEach(letra => {
+      const val = document.getElementById(`novaOpcao${letra}`).value.trim();
+      if (val) opcoes.push(val);
+    });
   }
 
   const idGerado = 'custom_' + Date.now();
-  const novaQ = {
-    id: idGerado,
-    idUnico: idGerado,
-    descritor: descritor,
-    tipo: tipo,
-    enunciado: enunciado,
-    opcoes: opcoes
-  };
+  const novaQ = { id: idGerado, idUnico: idGerado, descritor, tipo, enunciado, opcoes };
 
   bancoQuestoes.push(novaQ);
   atualizarFiltroDescritores();
   renderizarBanco();
 
-  listaQuestoesProva.push({
-    ...novaQ,
-    idUnico: 'p_' + Date.now(),
-    espacoExtra: 0
-  });
+  listaQuestoesProva.push({ ...novaQ, idUnico: 'p_' + Date.now(), espacoExtra: 0 });
 
   document.getElementById('novoEnunciado').value = '';
-  document.getElementById('novaOpcaoA').value = '';
-  document.getElementById('novaOpcaoB').value = '';
-  document.getElementById('novaOpcaoC').value = '';
-  document.getElementById('novaOpcaoD').value = '';
+  ['A', 'B', 'C', 'D'].forEach(l => document.getElementById(`novaOpcao${l}`).value = '');
 
   salvarEstadoHistorico();
   renderizarProva();
 }
 
+// ==========================================
+// 6. MANIPULAÇÃO DE QUESTÕES NA PROVA
+// ==========================================
 function moverQuestao(index, direcao) {
   const novoIndex = index + direcao;
   if (novoIndex >= 0 && novoIndex < listaQuestoesProva.length) {
@@ -321,9 +308,7 @@ function moverQuestao(index, direcao) {
 }
 
 function alterarEspacoExtra(index, valor) {
-  if (!listaQuestoesProva[index].espacoExtra) {
-    listaQuestoesProva[index].espacoExtra = 0;
-  }
+  if (!listaQuestoesProva[index].espacoExtra) listaQuestoesProva[index].espacoExtra = 0;
   listaQuestoesProva[index].espacoExtra = Math.max(0, listaQuestoesProva[index].espacoExtra + valor);
   salvarEstadoHistorico();
   renderizarProva();
@@ -344,10 +329,7 @@ function carregarLogo(event) {
 function atualizarCabecalho() { renderizarProva(); }
 
 function inserirQuebraPagina() {
-  listaQuestoesProva.push({
-    tipo: 'quebra_pagina',
-    idUnico: 'qkp_' + Date.now()
-  });
+  listaQuestoesProva.push({ tipo: 'quebra_pagina', idUnico: 'qkp_' + Date.now() });
   salvarEstadoHistorico();
   renderizarProva();
 }
@@ -366,20 +348,22 @@ function reiniciarTudo() {
   }
 }
 
-// Criar Elemento de Folha A4
+// ==========================================
+// 7. CRIAÇÃO DE ESTRUTURA DA FOLHA A4
+// ==========================================
 function criarNovaFolha(numPagina) {
-  const nomeEscola = document.getElementById('inputNomeEscola') ? document.getElementById('inputNomeEscola').value : '';
-  const serie = document.getElementById('inputSerie') ? document.getElementById('inputSerie').value : '';
-  const turma = document.getElementById('inputTurma') ? document.getElementById('inputTurma').value : '';
-  const professor = document.getElementById('inputNomeProfessor') ? document.getElementById('inputNomeProfessor').value : '';
-  const bimestre = document.getElementById('inputBimestre') ? document.getElementById('inputBimestre').value : '';
-  const disciplina = document.getElementById('inputDisciplina') ? document.getElementById('inputDisciplina').value : '';
+  const nomeEscola = document.getElementById('inputNomeEscola')?.value || '';
+  const serie = document.getElementById('inputSerie')?.value || '';
+  const turma = document.getElementById('inputTurma')?.value || '';
+  const professor = document.getElementById('inputNomeProfessor')?.value || '';
+  const bimestre = document.getElementById('inputBimestre')?.value || '';
+  const disciplina = document.getElementById('inputDisciplina')?.value || '';
 
   const folha = document.createElement('div');
   folha.className = 'folha-a4';
   folha.id = `folha-${numPagina}`;
 
-  let htmlCabecalho = `
+  folha.innerHTML = `
     <div class="cabecalho-oficial">
       <div class="logo-cell">
         ${logoCarregadaUrl ? `<img src="${logoCarregadaUrl}" alt="Logo">` : '<b>LOGO</b>'}
@@ -405,8 +389,6 @@ function criarNovaFolha(numPagina) {
     </div>
   `;
 
-  folha.innerHTML = htmlCabecalho;
-
   const grid = document.createElement('div');
   grid.className = 'grid-questoes';
   folha.appendChild(grid);
@@ -414,29 +396,30 @@ function criarNovaFolha(numPagina) {
   return { folha, grid };
 }
 
-// Renderiza a prova na Folha A4 com detecção de estouro e borda de atenção
-function renderizarProva() {
+// ==========================================
+// 8. ALGORITMO DE PAGINAÇÃO AUTOMÁTICA REAL
+// ==========================================
+async function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
   const containerAlerta = document.getElementById('containerAlertaExt');
   if (!container) return;
+  
   container.innerHTML = '';
   if (containerAlerta) containerAlerta.innerHTML = '';
 
   let numeroQuestao = 1;
   let paginaAtualIndex = 1;
-  let houveEstouro = false;
 
+  // Cria a primeira folha A4
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
 
-  listaQuestoesProva.forEach((item, index) => {
-    if (item.tipo === 'quebra_pagina') {
-      paginaAtualIndex++;
-      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
-      folhaAtual = novaFolhaObj.folha;
-      gridAtual = novaFolhaObj.grid;
-      container.appendChild(folhaAtual);
+  // Loop assíncrono para incluir questão por questão e calcular altura limite
+  for (let index = 0; index < listaQuestoesProva.length; index++) {
+    const item = listaQuestoesProva[index];
 
+    // Trata Quebra Manual de Página solicitada pelo usuário
+    if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
       divisor.innerHTML = `
@@ -445,16 +428,20 @@ function renderizarProva() {
           <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖ Remover Quebra</button>
         </div>
       `;
-      container.insertBefore(divisor, folhaAtual);
-      return;
+      container.appendChild(divisor);
+
+      paginaAtualIndex++;
+      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
+      folhaAtual = novaFolhaObj.folha;
+      gridAtual = novaFolhaObj.grid;
+      container.appendChild(folhaAtual);
+      continue;
     }
 
+    // Cria o card DOM da questão
     const card = document.createElement('div');
     card.className = 'card-questao';
-
-    if (item.espacoExtra) {
-      card.style.marginBottom = `${item.espacoExtra}px`;
-    }
+    if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
 
     let letras = ['A', 'B', 'C', 'D', 'E'];
     let htmlOpcoes = '';
@@ -465,11 +452,8 @@ function renderizarProva() {
         htmlOpcoes += `<li><b>${letras[idx] || '•'})</b> ${op}</li>`;
       });
       htmlOpcoes += '</ul>';
-    } else if (item.tipo === 'subjetiva' || !item.opcoes || item.opcoes.length === 0) {
-      htmlOpcoes = `
-        <div class="linhas-respostas-aberta"></div>
-        <div class="linhas-respostas-aberta"></div>
-      `;
+    } else {
+      htmlOpcoes = `<div class="linhas-respostas-aberta"></div><div class="linhas-respostas-aberta"></div>`;
     }
 
     card.innerHTML = `
@@ -479,9 +463,9 @@ function renderizarProva() {
         <div class="controles-questao">
           <button type="button" class="btn-espaco" title="Aumentar espaço" onclick="alterarEspacoExtra(${index}, 15)">↕ +</button>
           <button type="button" class="btn-espaco" title="Reduzir espaço" onclick="alterarEspacoExtra(${index}, -15)">↕ -</button>
-          <button type="button" class="btn-mover" title="Mover para cima" onclick="moverQuestao(${index}, -1)">▲</button>
-          <button type="button" class="btn-mover" title="Mover para baixo" onclick="moverQuestao(${index}, 1)">▼</button>
-          <button type="button" class="btn-del" title="Excluir Questão" onclick="removerItemProva('${item.idUnico}')">✖</button>
+          <button type="button" class="btn-mover" title="Subir" onclick="moverQuestao(${index}, -1)">▲</button>
+          <button type="button" class="btn-mover" title="Descer" onclick="moverQuestao(${index}, 1)">▼</button>
+          <button type="button" class="btn-del" title="Excluir" onclick="removerItemProva('${item.idUnico}')">✖</button>
         </div>
 
         <span class="tag-descritor">${item.descritor || ''}</span>
@@ -493,31 +477,44 @@ function renderizarProva() {
 
     gridAtual.appendChild(card);
 
-    // VERIFICA SE ESTOUROU O ESPAÇO DA PÁGINA
-    if (gridAtual.scrollHeight > gridAtual.clientHeight + 5) {
-      houveEstouro = true;
-      folhaAtual.classList.add('folha-estourada');
+    // Se houver fórmulas em MathJax, aguarda a renderização antes do cálculo
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      await MathJax.typesetPromise([card]);
     }
-  });
 
-  // SE HOUVER ESTOURO, MOSTRA O AVISO VERMELHO FORA DA FOLHA
-  if (houveEstouro && containerAlerta) {
-    containerAlerta.innerHTML = `
-      <div class="alerta-estouro-banner">
-        ⚠️ Atenção: O conteúdo atingiu o limite da folha! Insira uma quebra de página ou reduza o espaço entre as questões.
-      </div>
-    `;
+    // VERIFICAÇÃO RIGOROSA DE ESTOURO DA ALTURA
+    // scrollHeight > clientHeight sinaliza que o conteúdo estourou a margem da folha A4
+    if (gridAtual.scrollHeight > gridAtual.clientHeight + 2) {
+      gridAtual.removeChild(card); // Remove a questão excedente da folha atual
+
+      // Se a folha já estava vazia e estourou, é porque a própria questão é gigantesca
+      if (gridAtual.children.length === 0) {
+        gridAtual.appendChild(card);
+        folhaAtual.classList.add('folha-estourada');
+        if (containerAlerta) {
+          containerAlerta.innerHTML = `
+            <div class="alerta-estouro-banner">
+              ⚠️ Esta questão é grande demais para caber em uma única página A4!
+            </div>`;
+        }
+      } else {
+        // Cria automaticamente uma NOVA PÁGINA A4 e insere a questão nela
+        paginaAtualIndex++;
+        const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
+        folhaAtual = novaFolhaObj.folha;
+        gridAtual = novaFolhaObj.grid;
+        container.appendChild(folhaAtual);
+
+        // Adiciona a questão cortada no topo da nova folha
+        gridAtual.appendChild(card);
+      }
+    }
   }
 
-  if (window.MathJax && window.MathJax.typesetPromise) {
-    MathJax.typesetPromise([container]);
-  }
-
+  // Atualiza o contador do topo
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
-// Imprimir
-function imprimirProva() { 
-  window.print(); 
-}
+// Aciona a impressão do navegador (Ctrl + P)
+function imprimirProva() { window.print(); }
