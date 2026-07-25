@@ -2,10 +2,10 @@
 // VARIÁVEIS DE ESTADO E BANCO DE DADOS
 // ==========================================
 
-// Banco global de questões carregado dos JSONs externos
+// Banco global de questões carregadas
 let bancoQuestoes = [];
 
-// Questões atualmente inseridas na prova
+// Lista de questões inseridas na prova atual
 let listaQuestoesProva = [
   {
     idUnico: 'p1',
@@ -30,7 +30,7 @@ let historicoEstados = [];
 let indiceHistorico = -1;
 
 // ==========================================
-// 1. CONTROLADOR DA BARRA LATERAL MÓVEL (RESIZER)
+// 1. BARRA LATERAL REDIMENSIONÁVEL (RESIZER)
 // ==========================================
 function inicializarResizer() {
   const resizer = document.getElementById('resizer');
@@ -47,7 +47,7 @@ function inicializarResizer() {
   document.addEventListener('mousemove', (e) => {
     if (!isResizing) return;
     let newWidth = e.clientX;
-    // Define limites mínimo (280px) e máximo (600px) para a barra lateral
+    // Garante que a barra fique entre 280px e 600px
     if (newWidth >= 280 && newWidth <= 600) {
       sidebar.style.width = `${newWidth}px`;
     }
@@ -91,7 +91,7 @@ async function carregarBancosExternos() {
 }
 
 // ==========================================
-// 3. HISTÓRICO (DESFAZER E REFAZER)
+// 3. GERENCIADOR DE HISTÓRICO (DESFAZER / REFAZER)
 // ==========================================
 function salvarEstadoHistorico() {
   const copia = JSON.parse(JSON.stringify(listaQuestoesProva));
@@ -116,7 +116,7 @@ function refazerAcao() {
   }
 }
 
-// Inicialização do aplicativo ao carregar o DOM
+// Evento disparado quando a página termina de carregar
 document.addEventListener('DOMContentLoaded', async () => {
   inicializarResizer();
   await carregarBancosExternos();
@@ -125,129 +125,39 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // ==========================================
-// 4. BANCO DE QUESTÕES (RENDERIZAÇÃO E FILTRO)
+// 4. BANCO DE QUESTÕES (PAINEL LATERAL)
 // ==========================================
-// ==========================================
-// 8. ALGORITMO DE PAGINAÇÃO AUTOMÁTICA (CORRIGIDO)
-// ==========================================
-async function renderizarProva() {
-  const container = document.getElementById('conteudoProvasContainer');
-  const containerAlerta = document.getElementById('containerAlertaExt');
-  if (!container) return;
+function renderizarBanco() {
+  const container = document.getElementById('bancoQuestoesContainer');
+  if (!container) return;  
   
+  const filtroSelect = document.getElementById('filtroDescritor');
+  const filtro = filtroSelect ? filtroSelect.value : 'todos';
   container.innerHTML = '';
-  if (containerAlerta) containerAlerta.innerHTML = '';
 
-  let numeroQuestao = 1;
-  let paginaAtualIndex = 1;
+  const filtradas = bancoQuestoes.filter(q => filtro === 'todos' || q.descritor === filtro);
 
-  // Cria a primeira folha A4
-  let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
-  container.appendChild(folhaAtual);
-
-  for (let index = 0; index < listaQuestoesProva.length; index++) {
-    const item = listaQuestoesProva[index];
-
-    // TRATAMENTO DA QUEBRA MANUALLY SOLICITADA
-    if (item.tipo === 'quebra_pagina') {
-      const divisor = document.createElement('div');
-      divisor.className = 'divisor-quebra-pagina';
-      divisor.innerHTML = `
-        <span>--- QUEBRA DE PÁGINA MANUAL ---</span>
-        <div class="controles-questao" style="opacity:1; visibility:visible;">
-          <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖ Remover Quebra</button>
-        </div>
-      `;
-      container.appendChild(divisor);
-
-      // Avança para uma nova folha
-      paginaAtualIndex++;
-      const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
-      folhaAtual = novaFolhaObj.folha;
-      gridAtual = novaFolhaObj.grid;
-      container.appendChild(folhaAtual);
-      continue;
-    }
-
-    // Cria o Card da Questão
-    const card = document.createElement('div');
-    card.className = 'card-questao';
-    if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
-
-    let letras = ['A', 'B', 'C', 'D', 'E'];
-    let htmlOpcoes = '';
-
-    if (item.tipo === 'objetiva' && item.opcoes && item.opcoes.length > 0) {
-      htmlOpcoes = '<ul class="opcoes-multipla-list">';
-      item.opcoes.forEach((op, idx) => {
-        htmlOpcoes += `<li><b>${letras[idx] || '•'})</b> ${op}</li>`;
-      });
-      htmlOpcoes += '</ul>';
-    } else {
-      htmlOpcoes = `<div class="linhas-respostas-aberta"></div><div class="linhas-respostas-aberta"></div>`;
-    }
-
-    card.innerHTML = `
-      <div class="cabecalho-questao-topo">
-        <span class="tag-questao">QUESTÃO ${numeroQuestao++}</span>
-        
-        <div class="controles-questao">
-          <button type="button" class="btn-espaco" title="Aumentar espaço" onclick="alterarEspacoExtra(${index}, 15)">↕ +</button>
-          <button type="button" class="btn-espaco" title="Reduzir espaço" onclick="alterarEspacoExtra(${index}, -15)">↕ -</button>
-          <button type="button" class="btn-mover" title="Subir" onclick="moverQuestao(${index}, -1)">▲</button>
-          <button type="button" class="btn-mover" title="Descer" onclick="moverQuestao(${index}, 1)">▼</button>
-          <button type="button" class="btn-del" title="Excluir" onclick="removerItemProva('${item.idUnico}')">✖</button>
-        </div>
-
-        <span class="tag-descritor">${item.descritor || ''}</span>
-      </div>
-      <div class="linha-divisoria-questao"></div>
-      <p class="enunciado-texto">${item.enunciado}</p>
-      ${htmlOpcoes}
-    `;
-
-    // Insere o card para medir a altura
-    gridAtual.appendChild(card);
-
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      await MathJax.typesetPromise([card]);
-    }
-
-    // VERIFICAÇÃO DE ESTOURO DA FOLHA
-    // Altura máxima tolerada para o conteúdo interno da folha A4 em pixels
-    const ALTURA_MAXIMA_GRID = 880; 
-
-    if (gridAtual.scrollHeight > ALTURA_MAXIMA_GRID) {
-      // Se estourou, remove a questão da folha atual
-      gridAtual.removeChild(card);
-
-      // Se a folha já estava vazia e estourou, a questão é gigante sozinha
-      if (gridAtual.children.length === 0) {
-        gridAtual.appendChild(card);
-        folhaAtual.classList.add('folha-estourada');
-        if (containerAlerta) {
-          containerAlerta.innerHTML = `
-            <div class="alerta-estouro-banner">
-              ⚠️ A Questão ${numeroQuestao - 1} ultrapassa o limite de uma página A4!
-            </div>`;
-        }
-      } else {
-        // Cria automaticamente uma nova Folha A4 e coloca a questão nela
-        paginaAtualIndex++;
-        const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
-        folhaAtual = novaFolhaObj.folha;
-        gridAtual = novaFolhaObj.grid;
-        container.appendChild(folhaAtual);
-
-        // Insere a questão no topo da nova folha
-        gridAtual.appendChild(card);
-      }
-    }
+  if (filtradas.length === 0) {
+    container.innerHTML = `<div style="font-size:0.8rem; color:#ef4444; padding:8px; text-align:center;">Nenhuma questão encontrada.</div>`;
+    return;
   }
 
-  // Atualiza contador no topo
-  const info = document.getElementById('infoPaginas');
-  if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
+  filtradas.forEach(q => {
+    const item = document.createElement('div');
+    item.className = 'item-banco';
+    const qId = q.id || q.idUnico;
+
+    item.innerHTML = `
+      <div class="item-banco-texto" title="${q.enunciado.replace(/"/g, '&quot;')}">
+        <b>[${q.descritor}]</b> ${q.enunciado}
+      </div>
+      <div class="item-banco-acoes">
+        <button type="button" class="btn-add-banco" title="Adicionar" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
+        <button type="button" class="btn-ver-banco" title="Ver" onclick="abrirPreviaQuestaoBanco('${qId}')">👁️</button>
+      </div>
+    `;
+    container.appendChild(item);
+  });
 }
 
 function atualizarFiltroDescritores() {
@@ -282,7 +192,7 @@ function abrirPreviaQuestaoBanco(id) {
 }
 
 // ==========================================
-// 5. CRIAR NOVA QUESTÃO
+// 5. CRIAR NOVA QUESTÃO PERSONALIZADA
 // ==========================================
 function alternarCamposOpcoes() {
   const tipo = document.getElementById('novoTipoQuestao').value;
@@ -384,7 +294,7 @@ function salvarNovaQuestao() {
 }
 
 // ==========================================
-// 6. MANIPULAÇÃO DE QUESTÕES NA PROVA
+// 6. EDIÇÃO E MANIPULAÇÃO DE QUESTÕES NA PROVA
 // ==========================================
 function moverQuestao(index, direcao) {
   const novoIndex = index + direcao;
@@ -439,7 +349,7 @@ function reiniciarTudo() {
 }
 
 // ==========================================
-// 7. CRIAÇÃO DE ESTRUTURA DA FOLHA A4
+// 7. CRIAÇÃO DE NOVA ESTRUTURA DE FOLHA A4
 // ==========================================
 function criarNovaFolha(numPagina) {
   const nomeEscola = document.getElementById('inputNomeEscola')?.value || '';
@@ -487,7 +397,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. ALGORITMO DE PAGINAÇÃO AUTOMÁTICA REAL
+// 8. ALGORITMO CORRIGIDO DE PAGINAÇÃO AUTOMÁTICA
 // ==========================================
 async function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -504,11 +414,10 @@ async function renderizarProva() {
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
 
-  // Loop assíncrono para incluir questão por questão e calcular altura limite
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
 
-    // Trata Quebra Manual de Página solicitada pelo usuário
+    // TRATAMENTO DA QUEBRA MANUALLY SOLICITADA
     if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
@@ -520,6 +429,7 @@ async function renderizarProva() {
       `;
       container.appendChild(divisor);
 
+      // Inicia uma nova página
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
@@ -528,7 +438,7 @@ async function renderizarProva() {
       continue;
     }
 
-    // Cria o card DOM da questão
+    // Cria o Card DOM da questão
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -565,46 +475,48 @@ async function renderizarProva() {
       ${htmlOpcoes}
     `;
 
+    // Adiciona temporariamente a questão para cálculo de altura
     gridAtual.appendChild(card);
 
-    // Se houver fórmulas em MathJax, aguarda a renderização antes do cálculo
     if (window.MathJax && window.MathJax.typesetPromise) {
       await MathJax.typesetPromise([card]);
     }
 
-    // VERIFICAÇÃO RIGOROSA DE ESTOURO DA ALTURA
-    // scrollHeight > clientHeight sinaliza que o conteúdo estourou a margem da folha A4
-    if (gridAtual.scrollHeight > gridAtual.clientHeight + 2) {
-      gridAtual.removeChild(card); // Remove a questão excedente da folha atual
+    // VERIFICAÇÃO RIGOROSA DE ALTURA MÁXIMA DA PÁGINA A4 (880px)
+    const ALTURA_MAXIMA_GRID = 880; 
 
-      // Se a folha já estava vazia e estourou, é porque a própria questão é gigantesca
+    if (gridAtual.scrollHeight > ALTURA_MAXIMA_GRID) {
+      // Remove a questão da folha onde estourou o espaço
+      gridAtual.removeChild(card);
+
+      // Se a folha já estava vazia, a questão é individualmente maior do que 1 página inteira
       if (gridAtual.children.length === 0) {
         gridAtual.appendChild(card);
         folhaAtual.classList.add('folha-estourada');
         if (containerAlerta) {
           containerAlerta.innerHTML = `
             <div class="alerta-estouro-banner">
-              ⚠️ Esta questão é grande demais para caber em uma única página A4!
+              ⚠️ A Questão ${numeroQuestao - 1} é grande demais para caber em uma página A4!
             </div>`;
         }
       } else {
-        // Cria automaticamente uma NOVA PÁGINA A4 e insere a questão nela
+        // Cria automaticamente uma nova Folha A4
         paginaAtualIndex++;
         const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
         folhaAtual = novaFolhaObj.folha;
         gridAtual = novaFolhaObj.grid;
         container.appendChild(folhaAtual);
 
-        // Adiciona a questão cortada no topo da nova folha
+        // Insere a questão no topo da nova folha criada
         gridAtual.appendChild(card);
       }
     }
   }
 
-  // Atualiza o contador do topo
+  // Atualiza a contagem de páginas no topo
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
-// Aciona a impressão do navegador (Ctrl + P)
+// Aciona a impressão do navegador (Ctrl+P / Gerar PDF)
 function imprimirProva() { window.print(); }
