@@ -406,12 +406,12 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS
+// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS (CORRIGIDO)
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
   const containerAlerta = document.getElementById('containerAlertaExt');
-  if (!container) return;
+  if (!container) return;  
   
   container.innerHTML = '';
   if (containerAlerta) containerAlerta.innerHTML = '';
@@ -427,7 +427,7 @@ function renderizarProva() {
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
 
-    // Criação manual de nova página se o usuário clicou no botão "Inserir Quebra de Página"
+    // Se houver quebra manual inserida pelo usuário
     if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
@@ -439,7 +439,6 @@ function renderizarProva() {
       `;
       container.appendChild(divisor);
 
-      // Toda quebra reseta o status de lotado e abre uma nova folha A4
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
@@ -449,6 +448,7 @@ function renderizarProva() {
       continue;
     }
 
+    // Criar Card da Questão
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -491,15 +491,19 @@ function renderizarProva() {
       MathJax.typesetPromise([card]).catch(err => console.warn(err));
     }
 
-    // VERIFICA SE ULTRAPASSOU A FOLHA A4 ATUAL
-    // A altura padrão da folha A4 no CSS em px é ~1050px a 1120px
-    if (folhaAtual.scrollHeight > 1080) {
+    // --- NOVO CÁLCULO DE LIMITE REAL DA FOLHA A4 ---
+    // Medimos a altura visível (clientHeight) x a altura total de conteúdo (scrollHeight).
+    // Damos uma tolerância de segurança de 15px para variações de fonte/margem.
+    const limiteAlturaVisual = folhaAtual.clientHeight;
+    const alturaConteudoReal = folhaAtual.scrollHeight;
+
+    if (limiteAlturaVisual > 0 && alturaConteudoReal > (limiteAlturaVisual + 15)) {
       folhaLotada = true;
       folhaAtual.classList.add('folha-estourada');
     }
   }
 
-  // GERENCIAMENTO DE ALERTAS E BLOQUEIO DE BOTÕES
+  // --- GERENCIAMENTO DE ALERTAS E BLOQUEIO ---
   const btnsAdd = document.querySelectorAll('.btn-add-banco');
 
   if (folhaLotada) {
@@ -509,14 +513,15 @@ function renderizarProva() {
           ⚠️ A folha atual atingiu o limite de altura A4! Por favor, clique em <u>"Inserir Quebra de Página Manual"</u> para continuar adicionando questões.
         </div>`;
     }
-    // Desabilita botões do banco para não extrapolar
+    // Bloqueia a adição para não transbordar visualmente a folha A4
     btnsAdd.forEach(btn => {
       btn.disabled = true;
       btn.style.opacity = '0.4';
       btn.style.cursor = 'not-allowed';
     });
   } else {
-    // Reabilita os botões normalmente
+    // Mantém a folha limpa e liberada para receber mais questões
+    folhaAtual.classList.remove('folha-estourada');
     btnsAdd.forEach(btn => {
       btn.disabled = false;
       btn.style.opacity = '1';
