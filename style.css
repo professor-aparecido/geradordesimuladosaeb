@@ -316,7 +316,7 @@ button:hover { opacity: 0.9; }
   column-rule: 1px solid #000;
   height: calc(100% - 110px);
   column-fill: auto;
-  overflow: hidden; /* Evita vazamentos visuais */
+  overflow: hidden;
 }
 
 .card-questao {
@@ -429,12 +429,12 @@ button:hover { opacity: 0.9; }
 }
 
 /* ==========================================
-   4. CONFIGURAÇÕES DE IMPRESSÃO / PDF (CORRIGIDAS)
+   4. CONFIGURAÇÕES DE IMPRESSÃO / PDF (CORRIGIDO)
    ========================================== */
 @media print {
   @page {
     size: A4 portrait;
-    margin: 0; /* Margens controladas no próprio .folha-a4 */
+    margin: 0;
   }
   
   html, body {
@@ -447,7 +447,7 @@ button:hover { opacity: 0.9; }
     overflow: visible !important;
   }
 
-  /* Oculta interface e elementos de edição */
+  /* Esconde a interface de edição */
   .sidebar-painel, 
   .resizer,
   .barra-ferramentas-topo, 
@@ -473,7 +473,7 @@ button:hover { opacity: 0.9; }
     width: 210mm !important;
   }
 
-  /* Garante exatamente uma folha A4 por elemento gerado */
+  /* Garante cada folha A4 com quebra estrita de página */
   .folha-a4 {
     box-shadow: none !important;
     margin: 0 auto !important;
@@ -489,7 +489,7 @@ button:hover { opacity: 0.9; }
     overflow: hidden !important;
   }
 
-  /* Trava rígida de 2 Colunas */
+  /* Trava o grid para ter rigorosamente 2 colunas */
   .grid-questoes {
     column-count: 2 !important;
     column-gap: 12mm !important;
