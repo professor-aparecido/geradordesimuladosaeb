@@ -406,7 +406,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS (VERSÃO CORRIGIDA DEFINITIVA)
+// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS (CORRIGIDO)
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -425,7 +425,7 @@ function renderizarProva() {
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
 
-    // Se houver quebra manual inserida pelo usuário
+    // Se for quebra de página manual solicitada pelo usuário
     if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
@@ -445,7 +445,7 @@ function renderizarProva() {
       continue;
     }
 
-    // Criar Card da Questão
+    // Criação do card da questão
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -489,19 +489,21 @@ function renderizarProva() {
     }
   }
 
-  // --- VERIFICAÇÃO FINAL DE ESTOURO NA PÁGINA ATUAL ---
-  // Apenas verifica se a folha atual transbordou o limite A4
-  // Usamos setTimeout(0) para garantir que o navegador calculou a altura real pós-renderização
+  // --- VERIFICAÇÃO DE LIMITE APÓS RENDERIZAÇÃO COMPLETA ---
   setTimeout(() => {
-    const todasFolhas = container.querySelectorAll('.folha-a4');
-    const ultimaFolha = todasFolhas[todasFolhas.length - 1];
+    const folhas = container.querySelectorAll('.folha-a4');
+    const ultimaFolha = folhas[folhas.length - 1];
     const btnsAdd = document.querySelectorAll('.btn-add-banco');
 
     if (ultimaFolha) {
-      // Checa se a altura do conteúdo ultrapassa a altura limite da folha A4 (com margem de tolerância)
-      const folhaEstaLotada = ultimaFolha.scrollHeight > (ultimaFolha.clientHeight + 10) && ultimaFolha.clientHeight > 500;
+      // Medimos a altura interna útil do container da folha
+      const alturaDisponivel = ultimaFolha.offsetHeight;
+      const alturaConteudo = ultimaFolha.scrollHeight;
 
-      if (folhaEstaLotada) {
+      // Se o conteúdo ultrapassar a folha A4 atual
+      const folhaLotada = alturaConteudo > (alturaDisponivel + 5) && alturaDisponivel > 0;
+
+      if (folhaLotada) {
         ultimaFolha.classList.add('folha-estourada');
         if (containerAlerta) {
           containerAlerta.innerHTML = `
@@ -509,7 +511,7 @@ function renderizarProva() {
               ⚠️ A folha atual atingiu o limite de altura A4! Por favor, clique em <u>"Inserir Quebra de Página Manual"</u> para continuar adicionando questões.
             </div>`;
         }
-        // Desabilita botões do banco para não extrapolar a folha
+        // Bloqueia adição no banco até que uma nova página seja criada
         btnsAdd.forEach(btn => {
           btn.disabled = true;
           btn.style.opacity = '0.4';
@@ -524,12 +526,11 @@ function renderizarProva() {
         });
       }
     }
-  }, 50);
+  }, 100);
 
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
-
 function imprimirProva() { 
   window.print(); 
 }
