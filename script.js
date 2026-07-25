@@ -1,7 +1,7 @@
 // Banco global que receberá as questões via JSON
 let bancoQuestoes = [];
 
-// Lista de questões que estão na folha da prova (lado direito)
+// Lista de questões na prova (lado direito)
 let listaQuestoesProva = [
   {
     idUnico: 'p1',
@@ -25,7 +25,7 @@ let logoCarregadaUrl = 'imagens/logopilar.png';
 let historicoEstados = [];
 let indiceHistorico = -1;
 
-// Carrega os arquivos JSON via fetch()
+// Carrega os arquivos JSON dinamicamente
 async function carregarBancosExternos() {
   bancoQuestoes = [];
   const arquivos = ['questoes/d1.json', 'questoes/d2.json', 'questoes/d36.json'];
@@ -36,7 +36,7 @@ async function carregarBancosExternos() {
       if (resposta.ok) {
         const dados = await resposta.json();
         if (Array.isArray(dados)) {
-          dados.forEach((q, idx) => {
+          dados.forEach(q => {
             if (!q.id && !q.idUnico) q.id = 'bq_' + Math.random().toString(36).substr(2, 9);
             else if (!q.id) q.id = q.idUnico;
           });
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderizarProva();
 });
 
-// Renderiza o Banco de Questões (Lado Esquerdo)
+// Renderiza o Banco de Questões (Painel Esquerdo)
 function renderizarBanco() {
   const container = document.getElementById('bancoQuestoesContainer');
   if (!container) return;  
@@ -466,9 +466,11 @@ function renderizarProva() {
     MathJax.typesetPromise([container]);
   }
 
+  // Verifica estouro das páginas após renderizar
   setTimeout(verificarEstouroPaginas, 300);
 }
 
+// Monitora e avisa se o conteúdo ultrapassar a folha A4
 function verificarEstouroPaginas() {
   const folhas = document.querySelectorAll('.folha-a4');
   const info = document.getElementById('infoPaginas');
@@ -478,6 +480,7 @@ function verificarEstouroPaginas() {
     const bannerAntigo = folha.querySelector('.alerta-estouro-banner');
     if (bannerAntigo) bannerAntigo.remove();
 
+    // Se o conteúdo real exceder a altura física da folha A4
     if (folha.scrollHeight > folha.clientHeight + 5) {
       folha.classList.add('pagina-estourada');
       const banner = document.createElement('div');
@@ -490,4 +493,7 @@ function verificarEstouroPaginas() {
   });
 }
 
-function imprimirProva() { window.print(); }
+// Dispara a impressão/salvar como PDF
+function imprimirProva() { 
+  window.print(); 
+}
