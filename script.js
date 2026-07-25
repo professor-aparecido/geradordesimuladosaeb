@@ -489,54 +489,32 @@ function renderizarProva() {
     }
   }
 
-  // --- VERIFICAÇÃO DE LIMITE BASEADA NA SOMA DOS ELEMENTOS INTERNOS ---
+  // --- CHECAGEM DE ESTOURO SEM DESATIVAR OS BOTÕES DO BANCO ---
   setTimeout(() => {
     const folhas = container.querySelectorAll('.folha-a4');
     const ultimaFolha = folhas[folhas.length - 1];
-    const btnsAdd = document.querySelectorAll('.btn-add-banco');
 
     if (ultimaFolha) {
-      // Soma a altura de cada elemento visível dentro da folha
-      let alturaTotalConteudo = 0;
-      Array.from(ultimaFolha.children).forEach(filho => {
-        alturaTotalConteudo += filho.offsetHeight;
-      });
+      // Checa estouro comparando scrollHeight vs clientHeight do container interno ou da folha
+      const folhaEstourou = ultimaFolha.scrollHeight > (ultimaFolha.clientHeight + 10);
 
-      // Altura total disponível da folha no navegador
-      const alturaLimiteFolha = ultimaFolha.clientHeight;
-
-      // Dispara o alerta se a soma do conteúdo ultrapassar a área útil da folha
-      const folhaLotada = alturaTotalConteudo > (alturaLimiteFolha - 20) && alturaLimiteFolha > 0;
-
-      if (folhaLotada) {
+      if (folhaEstourou) {
         ultimaFolha.classList.add('folha-estourada');
         if (containerAlerta) {
           containerAlerta.innerHTML = `
             <div class="alerta-estouro-banner" style="background-color: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: bold; border: 1px solid #fca5a5; font-size: 0.95rem;">
-              ⚠️ A folha atual atingiu o limite de altura A4! Por favor, clique em <u>"Inserir Quebra de Página Manual"</u> para continuar adicionando questões.
+              ⚠️ A folha atual atingiu o limite de altura A4! Por favor, clique em <u>"Inserir Quebra de Página Manual"</u> para mover as novas questões para a próxima página.
             </div>`;
         }
-        // Bloqueia adição no banco para não estourar a impressão
-        btnsAdd.forEach(btn => {
-          btn.disabled = true;
-          btn.style.opacity = '0.4';
-          btn.style.cursor = 'not-allowed';
-        });
       } else {
         ultimaFolha.classList.remove('folha-estourada');
-        btnsAdd.forEach(btn => {
-          btn.disabled = false;
-          btn.style.opacity = '1';
-          btn.style.cursor = 'pointer';
-        });
       }
     }
-  }, 150);
+  }, 200);
 
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
-
 // ==========================================
 // 9. FUNÇÃO DE IMPRESSÃO
 // ==========================================
