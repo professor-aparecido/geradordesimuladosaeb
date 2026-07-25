@@ -1,137 +1,308 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Simulados SAEB</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- MathJax para suporte a fórmulas matemáticas -->
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Simulados SAEB - Pilar</title>
+    <!-- Folha de estilos CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="app-container">
-    <!-- PAINEL LATERAL DE CONFIGURAÇÕES -->
-    <aside class="sidebar-painel" id="sidebar">
-      <h2>1. Configurações da Prova</h2>
-      
-      <div class="grupo-campo">
-        <label for="inputLogo">Logo da Escola (Imagem):</label>
-        <input type="file" id="inputLogo" accept="image/*" onchange="carregarLogo(event)">
-      </div>
-
-      <div class="grupo-campo">
-        <label for="inputEscola">Nome da Escola:</label>
-        <input type="text" id="inputEscola" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR" oninput="atualizarCabecalho()">
-      </div>
-
-      <div class="linha-dupla">
-        <div class="grupo-campo">
-          <label for="inputSerie">Série:</label>
-          <input type="text" id="inputSerie" value="8º ANO" oninput="atualizarCabecalho()">
+    <!-- ========================================== -->
+    <!-- BARRA SUPERIOR (TOPBAR)                   -->
+    <!-- ========================================== -->
+    <header class="topbar">
+        <h2>Gerador de Simulados <span>SAEB</span></h2>
+        <div class="topbar-actions">
+             <!-- NOVOS BOTÕES DE ZOOM -->
+    <div class="zoom-controls">
+        <button id="btnZoomOut" class="btn-zoom" title="Diminuir Zoom">-</button>
+        <span id="zoomVal">100%</span>
+        <button id="btnZoomIn" class="btn-zoom" title="Aumentar Zoom">+</button>
+        <button id="btnZoomReset" class="btn-zoom-reset" title="Resetar Zoom">100%</button>
+    </div>
+            <button class="btn btn-outline">Imprimir / PDF</button>
+            <button class="btn btn-success">Salvar Simulado</button>
         </div>
-        <div class="grupo-campo">
-          <label for="inputTurma">Turma:</label>
-          <input type="text" id="inputTurma" value="A" oninput="atualizarCabecalho()">
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTAINER PRINCIPAL DO APLICATIVO          -->
+    <!-- ========================================== -->
+    <div class="app-container" id="appContainer">
+
+        <!-- ====================================== -->
+        <!-- PAINEL DE CONFIGURAÇÕES (COLUNA ESQUERDA) -->
+        <!-- ====================================== -->
+        <aside class="panel-builder" id="panelBuilder">
+            
+            <!-- SEÇÃO 1: CABEÇALHO DA PROVA (Com botão de recolher corrigido) -->
+            <section class="builder-group">
+                <div class="section-header-toggle" id="btnToggleCabecalho" title="Clique para recolher ou expandir">
+                    <h3>1. Cabeçalho da Prova</h3>
+                    <div class="toggle-badge">
+                        <span class="toggle-text">Recolher</span>
+                        <span class="toggle-icon">▲</span>
+                    </div>
+                </div>
+
+                <!-- Envolvemos todo o conteúdo interno em uma div para podermos esconder/recolher -->
+                <div class="section-body" id="bodyCabecalho">
+                    
+                    <!-- Campo para subir arquivo de Logo -->
+                    <div class="form-control">
+                        <label>Upload da Logo da Escola</label>
+                        <input type="file" id="inputLogo" accept="image/*">
+                    </div>
+
+                    <!-- Campo Nome da Escola -->
+                    <div class="form-control">
+                        <label>Nome da Escola</label>
+                        <input type="text" id="inputEscola" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR">
+                    </div>
+
+                    <!-- Campo Título da Prova -->
+                    <div class="form-control">
+                        <label>Título da Prova</label>
+                        <input type="text" id="inputTitulo" value="PROVA DE MATEMÁTICA ADAPTADA - 2º BIMESTRE">
+                    </div>
+
+                    <!-- Linha dupla: Série e Turma -->
+                    <div class="form-row">
+                        <div class="form-control">
+                            <label>Série / Etapa</label>
+                            <input type="text" id="inputSerie" value="8º ANO">
+                        </div>
+                        <div class="form-control">
+                            <label>Turma</label>
+                            <input type="text" id="inputTurma" placeholder="Ex: A">
+                        </div>
+                    </div>
+
+                    <!-- Campo Nome do Professor -->
+                    <div class="form-control">
+                        <label>Professor(a)</label>
+                        <input type="text" id="inputProfessor" value="Aparecido Sousa">
+                    </div>
+
+                    <!-- Seletor do Layout de Colunas (1 ou 2 Colunas) -->
+                    <div class="form-control">
+                        <label>Layout das Questões</label>
+                        <select id="selectColunas">
+                            <option value="2">2 Colunas (Padrão)</option>
+                            <option value="1">1 Coluna (Página inteira)</option>
+                        </select>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: ADICIONAR QUESTÕES (MODIFICADA) -->
+            <section class="builder-group">
+                <h3>2. Adicionar Questões</h3>
+                
+                <!-- Botões de Seleção do Modo -->
+                <div class="modo-adicao-container">
+                    <button type="button" id="btnModoBanco" class="btn-modo active">
+                        <span class="icon">🔍</span>
+                        <span class="label">Banco de Questões</span>
+                    </button>
+                    <button type="button" id="btnModoCriar" class="btn-modo">
+                        <span class="icon">✏️</span>
+                        <span class="label">Criar Questão</span>
+                    </button>
+                </div>
+
+                <!-- MODO 1: BANCO DE QUESTÕES (Integrado aos arquivos d1.json ... d36.json) -->
+                <div id="areaBancoQuestoes" class="area-modo">
+                    <div class="form-control">
+                        <label for="filtroDescritor">Filtrar por Descritor (SAEB)</label>
+                        <select id="filtroDescritor">
+                            <option value="">-- Selecione um descritor --</option>
+                            <option value="d1">D1 - Localizar informações explícitas em um texto</option>
+                            <option value="d2">D2 - Estabelecer relações entre partes de um texto</option>
+                            <option value="d36">D36 - Resolver problema envolvendo informações em tabelas/gráficos</option>
+                        </select>
+                    </div>
+
+                    <!-- CONTAINER ONDE SERÃO CARREGADAS AS QUESTÕES DO BANCO VIA JS -->
+                    <div id="listaQuestoesBanco" class="lista-banco-container">
+                        <p class="placeholder-text">Selecione um descritor acima para carregar as questões do arquivo JSON.</p>
+                    </div>
+                </div>
+                
+                <!-- MODO 2: CRIAR QUESTÃO (Campos originais mantidos) -->
+                <div id="areaCriarQuestao" class="area-modo hidden">
+                    <!-- Campo Descritor SAEB -->
+                    <div class="form-control">
+                        <label>Descritor (SAEB)</label>
+                        <input type="text" placeholder="Ex: D36">
+                    </div>
+
+                    <!-- Campo Enunciado -->
+                    <div class="form-control">
+                        <label>Enunciado da Questão</label>
+                        <textarea rows="4" placeholder="Digite o texto/enunciado da questão..."></textarea>
+                    </div>
+
+                    <!-- Alternativas da Questão (A, B, C, D) -->
+                    <div class="alternativas-builder">
+                        <label>Alternativas (Opcional)</label>
+                        
+                        <div class="input-opcao">
+                            <span class="badge-letra">A</span>
+                            <input type="text" placeholder="Opção A">
+                            <input type="radio" name="correta" title="Marcar como correta">
+                        </div>
+                        <div class="input-opcao">
+                            <span class="badge-letra">B</span>
+                            <input type="text" placeholder="Opção B">
+                            <input type="radio" name="correta" title="Marcar como correta">
+                        </div>
+                        <div class="input-opcao">
+                            <span class="badge-letra">C</span>
+                            <input type="text" placeholder="Opção C">
+                            <input type="radio" name="correta" title="Marcar como correta">
+                        </div>
+                        <div class="input-opcao">
+                            <span class="badge-letra">D</span>
+                            <input type="text" placeholder="Opção D">
+                            <input type="radio" name="correta" title="Marcar como correta">
+                        </div>
+                    </div>
+
+                    <!-- Botão de Ação -->
+                    <button class="btn btn-primary w-100" style="margin-top: 1rem;">+ Inserir Questão no Simulado</button>
+                </div>
+            </section>
+
+        </aside>
+
+        <!-- ====================================== -->
+        <!-- BARRA DIVISÓRIA MÓVEL (RESIZER)         -->
+        <!-- ====================================== -->
+        <div class="resizer" id="dragHandle" title="Arraste para redimensionar os painéis"></div>
+
+        <!-- ====================================== -->
+        <!-- ÁREA DE PRÉ-VISUALIZAÇÃO (DIREITA)     -->
+        <!-- ====================================== -->
+        <main class="panel-preview">
+            
+            <div class="preview-header">
+                <span>Pré-visualização da Folha de Prova</span>
+                <span class="tag-status">Edição Ativa</span>
+            </div>
+
+            <!-- MODELO DA FOLHA A4 PARA IMPRESSÃO -->
+            <div class="folha-a4">
+                
+                <!-- Cabeçalho Oficial do Pilar (Caixa Fechada) -->
+                <div class="header-box">
+                    
+                    <!-- Espaço da Logo (Carrega padrão 'logopilar.png') -->
+                    <div class="logo-area" id="containerLogo">
+                        <img src="imagens/logopilar.png" alt="Logo Prefeitura de Pilar" id="imgLogo">
+                    </div>
+
+                    <!-- Dados da Escola e Aluno -->
+                    <div class="info-area">
+                        <h2 class="nome-escola">ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR</h2>
+                        
+                        <div class="linha-aluno">
+                            <strong>ALUNO(A):</strong>
+                            <span class="underline-aluno"></span>
+                        </div>
+
+                        <div class="linha-dados">
+                            <span><strong>Série:</strong> 8º ANO</span>
+                            <span><strong>Turma:</strong> ________</span>
+                            <span><strong>Data:</strong> ___/___/______</span>
+                            <span><strong>Professor(a):</strong> Aparecido Sousa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Título da Prova e Caixa de Nota -->
+                <div class="titulo-nota-container">
+                    <h3 class="titulo-prova">PROVA DE MATEMÁTICA ADAPTADA - 2º BIMESTRE</h3>
+                    <div class="box-nota">
+                        <span>NOTA:</span>
+                        <div class="campo-nota"></div>
+                    </div>
+                </div>
+
+                <!-- Container das Questões (Suporta 1 ou 2 Colunas via JS) -->
+                <div class="prova-questoes-2colunas">
+                    
+                    <!-- QUESTÃO 1 -->
+                    <div class="coluna-questao">
+                        <div class="item-questao">
+                            <div class="questao-header-pilar">
+                                <span class="box-num-questao">QUESTÃO 1</span>
+                                <span class="tag-descritor">D36</span>
+                            </div>
+                            <p class="enunciado-pilar">
+                                Ana está ajudando sua mãe a calcular o orçamento para comprar os materiais escolares do ano. Observe na tabela abaixo os preços unitários e as quantidades que elas precisam comprar:
+                            </p>
+                            <table class="tabela-questao">
+                                <thead>
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Preço Unitário (R$)</th>
+                                        <th>Quantidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Caderno</td>
+                                        <td>R$ 35,00</td>
+                                        <td>4</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- QUESTÃO 2 -->
+                    <div class="coluna-questao">
+                        <div class="item-questao">
+                            <div class="questao-header-pilar">
+                                <span class="box-num-questao">QUESTÃO 2</span>
+                            </div>
+                            <p class="enunciado-pilar">
+                                Durante a gincana cultural da escola, a turma do 8º ano participou de um desafio de lógica em equipe. O gráfico abaixo apresenta a pontuação alcançada pelos alunos em cada fase do jogo:
+                            </p>
+                        </div>
+                    </div>
+
+                </div> <!-- Fim do container de questões -->
+
+            </div> <!-- Fim da folha A4 -->
+
+        </main>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JANELA MODAL DE PRÉ-VISUALIZAÇÃO DA QUESTÃO -->
+    <!-- ========================================== -->
+    <div id="modalPreview" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Pré-visualização da Questão</h4>
+                <button id="btnFecharModal" class="btn-close" type="button">&times;</button>
+            </div>
+            <div class="modal-body" id="modalPreviewBody">
+                <!-- Conteúdo dinâmico montado via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button id="btnAdicionarDoModal" class="btn btn-primary" type="button">➕ Adicionar esta Questão ao Simulado</button>
+            </div>
         </div>
-      </div>
+    </div>
 
-      <div class="linha-dupla">
-        <div class="grupo-campo">
-          <label for="inputProfessor">Professor:</label>
-          <input type="text" id="inputProfessor" value="Aparecido Sousa" oninput="atualizarCabecalho()">
-        </div>
-        <div class="grupo-campo">
-          <label for="inputDisciplina">Disciplina:</label>
-          <input type="text" id="inputDisciplina" value="PROVA DE MATEMÁTICA" oninput="atualizarCabecalho()">
-        </div>
-      </div>
-
-      <div class="linha-dupla">
-        <div class="grupo-campo">
-          <label for="inputBimestre">Bimestre:</label>
-          <input type="text" id="inputBimestre" value="2º BIMESTRE" oninput="atualizarCabecalho()">
-        </div>
-        <!-- SELETOR DE COLUNAS SOLICITADO -->
-        <div class="grupo-campo">
-          <label for="selectColunas">Colunas por Página:</label>
-          <select id="selectColunas" onchange="atualizarCabecalho()">
-            <option value="2" selected>2 Colunas (Padrão)</option>
-            <option value="1">1 Coluna (Página Inteira)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="botoes-acoes-top">
-        <button type="button" class="btn-danger" onclick="reiniciarProva()">🔄 Reiniciar Prova</button>
-        <button type="button" class="btn-secondary" onclick="desfazer()">↩️ Desfazer</button>
-        <button type="button" class="btn-secondary" onclick="refazer()">↪️ Refazer</button>
-      </div>
-
-      <button type="button" class="btn-quebra" onclick="inserirQuebraPaginaManual()">✂️ Inserir Quebra de Página Manual</button>
-
-      <hr>
-
-      <h2>2. Banco de Questões</h2>
-      <div class="grupo-campo">
-        <label for="filtroDescritor">Filtrar por Descritor:</label>
-        <select id="filtroDescritor" onchange="filtrarBancoQuestoes()">
-          <option value="todos">Todos os Descritores</option>
-        </select>
-      </div>
-      <div id="listaBancoQuestoes" class="lista-banco"></div>
-
-      <hr>
-
-      <h2>3. Criar Nova Questão (Suporte a TeX)</h2>
-      <div class="grupo-campo">
-        <label for="novoTipo">Tipo de Questão:</label>
-        <select id="novoTipo" onchange="alternarCamposOpcoes()">
-          <option value="objetiva">Objetiva (Múltipla Escolha)</option>
-          <option value="subjetiva">Subjetiva (Discursiva)</option>
-        </select>
-      </div>
-
-      <div class="grupo-campo">
-        <label for="novoDescritor">Descritor / Habilidade:</label>
-        <input type="text" id="novoDescritor" placeholder="Ex: D36">
-      </div>
-
-      <div class="grupo-campo">
-        <label for="novoEnunciado">Enunciado (Use \( ... \) para matemática):</label>
-        <textarea id="novoEnunciado" rows="3" placeholder="Digite o texto da questão..."></textarea>
-      </div>
-
-      <div id="containerOpcoes">
-        <label>Alternativas:</label>
-        <input type="text" class="input-opcao" placeholder="Alternativa A">
-        <input type="text" class="input-opcao" placeholder="Alternativa B">
-        <input type="text" class="input-opcao" placeholder="Alternativa C">
-        <input type="text" class="input-opcao" placeholder="Alternativa D">
-      </div>
-
-      <button type="button" class="btn-primary" onclick="adicionarQuestaoPersonalizada()">➕ Adicionar Questão Personalizada</button>
-    </aside>
-
-    <!-- RESIZER PARA REDIMENSIONAR A SIDEBAR -->
-    <div class="resizer" id="resizer"></div>
-
-    <!-- ÁREA CENTRAL DE VISUALIZAÇÃO/IMPRESSÃO -->
-    <main class="area-impressao">
-      <div class="barra-ferramentas-topo">
-        <span id="infoPaginas">Total de Páginas: 1</span>
-        <button type="button" class="btn-print" onclick="window.print()">🖨️ Baixar PDF / Imprimir</button>
-      </div>
-
-      <!-- Container para alertas do sistema (estouro/avisos) -->
-      <div id="containerAlertaExt"></div>
-
-      <div id="conteudoProvasContainer">
-        <!-- As folhas A4 serão geradas dinamicamente aqui pelo JavaScript -->
-      </div>
-    </main>
-  </div>
-
-  <script src="script.js"></script>
+    <!-- Script com as interações JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
