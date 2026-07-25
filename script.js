@@ -2,10 +2,8 @@
 // VARIÁVEIS DE ESTADO E BANCO DE DADOS
 // ==========================================
 
-// Banco global de questões carregadas
 let bancoQuestoes = [];
 
-// Lista de questões inseridas na prova atual
 let listaQuestoesProva = [
   {
     idUnico: 'p1',
@@ -94,7 +92,7 @@ async function carregarBancosExternos() {
 }
 
 // ==========================================
-// 3. GERENCIADOR DE HISTÓRICO (DESFAZER / REFAZER)
+// 3. GERENCIADOR DE HISTÓRICO
 // ==========================================
 function salvarEstadoHistorico() {
   const copia = JSON.parse(JSON.stringify(listaQuestoesProva));
@@ -158,7 +156,7 @@ function renderizarBanco() {
         <b>[${q.descritor || ''}]</b> ${q.enunciado || ''}
       </div>
       <div class="item-banco-acoes">
-        <button type="button" class="btn-add-banco" title="Adicionar" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
+        <button type="button" class="btn-add-banco" id="btn-add-${qId}" title="Adicionar" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
         <button type="button" class="btn-ver-banco" title="Ver" onclick="abrirPreviaQuestaoBanco('${qId}')">👁️</button>
       </div>
     `;
@@ -408,7 +406,7 @@ function criarNovaFolha(numPagina) {
 }
 
 // ==========================================
-// 8. ALGORITMO CORRIGIDO DE PAGINAÇÃO E ALTURA DA PÁGINA
+// 8. RENDERIZAÇÃO COM CONTROLE MANUAL DE PÁGINAS
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
@@ -424,13 +422,12 @@ function renderizarProva() {
   let { folha: folhaAtual, grid: gridAtual } = criarNovaFolha(paginaAtualIndex);
   container.appendChild(folhaAtual);
 
-  // Espaço máximo vertical disponível em pixels para as questões dentro do A4 (descontando o cabeçalho)
-  const ALTURA_MAXIMA_GRID = 780; 
+  let folhaLotada = false;
 
   for (let index = 0; index < listaQuestoesProva.length; index++) {
     const item = listaQuestoesProva[index];
 
-    // Quebra manual de página
+    // Criação manual de nova página se o usuário clicou no botão "Inserir Quebra de Página"
     if (item.tipo === 'quebra_pagina') {
       const divisor = document.createElement('div');
       divisor.className = 'divisor-quebra-pagina';
@@ -442,15 +439,16 @@ function renderizarProva() {
       `;
       container.appendChild(divisor);
 
+      // Toda quebra reseta o status de lotado e abre uma nova folha A4
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
       gridAtual = novaFolhaObj.grid;
       container.appendChild(folhaAtual);
+      folhaLotada = false;
       continue;
     }
 
-    // Criar Card da Questão
     const card = document.createElement('div');
     card.className = 'card-questao';
     if (item.espacoExtra) card.style.marginBottom = `${item.espacoExtra}px`;
@@ -487,45 +485,45 @@ function renderizarProva() {
       ${htmlOpcoes}
     `;
 
-    // Adiciona ao grid da página para medir a soma real das questões
     gridAtual.appendChild(card);
 
     if (window.MathJax && window.MathJax.typesetPromise) {
       MathJax.typesetPromise([card]).catch(err => console.warn(err));
     }
 
-    // Cálculo exato: Soma da altura de todas as questões presentes na folha atual
-    const alturaAtualGrid = gridAtual.offsetHeight || gridAtual.scrollHeight;
-
-    // Se o conjunto de questões ultrapassar a altura máxima da folha A4
-    if (alturaAtualGrid > ALTURA_MAXIMA_GRID) {
-      
-      // Se a questão atual é a ÚNICA na página e mesmo assim passou da altura limite:
-      if (gridAtual.children.length === 1) {
-        folhaAtual.classList.add('folha-estourada');
-        if (containerAlerta) {
-          containerAlerta.innerHTML = `
-            <div class="alerta-estouro-banner" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin-bottom: 15px; text-align: center; font-weight: bold; border: 1px solid #f5c6cb;">
-              ⚠️ A Questão ${numeroQuestao - 1} é grande demais para caber em uma página A4!
-            </div>`;
-        }
-      } else {
-        // Se a página já tem outras questões, remove esta última e move para uma NOVA PÁGINA A4
-        gridAtual.removeChild(card);
-
-        paginaAtualIndex++;
-        const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
-        folhaAtual = novaFolhaObj.folha;
-        gridAtual = novaFolhaObj.grid;
-        container.appendChild(folhaAtual);
-
-        // Insere na nova folha
-        gridAtual.appendChild(card);
-      }
+    // VERIFICA SE ULTRAPASSOU A FOLHA A4 ATUAL
+    // A altura padrão da folha A4 no CSS em px é ~1050px a 1120px
+    if (folhaAtual.scrollHeight > 1080) {
+      folhaLotada = true;
+      folhaAtual.classList.add('folha-estourada');
     }
   }
 
-  // Atualiza o total de páginas no painel superior
+  // GERENCIAMENTO DE ALERTAS E BLOQUEIO DE BOTÕES
+  const btnsAdd = document.querySelectorAll('.btn-add-banco');
+
+  if (folhaLotada) {
+    if (containerAlerta) {
+      containerAlerta.innerHTML = `
+        <div class="alerta-estouro-banner" style="background-color: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: bold; border: 1px solid #fca5a5; font-size: 0.95rem;">
+          ⚠️ A folha atual atingiu o limite de altura A4! Por favor, clique em <u>"Inserir Quebra de Página Manual"</u> para continuar adicionando questões.
+        </div>`;
+    }
+    // Desabilita botões do banco para não extrapolar
+    btnsAdd.forEach(btn => {
+      btn.disabled = true;
+      btn.style.opacity = '0.4';
+      btn.style.cursor = 'not-allowed';
+    });
+  } else {
+    // Reabilita os botões normalmente
+    btnsAdd.forEach(btn => {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+    });
+  }
+
   const info = document.getElementById('infoPaginas');
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
