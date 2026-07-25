@@ -192,7 +192,7 @@ button:hover { opacity: 0.9; }
   border-radius: 6px;
 }
 
-/* DIMENSÕES RÍGIDAS DA FOLHA A4 PARA IMPRESSÃO PERFEITA */
+/* DIMENSÕES RÍGIDAS DA FOLHA A4 */
 .folha-a4 {
   width: 210mm;
   height: 297mm;
@@ -207,7 +207,6 @@ button:hover { opacity: 0.9; }
   border: 2px solid transparent;
 }
 
-/* BORDA DE ERRO CASO UMA QUESTÃO ISOLADA SUPERE O TAMANHO DA FOLHA */
 .folha-estourada {
   border: 3px solid #ef4444 !important;
   box-shadow: 0 0 12px rgba(239, 68, 68, 0.4) !important;
@@ -309,19 +308,19 @@ button:hover { opacity: 0.9; }
 }
 
 /* ==========================================
-   GRID DE 2 COLUNAS DA PROVA (AJUSTADO E CORRIGIDO)
+   GRID DE 2 COLUNAS DA PROVA
    ========================================== */
 .grid-questoes {
   column-count: 2;
   column-gap: 12mm;
-  column-rule: 1px solid #000; /* Linha vertical divisória */
-  height: calc(100% - 110px);   /* Respeita o limite do cabeçalho */
-  column-fill: auto;             /* Preenche sequencialmente sem criar colunas falsas */
-  overflow: visible;             /* Permite leitura correta da altura real no JS */
+  column-rule: 1px solid #000;
+  height: calc(100% - 110px);
+  column-fill: auto;
+  overflow: hidden; /* Evita vazamentos visuais */
 }
 
 .card-questao {
-  break-inside: avoid;           /* NUNCA corta a questão ao meio nas colunas/páginas */
+  break-inside: avoid;
   page-break-inside: avoid;
   margin-bottom: 12px;
   position: relative;
@@ -371,7 +370,7 @@ button:hover { opacity: 0.9; }
   height: 22px;
 }
 
-/* CONTROLES FLUTUANTES DE EDIÇÃO DAS QUESTÕES */
+/* CONTROLES FLUTUANTES DE EDIÇÃO */
 .controles-questao {
   display: flex;
   gap: 2px;
@@ -430,20 +429,25 @@ button:hover { opacity: 0.9; }
 }
 
 /* ==========================================
-   4. CONFIGURAÇÕES DE IMPRESSÃO / PDF
+   4. CONFIGURAÇÕES DE IMPRESSÃO / PDF (CORRIGIDAS)
    ========================================== */
 @media print {
   @page {
     size: A4 portrait;
-    margin: 0;
+    margin: 0; /* Margens controladas no próprio .folha-a4 */
   }
   
-  body { 
+  html, body {
+    width: 210mm !important;
+    height: 100% !important;
     background-color: white !important; 
     color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
   }
 
-  /* Oculta interface e elementos visuais de edição na impressão */
+  /* Oculta interface e elementos de edição */
   .sidebar-painel, 
   .resizer,
   .barra-ferramentas-topo, 
@@ -466,12 +470,13 @@ button:hover { opacity: 0.9; }
     background-color: white !important; 
     overflow: visible !important;
     display: block !important;
+    width: 210mm !important;
   }
 
-  /* Garante uma página A4 limpa e perfeita por folha gerada */
+  /* Garante exatamente uma folha A4 por elemento gerado */
   .folha-a4 {
     box-shadow: none !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     padding: 12mm 15mm !important;
     page-break-after: always !important;
     break-after: page !important;
@@ -479,5 +484,18 @@ button:hover { opacity: 0.9; }
     border: none !important;
     width: 210mm !important;
     height: 297mm !important;
+    max-height: 297mm !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  /* Trava rígida de 2 Colunas */
+  .grid-questoes {
+    column-count: 2 !important;
+    column-gap: 12mm !important;
+    column-rule: 1px solid #000 !important;
+    height: calc(100% - 110px) !important;
+    column-fill: auto !important;
+    overflow: hidden !important;
   }
 }
