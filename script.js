@@ -1,431 +1,247 @@
 // ==========================================
-// VARIÁVEIS DE ESTADO E BANCO DE DADOS
+// BANCO DE DADOS INICIAL DE QUESTÕES (SAEB)
 // ==========================================
-
-let bancoQuestoes = [];
-
-let listaQuestoesProva = [
+const bancoQuestoesSAEB = [
   {
-    idUnico: 'p1',
-    descritor: 'D36',
-    tipo: 'objetiva',
-    enunciado: 'Ana está ajudando sua mãe a calcular o orçamento para comprar os materiais escolares do ano. Observe na tabela abaixo os preços unitários e as quantidades que elas precisam comprar:',
-    opcoes: ['R$ 150,00', 'R$ 206,00', 'R$ 250,00', 'R$ 300,00'],
-    espacoExtra: 0
+    id: "banco-1",
+    descritor: "D1",
+    tipo: "objetiva",
+    enunciado: "Qual é a área de um terreno retangular com 10m de largura por 20m de comprimento?",
+    opcoes: ["100 m²", "200 m²", "300 m²", "400 m²"]
   },
   {
-    idUnico: 'p2',
-    descritor: 'D32',
-    tipo: 'objetiva',
-    enunciado: 'Qual é a área de um terreno retangular com 10 metros de largura por 20 metros de comprimento?',
-    opcoes: ['100 m²', '200 m²', '300 m²', '400 m²'],
-    espacoExtra: 0
+    id: "banco-2",
+    descritor: "D1",
+    tipo: "subjetiva",
+    enunciado: "Desenhe um retângulo no espaço abaixo e calcule sua área considerando base = 5cm e altura = 3cm."
+  },
+  {
+    id: "banco-3",
+    descritor: "D36",
+    tipo: "objetiva",
+    enunciado: "Ana está ajudando sua mãe a calcular o orçamento de materiais escolares. Observe a tabela e determine o valor total:",
+    opcoes: ["R$ 150,00", "R$ 206,00", "R$ 250,00", "R$ 300,00"]
   }
 ];
 
-let logoCarregadaUrl = 'imagens/logopilar.png';
+// ESTADOS DA APLICAÇÃO
+let listaQuestoesProva = [];
 let historicoEstados = [];
-let indiceHistorico = -1;
+let ponteiroHistorico = -1;
+let logoEscolaDataUrl = "";
 
 // ==========================================
-// 1. BARRA LATERAL REDIMENSIONÁVEL (RESIZER)
+// INICIALIZAÇÃO
 // ==========================================
-function inicializarResizer() {
-  const resizer = document.getElementById('resizer');
-  const sidebar = document.getElementById('sidebarPainel');
-  let isResizing = false;
+window.addEventListener("DOMContentLoaded", () => {
+  carregarBancoQuestoes();
+  
+  // Adiciona 2 questões de exemplo no início
+  adicionarItemProva({ ...bancoQuestoesSAEB[2], idUnico: 'init-1' });
+  adicionarItemProva({ ...bancoQuestoesSAEB[0], idUnico: 'init-2' });
 
-  if (!resizer || !sidebar) return;
-
-  resizer.addEventListener('mousedown', () => {
-    isResizing = true;
-    document.body.style.cursor = 'col-resize';
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (!isResizing) return;
-    let newWidth = e.clientX;
-    if (newWidth >= 280 && newWidth <= 600) {
-      sidebar.style.width = `${newWidth}px`;
-    }
-  });
-
-  document.addEventListener('mouseup', () => {
-    if (isResizing) {
-      isResizing = false;
-      document.body.style.cursor = 'default';
-    }
-  });
-}
-
-// ==========================================
-// 2. CARREGAMENTO DOS JSONs EXTERNOS
-// ==========================================
-async function carregarBancosExternos() {
-  bancoQuestoes = [
-    { id: 'bq_d1_1', descritor: 'D1', tipo: 'objetiva', enunciado: 'Qual é a área de um terreno retangular com 10m por 20m?', opcoes: ['100 m²', '200 m²', '300 m²', '400 m²'] },
-    { id: 'bq_d1_2', descritor: 'D1', tipo: 'subjetiva', enunciado: 'Desenhe um retângulo no espaço abaixo:', opcoes: [] }
-  ];
-
-  const arquivos = ['questoes/d1.json', 'questoes/d2.json', 'questoes/d36.json'];
-
-  for (const arquivo of arquivos) {
-    try {
-      const resposta = await fetch(arquivo);
-      if (resposta.ok) {
-        const dados = await resposta.json();
-        if (Array.isArray(dados)) {
-          dados.forEach(q => {
-            if (!q.id && !q.idUnico) q.id = 'bq_' + Math.random().toString(36).substr(2, 9);
-            else if (!q.id) q.id = q.idUnico;
-          });
-          bancoQuestoes.push(...dados);
-        }
-      }
-    } catch (erro) {
-      console.warn(`Não foi possível carregar o arquivo ${arquivo}:`, erro);
-    }
-  }
-
-  atualizarFiltroDescritores();
-  renderizarBanco();
-}
-
-// ==========================================
-// 3. GERENCIADOR DE HISTÓRICO
-// ==========================================
-function salvarEstadoHistorico() {
-  const copia = JSON.parse(JSON.stringify(listaQuestoesProva));
-  historicoEstados = historicoEstados.slice(0, indiceHistorico + 1);
-  historicoEstados.push(copia);
-  indiceHistorico = historicoEstados.length - 1;
-}
-
-function desfazerAcao() {
-  if (indiceHistorico > 0) {
-    indiceHistorico--;
-    listaQuestoesProva = JSON.parse(JSON.stringify(historicoEstados[indiceHistorico]));
-    renderizarProva();
-  }
-}
-
-function refazerAcao() {
-  if (indiceHistorico < historicoEstados.length - 1) {
-    indiceHistorico++;
-    listaQuestoesProva = JSON.parse(JSON.stringify(historicoEstados[indiceHistorico]));
-    renderizarProva();
-  }
-}
-
-document.addEventListener('DOMContentLoaded', async () => {
-  inicializarResizer();
-  try {
-    await carregarBancosExternos();
-  } catch (e) {
-    console.error("Erro no carregamento externo:", e);
-  }
-  salvarEstadoHistorico();
-  renderizarProva();
+  configurarResizer();
 });
 
 // ==========================================
-// 4. BANCO DE QUESTÕES (PAINEL LATERAL)
+// GERENCIAMENTO DO BANCO LATERAL
 // ==========================================
-function renderizarBanco() {
-  const container = document.getElementById('bancoQuestoesContainer');
-  if (!container) return;  
-  
-  const filtroSelect = document.getElementById('filtroDescritor');
-  const filtro = filtroSelect ? filtroSelect.value : 'todos';
+function carregarBancoQuestoes() {
+  const container = document.getElementById('listaBancoQuestoes');
+  const selectDescritor = document.getElementById('filtroDescritor');
+  if (!container) return;
+
   container.innerHTML = '';
+  const descritoresUnicos = new Set();
 
-  const filtradas = bancoQuestoes.filter(q => filtro === 'todos' || q.descritor === filtro);
+  bancoQuestoesSAEB.forEach(q => {
+    descritoresUnicos.add(q.descritor);
 
-  if (filtradas.length === 0) {
-    container.innerHTML = `<div style="font-size:0.8rem; color:#ef4444; padding:8px; text-align:center;">Nenhuma questão encontrada.</div>`;
-    return;
-  }
-
-  filtradas.forEach(q => {
-    const item = document.createElement('div');
-    item.className = 'item-banco';
-    const qId = q.id || q.idUnico;
-
-    item.innerHTML = `
-      <div class="item-banco-texto" title="${(q.enunciado || '').replace(/"/g, '&quot;')}">
-        <b>[${q.descritor || ''}]</b> ${q.enunciado || ''}
-      </div>
+    const div = document.createElement('div');
+    div.className = 'item-banco';
+    div.innerHTML = `
+      <span><b>[${q.descritor}]</b> ${q.enunciado.substring(0, 35)}...</span>
       <div class="item-banco-acoes">
-        <button type="button" class="btn-add-banco" id="btn-add-${qId}" title="Adicionar" onclick="adicionarDaQuestaoDoBanco('${qId}')">➕</button>
-        <button type="button" class="btn-ver-banco" title="Ver" onclick="abrirPreviaQuestaoBanco('${qId}')">👁️</button>
+        <button type="button" class="btn-primary btn-icon" onclick="adicionarDoBanco('${q.id}')">➕</button>
       </div>
     `;
-    container.appendChild(item);
+    container.appendChild(div);
   });
-}
 
-function atualizarFiltroDescritores() {
-  const select = document.getElementById('filtroDescritor');
-  if (!select) return;
-
-  const descritoresUnicos = [...new Set(bancoQuestoes.map(q => q.descritor).filter(Boolean))];
-  select.innerHTML = '<option value="todos">Todos os Descritores</option>';
-  descritoresUnicos.sort().forEach(d => {
-    select.innerHTML += `<option value="${d}">${d}</option>`;
-  });
-}
-
-function filtrarBanco() { renderizarBanco(); }
-
-function adicionarDaQuestaoDoBanco(id) {
-  const questao = bancoQuestoes.find(q => (q.id === id || q.idUnico === id));
-  if (questao) {
-    listaQuestoesProva.push({
-      ...questao,
-      idUnico: 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
-      espacoExtra: questao.espacoExtra || 0
-    });
-    salvarEstadoHistorico();
-    renderizarProva();
-  }
-}
-
-function abrirPreviaQuestaoBanco(id) {
-  const q = bancoQuestoes.find(item => (item.id === id || item.idUnico === id));
-  if (q) exibirModalComQuestao(q.descritor, q.enunciado, q.tipo, q.opcoes);
-}
-
-// ==========================================
-// 5. CRIAR NOVA QUESTÃO PERSONALIZADA
-// ==========================================
-function alternarCamposOpcoes() {
-  const tipo = document.getElementById('novoTipoQuestao').value;
-  const container = document.getElementById('containerOpcoesCriacao');
-  if (tipo === 'objetiva') container.classList.remove('oculto');
-  else container.classList.add('oculto');
-}
-
-function abrirPreviaNovaQuestao() {
-  const descritor = document.getElementById('novoDescritor').value.trim() || 'D36';
-  const enunciado = document.getElementById('novoEnunciado').value.trim();
-  const tipo = document.getElementById('novoTipoQuestao').value;
-
-  if (!enunciado) {
-    alert('Por favor, digite o enunciado da questão.');
-    return;
-  }
-
-  let opcoes = [];
-  if (tipo === 'objetiva') {
-    ['A', 'B', 'C', 'D'].forEach(letra => {
-      const val = document.getElementById(`novaOpcao${letra}`).value.trim();
-      if (val) opcoes.push(val);
+  if (selectDescritor && selectDescritor.options.length <= 1) {
+    descritoresUnicos.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d;
+      opt.innerText = `Descritor ${d}`;
+      selectDescritor.appendChild(opt);
     });
   }
-
-  exibirModalComQuestao(descritor, enunciado, tipo, opcoes);
 }
 
-function exibirModalComQuestao(descritor, enunciado, tipo, opcoes) {
-  let htmlPrevia = `
-    <div class="card-questao" style="background: #fff; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
-      <div class="cabecalho-questao-topo">
-        <span class="tag-questao">QUESTÃO DE PRÉVIA</span>
-        <span class="tag-descritor">${descritor}</span>
+function filtrarBancoQuestoes() {
+  const filtro = document.getElementById('filtroDescritor').value;
+  const container = document.getElementById('listaBancoQuestoes');
+  container.innerHTML = '';
+
+  const filtradas = filtro === 'todos' 
+    ? bancoQuestoesSAEB 
+    : bancoQuestoesSAEB.filter(q => q.descritor === filtro);
+
+  filtradas.forEach(q => {
+    const div = document.createElement('div');
+    div.className = 'item-banco';
+    div.innerHTML = `
+      <span><b>[${q.descritor}]</b> ${q.enunciado.substring(0, 35)}...</span>
+      <div class="item-banco-acoes">
+        <button type="button" class="btn-primary btn-icon" onclick="adicionarDoBanco('${q.id}')">➕</button>
       </div>
-      <div class="linha-divisoria-questao"></div>
-      <p class="enunciado-texto">${enunciado}</p>
-  `;
+    `;
+    container.appendChild(div);
+  });
+}
 
-  if (tipo === 'objetiva' && opcoes && opcoes.length > 0) {
-    let letras = ['A', 'B', 'C', 'D', 'E'];
-    htmlPrevia += `<ul class="opcoes-multipla-list">`;
-    opcoes.forEach((op, idx) => {
-      htmlPrevia += `<li><b>${letras[idx] || '•'})</b> ${op}</li>`;
-    });
-    htmlPrevia += `</ul>`;
-  } else if (tipo === 'subjetiva') {
-    htmlPrevia += `<div class="linhas-respostas-aberta"></div><div class="linhas-respostas-aberta"></div>`;
-  }
-
-  htmlPrevia += `</div>`;
-
-  const containerModal = document.getElementById('conteudoModalPreview');
-  if (containerModal) {
-    containerModal.innerHTML = htmlPrevia;
-    document.getElementById('modalPreview')?.classList.remove('oculto');
-
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      MathJax.typesetPromise([containerModal]);
-    }
+function adicionarDoBanco(idBanco) {
+  const q = bancoQuestoesSAEB.find(item => item.id === idBanco);
+  if (q) {
+    salvarEstadoHistorico();
+    adicionarItemProva({ ...q, idUnico: 'q_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4) });
   }
 }
 
-function fecharModalPreview() {
-  document.getElementById('modalPreview')?.classList.add('oculto');
+// ==========================================
+// CRIAÇÃO E MANIPULAÇÃO DA PROVA
+// ==========================================
+function adicionarItemProva(item) {
+  listaQuestoesProva.push(item);
+  renderizarProva();
 }
 
-function salvarNovaQuestao() {
-  const descritor = document.getElementById('novoDescritor').value.trim() || 'D36';
-  const enunciado = document.getElementById('novoEnunciado').value.trim();
-  const tipo = document.getElementById('novoTipoQuestao').value;
+function adicionarQuestaoPersonalizada() {
+  const tipo = document.getElementById('novoTipo').value;
+  const descritor = document.getElementById('novoDescritor').value || 'D-GERAL';
+  const enunciado = document.getElementById('novoEnunciado').value;
 
-  if (!enunciado) {
-    alert('Preencha o enunciado da questão.');
+  if (!enunciado.trim()) {
+    alert("Por favor, digite o enunciado da questão.");
     return;
   }
 
   let opcoes = [];
   if (tipo === 'objetiva') {
-    ['A', 'B', 'C', 'D'].forEach(letra => {
-      const val = document.getElementById(`novaOpcao${letra}`).value.trim();
-      if (val) opcoes.push(val);
+    const inputs = document.querySelectorAll('.input-opcao');
+    inputs.forEach(i => {
+      if (i.value.trim()) opcoes.push(i.value.trim());
     });
   }
 
-  const idGerado = 'custom_' + Date.now();
-  const novaQ = { id: idGerado, idUnico: idGerado, descritor, tipo, enunciado, opcoes };
-
-  bancoQuestoes.push(novaQ);
-  atualizarFiltroDescritores();
-  renderizarBanco();
-
-  listaQuestoesProva.push({ ...novaQ, idUnico: 'p_' + Date.now(), espacoExtra: 0 });
+  salvarEstadoHistorico();
+  adicionarItemProva({
+    idUnico: 'custom_' + Date.now(),
+    tipo,
+    descritor,
+    enunciado,
+    opcoes
+  });
 
   document.getElementById('novoEnunciado').value = '';
-  ['A', 'B', 'C', 'D'].forEach(l => {
-    const el = document.getElementById(`novaOpcao${l}`);
-    if (el) el.value = '';
+}
+
+function inserirQuebraPaginaManual() {
+  salvarEstadoHistorico();
+  adicionarItemProva({
+    idUnico: 'quebra_' + Date.now(),
+    tipo: 'quebra_pagina'
   });
-
-  salvarEstadoHistorico();
-  renderizarProva();
-}
-
-// ==========================================
-// 6. EDIÇÃO E MANIPULAÇÃO DE QUESTÕES NA PROVA
-// ==========================================
-function moverQuestao(index, direcao) {
-  const novoIndex = index + direcao;
-  if (novoIndex >= 0 && novoIndex < listaQuestoesProva.length) {
-    const temp = listaQuestoesProva[index];
-    listaQuestoesProva[index] = listaQuestoesProva[novoIndex];
-    listaQuestoesProva[novoIndex] = temp;
-    salvarEstadoHistorico();
-    renderizarProva();
-  }
-}
-
-function alterarEspacoExtra(index, valor) {
-  if (!listaQuestoesProva[index].espacoExtra) listaQuestoesProva[index].espacoExtra = 0;
-  listaQuestoesProva[index].espacoExtra = Math.max(0, listaQuestoesProva[index].espacoExtra + valor);
-  salvarEstadoHistorico();
-  renderizarProva();
-}
-
-function carregarLogo(event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      logoCarregadaUrl = e.target.result;
-      atualizarCabecalho();
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-function atualizarCabecalho() { renderizarProva(); }
-
-function inserirQuebraPagina() {
-  listaQuestoesProva.push({ tipo: 'quebra_pagina', idUnico: 'qkp_' + Date.now() });
-  salvarEstadoHistorico();
-  renderizarProva();
 }
 
 function removerItemProva(idUnico) {
-  listaQuestoesProva = listaQuestoesProva.filter(item => item.idUnico !== idUnico);
   salvarEstadoHistorico();
+  listaQuestoesProva = listaQuestoesProva.filter(item => item.idUnico !== idUnico);
   renderizarProva();
 }
 
-function reiniciarTudo() {
-  if (confirm('Deseja reiniciar a prova?')) {
-    listaQuestoesProva = [];
-    salvarEstadoHistorico();
-    renderizarProva();
-  }
+function moverQuestao(index, direcao) {
+  const novoIndex = index + direcao;
+  if (novoIndex < 0 || novoIndex >= listaQuestoesProva.length) return;
+
+  salvarEstadoHistorico();
+  const temp = listaQuestoesProva[index];
+  listaQuestoesProva[index] = listaQuestoesProva[novoIndex];
+  listaQuestoesProva[novoIndex] = temp;
+  renderizarProva();
+}
+
+function alterarEspacoExtra(index, delta) {
+  salvarEstadoHistorico();
+  if (!listaQuestoesProva[index].espacoExtra) listaQuestoesProva[index].espacoExtra = 0;
+  listaQuestoesProva[index].espacoExtra += delta;
+  if (listaQuestoesProva[index].espacoExtra < 0) listaQuestoesProva[index].espacoExtra = 0;
+  renderizarProva();
 }
 
 // ==========================================
-// 7. CRIAÇÃO DE NOVA ESTRUTURA DE FOLHA A4
+// CONSTRUTOR DE FOLHAS A4 E CABEÇALHOS
 // ==========================================
 function criarNovaFolha(numPagina) {
-  const nomeEscola = document.getElementById('inputNomeEscola')?.value || 'ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR';
-  const serie = document.getElementById('inputSerie')?.value || '8º ANO';
-  const turma = document.getElementById('inputTurma')?.value || 'A';
-  const professor = document.getElementById('inputNomeProfessor')?.value || 'Aparecido Sousa';
-  const bimestre = document.getElementById('inputBimestre')?.value || '2º BIMESTRE';
-  const disciplina = document.getElementById('inputDisciplina')?.value || 'PROVA DE MATEMÁTICA';
-
   const folha = document.createElement('div');
   folha.className = 'folha-a4';
-  folha.id = `folha-${numPagina}`;
 
-  // Se for a PÁGINA 1: Exibe o cabeçalho completo oficial
+  const escola = document.getElementById('inputEscola')?.value || '';
+  const serie = document.getElementById('inputSerie')?.value || '';
+  const turma = document.getElementById('inputTurma')?.value || '';
+  const professor = document.getElementById('inputProfessor')?.value || '';
+  const disciplina = document.getElementById('inputDisciplina')?.value || '';
+  const bimestre = document.getElementById('inputBimestre')?.value || '';
+  const qtdColunas = document.getElementById('selectColunas')?.value || '2';
+
   if (numPagina === 1) {
+    // PÁGINA 1: CABEÇALHO OFICIAL COMPLETO
     folha.innerHTML = `
       <div class="cabecalho-oficial">
-        <div class="logo-cell">
-          ${logoCarregadaUrl ? `<img src="${logoCarregadaUrl}" alt="Logo">` : '<b>LOGO</b>'}
-        </div>
-        <div class="info-cell">
-          <div class="nome-escola">${nomeEscola}</div>
-          <div class="linha-aluno">ALUNO(A): <span class="underline"></span></div>
+        <img class="logo-escola" src="${logoEscolaDataUrl || 'data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'><rect width=\'50\' height=\'50\' fill=\'%23eee\'/><text x=\'10\' y=\'30\' font-size=\'10\'>LOGO</text></svg>'}" alt="Logo">
+        <div class="dados-escola">
+          <h3>${escola}</h3>
+          <div>ALUNO(A): <span class="linha-aluno"></span></div>
           <div class="linha-detalhes">
             <span>Série: <b>${serie}</b></span>
-            <span>Turma: ${turma || '_________'}</span>
-            <span>Data: ____/____/________</span>
-            <span class="prof-italico">Professor: ${professor}</span>
+            <span>Turma: <b>${turma}</b></span>
+            <span>Data: ____/____/_______</span>
+            <span>Professor: <b>${professor}</b></span>
           </div>
         </div>
       </div>
-
-      <div class="titulo-nota-container">
-        <div class="titulo-prova">${disciplina} - ${bimestre}</div>
-        <div class="caixa-nota-wrap">
-          <span>NOTA:</span>
-          <div class="valor-nota"></div>
-        </div>
+      <div class="titulo-prova-container">
+        <span class="titulo-prova-texto">${disciplina} - ${bimestre}</span>
+        <div class="caixa-nota">NOTA: <span style="display:inline-block; width:30px;"></span></div>
       </div>
     `;
   } else {
-    // Se for PÁGINA 2 em diante: Cabeçalho simples de continuação com número de página
+    // PÁGINA 2+: CABEÇALHO COMPACTO DE CONTINUAÇÃO
     folha.innerHTML = `
-      <div style="border-bottom: 1px solid #000; padding-bottom: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold;">
-        <span>${disciplina} - CONTINUAÇÃO</span>
+      <div class="cabecalho-compacto">
+        <span>${disciplina.toUpperCase()} - CONTINUAÇÃO</span>
         <span>PÁGINA ${numPagina}</span>
       </div>
     `;
   }
 
+  // Grid de questões configurado para 1 ou 2 colunas
   const grid = document.createElement('div');
-  grid.className = 'grid-questoes';
+  grid.className = `grid-questoes colunas-${qtdColunas}`;
   folha.appendChild(grid);
 
   return { folha, grid };
 }
 
 // ==========================================
-// 8. RENDERIZAÇÃO ESTÁVEL E PAGINAÇÃO INTELIGENTE
+// RENDERIZAÇÃO ESTÁVEL E PAGINAÇÃO INTELIGENTE
 // ==========================================
 function renderizarProva() {
   const container = document.getElementById('conteudoProvasContainer');
-  const containerAlerta = document.getElementById('containerAlertaExt');
-  if (!container) return;  
+  if (!container) return;
   
   container.innerHTML = '';
-  if (containerAlerta) containerAlerta.innerHTML = '';
+  const qtdColunas = document.getElementById('selectColunas')?.value || '2';
 
   let numeroQuestao = 1;
   let paginaAtualIndex = 1;
@@ -442,7 +258,7 @@ function renderizarProva() {
       divisor.className = 'divisor-quebra-pagina';
       divisor.innerHTML = `
         <span>--- QUEBRA DE PÁGINA MANUAL ---</span>
-        <div class="controles-questao" style="opacity:1; visibility:visible;">
+        <div class="controles-questao" style="display:flex; position:relative; top:0;">
           <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖ Remover Quebra</button>
         </div>
       `;
@@ -479,11 +295,11 @@ function renderizarProva() {
         <span class="tag-questao">QUESTÃO ${numeroQuestao++}</span>
         
         <div class="controles-questao">
-          <button type="button" class="btn-espaco" title="Aumentar espaço" onclick="alterarEspacoExtra(${index}, 15)">↕ +</button>
-          <button type="button" class="btn-espaco" title="Reduzir espaço" onclick="alterarEspacoExtra(${index}, -15)">↕ -</button>
-          <button type="button" class="btn-mover" title="Subir" onclick="moverQuestao(${index}, -1)">▲</button>
-          <button type="button" class="btn-mover" title="Descer" onclick="moverQuestao(${index}, 1)">▼</button>
-          <button type="button" class="btn-del" title="Excluir" onclick="removerItemProva('${item.idUnico}')">✖</button>
+          <button type="button" onclick="alterarEspacoExtra(${index}, 15)">↕ +</button>
+          <button type="button" onclick="alterarEspacoExtra(${index}, -15)">↕ -</button>
+          <button type="button" onclick="moverQuestao(${index}, -1)">▲</button>
+          <button type="button" onclick="moverQuestao(${index}, 1)">▼</button>
+          <button type="button" class="btn-del" onclick="removerItemProva('${item.idUnico}')">✖</button>
         </div>
 
         <span class="tag-descritor">${item.descritor || ''}</span>
@@ -493,28 +309,31 @@ function renderizarProva() {
       ${htmlOpcoes}
     `;
 
-    // Adiciona o card ao grid da folha atual
     gridAtual.appendChild(card);
 
-    // ALTURA LÍQUIDA MÁXIMA PERMITIDA (A4 = 297mm; descontando margens e o cabeçalho)
-    const limiteAlturaPixel = paginaAtualIndex === 1 ? 840 : 920;
+    // Limites de altura verticais em pixels por folha A4
+    let limiteAlturaPixel;
+    if (qtdColunas === '1') {
+      limiteAlturaPixel = paginaAtualIndex === 1 ? 750 : 880;
+    } else {
+      limiteAlturaPixel = paginaAtualIndex === 1 ? 780 : 900;
+    }
 
-    // AUTO-PAGINAÇÃO: Se a altura total das colunas passar do limite da folha A4
-    if (gridAtual.offsetHeight > limiteAlturaPixel) {
-      gridAtual.removeChild(card); // Remove da folha cheia
+    // AUTO-PAGINAÇÃO: Se ultrapassar o limite, move a questão para a próxima página
+    if (gridAtual.scrollHeight > limiteAlturaPixel) {
+      gridAtual.removeChild(card);
 
-      // Cria a nova página A4
       paginaAtualIndex++;
       const novaFolhaObj = criarNovaFolha(paginaAtualIndex);
       folhaAtual = novaFolhaObj.folha;
       gridAtual = novaFolhaObj.grid;
       container.appendChild(folhaAtual);
 
-      // Adiciona o card na nova folha
       gridAtual.appendChild(card);
     }
   }
 
+  // Renderiza fórmulas matemáticas do MathJax se presente
   if (window.MathJax && window.MathJax.typesetPromise) {
     MathJax.typesetPromise([container]).catch(err => console.warn(err));
   }
@@ -523,9 +342,87 @@ function renderizarProva() {
   if (info) info.innerText = `Total de Páginas: ${paginaAtualIndex}`;
 }
 
+// Atualiza o layout ao mudar dados do cabeçalho ou colunas
+function atualizarCabecalho() {
+  renderizarProva();
+}
+
+function carregarLogo(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      logoEscolaDataUrl = e.target.result;
+      renderizarProva();
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function alternarCamposOpcoes() {
+  const tipo = document.getElementById('novoTipo').value;
+  const container = document.getElementById('containerOpcoes');
+  if (container) container.style.display = tipo === 'objetiva' ? 'block' : 'none';
+}
+
 // ==========================================
-// 9. FUNÇÃO DE IMPRESSÃO
+// HISTÓRICO (DESFAZER / REFAZER / REINICIAR)
 // ==========================================
-function imprimirProva() { 
-  window.print(); 
+function salvarEstadoHistorico() {
+  historicoEstados = historicoEstados.slice(0, ponteiroHistorico + 1);
+  historicoEstados.push(JSON.stringify(listaQuestoesProva));
+  ponteiroHistorico++;
+}
+
+function desfazer() {
+  if (ponteiroHistorico > 0) {
+    ponteiroHistorico--;
+    listaQuestoesProva = JSON.parse(historicoEstados[ponteiroHistorico]);
+    renderizarProva();
+  }
+}
+
+function refazer() {
+  if (ponteiroHistorico < historicoEstados.length - 1) {
+    ponteiroHistorico++;
+    listaQuestoesProva = JSON.parse(historicoEstados[ponteiroHistorico]);
+    renderizarProva();
+  }
+}
+
+function reiniciarProva() {
+  if (confirm("Tem certeza que deseja reiniciar a prova? Todas as questões serão removidas.")) {
+    salvarEstadoHistorico();
+    listaQuestoesProva = [];
+    renderizarProva();
+  }
+}
+
+// ==========================================
+// REDIMENSIONAMENTO DA SIDEBAR (RESIZER)
+// ==========================================
+function configurarResizer() {
+  const resizer = document.getElementById('resizer');
+  const sidebar = document.getElementById('sidebar');
+  if (!resizer || !sidebar) return;
+
+  let isResizing = false;
+
+  resizer.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    document.body.style.cursor = 'col-resize';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+    let newWidth = e.clientX;
+    if (newWidth >= 280 && newWidth <= 520) {
+      sidebar.style.width = `${newWidth}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    isResizing = false;
+    document.body.style.cursor = 'default';
+  });
 }
