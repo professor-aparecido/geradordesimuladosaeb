@@ -1,95 +1,85 @@
 // ======================================================
-// CONFIGURAÇÕES E ESTADO GLOBAL
+// CONFIGURAÇÕES DE DIMENSÃO (A4 em Pixels)
 // ======================================================
-// Em DPI padrão (96DPI), uma folha A4 tem ~1122px de altura.
-// Descontando margens/paddings da página, o limite útil é de cerca de 960px.
+// Em 96 DPI, a folha A4 tem ~1122px. Com margens, o limite útil é cerca de 960px.
 const ALTURA_MAXIMA_A4_PX = 960; 
 
-let questoesNaProva = []; // Array para guardar as questões inseridas na folha
+let questoesNaProva = [];
 
-// ======================================================
-// INICIALIZAÇÃO E EVENTOS
-// ======================================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Esconde o alerta de erro no início
     ocultarAlerta();
-
-    // Atualiza cabeçalho em tempo real ao digitar nos inputs
-    vincularAtualizacaoCabecalho();
+    vincularCamposFormulario();
 });
 
 // ======================================================
-// FUNÇÃO PRINCIPAL: ADICIONAR QUESTÃO À PROVA
+// FUNÇÃO PRINCIPAL: ADICIONAR QUESTÃO
 // ======================================================
 function adicionarQuestao(dadosQuestao) {
     ocultarAlerta();
 
-    const paginaA4 = document.querySelector('.pagina-a4') || document.getElementById('pagina-a4');
-    const containerQuestoes = document.getElementById('container-questoes') || paginaA4;
+    // 1. Localiza a folha A4 atual ou o container principal
+    const containerProvas = document.getElementById('conteudoProvasContainer');
+    if (!containerProvas) return;
 
-    if (!paginaA4 || !containerQuestoes) {
-        console.error("Container da página A4 não encontrado!");
-        return;
-    }
+    // Pega a página A4 visível (ou usa o próprio container caso as páginas sejam geradas dentro dele)
+    let paginaA4 = containerProvas.querySelector('.folha-a4') || containerProvas;
 
-    // 1. Número da nova questão
-    const numeroNovaQuestao = questoesNaProva.length + 1;
-    dadosQuestao.numero = numeroNovaQuestao;
+    // 2. Define o número da nova questão
+    const numeroQuestao = questoesNaProva.length + 1;
+    dadosQuestao.numero = numeroQuestao;
 
-    // 2. Cria o elemento DOM da questão
-    const elementoQuestao = criarElementoQuestaoHTML(dadosQuestao);
+    // 3. Cria o elemento HTML da questão
+    const elQuestao = criarElementoQuestao(dadosQuestao);
 
-    // 3. Insere temporariamente na folha para medir no DOM
-    containerQuestoes.appendChild(elementoQuestao);
+    // 4. Inserção TEMPORÁRIA para o navegador calcular a altura no DOM
+    paginaA4.appendChild(elQuestao);
 
-    // 4. Captura de Alturas
-    const alturaTotalOcupada = paginaA4.scrollHeight; // Altura acumulada de tudo (Cabeçalho + Questões)
-    const alturaApenasDaQuestao = elementoQuestao.offsetHeight; // Altura individual dessa questão
+    // 5. Medição exata de alturas
+    const alturaTotalAcumulada = paginaA4.scrollHeight; // Altura acumulada (Cabeçalho + Questões)
+    const alturaIndividualQuestao = elQuestao.offsetHeight; // Altura só desta questão
 
     // ======================================================
-    // LOGICA DE VERIFICAÇÃO DE ESPAÇO
+    // LOGICA DE CHECAGEM DE ESPAÇO
     // ======================================================
 
-    // CASO 1: A questão é maior que uma folha inteira sozinha
-    if (alturaApenasDaQuestao > ALTURA_MAXIMA_A4_PX) {
-        containerQuestoes.removeChild(elementoQuestao);
-        exibirAlerta(`A Questão ${numeroNovaQuestao} é grande demais para caber em uma página A4!`);
+    // A) Questão sozinha é maior que uma página A4 em branco
+    if (alturaIndividualQuestao > ALTURA_MAXIMA_A4_PX) {
+        paginaA4.removeChild(elQuestao);
+        exibirAlerta(`A Questão ${numeroQuestao} é grande demais para caber em uma página A4!`);
         return;
     }
 
-    // CASO 2: A folha encheu (o total acumulado passou do limite A4)
-    if (alturaTotalOcupada > ALTURA_MAXIMA_A4_PX) {
-        // Remove a questão que estourou a página
-        containerQuestoes.removeChild(elementoQuestao);
-
-        // Exibe a mensagem de aviso que a página ficou cheia
-        exibirAlerta(`A página A4 está cheia! A Questão ${numeroNovaQuestao} não cabe na folha atual.`);
+    // B) Folha A4 encheu com o acúmulo das questões
+    if (alturaTotalAcumulada > ALTURA_MAXIMA_A4_PX) {
+        paginaA4.removeChild(elQuestao); // Remove a questão da página cheia
+        
+        exibirAlerta(`A página atual está cheia! A Questão ${numeroQuestao} não cabe na folha A4.`);
         return;
     }
 
-    // CASO 3: Coube normalmente! Salva a questão na lista oficial
+    // C) Coube com sucesso! Registra no sistema
     questoesNaProva.push(dadosQuestao);
-    atualizarContadorPaginas();
+    atualizarInfoPaginas();
 }
 
 // ======================================================
-// MONTAGEM DO HTML DA QUESTÃO
+// MONTAGEM DO ELEMENTO DA QUESTÃO
 // ======================================================
-function criarElementoQuestaoHTML(dados) {
+function criarElementoQuestao(dados) {
     const div = document.createElement('div');
-    div.classList.add('questao-item');
-    div.setAttribute('id', `questao-${dados.numero}`);
-    div.style.marginBottom = '20px';
+    div.className = 'questao-item';
+    div.id = `questao-${dados.numero}`;
+    div.style.marginBottom = '15px';
 
     div.innerHTML = `
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #000; padding-bottom: 4px; margin-bottom: 8px;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #000; padding-bottom: 2px; margin-bottom: 6px;">
             <strong>QUESTÃO ${dados.numero}</strong>
-            <span style="font-weight: bold; font-size: 14px;">${dados.descritor ? dados.descritor : ''}</span>
+            <span style="font-weight: bold;">${dados.descritor || ''}</span>
         </div>
-        <div class="texto-questao" style="margin-bottom: 8px;">
+        <div class="enunciado" style="margin-bottom: 6px;">
             ${dados.texto || 'Texto da questão...'}
         </div>
-        <div class="alternativas-questao">
+        <div class="alternativas">
             <div><b>A)</b> ${dados.altA || 'A'}</div>
             <div><b>B)</b> ${dados.altB || 'B'}</div>
             <div><b>C)</b> ${dados.altC || 'C'}</div>
@@ -101,80 +91,54 @@ function criarElementoQuestaoHTML(dados) {
 }
 
 // ======================================================
-// CONTROLE DE AVISOS E ALERTAS
+// CONTROLE DO BANNER DE ALERTA DINÂMICO (#containerAlertaExt)
 // ======================================================
 function exibirAlerta(mensagem) {
-    const caixaAlerta = document.getElementById('mensagem-alerta') || document.querySelector('.alerta-a4');
-    
-    if (caixaAlerta) {
-        caixaAlerta.innerHTML = `⚠️ ${mensagem}`;
-        caixaAlerta.style.display = 'block';
-    } else {
-        alert(mensagem);
+    const bannerAlerta = document.getElementById('containerAlertaExt');
+    if (bannerAlerta) {
+        bannerAlerta.innerHTML = `
+            <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; border: 1px solid #f5c6cb; text-align: center; margin-bottom: 10px; font-weight: bold;">
+                ⚠️ ${mensagem}
+            </div>
+        `;
+        bannerAlerta.style.display = 'block';
     }
 }
 
 function ocultarAlerta() {
-    const caixaAlerta = document.getElementById('mensagem-alerta') || document.querySelector('.alerta-a4');
-    if (caixaAlerta) {
-        caixaAlerta.style.display = 'none';
+    const bannerAlerta = document.getElementById('containerAlertaExt');
+    if (bannerAlerta) {
+        bannerAlerta.innerHTML = '';
+        bannerAlerta.style.display = 'none';
     }
 }
 
 // ======================================================
-// AÇÕES DOS BOTÕES DA TELA (DESFAZER, REFAZER, REINICIAR)
+// AUXILIARES
 // ======================================================
-function desfazerUltimaQuestao() {
+function atualizarInfoPaginas() {
+    const spanInfo = document.getElementById('infoPaginas');
+    if (spanInfo) {
+        spanInfo.textContent = "Total de Páginas: 1";
+    }
+}
+
+function desfazerUltima() {
     if (questoesNaProva.length === 0) return;
-
+    
     questoesNaProva.pop();
-    const containerQuestoes = document.getElementById('container-questoes');
-    if (containerQuestoes && containerQuestoes.lastElementChild) {
-        containerQuestoes.removeChild(containerQuestoes.lastElementChild);
+    const containerProvas = document.getElementById('conteudoProvasContainer');
+    const ultimaQuestao = containerProvas.querySelector('.questao-item:last-child');
+    if (ultimaQuestao) {
+        ultimaQuestao.remove();
     }
     ocultarAlerta();
-    atualizarContadorPaginas();
 }
 
-function reiniciarProva() {
-    questoesNaProva = [];
-    const containerQuestoes = document.getElementById('container-questoes');
-    if (containerQuestoes) {
-        containerQuestoes.innerHTML = '';
-    }
-    ocultarAlerta();
-    atualizarContadorPaginas();
+function imprimirProva() {
+    window.print();
 }
 
-function atualizarContadorPaginas() {
-    const contador = document.getElementById('total-paginas');
-    if (contador) {
-        // Se houver lógica de múltiplas páginas, atualize aqui. Por enquanto, mantendo 1.
-        contador.textContent = "Total de Páginas: 1"; 
-    }
-}
-
-// ======================================================
-// SINCRONIZAÇÃO DOS INPUTS COM O CABEÇALHO DA PROVA
-// ======================================================
-function vincularAtualizacaoCabecalho() {
-    const mapeamento = [
-        { input: 'nome-escola', target: 'preview-escola' },
-        { input: 'serie-input', target: 'preview-serie' },
-        { input: 'turma-input', target: 'preview-turma' },
-        { input: 'professor-input', target: 'preview-professor' },
-        { input: 'disciplina-input', target: 'preview-disciplina' },
-        { input: 'bimestre-input', target: 'preview-bimestre' }
-    ];
-
-    mapeamento.forEach(item => {
-        const inputEl = document.getElementById(item.input);
-        const targetEl = document.getElementById(item.target);
-
-        if (inputEl && targetEl) {
-            inputEl.addEventListener('input', () => {
-                targetEl.textContent = inputEl.value;
-            });
-        }
-    });
+function vincularCamposFormulario() {
+    // Sincroniza campos se necessário
 }
