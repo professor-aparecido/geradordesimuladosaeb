@@ -3,7 +3,8 @@
     "id": "q1_d1",
     "descritor": "D1",
     "tipo": "objetiva",
-    "enunciado": "Observe algumas figuras geométricas desenhadas na malha quadriculada abaixo. <div class='bloco-imagem'><img src='imagens/img05.png' width=\"70%\" alt='Imagem.'> </div> <div>Qual dessas figuras é um trapézio?",    "alternativas": {
+    "enunciado": "Observe algumas figuras geométricas desenhadas na malha quadriculada abaixo. <div class='bloco-imagem'><img src='imagens/img05.png' width=\"70%\" alt='Imagem.'> </div> <div>Qual dessas figuras é um trapézio?",    
+    "alternativas": {
       "A": "100 m²",
       "B": "200 m²",
       "C": "300 m²",
