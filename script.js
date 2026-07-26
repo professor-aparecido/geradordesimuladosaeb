@@ -76,6 +76,8 @@ function applyZoom(newZoom) {
     const wrapper = document.getElementById('provaPagesWrapper') || document.querySelector('.prova-pages-wrapper');
     if (wrapper) {
         wrapper.style.transform = `scale(${currentZoom})`;
+        // Ancora a escala no topo, evitando que o cabeçalho corte
+        wrapper.style.transformOrigin = 'top center';
     }
 
     const zoomDisplay = document.getElementById('zoomLevel');
@@ -93,7 +95,6 @@ function inicializarZoom() {
     if (btnZoomOut) btnZoomOut.addEventListener('click', () => applyZoom(currentZoom - 0.1));
     if (btnZoomReset) btnZoomReset.addEventListener('click', () => applyZoom(1.0));
 }
-
 /* ==========================================================
    3. TROCA DE MODOS E PAINÉIS EXPANDÍVEIS
    ========================================================== */
@@ -134,7 +135,7 @@ function inicializarModosEModais() {
         });
     }
 
-    // Botões Principais da Topbar
+    // Botões Principais da Topbar (Com Auto-Scroll para a Próxima Página)
     const btnInserirQuebra = document.getElementById('btnInserirQuebra');
     if (btnInserirQuebra) {
         btnInserirQuebra.addEventListener('click', () => {
@@ -142,12 +143,49 @@ function inicializarModosEModais() {
                 alert("Adicione pelo menos uma questão antes de inserir uma quebra de página.");
                 return;
             }
+
+            // Alterna a propriedade quebraApos na última questão
             const ultimaQuestao = questoesNaProva[questoesNaProva.length - 1];
             ultimaQuestao.quebraApos = !ultimaQuestao.quebraApos;
+            
+            // Re-renderiza a folha A4
             renderizarProvaA4();
+
+            // 1. ROLAGEM PARA A PRÓXIMA PÁGINA
+            if (ultimaQuestao.quebraApos) {
+                // Busca todas as páginas A4 geradas na tela
+                const paginasA4 = document.querySelectorAll('.folha-a4');
+                const ultimaPagina = paginasA4[paginasA4.length - 1];
+
+                // Se houver uma nova página criada pela quebra, rola até o topo dela
+                if (ultimaPagina) {
+                    ultimaPagina.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else {
+                // Se o usuário removeu a quebra, rola até a última questão para mostrar que voltou ao normal
+                const todasQuestoes = document.querySelectorAll('.questao-item');
+                const ultimaQuestaoElem = todasQuestoes[todasQuestoes.length - 1];
+                if (ultimaQuestaoElem) {
+                    ultimaQuestaoElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            // 2. FEEDBACK VISUAL NO BOTÃO
+            const textoOriginal = btnInserirQuebra.innerHTML;
+            if (ultimaQuestao.quebraApos) {
+                btnInserirQuebra.innerHTML = '✓ Quebra Ativada!';
+                btnInserirQuebra.style.backgroundColor = '#10b981'; // Verde
+            } else {
+                btnInserirQuebra.innerHTML = '🚫 Quebra Removida!';
+                btnInserirQuebra.style.backgroundColor = '#ef4444'; // Vermelho
+            }
+
+            setTimeout(() => {
+                btnInserirQuebra.innerHTML = textoOriginal;
+                btnInserirQuebra.style.backgroundColor = ''; // Restaura a cor padrão
+            }, 1500);
         });
     }
-
     const btnRefazerProva = document.getElementById('btnRefazerProva');
     if (btnRefazerProva) {
         btnRefazerProva.addEventListener('click', () => {
