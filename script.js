@@ -275,17 +275,35 @@ if (btnAdicionarDoModal) {
 }
 
 /* ==========================================================
-   GERENCIAMENTO E DISTRIBUIÇÃO DAS QUESTÕES (CORRIGIDO)
+   GERENCIAMENTO DE QUESTÕES E QUEBRAS DE PÁGINA MANUAIS
    ========================================================== */
 
 let questoesNaProva = [];
 
+// Função para Adicionar Questão
 function adicionarQuestaoNaProva(questao) {
     const novaQuestao = JSON.parse(JSON.stringify(questao));
     novaQuestao.espacoInferior = 1;
+    novaQuestao.quebraApos = false; // Controle manual de quebra
     
     questoesNaProva.push(novaQuestao);
     renderizarProvaA4();
+}
+
+// Botão "Refazer Prova" / Reiniciar
+const btnRefazerProva = document.getElementById('btnRefazerProva');
+if (btnRefazerProva) {
+    btnRefazerProva.addEventListener('click', () => {
+        if (questoesNaProva.length === 0) {
+            alert("A prova já está vazia!");
+            return;
+        }
+
+        if (confirm("Tem certeza que deseja reiniciar a prova? Todas as questões adicionadas serão removidas.")) {
+            questoesNaProva = [];
+            renderizarProvaA4();
+        }
+    });
 }
 
 function criarElementoQuestaoHTML(q, index) {
@@ -293,8 +311,14 @@ function criarElementoQuestaoHTML(q, index) {
     wrapper.className = 'coluna-questao';
     wrapper.style.marginBottom = `${q.espacoInferior || 1}rem`;
 
+    // Botões de Ação na Questão
     let htmlAcoes = `
         <div class="q-actions-toolbar">
+            <button type="button" class="btn-q-action btn-q-pagebreak ${q.quebraApos ? 'active' : ''}" 
+                    style="background-color: ${q.quebraApos ? '#ef4444' : '#6b7280'};" 
+                    title="Inserir/Remover Quebra de Página após esta questão">
+                ✂️ ${q.quebraApos ? 'Remover Quebra' : 'Quebrar Página'}
+            </button>
             <button type="button" class="btn-q-action btn-q-space-plus" title="Aumentar Espaço">+</button>
             <button type="button" class="btn-q-action btn-q-space-minus" title="Diminuir Espaço">-</button>
             <button type="button" class="btn-q-action btn-q-move-up" title="Mover para Cima">▲</button>
@@ -339,6 +363,12 @@ function criarElementoQuestaoHTML(q, index) {
         </div>
     `;
 
+    // Eventos dos Botões
+    wrapper.querySelector('.btn-q-pagebreak').addEventListener('click', () => {
+        q.quebraApos = !q.quebraApos;
+        renderizarProvaA4();
+    });
+
     wrapper.querySelector('.btn-q-space-plus').addEventListener('click', () => {
         q.espacoInferior = (q.espacoInferior || 1) + 0.5;
         renderizarProvaA4();
@@ -378,13 +408,13 @@ function criarElementoQuestaoHTML(q, index) {
 }
 
 /**
- * Função unificada para gerenciar o overflow interno das folhas A4
+ * Renderiza as folhas dividindo com base na quebra manual (ou limite seguro)
  */
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
 
-    // Remove páginas adicionais prévias
+    // Limpa páginas secundárias
     document.querySelectorAll('.folha-a4-gerada').forEach(el => el.remove());
 
     const containerPrimeiraPagina = primeiraFolha.querySelector('.prova-questoes-2colunas');
@@ -406,18 +436,20 @@ function renderizarProvaA4() {
         containerAtual.classList.remove('layout-1coluna');
     }
 
-    // Processa item a item medindo o overflow em altura interna real
     questoesNaProva.forEach((q, idx) => {
         const elQuestao = criarElementoQuestaoHTML(q, idx);
         containerAtual.appendChild(elQuestao);
 
-        // Medição em pixels reais do clientHeight para desconsiderar a escala do CSS transform
-        const alturaMaxUtil = folhaAtual.clientHeight - 30; 
-        const alturaConteudoAtual = folhaAtual.scrollHeight;
+        // Se o usuário clicou no botão "Quebrar Página" nesta questão
+        if (q.quebraApos && idx < questoesNaProva.length - 1) {
+            
+            // Adiciona a mensagem visual na tela informando a quebra
+            const avisoQuebra = document.createElement('div');
+            avisoQuebra.className = 'indicador-quebra-pagina';
+            avisoQuebra.innerHTML = `✂️ QUEBRA DE PÁGINA — (Próxima questão vai para a Página ${numeroPagina + 1})`;
+            containerAtual.appendChild(avisoQuebra);
 
-        if (alturaConteudoAtual > alturaMaxUtil && containerAtual.children.length > 1) {
-            containerAtual.removeChild(elQuestao);
-
+            // Cria a nova folha A4
             numeroPagina++;
             const novaFolha = document.createElement('div');
             novaFolha.className = 'folha-a4 folha-a4-gerada';
@@ -435,10 +467,10 @@ function renderizarProvaA4() {
 
             folhaAtual = novaFolha;
             containerAtual = novaFolha.querySelector('.prova-questoes-2colunas');
-
-            containerAtual.appendChild(elQuestao);
         }
     });
 
-    updateZoom();
+    if (typeof updateZoom === 'function') {
+        updateZoom();
+    }
 }
