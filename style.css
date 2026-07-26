@@ -861,3 +861,21 @@ body {
         display: none;
     }
 }
+
+.prova-questoes-2colunas {
+    column-count: 2;
+    column-gap: 20px;
+    /* max-height garante que as 2 colunas preencham até o fim da folha antes de vazar */
+    max-height: 820px; 
+}
+
+/* Evita que uma questão seja cortada ao meio entre a coluna 1 e a coluna 2 */
+.coluna-questao {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.prova-questoes-2colunas.layout-1coluna {
+    column-count: 1;
+    max-height: none;
+}
