@@ -898,3 +898,31 @@ body {
     break-after: avoid !important;
   }
 }
+
+/* Espaçamento visual entre folhas A4 na tela */
+.folha-a4 {
+    margin-bottom: 40px !important; /* Espaço entre a Página 1, Página 2, etc. */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra para destacar a folha */
+}
+
+/* Container de questões em 2 colunas nativo do CSS */
+.prova-questoes-2colunas {
+    column-count: 2;
+    column-gap: 20px;
+    column-rule: 1px solid #ccc; /* Linha contínua central perfeita entre as colunas */
+    width: 100%;
+}
+
+/* Layout de 1 coluna quando selecionado */
+.prova-questoes-2colunas.layout-1coluna {
+    column-count: 1;
+    column-rule: none;
+}
+
+/* Garante que o bloco da questão não quebre ao meio entre colunas */
+.coluna-questao {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+}
