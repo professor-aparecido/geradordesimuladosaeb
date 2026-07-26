@@ -424,6 +424,7 @@ function removerQuebraPagina(indexQuestao) {
     }
 }
 
+
 function criarElementoQuestaoHTML(q, index) {
     const wrapper = document.createElement('div');
     wrapper.className = 'questao-item';
@@ -451,21 +452,31 @@ function criarElementoQuestaoHTML(q, index) {
         htmlTabela += `</table>`;
     }
 
-    // ALTERAÇÃO AQUI: Verificação do Gabarito nas alternativas
-    let htmlAlternativas = '';
-    if (q.alternativas) {
-        htmlAlternativas += `<div style="display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem; font-size: 0.82rem;">`;
+    // LÓGICA DE ALTERNATIVAS OU LINHAS SUBJETIVAS
+    let htmlConteudoInferior = '';
+    
+    // Se a questão tiver alternativas (Múltipla Escolha)
+    if (q.alternativas && typeof q.alternativas === 'object' && Object.keys(q.alternativas).length > 0) {
+        htmlConteudoInferior += `<div style="display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem; font-size: 0.82rem;">`;
         for (let key in q.alternativas) {
             const eCorreta = (q.respostaCorreta === key);
             
-            htmlAlternativas += `
+            htmlConteudoInferior += `
                 <div class="${eCorreta ? 'alternativa-correta' : ''}">
                     <strong>(${key})</strong> ${q.alternativas[key]}
                     ${eCorreta ? '<span class="marca-gabarito">✓ GABARITO</span>' : ''}
                 </div>
             `;
         }
-        htmlAlternativas += `</div>`;
+        htmlConteudoInferior += `</div>`;
+    } 
+    // Se for uma questão subjetiva/aberta
+    else if (q.tipo === 'subjetiva' || !q.alternativas) {
+        // A altura da área de linhas varia proporcionalmente com o espacoInferior
+        const alturaLinhas = (q.espacoInferior || 2) * 35;
+        htmlConteudoInferior = `
+            <div class="area-linhas" style="height: ${alturaLinhas}px; margin-top: 0.8rem;"></div>
+        `;
     }
 
     wrapper.innerHTML = `
@@ -478,7 +489,7 @@ function criarElementoQuestaoHTML(q, index) {
         </div>
         <div class="enunciado-pilar">${q.enunciado}</div>
         ${htmlTabela}
-        ${htmlAlternativas}
+        ${htmlConteudoInferior}
     `;
 
     // Eventos dos botões da Toolbar de cada questão
