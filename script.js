@@ -493,3 +493,59 @@ function renderizarProvaA4() {
         updateZoom();
     }
 }
+
+/* ==========================================================
+   SINCRONIZAÇÃO E ATUALIZAÇÃO DO CABEÇALHO EM TEMPO REAL
+   ========================================================== */
+
+function inicializarEventosCabecalho() {
+    // 1. Nome da Escola
+    const inputNomeEscola = document.getElementById('inputNomeEscola');
+    const displayNomeEscola = document.querySelector('.nome-escola');
+    if (inputNomeEscola && displayNomeEscola) {
+        inputNomeEscola.addEventListener('input', (e) => {
+            displayNomeEscola.textContent = e.target.value.toUpperCase();
+        });
+    }
+
+    // 2. Título da Prova
+    const inputTituloProva = document.getElementById('inputTituloProva');
+    const displayTituloProva = document.querySelector('.titulo-prova');
+    if (inputTituloProva && displayTituloProva) {
+        inputTituloProva.addEventListener('input', (e) => {
+            displayTituloProva.textContent = e.target.value.toUpperCase();
+        });
+    }
+
+    // 3. Série / Etapa
+    const inputSerie = document.getElementById('inputSerie');
+    const displaySerie = document.querySelector('.info-serie'); 
+    if (inputSerie && displaySerie) {
+        inputSerie.addEventListener('input', (e) => {
+            displaySerie.textContent = e.target.value;
+        });
+    }
+
+    // 4. Turma
+    const inputTurma = document.getElementById('inputTurma');
+    const displayTurma = document.querySelector('.info-turma');
+    if (inputTurma && displayTurma) {
+        inputTurma.addEventListener('input', (e) => {
+            displayTurma.textContent = e.target.value;
+        });
+    }
+
+    // 5. Professor(a)
+    const inputProfessor = document.getElementById('inputProfessor');
+    const displayProfessor = document.querySelector('.info-professor');
+    if (inputProfessor && displayProfessor) {
+        inputProfessor.addEventListener('input', (e) => {
+            displayProfessor.textContent = e.target.value;
+        });
+    }
+}
+
+// Chame a função quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarEventosCabecalho();
+});
