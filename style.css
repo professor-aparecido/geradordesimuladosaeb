@@ -948,3 +948,11 @@ body {
     font-weight: bold;
     color: #15803d;
 }
+
+.area-linhas {
+    width: 100%;
+    background-image: linear-gradient(to bottom, transparent 95%, #cbd5e1 95%);
+    background-size: 100% 24px;
+    line-height: 24px;
+    border-top: 1px solid #cbd5e1;
+}
