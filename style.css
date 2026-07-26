@@ -390,27 +390,38 @@ body {
 /* ========================================== */
 /* 6. PAINEL DE PRÉ-VISUALIZAÇÃO E ZOOM       */
 /* ========================================== */
+
+/* 1. PAINEL PRINCIPAL DA DIREITA */
+/* 1. PAINEL CONTAINER */
 .panel-preview,
 .preview-area {
     flex: 1;
     background-color: #475569;
-    padding: 2rem;
+    padding: 0;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* Mude de 'align-items: center' para 'align-items: stretch' */
+    align-items: stretch;
 }
 
+/* 2. BARRA DE CONTROLES FIXA NO TOPO */
 .preview-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     width: 100%;
-    max-width: 800px;
+    background-color: #f1f5f9; /* Cinza claro elegante */
+    color: #334155;            /* Texto escuro para dar contraste no fundo claro */
+    padding: 0.8rem 1.5rem;
+    border-bottom: 1px solid #cbd5e1; /* Borda sutil para separar do fundo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra mais suave */
+    
     display: flex;
     justify-content: space-between;
-    color: #ffffff;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
+    align-items: center;
+    box-sizing: border-box;
 }
-
 .tag-status {
     background-color: #2e7d32;
     padding: 0.2rem 0.6rem;
@@ -419,14 +430,22 @@ body {
 }
 
 /* Container de Zoom unificado */
-.prova-pages-wrapper {
+
+.prova-pages-wrapper,
+#provaPagesWrapper {
+    padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    transform-origin: top center;
-    transition: transform 0.2s ease-out;
+    align-items: center; /* Centraliza a folha A4 horizontalmente */
+    gap: 2rem;
+    width: 100%;
+    
+    /* PONTOS CHAVE PARA O ZOOM FUNCIONAR PERFEITAMENTE */
+    transform-origin: top center; /* Garante que a folha encolha/cresça a partir do TOPO */
+    transition: transform 0.2s ease; /* Deixa o movimento do zoom suave */
 }
+
+
 
 /* ========================================== */
 /* 7. MODELO DA FOLHA DE PROVA (A4)          */
@@ -956,3 +975,42 @@ body {
     line-height: 24px;
     border-top: 1px solid #cbd5e1;
 }
+
+/* Estilo do Seletor de Colunas na Topbar */
+.select-topo-colunas {
+    background-color: #1e293b;
+    color: #ffffff;
+    border: 1px solid #475569;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+}
+
+.select-topo-colunas:hover {
+    border-color: #94a3b8;
+}
+
+/* Animação para destacar a quebra recém-criada */
+@keyframes piscarQuebra {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0px rgba(245, 158, 11, 0);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+        background-color: #fef08a; /* Amarelo mais vivo */
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0px rgba(245, 158, 11, 0);
+    }
+}
+
+.quebra-destacada {
+    animation: piscarQuebra 1.2s ease-in-out;
+}
+
