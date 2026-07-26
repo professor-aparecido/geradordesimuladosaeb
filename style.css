@@ -4,7 +4,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho final do elemento */
+    box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -14,14 +14,14 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Evita rolagens duplas na página inteira */
+    overflow: hidden;
 }
 
 /* ========================================== */
 /* 2. BARRA SUPERIOR (TOPBAR)                 */
 /* ========================================== */
 .topbar {
-    background-color: #1a237e; /* Azul escuro principal */
+    background-color: #1a237e;
     color: #ffffff;
     padding: 0.8rem 1.5rem;
     display: flex;
@@ -32,7 +32,7 @@ body {
 }
 
 .topbar h2 span { 
-    color: #ffd600; /* Destaque amarelo na marca SAEB */
+    color: #ffd600;
 }
 
 .topbar-actions { 
@@ -46,7 +46,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    background: rgba(255, 255, 255, 0.15); /* Container translúcido */
+    background: rgba(255, 255, 255, 0.15);
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
     font-size: 0.85rem;
@@ -77,7 +77,7 @@ body {
 
 .btn-zoom:hover, 
 .btn-zoom-reset:hover {
-    background: #ffd600; /* Efeito hover em amarelo */
+    background: #ffd600;
     color: #000000;
 }
 
@@ -87,21 +87,19 @@ body {
 .app-container {
     display: flex;
     flex: 1;
-    height: calc(100vh - 60px); /* Altura descontando a barra superior */
+    height: calc(100vh - 60px);
     width: 100%;
 }
 
-/* PAINEL DA ESQUERDA (CONFIGURAÇÕES E BANCO) */
 .panel-builder {
-    width: 40%; /* Largura inicial do painel */
+    width: 40%;
     min-width: 300px;
     max-width: 80%;
     background-color: #ffffff;
     padding: 1.5rem;
-    overflow-y: auto; /* Rolagem independente no painel de controle */
+    overflow-y: auto;
 }
 
-/* BARRA DIVISÓRIA ARRASTÁVEL (RESIZER) */
 .resizer {
     width: 8px;
     background-color: #ced4da;
@@ -116,7 +114,6 @@ body {
     background-color: #1a237e;
 }
 
-/* Tracinho indicador no centro do resizer */
 .resizer::after {
     content: '';
     position: absolute;
@@ -169,7 +166,6 @@ body {
     font-size: 0.88rem;
 }
 
-/* LINHA COM DOIS CAMPOS (SÉRIE E TURMA) */
 .form-row {
     display: flex;
     gap: 0.8rem;
@@ -177,15 +173,14 @@ body {
 }
 
 .form-row .form-control:first-child {
-    flex: 0 0 110px; /* Largura fixa para Série */
+    flex: 0 0 110px;
 }
 
 .form-row .form-control:last-child {
-    flex: 1; /* Turma ocupa o espaço restante */
+    flex: 1;
     min-width: 0;
 }
 
-/* CRIAÇÃO DE ALTERNATIVAS (A, B, C, D) */
 .alternativas-builder label {
     font-size: 0.85rem;
     font-weight: 600;
@@ -220,7 +215,6 @@ body {
     border-radius: 4px;
 }
 
-/* SELEÇÃO DE MODO (BANCO X CRIAR) */
 .modo-adicao-container {
     display: flex;
     gap: 0.5rem;
@@ -260,7 +254,7 @@ body {
 }
 
 /* ========================================== */
-/* 5. LISTA DE QUESTÕES DO BANCO (LINHA ÚNICA) */
+/* 5. LISTA DE QUESTÕES DO BANCO              */
 /* ========================================== */
 .lista-banco-container {
     margin-top: 0.8rem;
@@ -296,7 +290,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    flex: 1; /* Preenche a linha empurrando os botões para a direita */
+    flex: 1;
 }
 
 .texto-questao-resumo strong {
@@ -308,7 +302,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    flex-shrink: 0; /* Impede que os botões caiam para a linha de baixo */
+    flex-shrink: 0;
 }
 
 .btn-icon-sm {
@@ -349,11 +343,11 @@ body {
 }
 
 /* ========================================== */
-/* 6. PAINEL DE PRÉ-VISUALIZAÇÃO (DIREITA)    */
+/* 6. PAINEL DE PRÉ-VISUALIZAÇÃO              */
 /* ========================================== */
 .panel-preview {
     flex: 1;
-    background-color: #525659; /* Cor de fundo padrão de visualizador PDF */
+    background-color: #525659;
     padding: 2rem;
     overflow-y: auto;
     display: flex;
@@ -379,23 +373,25 @@ body {
 }
 
 /* ========================================== */
-/* 7. MODELO DA FOLHA DE PROVA (A4)           */
+/* 7. MODELO DA FOLHA DE PROVA (A4) - AJUSTADO */
 /* ========================================== */
 .folha-a4 {
     position: relative;
     box-sizing: border-box;
     background: #ffffff;
     width: 210mm;
-    height: 297mm; /* Fixado para prevenir distorção */
+    min-height: 297mm;
+    height: 297mm; /* Força altura A4 exata para os cálculos de renderização */
     padding: 15mm;
-    margin: 0 auto 40px auto !important; /* Espaçamento visual claro de 40px entre folhas */
+    margin: 0 auto 40px auto !important;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
     border-radius: 2px;
     display: flex;
     flex-direction: column;
     transform-origin: top center;
     transition: transform 0.2s ease-in-out;
-    overflow: hidden; /* Corta elementos que excedem a margem real */
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 /* CABEÇALHO COMPACTO DA PROVA */
@@ -532,7 +528,6 @@ body {
     border-left: none !important;
 }
 
-/* ESTRUTURA INTERNA DA QUESTÃO */
 .questao-header-pilar {
     display: flex;
     justify-content: space-between;
@@ -581,7 +576,7 @@ body {
 }
 
 /* ========================================== */
-/* 9. BARRA DE AÇÕES DA QUESTÃO (PRÉ-PREVIEW) */
+/* 9. BARRA DE AÇÕES DA QUESTÃO               */
 /* ========================================== */
 .questao-title-group {
     display: flex;
@@ -615,51 +610,19 @@ body {
     line-height: 1;
 }
 
-.btn-q-action:hover {
-    opacity: 0.85;
-}
-
-.btn-q-action:active {
-    transform: scale(0.92);
-}
+.btn-q-action:hover { opacity: 0.85; }
+.btn-q-action:active { transform: scale(0.92); }
 
 .btn-q-space-plus,
-.btn-q-space-minus {
-    background-color: #d97706; /* Laranja / Âmbar */
-}
+.btn-q-space-minus { background-color: #d97706; }
 
 .btn-q-move-up,
-.btn-q-move-down {
-    background-color: #1a237e; /* Azul padrão */
-}
+.btn-q-move-down { background-color: #1a237e; }
 
-.btn-q-delete {
-    background-color: #dc2626; /* Vermelho */
-}
-
-/* INDICADOR DE QUEBRA DE PÁGINA */
-.page-break-indicator {
-    width: 100%;
-    border-top: 2px dashed #dc2626;
-    margin: 1.5rem 0;
-    position: relative;
-    text-align: center;
-}
-
-.page-break-indicator::after {
-    content: '--- Quebra de Página (Fim da Folha A4) ---';
-    background-color: #f1f5f9;
-    color: #dc2626;
-    font-size: 0.75rem;
-    font-weight: bold;
-    padding: 2px 8px;
-    border-radius: 4px;
-    position: relative;
-    top: -10px;
-}
+.btn-q-delete { background-color: #dc2626; }
 
 /* ========================================== */
-/* 10. JANELA MODAL DE PRÉ-VISUALIZAÇÃO       */
+/* 10. JANELA MODAL                           */
 /* ========================================== */
 .modal-overlay {
     position: fixed;
@@ -694,10 +657,7 @@ body {
     align-items: center;
 }
 
-.modal-header h4 {
-    margin: 0;
-    font-size: 1rem;
-}
+.modal-header h4 { margin: 0; font-size: 1rem; }
 
 .btn-close {
     background: transparent;
@@ -724,7 +684,7 @@ body {
 }
 
 /* ========================================== */
-/* 11. ACCORDION E UTILITÁRIOS                */
+/* 11. UTILITÁRIOS                           */
 /* ========================================== */
 .section-header-toggle {
     display: flex;
@@ -738,13 +698,8 @@ body {
     transition: color 0.2s ease;
 }
 
-.section-header-toggle:hover {
-    color: #1a237e;
-}
-
-.section-header-toggle h3 {
-    margin: 0;
-}
+.section-header-toggle:hover { color: #1a237e; }
+.section-header-toggle h3 { margin: 0; }
 
 .toggle-badge {
     display: flex;
@@ -773,13 +728,7 @@ body {
     transform: rotate(180deg);
 }
 
-.section-body {
-    transition: all 0.3s ease;
-}
-
-.section-body.collapsed {
-    display: none;
-}
+.section-body.collapsed { display: none; }
 
 .btn {
     padding: 0.5rem 1rem;
@@ -801,15 +750,12 @@ body {
     padding: 0.5rem 0;
 }
 
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }
 
 /* ========================================== */
-/* 12. REGRAS DE IMPRESSÃO (PDF / IMPRESSORA) */
+/* 12. IMPRESSÃO                             */
 /* ========================================== */
 @media print {
-    /* Oculta interface e controles durante a impressão */
     .topbar,
     .panel-builder,
     .resizer,
@@ -844,16 +790,5 @@ body {
     .folha-a4:last-child {
         page-break-after: avoid !important;
         break-after: avoid !important;
-    }
-
-    .page-break-indicator {
-        display: block;
-        page-break-before: always;
-        border: none;
-        margin: 0;
-    }
-    
-    .page-break-indicator::after {
-        display: none;
     }
 }
