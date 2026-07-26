@@ -335,6 +335,9 @@ function adicionarQuestaoNaProva(questao) {
 /**
  * Redesenha a prova distribuindo dinamicamente as questões em folhas A4 separadas
  */
+/**
+ * Redesenha a prova distribuindo dinamicamente as questões em folhas A4 separadas
+ */
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
@@ -369,21 +372,23 @@ function renderizarProvaA4() {
         const elQuestao = criarElementoQuestaoHTML(q, idx);
         containerAtual.appendChild(elQuestao);
 
-        // Limite de altura considerando cabeçalho na primeira página
-        const limiteAltura = (numeroPagina === 1) ? ALTURA_MAXIMA_A4_PX : (ALTURA_MAXIMA_A4_PX + 120);
+        // Força a medição real do elemento sem influência do Zoom
+        const alturaAtual = folhaAtual.getBoundingClientRect().height / (currentZoom || 1);
+        
+        // Definição do limite real da folha A4 em pixels (1050px no A4 padrão)
+        // Primeira página reserva espaço para o cabeçalho completo
+        const limiteMaximo = (numeroPagina === 1) ? 960 : 1020;
 
-        // Transborda para uma nova folha A4 se ultrapassar a capacidade da folha atual
-        if (folhaAtual.offsetHeight > limiteAltura && containerAtual.children.length > 1) {
+        // Só cria nova página se a altura REAL da folha passar do limite E houver mais de 1 questão nela
+        if (alturaAtual > limiteMaximo && containerAtual.children.length > 1) {
+            // Remove a questão da folha atual que estourou
             containerAtual.removeChild(elQuestao);
 
+            // Cria uma nova Folha A4
             numeroPagina++;
             const novaFolha = document.createElement('div');
             novaFolha.className = 'folha-a4 folha-a4-gerada';
             novaFolha.id = `pagina-a4-${numeroPagina}`;
-            
-            // Aplica o zoom atual na nova página criada
-            novaFolha.style.transform = `scale(${currentZoom})`;
-            novaFolha.style.transformOrigin = 'top center';
 
             // Cabeçalho simplificado de continuação
             let htmlNovaPagina = `
@@ -395,16 +400,19 @@ function renderizarProvaA4() {
             `;
             novaFolha.innerHTML = htmlNovaPagina;
 
+            // Insere no DOM
             folhaAtual.parentNode.insertBefore(novaFolha, folhaAtual.nextSibling);
 
+            // Atualiza ponteiros para a nova folha
             folhaAtual = novaFolha;
             containerAtual = novaFolha.querySelector('.prova-questoes-2colunas');
 
+            // Insere a questão na nova página
             containerAtual.appendChild(elQuestao);
         }
     });
 
-    // Atualiza o efeito visual do zoom em todas as páginas ativas
+    // Atualiza a escala visual do Zoom em todas as páginas criadas
     updateZoom();
 }
 
