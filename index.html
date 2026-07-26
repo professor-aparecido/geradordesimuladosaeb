@@ -7,39 +7,43 @@
     <!-- Folha de estilos CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- Solução temporária para sumir com o aviso de erro -->
-    <link rel="icon" href="data:,"></head>
+    <link rel="icon" href="data:,">
+</head>
 <body>
 
     <!-- ========================================== -->
     <!-- BARRA SUPERIOR (TOPBAR)                   -->
     <!-- ========================================== -->
     <header class="topbar">
-        <h2>Gerador de Simulados <span>SAEB</span></h2>
-        <div class="topbar-actions">
-
-           <div class="topbar-actions">
-    <!-- Botão de Quebra de Página -->
-    <button type="button" id="btnInserirQuebra" class="btn" style="background-color: #d97706; color: white;">
-        ✂️ Inserir Quebra de Página
-    </button>
-
-    <!-- Botão Refazer Prova -->
-    <button type="button" id="btnRefazerProva" class="btn" style="background-color: #dc2626; color: white;">
-        🗑️ Refazer Prova
-    </button>
-</div> 
-             <!-- NOVOS BOTÕES DE ZOOM -->
-    <div class="zoom-controls">
-        <button id="btnZoomOut" class="btn-zoom" title="Diminuir Zoom">-</button>
-        <span id="zoomVal">100%</span>
-        <button id="btnZoomIn" class="btn-zoom" title="Aumentar Zoom">+</button>
-        <button id="btnZoomReset" class="btn-zoom-reset" title="Resetar Zoom">100%</button>
+    <!-- Lado Esquerdo: Marca / Título -->
+    <div class="topbar-brand">
+        <h1>Gerador de Simulados <span>SAEB</span></h1>
     </div>
-            
-            <button class="btn btn-success">Impimir / Salvar pdf</button>
-        </div>
-    </header>
 
+    <!-- Lado Direito: Ações (Botões e Controles de Zoom) -->
+    <div class="topbar-actions">
+        <!-- Ações Principais -->
+        <button type="button" id="btnInserirQuebra" class="btn btn-warning">
+            ✂️ Inserir Quebra de Página
+        </button>
+
+        <button type="button" id="btnRefazerProva" class="btn btn-danger">
+            🗑️ Refazer Prova
+        </button>
+
+        <!-- Controle de Zoom com Lupas e Indicador -->
+<div class="zoom-controls">
+    <button type="button" class="btn-zoom" id="btnZoomOut" title="Diminuir Zoom">🔍-</button>
+    <span id="zoomLevel">100%</span>
+    <button type="button" class="btn-zoom" id="btnZoomIn" title="Aumentar Zoom">🔍+</button>
+    <button type="button" class="btn-zoom" id="btnZoomReset" title="Resetar Zoom para 100%">100%</button>
+</div>
+        <!-- Botão Final de Ação -->
+        <button type="button" class="btn btn-success" onclick="window.print()">
+            🖨️ Imprimir / Salvar PDF
+        </button>
+    </div>
+</header>
     <!-- ========================================== -->
     <!-- CONTAINER PRINCIPAL DO APLICATIVO          -->
     <!-- ========================================== -->
