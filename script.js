@@ -453,7 +453,46 @@ function adicionarQuestaoNaProva(questao) {
     
     questoesNaProva.push(novaQuestao);
     renderizarProvaA4();
+
+    // Verificação da altura da folha após a renderização
+    setTimeout(() => {
+        verificarLimitePagina();
+    }, 100);
 }
+
+// Variável de controle para não disparar o alerta repetidamente
+let alertaExibido = false;
+
+function verificarLimitePagina() {
+    const paginas = document.querySelectorAll('.folha-a4');
+    if (paginas.length === 0) return;
+
+    const ultimaPagina = paginas[paginas.length - 1];
+    
+    // Pega as posições físicas na tela
+    const retanguloFolha = ultimaPagina.getBoundingClientRect();
+    const elementos = ultimaPagina.querySelectorAll('*');
+    let posicaoMaisBaixa = 0;
+
+    // Encontra o elemento mais ao fundo
+    elementos.forEach(el => {
+        const retanguloEl = el.getBoundingClientRect();
+        const distanciaDoTopo = retanguloEl.bottom - retanguloFolha.top;
+        if (distanciaDoTopo > posicaoMaisBaixa) {
+            posicaoMaisBaixa = distanciaDoTopo;
+        }
+    });
+
+    // Usa os mesmos 980px da linha visual do CSS
+    const ALTURA_MAXIMA_UTIL = 980; 
+
+    if (posicaoMaisBaixa > ALTURA_MAXIMA_UTIL && !alertaExibido) {
+        alertaExibido = true;
+        
+        alert("⚠️ A folha atual ultrapassou a linha de limite A4!\n\nClique no botão 'Inserir Quebra de Página' para continuar na próxima folha.");
+    }
+}
+
 
 function removerQuebraPagina(indexQuestao) {
     if (questoesNaProva[indexQuestao]) {
@@ -461,7 +500,6 @@ function removerQuebraPagina(indexQuestao) {
         renderizarProvaA4();
     }
 }
-
 
 function criarElementoQuestaoHTML(q, index) {
     const wrapper = document.createElement('div');
@@ -533,7 +571,12 @@ function criarElementoQuestaoHTML(q, index) {
     // Eventos dos botões da Toolbar de cada questão
     wrapper.querySelector('.btn-q-space-plus').addEventListener('click', () => {
         q.espacoInferior = (q.espacoInferior || 1) + 0.5;
+        alertaExibido = false; // Libera o aviso caso o novo espaço estoure a folha
         renderizarProvaA4();
+
+        setTimeout(() => {
+            verificarLimitePagina();
+        }, 100);
     });
 
     wrapper.querySelector('.btn-q-space-minus').addEventListener('click', () => {
@@ -568,6 +611,7 @@ function criarElementoQuestaoHTML(q, index) {
 
     return wrapper;
 }
+
 
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
@@ -648,6 +692,7 @@ function renderizarProvaA4() {
     // (No final de renderizarProvaA4)
     applyZoom(currentZoom);
     renderizarLaTeX(); // Renderiza fórumulas LaTeX na folha A4
+    alertaExibido = false;
 }
 
 
