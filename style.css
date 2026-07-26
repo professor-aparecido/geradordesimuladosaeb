@@ -903,3 +903,55 @@ body {
         print-color-adjust: exact;
     }
 }
+
+/* ========================================== */
+/* BANNER DE QUEBRA DE PÁGINA COM REMOÇÃO     */
+/* ========================================== */
+
+.cabecalho-pagina-secundaria {
+    border-bottom: 1px solid #000;
+    padding-bottom: 4px;
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+/* Banner de informação e ação dentro da nova folha */
+.banner-quebra-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fef2f2;
+    border: 1px dashed #ef4444;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    color: #991b1b;
+    font-weight: 600;
+}
+
+.btn-remover-quebra {
+    background-color: #dc2626;
+    color: #ffffff;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-remover-quebra:hover {
+    background-color: #b91c1c;
+}
+
+/* ESCONDE O BANNER DE REMOÇÃO E AVISO NA IMPRESSÃO/PDF */
+@media print {
+    .banner-quebra-pagina {
+        display: none !important;
+    }
+}
