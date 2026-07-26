@@ -83,21 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ==========================================================
    GERENCIAMENTO DE ZOOM DA FOLHA DE PROVA
    ========================================================== */
-
-let currentZoom = 1; // 1 = 100%
+/* ==========================================================
+   1. APLICAÇÃO DE ZOOM EM TODAS AS PÁGINAS A4
+   ========================================================== */
+let currentZoom = 1;
 
 function applyZoom(newZoom) {
-    // Trava o zoom entre 50% (0.5) e 150% (1.5)
     currentZoom = Math.min(Math.max(newZoom, 0.5), 1.5);
 
-    // 1. Aplica a escala visual no container da folha
-    const previewContainer = document.querySelector('.folha-a4');
-    if (previewContainer) {
-        previewContainer.style.transform = `scale(${currentZoom})`;
-        previewContainer.style.transformOrigin = 'top center';
-    }
+    // Seleciona TODAS as folhas A4 (a principal e as geradas)
+    const todasAsFolhas = document.querySelectorAll('.folha-a4');
+    todasAsFolhas.forEach(folha => {
+        folha.style.transform = `scale(${currentZoom})`;
+        folha.style.transformOrigin = 'top center';
+    });
 
-    // 2. ATUALIZA OS NÚMEROS NO DISPLAY DO TOPO
     const zoomDisplay = document.getElementById('zoomLevel');
     if (zoomDisplay) {
         zoomDisplay.textContent = `${Math.round(currentZoom * 100)}%`;
@@ -443,8 +443,8 @@ function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
 
-    // Limpa páginas geradas anteriormente
-    document.querySelectorAll('.folha-a4-gerada').forEach(el => el.remove());
+    // Limpa páginas geradas e separadores antigos
+    document.querySelectorAll('.folha-a4-gerada, .separador-quebra-pagina').forEach(el => el.remove());
 
     const containerPrimeiraPagina = primeiraFolha.querySelector('.prova-questoes-2colunas');
     if (!containerPrimeiraPagina) return;
@@ -458,16 +458,33 @@ function renderizarProvaA4() {
     let containerAtual = containerPrimeiraPagina;
     let numeroPagina = 1;
 
+    // Atualiza classe de layout na primeira página
+    if (layoutUmaColuna) {
+        containerAtual.classList.add('layout-1coluna');
+    } else {
+        containerAtual.classList.remove('layout-1coluna');
+    }
+
     questoesNaProva.forEach((q, idx) => {
-        // Adiciona a questão
+        // Cria e adiciona o elemento da questão
         const elQuestao = criarElementoQuestaoHTML(q, idx);
         containerAtual.appendChild(elQuestao);
 
-        // Se a questão possui quebra de página ativada
+        // Se a questão possui quebra de página solicitada
         if (q.quebraApos) {
             numeroPagina++;
 
-            // 1. Cria imediatamente a nova folha A4 vazia
+            // A) CRIA A MENSAGEM ENTRE AS PÁGINAS (FORA DA FOLHA A4)
+            const elementoSeparador = document.createElement('div');
+            elementoSeparador.className = 'separador-quebra-pagina';
+            elementoSeparador.innerHTML = `
+                <span>✂️ Quebra de página inserida aqui</span>
+                <button type="button" class="btn-remover-quebra" onclick="removerQuebraPagina(${idx})">
+                    🗑️ Remover Quebra
+                </button>
+            `;
+
+            // B) CRIA A NOVA FOLHA A4 (LIMPA)
             const novaFolha = document.createElement('div');
             novaFolha.className = 'folha-a4 folha-a4-gerada';
             novaFolha.id = `pagina-a4-${numeroPagina}`;
@@ -477,24 +494,29 @@ function renderizarProvaA4() {
                     <span>SIMULADO SAEB</span>
                     <span>Página ${numeroPagina}</span>
                 </div>
-                <!-- Banner com botão para Remover a Página/Quebra -->
-                <div class="banner-quebra-pagina">
-                    <span>✂️ Quebra de página inserida aqui</span>
-                    <button type="button" class="btn-remover-quebra" onclick="removerQuebraPagina(${idx})">
-                        🗑️ Remover Página
-                    </button>
-                </div>
                 <div class="prova-questoes-2colunas ${layoutUmaColuna ? 'layout-1coluna' : ''}"></div>
             `;
 
-            // Insere a nova página no DOM
-            folhaAtual.parentNode.insertBefore(novaFolha, folhaAtual.nextSibling);
+            // C) INSERE NO DOM (SEPARADOR PRIMEIRO, DEPOIS A NOVA FOLHA)
+            folhaAtual.parentNode.insertBefore(elementoSeparador, folhaAtual.nextSibling);
+            elementoSeparador.parentNode.insertBefore(novaFolha, elementoSeparador.nextSibling);
 
-            // Atualiza os ponteiros para que as próximas questões entrem nesta nova folha
+            // Atualiza ponteiros para as próximas questões
             folhaAtual = novaFolha;
             containerAtual = novaFolha.querySelector('.prova-questoes-2colunas');
         }
     });
+
+    // Garante que o zoom seja aplicado a todas as páginas (incluindo as novas)
+    applyZoom(currentZoom);
+}
+
+// Remover Quebra
+function removerQuebraPagina(indexQuestao) {
+    if (questoesNaProva[indexQuestao]) {
+        questoesNaProva[indexQuestao].quebraApos = false;
+        renderizarProvaA4();
+    }
 }
 
 /* ==========================================================
