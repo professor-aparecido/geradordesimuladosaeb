@@ -335,6 +335,9 @@ function adicionarQuestaoNaProva(questao) {
 /**
  * Redesenha a prova distribuindo dinamicamente as questões em folhas A4 separadas
  */
+/**
+ * Redesenha a prova distribuindo dinamicamente as questões em folhas A4 separadas
+ */
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
@@ -357,7 +360,7 @@ function renderizarProvaA4() {
     let containerAtual = containerPrimeiraPagina;
     let numeroPagina = 1;
 
-    // Aplica a classe de colunas
+    // Aplica a classe de colunas na primeira página
     if (layoutUmaColuna) {
         containerAtual.classList.add('layout-1coluna');
     } else {
@@ -369,15 +372,14 @@ function renderizarProvaA4() {
         const elQuestao = criarElementoQuestaoHTML(q, idx);
         containerAtual.appendChild(elQuestao);
 
-        // Medição baseada no ScrollHeight real do container de questões
-        const alturaConteudo = containerAtual.scrollHeight;
-        
-        // Limite de altura útil para o container de questões (descontando cabeçalho e padding da página)
-        // Página 1 tem cabeçalho grande -> limite menor (~650px)
-        // Páginas seguintes têm cabeçalho simples -> limite maior (~900px)
-        const limiteContainer = (numeroPagina === 1) ? 650 : 900;
+        // --- CORREÇÃO DE ALTURA E QUEBRA DE PÁGINA ---
+        // Limites ajustados para permitir que mais questões caibam na mesma folha
+        const limiteContainer = (numeroPagina === 1) ? 780 : 950; 
 
-        // Só cria nova página se o conteúdo real dentro do container ultrapassar o limite E houver mais de 1 questão na página
+        // Medição considerando o scrollHeight ou offsetHeight do container
+        const alturaConteudo = Math.max(containerAtual.scrollHeight, containerAtual.offsetHeight);
+
+        // Só cria nova página se ultrapassar o limite E houver mais de 1 questão na página atual
         if (alturaConteudo > limiteContainer && containerAtual.children.length > 1) {
             // Remove a questão que estourou a folha atual
             containerAtual.removeChild(elQuestao);
