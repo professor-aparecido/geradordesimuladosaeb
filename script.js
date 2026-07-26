@@ -484,7 +484,7 @@ function verificarLimitePagina() {
     });
 
     // Usa os mesmos 980px da linha visual do CSS
-    const ALTURA_MAXIMA_UTIL = 980; 
+    const ALTURA_MAXIMA_UTIL = 1040; 
 
     if (posicaoMaisBaixa > ALTURA_MAXIMA_UTIL && !alertaExibido) {
         alertaExibido = true;
