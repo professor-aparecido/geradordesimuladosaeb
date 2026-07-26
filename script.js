@@ -297,23 +297,38 @@ function adicionarQuestaoNaProva(questao) {
     renderizarProvaA4();
 }
 
-// Botão "Inserir Quebra de Página" (Topbar)
+/* ==========================================================
+   INSERIR / REMOVER QUEBRA DE PÁGINA COM PÁGINA VAZIA
+   ========================================================== */
+
 const btnInserirQuebra = document.getElementById('btnInserirQuebra');
+
 if (btnInserirQuebra) {
     btnInserirQuebra.addEventListener('click', () => {
+        // Se a prova estiver completamente vazia, não faz nada
         if (questoesNaProva.length === 0) {
             alert("Adicione pelo menos uma questão antes de inserir uma quebra de página.");
             return;
         }
 
+        // Pega a última questão adicionada até agora
         const ultimaQuestao = questoesNaProva[questoesNaProva.length - 1];
-        
-        // Alterna a quebra na última questão
+
+        // Alterna o estado de quebra (se já tinha, remove; se não tinha, ativa)
         ultimaQuestao.quebraApos = !ultimaQuestao.quebraApos;
+
+        // Renderiza a prova atualizada imediatamente
         renderizarProvaA4();
     });
 }
 
+// Função para remover a quebra associada a uma questão específica
+function removerQuebraPagina(indexQuestao) {
+    if (questoesNaProva[indexQuestao]) {
+        questoesNaProva[indexQuestao].quebraApos = false;
+        renderizarProvaA4();
+    }
+}
 // Botão "Refazer Prova" (Topbar)
 const btnRefazerProva = document.getElementById('btnRefazerProva');
 if (btnRefazerProva) {
@@ -428,14 +443,13 @@ function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
 
-    // 1. Limpa todas as folhas adicionais geradas previamente
+    // Limpa páginas geradas anteriormente
     document.querySelectorAll('.folha-a4-gerada').forEach(el => el.remove());
 
     const containerPrimeiraPagina = primeiraFolha.querySelector('.prova-questoes-2colunas');
     if (!containerPrimeiraPagina) return;
 
     containerPrimeiraPagina.innerHTML = '';
-    if (questoesNaProva.length === 0) return;
 
     const selectColunas = document.getElementById('selectColunas');
     const layoutUmaColuna = selectColunas && selectColunas.value === '1';
@@ -443,62 +457,44 @@ function renderizarProvaA4() {
     let folhaAtual = primeiraFolha;
     let containerAtual = containerPrimeiraPagina;
     let numeroPagina = 1;
-    let criarNovaPaginaNaProxima = false;
-
-    if (layoutUmaColuna) {
-        containerAtual.classList.add('layout-1coluna');
-    } else {
-        containerAtual.classList.remove('layout-1coluna');
-    }
 
     questoesNaProva.forEach((q, idx) => {
-        
-        // Se a questão anterior solicitou quebra, cria a nova folha AGORA antes de inserir a questão
-        if (criarNovaPaginaNaProxima) {
+        // Adiciona a questão
+        const elQuestao = criarElementoQuestaoHTML(q, idx);
+        containerAtual.appendChild(elQuestao);
+
+        // Se a questão possui quebra de página ativada
+        if (q.quebraApos) {
             numeroPagina++;
-            
+
+            // 1. Cria imediatamente a nova folha A4 vazia
             const novaFolha = document.createElement('div');
             novaFolha.className = 'folha-a4 folha-a4-gerada';
             novaFolha.id = `pagina-a4-${numeroPagina}`;
 
             novaFolha.innerHTML = `
-                <div style="border-bottom: 1px solid #000; padding-bottom: 4px; margin-bottom: 15px; font-size: 0.8rem; display: flex; justify-content: space-between; font-weight: bold;">
+                <div class="cabecalho-pagina-secundaria">
                     <span>SIMULADO SAEB</span>
                     <span>Página ${numeroPagina}</span>
+                </div>
+                <!-- Banner com botão para Remover a Página/Quebra -->
+                <div class="banner-quebra-pagina">
+                    <span>✂️ Quebra de página inserida aqui</span>
+                    <button type="button" class="btn-remover-quebra" onclick="removerQuebraPagina(${idx})">
+                        🗑️ Remover Página
+                    </button>
                 </div>
                 <div class="prova-questoes-2colunas ${layoutUmaColuna ? 'layout-1coluna' : ''}"></div>
             `;
 
-            // Insere a nova folha no DOM após a folha atual
+            // Insere a nova página no DOM
             folhaAtual.parentNode.insertBefore(novaFolha, folhaAtual.nextSibling);
 
+            // Atualiza os ponteiros para que as próximas questões entrem nesta nova folha
             folhaAtual = novaFolha;
             containerAtual = novaFolha.querySelector('.prova-questoes-2colunas');
-            
-            // Reseta a flag de criação
-            criarNovaPaginaNaProxima = false;
-        }
-
-        // Adiciona a questão na folha atual
-        const elQuestao = criarElementoQuestaoHTML(q, idx);
-        containerAtual.appendChild(elQuestao);
-
-        // Se esta questão tem marcação de quebra de página
-        if (q.quebraApos) {
-            // Desenha a linha vermelha indicadora na tela
-            const avisoQuebra = document.createElement('div');
-            avisoQuebra.className = 'indicador-quebra-pagina';
-            avisoQuebra.innerHTML = `✂️ QUEBRA DE PÁGINA (Fim da Página ${numeroPagina})`;
-            containerAtual.appendChild(avisoQuebra);
-
-            // Sinaliza para que a PRÓXIMA questão vá para a folha nova
-            criarNovaPaginaNaProxima = true;
         }
     });
-
-    if (typeof updateZoom === 'function') {
-        updateZoom();
-    }
 }
 
 /* ==========================================================
