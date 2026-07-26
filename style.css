@@ -925,3 +925,26 @@ body {
     box-sizing: border-box;
     background-color: #f8fafc;
 }
+
+/* Por padrão (Modo Aluno), o gabarito NÃO aparece */
+.marca-gabarito {
+    display: none;
+}
+
+/* Quando o botão de gabarito estiver ativo no container da prova */
+.folha-a4.modo-gabarito .marca-gabarito {
+    display: inline-block !important;
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #86efac;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+}
+
+.folha-a4.modo-gabarito .alternativa-correta {
+    font-weight: bold;
+    color: #15803d;
+}
