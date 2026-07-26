@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="style.css">
     <!-- Solução temporária para evitar aviso de favicon no console -->
     <link rel="icon" href="data:,">
+    <!-- Suporte a LaTeX / MathJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
 
@@ -40,6 +52,9 @@
             </div>
 
             <!-- Botão Final de Ação -->
+             <button type="button" id="btnToggleGabarito" class="btn-topo" style="background: #059669; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+    👁️ Modos: Aluno / Gabarito
+</button>
             <button type="button" class="btn btn-success" onclick="window.print()">
                 🖨️ Imprimir / Salvar PDF
             </button>
@@ -183,9 +198,17 @@
                         </div>
                     </div>
 
-                    <button type="button" id="btnCriarQuestaoSubmit" class="btn btn-primary w-100" style="margin-top: 1rem;">
-                        + Inserir Questão no Simulado
-                    </button>
+                    <!-- Botões de Ação da Criação Manual -->
+<div style="display: flex; gap: 10px; margin-top: 1rem;">
+    <button type="button" id="btnPreviewCriarQuestao" class="btn-secundario" style="flex: 1; padding: 0.7rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #f1f5f9; color: #334155; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        👁️ Pré-visualizar
+    </button>
+    <button type="button" id="btnCriarQuestaoSubmit" class="btn-primario" style="flex: 2; padding: 0.7rem; border-radius: 6px; background: #1e293b; color: white; font-weight: 600; border: none; cursor: pointer;">
+        + Inserir Questão no Simulado
+    </button>
+</div>
+
+
                 </div>
             </section>
 
