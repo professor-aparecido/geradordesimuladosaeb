@@ -315,6 +315,8 @@ function abrirModalPreview(questao) {
 
     modalPreviewBody.innerHTML = html;
     modalPreview.classList.remove('hidden');
+    
+    renderizarLaTeX(); // Processa equações LaTeX no modal
 }
 
 /* ==========================================================
@@ -322,21 +324,19 @@ function abrirModalPreview(questao) {
    ========================================================== */
 function inicializarCriacaoManual() {
     const btnSubmit = document.getElementById('btnCriarQuestaoSubmit');
-    if (!btnSubmit) return;
+    const btnPreview = document.getElementById('btnPreviewCriarQuestao');
 
-    btnSubmit.addEventListener('click', () => {
-        const inputDescritor = document.getElementById('inputNovoDescritor');
-        const inputEnunciado = document.getElementById('inputNovoEnunciado');
-        const altInputs = document.querySelectorAll('.input-alt-texto');
+    // Extrai e estrutura os dados digitados no formulário
+    function obterDadosFormularioManual() {
+        const inputDescritor = document.getElementById('inputNovoDescritor') || document.querySelector('input[placeholder*="D36"]');
+        const inputEnunciado = document.getElementById('inputNovoEnunciado') || document.querySelector('textarea');
+        const altInputs = document.querySelectorAll('.input-alt-texto, input[placeholder^="Opção"]');
         const radiosCorreta = document.querySelectorAll('input[name="correta"]');
 
         const enunciado = inputEnunciado ? inputEnunciado.value.trim() : '';
         const descritor = inputDescritor ? inputDescritor.value.trim() : '';
 
-        if (!enunciado) {
-            alert('Por favor, digite o enunciado da questão.');
-            return;
-        }
+        if (!enunciado) return null;
 
         const letras = ['A', 'B', 'C', 'D'];
         let alternativasObj = {};
@@ -344,32 +344,65 @@ function inicializarCriacaoManual() {
 
         altInputs.forEach((input, index) => {
             const valor = input.value.trim();
-            if (valor !== '') {
+            if (valor !== '' && index < 4) {
                 alternativasObj[letras[index]] = valor;
             }
         });
 
         radiosCorreta.forEach((radio, index) => {
-            if (radio.checked) {
+            if (radio.checked && index < 4) {
                 respostaCorreta = letras[index];
             }
         });
 
-        const novaQuestao = {
+        return {
             descritor: descritor || 'D1',
             enunciado: enunciado,
             alternativas: Object.keys(alternativasObj).length > 0 ? alternativasObj : null,
             respostaCorreta: respostaCorreta
         };
+    }
 
-        adicionarQuestaoNaProva(novaQuestao);
+    // Ação do Botão PRÉ-VISUALIZAR
+    if (btnPreview) {
+        btnPreview.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita recarregar a página caso esteja dentro de um <form>
+            
+            const q = obterDadosFormularioManual();
+            if (!q) {
+                alert('Por favor, digite o enunciado da questão para pré-visualizar.');
+                return;
+            }
+            
+            // Abre o modal de preview e processa o LaTeX
+            abrirModalPreview(q);
+        });
+    }
 
-        // Limpa os campos após inserção
-        inputEnunciado.value = '';
-        if (inputDescritor) inputDescritor.value = '';
-        altInputs.forEach(i => i.value = '');
-        radiosCorreta.forEach(r => r.checked = false);
-    });
+    // Ação do Botão INSERIR QUESTÃO
+    if (btnSubmit) {
+        btnSubmit.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const q = obterDadosFormularioManual();
+            if (!q) {
+                alert('Por favor, digite o enunciado da questão.');
+                return;
+            }
+
+            adicionarQuestaoNaProva(q);
+
+            // Limpa os campos após inserir
+            const inputEnunciado = document.getElementById('inputNovoEnunciado') || document.querySelector('textarea');
+            if (inputEnunciado) inputEnunciado.value = '';
+
+            const inputDescritor = document.getElementById('inputNovoDescritor') || document.querySelector('input[placeholder*="D36"]');
+            if (inputDescritor) inputDescritor.value = '';
+
+            document.querySelectorAll('.input-alt-texto, input[placeholder^="Opção"]').forEach(i => i.value = '');
+            document.querySelectorAll('input[name="correta"]').forEach(r => r.checked = false);
+        });
+    }
 }
 
 /* ==========================================================
@@ -418,11 +451,19 @@ function criarElementoQuestaoHTML(q, index) {
         htmlTabela += `</table>`;
     }
 
+    // ALTERAÇÃO AQUI: Verificação do Gabarito nas alternativas
     let htmlAlternativas = '';
     if (q.alternativas) {
         htmlAlternativas += `<div style="display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem; font-size: 0.82rem;">`;
         for (let key in q.alternativas) {
-            htmlAlternativas += `<div><strong>(${key})</strong> ${q.alternativas[key]}</div>`;
+            const eCorreta = (q.respostaCorreta === key);
+            
+            htmlAlternativas += `
+                <div class="${eCorreta ? 'alternativa-correta' : ''}">
+                    <strong>(${key})</strong> ${q.alternativas[key]}
+                    ${eCorreta ? '<span class="marca-gabarito">✓ GABARITO</span>' : ''}
+                </div>
+            `;
         }
         htmlAlternativas += `</div>`;
     }
@@ -492,7 +533,6 @@ function renderizarProvaA4() {
 
     // Limpa o conteúdo da primeira folha
     containerPrimeiraPagina.innerHTML = '';
-
     // SE A PROVA ESTIVER VAZIA: Exibe a instrução em bloco único (sem grid de 2 colunas)
     if (questoesNaProva.length === 0) {
         containerPrimeiraPagina.className = 'container-instrucao-vazia';
@@ -503,7 +543,7 @@ function renderizarProvaA4() {
                 <p style="margin: 0; font-size: 0.95rem; max-width: 450px;">Selecione um descritor no painel à esquerda ou crie uma questão manualmente para começar a preencher esta folha.</p>
             </div>
         `;
-        return;
+        return;       
     }
 
     // SE HOUVER QUESTÕES: Restaura o layout de colunas
@@ -556,4 +596,40 @@ function renderizarProvaA4() {
     });
 
     applyZoom(currentZoom);
+    // (No final de renderizarProvaA4)
+    applyZoom(currentZoom);
+    renderizarLaTeX(); // Renderiza fórumulas LaTeX na folha A4
+}
+
+
+// Força o MathJax a re-processar fórmulas LaTeX na página
+function renderizarLaTeX() {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise().catch((err) => console.log('Erro MathJax:', err));
+    }
+}
+
+// Ativa o botão de alternância entre Modo Aluno e Modo Gabarito
+const btnToggleGabarito = document.getElementById('btnToggleGabarito');
+
+if (btnToggleGabarito) {
+    btnToggleGabarito.addEventListener('click', () => {
+        // Seleciona todas as páginas A4 da prova
+        const folhas = document.querySelectorAll('.folha-a4');
+        
+        // Alterna a classe 'modo-gabarito' em todas as folhas
+        folhas.forEach(folha => folha.classList.toggle('modo-gabarito'));
+
+        // Verifica se o modo gabarito ficou ativo
+        const estaAtivo = folhas[0] && folhas[0].classList.contains('modo-gabarito');
+
+        // Atualiza a cor e o texto do botão para dar feedback visual
+        if (estaAtivo) {
+            btnToggleGabarito.style.background = '#dc2626'; // Vermelho
+            btnToggleGabarito.innerHTML = '🔒 Voltar para Modo Aluno';
+        } else {
+            btnToggleGabarito.style.background = '#059669'; // Verde
+            btnToggleGabarito.innerHTML = '👁️ Modos: Aluno / Gabarito';
+        }
+    });
 }
