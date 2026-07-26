@@ -1,11 +1,30 @@
-document.addEventListener('DOMContentLoaded', () => {
+/* ==========================================================
+   GERADOR DE SIMULADOS SAEB - LÓGICA COMPLETA (script.js)
+   ========================================================== */
 
-  /* ==========================================================
-       1. BARRA DIVISÓRIA MÓVEL (RESIZER)
-       ========================================================== */
+// Estado Global da Aplicação
+let currentZoom = 1;
+let questoesNaProva = [];
+let questaoSelecionadaAtual = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarResizer();
+    inicializarZoom();
+    inicializarModosEModais();
+    inicializarEventosCabecalho();
+    inicializarCriacaoManual();
+    inicializarBancoQuestoes();
+});
+
+/* ==========================================================
+   1. BARRA DIVISÓRIA MÓVEL (RESIZER)
+   ========================================================== */
+function inicializarResizer() {
     const resizer = document.getElementById('dragHandle');
     const leftSide = document.getElementById('panelBuilder');
     const container = document.getElementById('appContainer');
+
+    if (!resizer || !leftSide || !container) return;
 
     let x = 0;
     let leftWidth = 0;
@@ -31,72 +50,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mouseUpHandler = function () {
         document.body.style.removeProperty('user-select');
-
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
 
-        // Re-renderiza para ajustar folha A4 após mudar espaço lateral
         renderizarProvaA4();
     };
 
-    if (resizer && leftSide && container) {
-        resizer.addEventListener('mousedown', mouseDownHandler);
-    }
+    resizer.addEventListener('mousedown', mouseDownHandler);
 
-
-    /* ==========================================================
-       2. ALTERNAR LAYOUT DE COLUNAS
-       ========================================================== */
+    // Evento de alteração de layout (1 ou 2 colunas)
     const selectColunas = document.getElementById('selectColunas');
-
     if (selectColunas) {
         selectColunas.addEventListener('change', () => {
             renderizarProvaA4();
         });
     }
-
-
-    /* ==========================================================
-       3. UPLOAD DE LOGO
-       ========================================================== */
-    const inputLogo = document.getElementById('inputLogo');
-    const imgLogo = document.getElementById('imgLogo');
-
-    if (inputLogo && imgLogo) {
-        inputLogo.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function(event) {
-                    imgLogo.src = event.target.result;
-                };
-
-                reader.readAsDataURL(file);
-            }
-        });
-    }
-
-});
+}
 
 /* ==========================================================
-   GERENCIAMENTO DE ZOOM DA FOLHA DE PROVA
+   2. CONTROLE DE ZOOM
    ========================================================== */
-/* ==========================================================
-   1. APLICAÇÃO DE ZOOM EM TODAS AS PÁGINAS A4
-   ========================================================== */
-let currentZoom = 1;
-
 function applyZoom(newZoom) {
     currentZoom = Math.min(Math.max(newZoom, 0.5), 1.5);
 
-    // Seleciona TODAS as folhas A4 (a principal e as geradas)
-    const todasAsFolhas = document.querySelectorAll('.folha-a4');
-    todasAsFolhas.forEach(folha => {
-        folha.style.transform = `scale(${currentZoom})`;
-        folha.style.transformOrigin = 'top center';
-    });
+    const wrapper = document.getElementById('provaPagesWrapper') || document.querySelector('.prova-pages-wrapper');
+    if (wrapper) {
+        wrapper.style.transform = `scale(${currentZoom})`;
+    }
 
     const zoomDisplay = document.getElementById('zoomLevel');
     if (zoomDisplay) {
@@ -104,113 +84,178 @@ function applyZoom(newZoom) {
     }
 }
 
-// Inicialização dos Eventos dos Botões de Zoom
-document.addEventListener('DOMContentLoaded', () => {
+function inicializarZoom() {
     const btnZoomIn = document.getElementById('btnZoomIn');
     const btnZoomOut = document.getElementById('btnZoomOut');
     const btnZoomReset = document.getElementById('btnZoomReset');
 
-    if (btnZoomIn) {
-        btnZoomIn.addEventListener('click', () => {
-            applyZoom(currentZoom + 0.1);
-        });
-    }
-
-    if (btnZoomOut) {
-        btnZoomOut.addEventListener('click', () => {
-            applyZoom(currentZoom - 0.1);
-        });
-    }
-
-    if (btnZoomReset) {
-        btnZoomReset.addEventListener('click', () => {
-            applyZoom(1.0);
-        });
-    }
-});
-
-/* ==========================================================
-   ALTERNAR MODO (BANCO x CRIAR)
-   ========================================================== */
-const btnModoBanco = document.getElementById('btnModoBanco');
-const btnModoCriar = document.getElementById('btnModoCriar');
-const areaBancoQuestoes = document.getElementById('areaBancoQuestoes');
-const areaCriarQuestao = document.getElementById('areaCriarQuestao');
-
-if (btnModoBanco && btnModoCriar) {
-    btnModoBanco.addEventListener('click', () => {
-        btnModoBanco.classList.add('active');
-        btnModoCriar.classList.remove('active');
-        
-        areaBancoQuestoes.classList.remove('hidden');
-        areaCriarQuestao.classList.add('hidden');
-    });
-
-    btnModoCriar.addEventListener('click', () => {
-        btnModoCriar.classList.add('active');
-        btnModoBanco.classList.remove('active');
-        
-        areaCriarQuestao.classList.remove('hidden');
-        areaBancoQuestoes.classList.add('hidden');
-    });
+    if (btnZoomIn) btnZoomIn.addEventListener('click', () => applyZoom(currentZoom + 0.1));
+    if (btnZoomOut) btnZoomOut.addEventListener('click', () => applyZoom(currentZoom - 0.1));
+    if (btnZoomReset) btnZoomReset.addEventListener('click', () => applyZoom(1.0));
 }
 
 /* ==========================================================
-   RECOLHER / EXPANDIR CABEÇALHO
+   3. TROCA DE MODOS E PAINÉIS EXPANDÍVEIS
    ========================================================== */
-const btnToggleCabecalho = document.getElementById('btnToggleCabecalho');
-const bodyCabecalho = document.getElementById('bodyCabecalho');
-const toggleText = btnToggleCabecalho ? btnToggleCabecalho.querySelector('.toggle-text') : null;
+function inicializarModosEModais() {
+    const btnModoBanco = document.getElementById('btnModoBanco');
+    const btnModoCriar = document.getElementById('btnModoCriar');
+    const areaBancoQuestoes = document.getElementById('areaBancoQuestoes');
+    const areaCriarQuestao = document.getElementById('areaCriarQuestao');
 
-if (btnToggleCabecalho && bodyCabecalho) {
-    btnToggleCabecalho.addEventListener('click', () => {
-        const isCollapsed = bodyCabecalho.classList.toggle('collapsed');
-        btnToggleCabecalho.classList.toggle('collapsed');
-        
-        if (toggleText) {
-            toggleText.textContent = isCollapsed ? 'Editar' : 'Recolher';
-        }
-    });
+    if (btnModoBanco && btnModoCriar) {
+        btnModoBanco.addEventListener('click', () => {
+            btnModoBanco.classList.add('active');
+            btnModoCriar.classList.remove('active');
+            areaBancoQuestoes.classList.remove('hidden');
+            areaCriarQuestao.classList.add('hidden');
+        });
+
+        btnModoCriar.addEventListener('click', () => {
+            btnModoCriar.classList.add('active');
+            btnModoBanco.classList.remove('active');
+            areaCriarQuestao.classList.remove('hidden');
+            areaBancoQuestoes.classList.add('hidden');
+        });
+    }
+
+    // Recolher / Expandir Cabeçalho
+    const btnToggleCabecalho = document.getElementById('btnToggleCabecalho');
+    const bodyCabecalho = document.getElementById('bodyCabecalho');
+    const toggleText = btnToggleCabecalho ? btnToggleCabecalho.querySelector('.toggle-text') : null;
+
+    if (btnToggleCabecalho && bodyCabecalho) {
+        btnToggleCabecalho.addEventListener('click', () => {
+            const isCollapsed = bodyCabecalho.classList.toggle('collapsed');
+            btnToggleCabecalho.classList.toggle('collapsed');
+            if (toggleText) {
+                toggleText.textContent = isCollapsed ? 'Editar' : 'Recolher';
+            }
+        });
+    }
+
+    // Botões Principais da Topbar
+    const btnInserirQuebra = document.getElementById('btnInserirQuebra');
+    if (btnInserirQuebra) {
+        btnInserirQuebra.addEventListener('click', () => {
+            if (questoesNaProva.length === 0) {
+                alert("Adicione pelo menos uma questão antes de inserir uma quebra de página.");
+                return;
+            }
+            const ultimaQuestao = questoesNaProva[questoesNaProva.length - 1];
+            ultimaQuestao.quebraApos = !ultimaQuestao.quebraApos;
+            renderizarProvaA4();
+        });
+    }
+
+    const btnRefazerProva = document.getElementById('btnRefazerProva');
+    if (btnRefazerProva) {
+        btnRefazerProva.addEventListener('click', () => {
+            if (questoesNaProva.length === 0) {
+                alert("A prova já está vazia!");
+                return;
+            }
+            if (confirm("Tem certeza que deseja reiniciar a prova? Todas as questões serão removidas.")) {
+                questoesNaProva = [];
+                renderizarProvaA4();
+            }
+        });
+    }
 }
 
 /* ==========================================================
-   BANCO DE QUESTÕES (JSON + CARDS + MODAL)
+   4. SINCRONIZAÇÃO DO CABEÇALHO EM TEMPO REAL
    ========================================================== */
-const filtroDescritor = document.getElementById('filtroDescritor');
-const listaQuestoesBanco = document.getElementById('listaQuestoesBanco');
+function inicializarEventosCabecalho() {
+    const mapeamento = [
+        { input: 'inputNomeEscola', display: 'displayNomeEscola', uppercase: true },
+        { input: 'inputTituloProva', display: 'displayTituloProva', uppercase: true },
+        { input: 'inputSerie', display: 'displaySerie', uppercase: false },
+        { input: 'inputTurma', display: 'displayTurma', uppercase: false },
+        { input: 'inputProfessor', display: 'displayProfessor', uppercase: false }
+    ];
 
-const modalPreview = document.getElementById('modalPreview');
-const modalPreviewBody = document.getElementById('modalPreviewBody');
-const btnFecharModal = document.getElementById('btnFecharModal');
-const btnAdicionarDoModal = document.getElementById('btnAdicionarDoModal');
+    mapeamento.forEach(item => {
+        const inputEl = document.getElementById(item.input);
+        const displayEl = document.getElementById(item.display);
 
-let questaoSelecionadaAtual = null;
-
-if (filtroDescritor && listaQuestoesBanco) {
-    filtroDescritor.addEventListener('change', async (e) => {
-        const descritor = e.target.value.toLowerCase();
-        
-        if (!descritor) {
-            listaQuestoesBanco.innerHTML = '<p class="placeholder-text">Selecione um descritor acima para carregar as questões.</p>';
-            return;
-        }
-
-        listaQuestoesBanco.innerHTML = '<p class="placeholder-text">Carregando questões...</p>';
-
-        try {
-            const response = await fetch(`questoes/${descritor}.json`);
-            if (!response.ok) throw new Error("Arquivo não encontrado");
-
-            const questoes = await response.json();
-            renderizarListaCompacta(questoes);
-
-        } catch (error) {
-            listaQuestoesBanco.innerHTML = `<p class="placeholder-text" style="color: #d32f2f;">Não foi possível carregar o arquivo <strong>questoes/${descritor}.json</strong>.</p>`;
+        if (inputEl && displayEl) {
+            inputEl.addEventListener('input', (e) => {
+                displayEl.textContent = item.uppercase ? e.target.value.toUpperCase() : e.target.value;
+            });
         }
     });
+
+    // Upload da Logo da Escola
+    const inputLogo = document.getElementById('inputLogo');
+    const imgLogo = document.getElementById('imgLogo');
+
+    if (inputLogo && imgLogo) {
+        inputLogo.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imgLogo.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+}
+
+/* ==========================================================
+   5. BANCO DE QUESTÕES (JSON + FILTRO + MODAL)
+   ========================================================== */
+function inicializarBancoQuestoes() {
+    const filtroDescritor = document.getElementById('filtroDescritor');
+    const listaQuestoesBanco = document.getElementById('listaQuestoesBanco');
+    const modalPreview = document.getElementById('modalPreview');
+    const btnFecharModal = document.getElementById('btnFecharModal');
+    const btnAdicionarDoModal = document.getElementById('btnAdicionarDoModal');
+
+    if (filtroDescritor && listaQuestoesBanco) {
+        filtroDescritor.addEventListener('change', async (e) => {
+            const descritor = e.target.value.toLowerCase();
+            
+            if (!descritor) {
+                listaQuestoesBanco.innerHTML = '<p class="placeholder-text">Selecione um descritor acima para carregar as questões.</p>';
+                return;
+            }
+
+            listaQuestoesBanco.innerHTML = '<p class="placeholder-text">Carregando questões...</p>';
+
+            try {
+                const response = await fetch(`questoes/${descritor}.json`);
+                if (!response.ok) throw new Error("Arquivo não encontrado");
+
+                const questoes = await response.json();
+                renderizarListaCompacta(questoes);
+
+            } catch (error) {
+                listaQuestoesBanco.innerHTML = `<p class="placeholder-text" style="color: #dc2626;">Não foi possível carregar a pasta/arquivo <strong>questoes/${descritor}.json</strong>.</p>`;
+            }
+        });
+    }
+
+    if (btnFecharModal && modalPreview) {
+        btnFecharModal.addEventListener('click', () => modalPreview.classList.add('hidden'));
+    }
+
+    if (btnAdicionarDoModal && modalPreview) {
+        btnAdicionarDoModal.addEventListener('click', () => {
+            if (questaoSelecionadaAtual) {
+                adicionarQuestaoNaProva(questaoSelecionadaAtual);
+                modalPreview.classList.add('hidden');
+            }
+        });
+    }
 }
 
 function renderizarListaCompacta(questoes) {
+    const listaQuestoesBanco = document.getElementById('listaQuestoesBanco');
+    if (!listaQuestoesBanco) return;
+
     if (questoes.length === 0) {
         listaQuestoesBanco.innerHTML = '<p class="placeholder-text">Nenhuma questão cadastrada para este descritor.</p>';
         return;
@@ -239,6 +284,10 @@ function renderizarListaCompacta(questoes) {
 }
 
 function abrirModalPreview(questao) {
+    const modalPreview = document.getElementById('modalPreview');
+    const modalPreviewBody = document.getElementById('modalPreviewBody');
+    if (!modalPreview || !modalPreviewBody) return;
+
     questaoSelecionadaAtual = questao;
 
     let html = `<p><strong>Descritor:</strong> ${questao.descritor || 'N/A'}</p>`;
@@ -268,26 +317,64 @@ function abrirModalPreview(questao) {
     modalPreview.classList.remove('hidden');
 }
 
-if (btnFecharModal) {
-    btnFecharModal.addEventListener('click', () => modalPreview.classList.add('hidden'));
-}
+/* ==========================================================
+   6. MODO DE CRIAÇÃO MANUAL DE QUESTÕES
+   ========================================================== */
+function inicializarCriacaoManual() {
+    const btnSubmit = document.getElementById('btnCriarQuestaoSubmit');
+    if (!btnSubmit) return;
 
-if (btnAdicionarDoModal) {
-    btnAdicionarDoModal.addEventListener('click', () => {
-        if (questaoSelecionadaAtual) {
-            adicionarQuestaoNaProva(questaoSelecionadaAtual);
-            modalPreview.classList.add('hidden');
+    btnSubmit.addEventListener('click', () => {
+        const inputDescritor = document.getElementById('inputNovoDescritor');
+        const inputEnunciado = document.getElementById('inputNovoEnunciado');
+        const altInputs = document.querySelectorAll('.input-alt-texto');
+        const radiosCorreta = document.querySelectorAll('input[name="correta"]');
+
+        const enunciado = inputEnunciado ? inputEnunciado.value.trim() : '';
+        const descritor = inputDescritor ? inputDescritor.value.trim() : '';
+
+        if (!enunciado) {
+            alert('Por favor, digite o enunciado da questão.');
+            return;
         }
+
+        const letras = ['A', 'B', 'C', 'D'];
+        let alternativasObj = {};
+        let respostaCorreta = null;
+
+        altInputs.forEach((input, index) => {
+            const valor = input.value.trim();
+            if (valor !== '') {
+                alternativasObj[letras[index]] = valor;
+            }
+        });
+
+        radiosCorreta.forEach((radio, index) => {
+            if (radio.checked) {
+                respostaCorreta = letras[index];
+            }
+        });
+
+        const novaQuestao = {
+            descritor: descritor || 'D1',
+            enunciado: enunciado,
+            alternativas: Object.keys(alternativasObj).length > 0 ? alternativasObj : null,
+            respostaCorreta: respostaCorreta
+        };
+
+        adicionarQuestaoNaProva(novaQuestao);
+
+        // Limpa os campos após inserção
+        inputEnunciado.value = '';
+        if (inputDescritor) inputDescritor.value = '';
+        altInputs.forEach(i => i.value = '');
+        radiosCorreta.forEach(r => r.checked = false);
     });
 }
 
 /* ==========================================================
-   GERENCIAMENTO DE QUESTÕES E QUEBRAS DE PÁGINA
+   7. RENDERIZAÇÃO E MONTAGEM DA PROVA A4
    ========================================================== */
-
-let questoesNaProva = [];
-
-// Adicionar Questão na Prova
 function adicionarQuestaoNaProva(questao) {
     const novaQuestao = JSON.parse(JSON.stringify(questao));
     novaQuestao.espacoInferior = 1;
@@ -297,58 +384,16 @@ function adicionarQuestaoNaProva(questao) {
     renderizarProvaA4();
 }
 
-/* ==========================================================
-   INSERIR / REMOVER QUEBRA DE PÁGINA COM PÁGINA VAZIA
-   ========================================================== */
-
-const btnInserirQuebra = document.getElementById('btnInserirQuebra');
-
-if (btnInserirQuebra) {
-    btnInserirQuebra.addEventListener('click', () => {
-        // Se a prova estiver completamente vazia, não faz nada
-        if (questoesNaProva.length === 0) {
-            alert("Adicione pelo menos uma questão antes de inserir uma quebra de página.");
-            return;
-        }
-
-        // Pega a última questão adicionada até agora
-        const ultimaQuestao = questoesNaProva[questoesNaProva.length - 1];
-
-        // Alterna o estado de quebra (se já tinha, remove; se não tinha, ativa)
-        ultimaQuestao.quebraApos = !ultimaQuestao.quebraApos;
-
-        // Renderiza a prova atualizada imediatamente
-        renderizarProvaA4();
-    });
-}
-
-// Função para remover a quebra associada a uma questão específica
 function removerQuebraPagina(indexQuestao) {
     if (questoesNaProva[indexQuestao]) {
         questoesNaProva[indexQuestao].quebraApos = false;
         renderizarProvaA4();
     }
 }
-// Botão "Refazer Prova" (Topbar)
-const btnRefazerProva = document.getElementById('btnRefazerProva');
-if (btnRefazerProva) {
-    btnRefazerProva.addEventListener('click', () => {
-        if (questoesNaProva.length === 0) {
-            alert("A prova já está vazia!");
-            return;
-        }
 
-        if (confirm("Tem certeza que deseja reiniciar a prova? Todas as questões serão removidas.")) {
-            questoesNaProva = [];
-            renderizarProvaA4();
-        }
-    });
-}
-
-// Criação do elemento HTML da Questão
 function criarElementoQuestaoHTML(q, index) {
     const wrapper = document.createElement('div');
-    wrapper.className = 'coluna-questao';
+    wrapper.className = 'questao-item';
     wrapper.style.marginBottom = `${q.espacoInferior || 1}rem`;
 
     let htmlAcoes = `
@@ -383,21 +428,19 @@ function criarElementoQuestaoHTML(q, index) {
     }
 
     wrapper.innerHTML = `
-        <div class="item-questao">
-            <div class="questao-header-pilar">
-                <div class="questao-title-group">
-                    <span class="box-num-questao">QUESTÃO ${index + 1}</span>
-                    ${htmlAcoes}
-                </div>
-                <span class="tag-descritor">${q.descritor || 'D1'}</span>
+        <div class="questao-header-pilar">
+            <div class="questao-title-group">
+                <span class="box-num-questao">QUESTÃO ${index + 1}</span>
+                ${htmlAcoes}
             </div>
-            <div class="enunciado-pilar">${q.enunciado}</div>
-            ${htmlTabela}
-            ${htmlAlternativas}
+            <span class="tag-descritor">${q.descritor || 'D1'}</span>
         </div>
+        <div class="enunciado-pilar">${q.enunciado}</div>
+        ${htmlTabela}
+        ${htmlAlternativas}
     `;
 
-    // Eventos dos botões individuais
+    // Eventos dos botões da Toolbar de cada questão
     wrapper.querySelector('.btn-q-space-plus').addEventListener('click', () => {
         q.espacoInferior = (q.espacoInferior || 1) + 0.5;
         renderizarProvaA4();
@@ -436,9 +479,6 @@ function criarElementoQuestaoHTML(q, index) {
     return wrapper;
 }
 
-/**
- * RENDERIZAÇÃO A4 COM CRIAÇÃO DE NOVA PÁGINA GARANTIDA
- */
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
@@ -458,7 +498,6 @@ function renderizarProvaA4() {
     let containerAtual = containerPrimeiraPagina;
     let numeroPagina = 1;
 
-    // Atualiza classe de layout na primeira página
     if (layoutUmaColuna) {
         containerAtual.classList.add('layout-1coluna');
     } else {
@@ -466,111 +505,46 @@ function renderizarProvaA4() {
     }
 
     questoesNaProva.forEach((q, idx) => {
-        // Cria e adiciona o elemento da questão
         const elQuestao = criarElementoQuestaoHTML(q, idx);
         containerAtual.appendChild(elQuestao);
 
-        // Se a questão possui quebra de página solicitada
         if (q.quebraApos) {
             numeroPagina++;
 
-            // A) CRIA A MENSAGEM ENTRE AS PÁGINAS (FORA DA FOLHA A4)
+            // Separador Visual de Quebra
             const elementoSeparador = document.createElement('div');
             elementoSeparador.className = 'separador-quebra-pagina';
             elementoSeparador.innerHTML = `
                 <span>✂️ Quebra de página inserida aqui</span>
-                <button type="button" class="btn-remover-quebra" onclick="removerQuebraPagina(${idx})">
+                <button type="button" class="btn-remover-quebra">
                     🗑️ Remover Quebra
                 </button>
             `;
 
-            // B) CRIA A NOVA FOLHA A4 (LIMPA)
+            elementoSeparador.querySelector('.btn-remover-quebra').addEventListener('click', () => {
+                removerQuebraPagina(idx);
+            });
+
+            // Nova Folha A4 Gerada
             const novaFolha = document.createElement('div');
             novaFolha.className = 'folha-a4 folha-a4-gerada';
             novaFolha.id = `pagina-a4-${numeroPagina}`;
 
             novaFolha.innerHTML = `
-                <div class="cabecalho-pagina-secundaria">
+                <div class="cabecalho-pagina-secundaria" style="display: flex; justify-content: space-between; border-bottom: 1px solid #000; padding-bottom: 5px; margin-bottom: 15px; font-weight: bold; font-size: 0.85rem;">
                     <span>SIMULADO SAEB</span>
                     <span>Página ${numeroPagina}</span>
                 </div>
                 <div class="prova-questoes-2colunas ${layoutUmaColuna ? 'layout-1coluna' : ''}"></div>
             `;
 
-            // C) INSERE NO DOM (SEPARADOR PRIMEIRO, DEPOIS A NOVA FOLHA)
             folhaAtual.parentNode.insertBefore(elementoSeparador, folhaAtual.nextSibling);
             elementoSeparador.parentNode.insertBefore(novaFolha, elementoSeparador.nextSibling);
 
-            // Atualiza ponteiros para as próximas questões
             folhaAtual = novaFolha;
             containerAtual = novaFolha.querySelector('.prova-questoes-2colunas');
         }
     });
 
-    // Garante que o zoom seja aplicado a todas as páginas (incluindo as novas)
     applyZoom(currentZoom);
 }
-
-// Remover Quebra
-function removerQuebraPagina(indexQuestao) {
-    if (questoesNaProva[indexQuestao]) {
-        questoesNaProva[indexQuestao].quebraApos = false;
-        renderizarProvaA4();
-    }
-}
-
-/* ==========================================================
-   SINCRONIZAÇÃO E ATUALIZAÇÃO DO CABEÇALHO EM TEMPO REAL
-   ========================================================== */
-
-function inicializarEventosCabecalho() {
-    // 1. Nome da Escola
-    const inputNomeEscola = document.getElementById('inputNomeEscola');
-    const displayNomeEscola = document.querySelector('.nome-escola');
-    if (inputNomeEscola && displayNomeEscola) {
-        inputNomeEscola.addEventListener('input', (e) => {
-            displayNomeEscola.textContent = e.target.value.toUpperCase();
-        });
-    }
-
-    // 2. Título da Prova
-    const inputTituloProva = document.getElementById('inputTituloProva');
-    const displayTituloProva = document.querySelector('.titulo-prova');
-    if (inputTituloProva && displayTituloProva) {
-        inputTituloProva.addEventListener('input', (e) => {
-            displayTituloProva.textContent = e.target.value.toUpperCase();
-        });
-    }
-
-    // 3. Série / Etapa
-    const inputSerie = document.getElementById('inputSerie');
-    const displaySerie = document.querySelector('.info-serie'); 
-    if (inputSerie && displaySerie) {
-        inputSerie.addEventListener('input', (e) => {
-            displaySerie.textContent = e.target.value;
-        });
-    }
-
-    // 4. Turma
-    const inputTurma = document.getElementById('inputTurma');
-    const displayTurma = document.querySelector('.info-turma');
-    if (inputTurma && displayTurma) {
-        inputTurma.addEventListener('input', (e) => {
-            displayTurma.textContent = e.target.value;
-        });
-    }
-
-    // 5. Professor(a)
-    const inputProfessor = document.getElementById('inputProfessor');
-    const displayProfessor = document.querySelector('.info-professor');
-    if (inputProfessor && displayProfessor) {
-        inputProfessor.addEventListener('input', (e) => {
-            displayProfessor.textContent = e.target.value;
-        });
-    }
-}
-
-// Chame a função quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', () => {
-    inicializarEventosCabecalho();
-});
