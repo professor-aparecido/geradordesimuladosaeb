@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* ==========================================================
+  /* ==========================================================
        1. BARRA DIVISÓRIA MÓVEL (RESIZER)
        ========================================================== */
     const resizer = document.getElementById('dragHandle');
@@ -81,46 +81,53 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================
-   CONTROLE DE ZOOM
+   GERENCIAMENTO DE ZOOM DA FOLHA DE PROVA
    ========================================================== */
-const btnZoomIn = document.getElementById('btnZoomIn');
-const btnZoomOut = document.getElementById('btnZoomOut');
-const btnZoomReset = document.getElementById('btnZoomReset');
-const zoomVal = document.getElementById('zoomVal');
 
-let currentZoom = 1;
+let currentZoom = 1; // 1 = 100%
 
-function updateZoom() {
-    document.querySelectorAll('.folha-a4').forEach(folha => {
-        folha.style.transform = `scale(${currentZoom})`;
-        folha.style.transformOrigin = 'top center';
-    });
-    
-    if (zoomVal) {
-        zoomVal.textContent = `${Math.round(currentZoom * 100)}%`;
+function applyZoom(newZoom) {
+    // Trava o zoom entre 50% (0.5) e 150% (1.5)
+    currentZoom = Math.min(Math.max(newZoom, 0.5), 1.5);
+
+    // 1. Aplica a escala visual no container da folha
+    const previewContainer = document.querySelector('.folha-a4');
+    if (previewContainer) {
+        previewContainer.style.transform = `scale(${currentZoom})`;
+        previewContainer.style.transformOrigin = 'top center';
+    }
+
+    // 2. ATUALIZA OS NÚMEROS NO DISPLAY DO TOPO
+    const zoomDisplay = document.getElementById('zoomLevel');
+    if (zoomDisplay) {
+        zoomDisplay.textContent = `${Math.round(currentZoom * 100)}%`;
     }
 }
 
-if (btnZoomIn && btnZoomOut && btnZoomReset) {
-    btnZoomIn.addEventListener('click', () => {
-        if (currentZoom < 1.5) {
-            currentZoom += 0.1;
-            updateZoom();
-        }
-    });
+// Inicialização dos Eventos dos Botões de Zoom
+document.addEventListener('DOMContentLoaded', () => {
+    const btnZoomIn = document.getElementById('btnZoomIn');
+    const btnZoomOut = document.getElementById('btnZoomOut');
+    const btnZoomReset = document.getElementById('btnZoomReset');
 
-    btnZoomOut.addEventListener('click', () => {
-        if (currentZoom > 0.5) {
-            currentZoom -= 0.1;
-            updateZoom();
-        }
-    });
+    if (btnZoomIn) {
+        btnZoomIn.addEventListener('click', () => {
+            applyZoom(currentZoom + 0.1);
+        });
+    }
 
-    btnZoomReset.addEventListener('click', () => {
-        currentZoom = 1;
-        updateZoom();
-    });
-}
+    if (btnZoomOut) {
+        btnZoomOut.addEventListener('click', () => {
+            applyZoom(currentZoom - 0.1);
+        });
+    }
+
+    if (btnZoomReset) {
+        btnZoomReset.addEventListener('click', () => {
+            applyZoom(1.0);
+        });
+    }
+});
 
 /* ==========================================================
    ALTERNAR MODO (BANCO x CRIAR)
