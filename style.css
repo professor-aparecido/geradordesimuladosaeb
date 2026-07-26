@@ -16,69 +16,117 @@ body {
     flex-direction: column;
     overflow: hidden;
 }
+/* ========================================== */
+/* 2. BARRA SUPERIOR (TOPBAR) RESPONSÍVEL        */
+/* ========================================== */
 
-/* ========================================== */
-/* 2. BARRA SUPERIOR (TOPBAR)                 */
-/* ========================================== */
 .topbar {
-    background-color: #1a237e;
-    color: #ffffff;
-    padding: 0.8rem 1.5rem;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
-
-.topbar h2 span { 
-    color: #ffd600;
-}
-
-.topbar-actions { 
-    display: flex; 
-    align-items: center;
-    gap: 0.8rem; 
-}
-
-/* CONTROLES DE ZOOM NA TOPBAR */
-.zoom-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
-    font-size: 0.85rem;
+    flex-wrap: wrap; /* Permite reorganizar se a tela ou o painel encolher */
+    gap: 12px;
+    padding: 10px 20px;
+    background-color: #1e293b; /* Azul escuro corporativo */
     color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.btn-zoom, 
-.btn-zoom-reset {
-    background: #ffffff;
-    color: #1a237e;
-    border: none;
-    border-radius: 4px;
-    width: 26px;
-    height: 26px;
-    font-weight: bold;
-    cursor: pointer;
+.topbar-brand h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.topbar-brand h1 span {
+    color: #f59e0b; /* Amarelo/Dourado SAEB */
+}
+
+/* Grupo dos Botões */
+.topbar-actions {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
+    flex-wrap: wrap; /* Se a largura for menor, ajusta os botões para baixo suavemente */
+    gap: 10px;
 }
 
-.btn-zoom-reset {
-    width: auto;
-    padding: 0 0.5rem;
-    font-size: 0.75rem;
+/* Estilo Base dos Botões da Barra Superior */
+.topbar .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    white-space: nowrap;
 }
 
-.btn-zoom:hover, 
-.btn-zoom-reset:hover {
-    background: #ffd600;
-    color: #000000;
+.topbar .btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Cores padronizadas */
+.btn-warning { background-color: #d97706; color: #ffffff; }
+.btn-warning:hover { background-color: #b45309; }
+
+.btn-danger { background-color: #dc2626; color: #ffffff; }
+.btn-danger:hover { background-color: #b91c1c; }
+
+.btn-success { background-color: #16a34a; color: #ffffff; }
+.btn-success:hover { background-color: #15803d; }
+
+/* ========================================== */
+/* CONTROLES DE ZOOM REFINADOS                */
+/* ========================================== */
+.zoom-controls {
+    display: inline-flex;
+    align-items: center;
+    background-color: #334155;
+    border-radius: 6px;
+    padding: 3px 6px;
+    gap: 6px;
+}
+
+.btn-zoom {
+    background-color: #475569;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-zoom:hover {
+    background-color: #64748b;
+}
+
+/* Visor numérico do Zoom */
+#zoomLevel {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: bold;
+    min-width: 45px;
+    text-align: center;
+    user-select: none;
+}
+/* Ajuste automático em telas menores ou ao arrastar o splitter */
+@media (max-width: 900px) {
+    .topbar {
+        justify-content: center;
+    }
+    .topbar-actions {
+        justify-content: center;
+        width: 100%;
+    }
 }
 
 /* ========================================== */
@@ -816,5 +864,42 @@ body {
 @media print {
     .indicador-quebra-pagina {
         display: none !important;
+    }
+}
+/* ========================================== */
+/* LINHA DIVISÓRIA DAS COLUNAS DA PROVA       */
+/* ========================================== */
+
+/* Aplica a linha vertical central apenas na página de 2 colunas */
+.prova-questoes-2colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    position: relative;
+}
+
+/* Cria a linha vertical separadora entre as colunas */
+.prova-questoes-2colunas::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background-color: #d1d5db; /* Cor cinza suave da linha */
+}
+
+/* REMOVE a linha vertical se o layout for de 1 coluna */
+.prova-questoes-2colunas.layout-1coluna::before {
+    display: none !important;
+}
+
+/* Garante que a linha apareça corretamente na impressão/PDF */
+@media print {
+    .prova-questoes-2colunas::before {
+        background-color: #000000 !important; /* Linha preta bem visível no papel */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 }
