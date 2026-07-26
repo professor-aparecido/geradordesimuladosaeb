@@ -275,22 +275,45 @@ if (btnAdicionarDoModal) {
 }
 
 /* ==========================================================
-   GERENCIAMENTO DE QUESTÕES E QUEBRAS DE PÁGINA MANUAIS
+   GERENCIAMENTO DE QUESTÕES E QUEBRAS DE PÁGINA
    ========================================================== */
 
 let questoesNaProva = [];
 
-// Função para Adicionar Questão
+// Adicionar Questão na Prova
 function adicionarQuestaoNaProva(questao) {
     const novaQuestao = JSON.parse(JSON.stringify(questao));
     novaQuestao.espacoInferior = 1;
-    novaQuestao.quebraApos = false; // Controle manual de quebra
+    novaQuestao.quebraApos = false;
     
     questoesNaProva.push(novaQuestao);
     renderizarProvaA4();
 }
 
-// Botão "Refazer Prova" / Reiniciar
+// Botão "Inserir Quebra de Página" (Na Topbar)
+const btnInserirQuebra = document.getElementById('btnInserirQuebra');
+if (btnInserirQuebra) {
+    btnInserirQuebra.addEventListener('click', () => {
+        if (questoesNaProva.length === 0) {
+            alert("Adicione pelo menos uma questão antes de inserir uma quebra de página.");
+            return;
+        }
+
+        const ultimaQuestao = questoesNaProva[questoesNaProva.length - 1];
+        
+        // Alterna o estado de quebra da última questão adicionada
+        if (ultimaQuestao.quebraApos) {
+            ultimaQuestao.quebraApos = false;
+            alert("Quebra de página removida do final da prova.");
+        } else {
+            ultimaQuestao.quebraApos = true;
+        }
+
+        renderizarProvaA4();
+    });
+}
+
+// Botão "Refazer Prova" (Na Topbar)
 const btnRefazerProva = document.getElementById('btnRefazerProva');
 if (btnRefazerProva) {
     btnRefazerProva.addEventListener('click', () => {
@@ -299,26 +322,21 @@ if (btnRefazerProva) {
             return;
         }
 
-        if (confirm("Tem certeza que deseja reiniciar a prova? Todas as questões adicionadas serão removidas.")) {
+        if (confirm("Tem certeza que deseja reiniciar a prova? Todas as questões serão removidas.")) {
             questoesNaProva = [];
             renderizarProvaA4();
         }
     });
 }
 
+// Criação do elemento HTML da Questão (Sem o botão individual de quebra)
 function criarElementoQuestaoHTML(q, index) {
     const wrapper = document.createElement('div');
     wrapper.className = 'coluna-questao';
     wrapper.style.marginBottom = `${q.espacoInferior || 1}rem`;
 
-    // Botões de Ação na Questão
     let htmlAcoes = `
         <div class="q-actions-toolbar">
-            <button type="button" class="btn-q-action btn-q-pagebreak ${q.quebraApos ? 'active' : ''}" 
-                    style="background-color: ${q.quebraApos ? '#ef4444' : '#6b7280'};" 
-                    title="Inserir/Remover Quebra de Página após esta questão">
-                ✂️ ${q.quebraApos ? 'Remover Quebra' : 'Quebrar Página'}
-            </button>
             <button type="button" class="btn-q-action btn-q-space-plus" title="Aumentar Espaço">+</button>
             <button type="button" class="btn-q-action btn-q-space-minus" title="Diminuir Espaço">-</button>
             <button type="button" class="btn-q-action btn-q-move-up" title="Mover para Cima">▲</button>
@@ -363,12 +381,7 @@ function criarElementoQuestaoHTML(q, index) {
         </div>
     `;
 
-    // Eventos dos Botões
-    wrapper.querySelector('.btn-q-pagebreak').addEventListener('click', () => {
-        q.quebraApos = !q.quebraApos;
-        renderizarProvaA4();
-    });
-
+    // Eventos dos botões de controle individual da questão
     wrapper.querySelector('.btn-q-space-plus').addEventListener('click', () => {
         q.espacoInferior = (q.espacoInferior || 1) + 0.5;
         renderizarProvaA4();
@@ -408,13 +421,13 @@ function criarElementoQuestaoHTML(q, index) {
 }
 
 /**
- * Renderiza as folhas dividindo com base na quebra manual (ou limite seguro)
+ * Renderiza as folhas montando as quebras no visualizador
  */
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
 
-    // Limpa páginas secundárias
+    // Limpa páginas geradas anteriormente
     document.querySelectorAll('.folha-a4-gerada').forEach(el => el.remove());
 
     const containerPrimeiraPagina = primeiraFolha.querySelector('.prova-questoes-2colunas');
@@ -440,16 +453,16 @@ function renderizarProvaA4() {
         const elQuestao = criarElementoQuestaoHTML(q, idx);
         containerAtual.appendChild(elQuestao);
 
-        // Se o usuário clicou no botão "Quebrar Página" nesta questão
+        // Se a questão atual possuir uma marcação de quebra de página
         if (q.quebraApos && idx < questoesNaProva.length - 1) {
             
-            // Adiciona a mensagem visual na tela informando a quebra
+            // Indicador visual no editor
             const avisoQuebra = document.createElement('div');
             avisoQuebra.className = 'indicador-quebra-pagina';
             avisoQuebra.innerHTML = `✂️ QUEBRA DE PÁGINA — (Próxima questão vai para a Página ${numeroPagina + 1})`;
             containerAtual.appendChild(avisoQuebra);
 
-            // Cria a nova folha A4
+            // Criação da próxima página A4
             numeroPagina++;
             const novaFolha = document.createElement('div');
             novaFolha.className = 'folha-a4 folha-a4-gerada';
