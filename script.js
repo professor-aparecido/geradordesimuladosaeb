@@ -483,27 +483,40 @@ function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
 
-    // Limpa páginas geradas e separadores antigos
+    // Limpa páginas geradas adicionais e separadores antigos
     document.querySelectorAll('.folha-a4-gerada, .separador-quebra-pagina').forEach(el => el.remove());
 
-    const containerPrimeiraPagina = primeiraFolha.querySelector('.prova-questoes-2colunas');
+    // Busca o container principal de questões da primeira página
+    let containerPrimeiraPagina = primeiraFolha.querySelector('#containerQuestoes') || primeiraFolha.querySelector('.prova-questoes-2colunas');
     if (!containerPrimeiraPagina) return;
 
+    // Limpa o conteúdo da primeira folha
     containerPrimeiraPagina.innerHTML = '';
 
+    // SE A PROVA ESTIVER VAZIA: Exibe a instrução em bloco único (sem grid de 2 colunas)
+    if (questoesNaProva.length === 0) {
+        containerPrimeiraPagina.className = 'container-instrucao-vazia';
+        containerPrimeiraPagina.innerHTML = `
+            <div class="instrucao-inicial">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">👈</span>
+                <h3 style="margin: 0 0 0.5rem 0; color: #334155; font-size: 1.2rem;">Monte seu Simulado SAEB</h3>
+                <p style="margin: 0; font-size: 0.95rem; max-width: 450px;">Selecione um descritor no painel à esquerda ou crie uma questão manualmente para começar a preencher esta folha.</p>
+            </div>
+        `;
+        return;
+    }
+
+    // SE HOUVER QUESTÕES: Restaura o layout de colunas
     const selectColunas = document.getElementById('selectColunas');
     const layoutUmaColuna = selectColunas && selectColunas.value === '1';
+
+    containerPrimeiraPagina.className = `prova-questoes-2colunas ${layoutUmaColuna ? 'layout-1coluna' : ''}`;
 
     let folhaAtual = primeiraFolha;
     let containerAtual = containerPrimeiraPagina;
     let numeroPagina = 1;
 
-    if (layoutUmaColuna) {
-        containerAtual.classList.add('layout-1coluna');
-    } else {
-        containerAtual.classList.remove('layout-1coluna');
-    }
-
+    // Renderiza cada questão cadastrada
     questoesNaProva.forEach((q, idx) => {
         const elQuestao = criarElementoQuestaoHTML(q, idx);
         containerAtual.appendChild(elQuestao);
@@ -511,21 +524,17 @@ function renderizarProvaA4() {
         if (q.quebraApos) {
             numeroPagina++;
 
-            // Separador Visual de Quebra
             const elementoSeparador = document.createElement('div');
             elementoSeparador.className = 'separador-quebra-pagina';
             elementoSeparador.innerHTML = `
                 <span>✂️ Quebra de página inserida aqui</span>
-                <button type="button" class="btn-remover-quebra">
-                    🗑️ Remover Quebra
-                </button>
+                <button type="button" class="btn-remover-quebra">🗑️ Remover Quebra</button>
             `;
 
             elementoSeparador.querySelector('.btn-remover-quebra').addEventListener('click', () => {
                 removerQuebraPagina(idx);
             });
 
-            // Nova Folha A4 Gerada
             const novaFolha = document.createElement('div');
             novaFolha.className = 'folha-a4 folha-a4-gerada';
             novaFolha.id = `pagina-a4-${numeroPagina}`;
