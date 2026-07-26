@@ -4,7 +4,13 @@
     "descritor": "D36",
     "tipo": "objetiva",
     "enunciado": "Texto da questão...",
-    "opcoes": ["A", "B", "C", "D"],
-    "espacoExtra": 0
+    "alternativas": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D"
+    },
+    "respostaCorreta": "B",
+    "espacoInferior": 1
   }
 ]
