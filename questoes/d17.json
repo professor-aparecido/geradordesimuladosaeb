@@ -1,0 +1,16 @@
+[
+  {
+    "id": "q1_d17",
+    "descritor": "D17",
+    "tipo": "objetiva",
+    "enunciado": "Texto da questão...",
+    "alternativas": {
+      "A": "A",
+      "B": "B",
+      "C": "C",
+      "D": "D"
+    },
+    "respostaCorreta": "B",
+    "espacoInferior": 1
+  }
+]
