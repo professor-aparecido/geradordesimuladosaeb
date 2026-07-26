@@ -50,66 +50,61 @@
         <!-- ====================================== -->
         <aside class="panel-builder" id="panelBuilder">
             
-            <!-- SEÇÃO 1: CABEÇALHO DA PROVA (Com botão de recolher corrigido) -->
-            <section class="builder-group">
-                <div class="section-header-toggle" id="btnToggleCabecalho" title="Clique para recolher ou expandir">
-                    <h3>1. Cabeçalho da Prova</h3>
-                    <div class="toggle-badge">
-                        <span class="toggle-text">Recolher</span>
-                        <span class="toggle-icon">▲</span>
-                    </div>
-                </div>
+           <!-- 1. Cabeçalho da Prova -->
+<div class="builder-group">
+    <div class="section-header-toggle" id="btnToggleCabecalho">
+        <h3>1. Cabeçalho da Prova</h3>
+        <span class="toggle-badge">
+            <span class="toggle-text">Editar</span>
+            <span class="toggle-icon">▲</span>
+        </span>
+    </div>
 
-                <!-- Envolvemos todo o conteúdo interno em uma div para podermos esconder/recolher -->
-                <div class="section-body" id="bodyCabecalho">
-                    
-                    <!-- Campo para subir arquivo de Logo -->
-                    <div class="form-control">
-                        <label>Upload da Logo da Escola</label>
-                        <input type="file" id="inputLogo" accept="image/*">
-                    </div>
+    <!-- Campo Nome da Escola (SEMPRE VISÍVEL) -->
+    <div class="form-control" style="margin-bottom: 0.8rem;">
+        <label for="inputNomeEscola">Nome da Escola</label>
+        <input type="text" id="inputNomeEscola" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR">
+    </div>
 
-                    <!-- Campo Nome da Escola -->
-                    <div class="form-control">
-                        <label>Nome da Escola</label>
-                        <input type="text" id="inputEscola" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR">
-                    </div>
+    <!-- Demais campos que iniciam RECOLHIDOS (classe collapsed adicionada) -->
+    <div id="bodyCabecalho" class="section-body collapsed">
+        
+        <div class="form-control">
+            <label for="inputLogo">Upload da Logo da Escola</label>
+            <input type="file" id="inputLogo" accept="image/*">
+        </div>
 
-                    <!-- Campo Título da Prova -->
-                    <div class="form-control">
-                        <label>Título da Prova</label>
-                        <input type="text" id="inputTitulo" value="PROVA DE MATEMÁTICA ADAPTADA - 2º BIMESTRE">
-                    </div>
+        <div class="form-control">
+            <label for="inputTituloProva">Título da Prova</label>
+            <input type="text" id="inputTituloProva" value="PROVA DE MATEMÁTICA ADAPTADA - 2º BIMESTRE">
+        </div>
 
-                    <!-- Linha dupla: Série e Turma -->
-                    <div class="form-row">
-                        <div class="form-control">
-                            <label>Série / Etapa</label>
-                            <input type="text" id="inputSerie" value="8º ANO">
-                        </div>
-                        <div class="form-control">
-                            <label>Turma</label>
-                            <input type="text" id="inputTurma" placeholder="Ex: A">
-                        </div>
-                    </div>
+        <div class="form-row">
+            <div class="form-control">
+                <label for="inputSerie">Série / Etapa</label>
+                <input type="text" id="inputSerie" value="8º ANO">
+            </div>
+            <div class="form-control">
+                <label for="inputTurma">Turma</label>
+                <input type="text" id="inputTurma" placeholder="Ex: A">
+            </div>
+        </div>
 
-                    <!-- Campo Nome do Professor -->
-                    <div class="form-control">
-                        <label>Professor(a)</label>
-                        <input type="text" id="inputProfessor" value="Aparecido Sousa">
-                    </div>
+        <div class="form-control">
+            <label for="inputProfessor">Professor(a)</label>
+            <input type="text" id="inputProfessor" value="Aparecido Sousa">
+        </div>
 
-                    <!-- Seletor do Layout de Colunas (1 ou 2 Colunas) -->
-                    <div class="form-control">
-                        <label>Layout das Questões</label>
-                        <select id="selectColunas">
-                            <option value="2">2 Colunas (Padrão)</option>
-                            <option value="1">1 Coluna (Página inteira)</option>
-                        </select>
-                    </div>
+        <div class="form-control">
+            <label for="selectColunas">Layout das Questões</label>
+            <select id="selectColunas">
+                <option value="2">2 Colunas (Padrão)</option>
+                <option value="1">1 Coluna (Página inteira)</option>
+            </select>
+        </div>
 
-                </div>
-            </section>
+    </div>
+</div> 
 
             <!-- SEÇÃO 2: ADICIONAR QUESTÕES (MODIFICADA) -->
             <section class="builder-group">
