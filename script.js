@@ -1,8 +1,7 @@
-// Aguarda o carregamento completo do DOM antes de executar as funções
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ==========================================================
-       1. BARRA DIVISÓRIA MÓVEL (REDIMENSIONAMENTO DOS PAINÉIS)
+       1. BARRA DIVISÓRIA MÓVEL (RESIZER)
        ========================================================== */
     const resizer = document.getElementById('dragHandle');
     const leftSide = document.getElementById('panelBuilder');
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let x = 0;
     let leftWidth = 0;
 
-    // Disparado quando o usuário clica na barra divisória
     const mouseDownHandler = function (e) {
         x = e.clientX;
         leftWidth = leftSide.getBoundingClientRect().width;
@@ -22,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.userSelect = 'none';
     };
 
-    // Disparado enquanto o usuário move o mouse com o botão pressionado
     const mouseMoveHandler = function (e) {
         const dx = e.clientX - x;
         const newLeftWidth = ((leftWidth + dx) * 100) / container.getBoundingClientRect().width;
@@ -32,12 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Disparado quando o usuário solta o botão do mouse
     const mouseUpHandler = function () {
         document.body.style.removeProperty('user-select');
 
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
+
+        // Re-renderiza para ajustar folha A4 após mudar espaço lateral
+        renderizarProvaA4();
     };
 
     if (resizer && leftSide && container) {
@@ -46,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================================
-       2. ALTERNAR LAYOUT DAS QUESTÕES (1 OU 2 COLUNAS)
+       2. ALTERNAR LAYOUT DE COLUNAS
        ========================================================== */
     const selectColunas = document.getElementById('selectColunas');
 
@@ -58,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================================
-       3. UPLOAD E ATUALIZAÇÃO DA LOGO DA ESCOLA
+       3. UPLOAD DE LOGO
        ========================================================== */
     const inputLogo = document.getElementById('inputLogo');
     const imgLogo = document.getElementById('imgLogo');
@@ -82,15 +81,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================
-   CONTROLE DE ZOOM NA PRÉ-VISUALIZAÇÃO
+   CONTROLE DE ZOOM
    ========================================================== */
-const folhaA4 = document.querySelector('.folha-a4');
 const btnZoomIn = document.getElementById('btnZoomIn');
 const btnZoomOut = document.getElementById('btnZoomOut');
 const btnZoomReset = document.getElementById('btnZoomReset');
 const zoomVal = document.getElementById('zoomVal');
 
-let currentZoom = 1; // 1 = 100%
+let currentZoom = 1;
 
 function updateZoom() {
     document.querySelectorAll('.folha-a4').forEach(folha => {
@@ -125,7 +123,7 @@ if (btnZoomIn && btnZoomOut && btnZoomReset) {
 }
 
 /* ==========================================================
-   ALTERNAR MODO DE QUESTÕES (BANCO x CRIAR)
+   ALTERNAR MODO (BANCO x CRIAR)
    ========================================================== */
 const btnModoBanco = document.getElementById('btnModoBanco');
 const btnModoCriar = document.getElementById('btnModoCriar');
@@ -150,9 +148,9 @@ if (btnModoBanco && btnModoCriar) {
     });
 }
 
-/* ========================================== */
-/* LÓGICA PARA RECOLHER / EXPANDIR O CABEÇALHO */
-/* ========================================== */
+/* ==========================================================
+   RECOLHER / EXPANDIR CABEÇALHO
+   ========================================================== */
 const btnToggleCabecalho = document.getElementById('btnToggleCabecalho');
 const bodyCabecalho = document.getElementById('bodyCabecalho');
 const toggleText = btnToggleCabecalho ? btnToggleCabecalho.querySelector('.toggle-text') : null;
@@ -169,7 +167,7 @@ if (btnToggleCabecalho && bodyCabecalho) {
 }
 
 /* ==========================================================
-   LÓGICA DO BANCO DE QUESTÕES (JSON + CARDS COMPACTOS + MODAL)
+   BANCO DE QUESTÕES (JSON + CARDS + MODAL)
    ========================================================== */
 const filtroDescritor = document.getElementById('filtroDescritor');
 const listaQuestoesBanco = document.getElementById('listaQuestoesBanco');
@@ -276,25 +274,20 @@ if (btnAdicionarDoModal) {
     });
 }
 
-
 /* ==========================================================
-   GERENCIAMENTO DE QUESTÕES NA PROVA A4 
-   (ORDENAÇÃO, ESPAÇAMENTO E QUEBRA DE PÁGINA AUTOMÁTICA EM FOLHAS A4)
+   GERENCIAMENTO E DISTRIBUIÇÃO DAS QUESTÕES (CORRIGIDO)
    ========================================================== */
 
 let questoesNaProva = [];
 
 function adicionarQuestaoNaProva(questao) {
     const novaQuestao = JSON.parse(JSON.stringify(questao));
-    novaQuestao.espacoInferior = 1; // Padrão 1rem
+    novaQuestao.espacoInferior = 1;
     
     questoesNaProva.push(novaQuestao);
     renderizarProvaA4();
 }
 
-/**
- * Cria o elemento HTML DOM para a questão com sua barra de botões
- */
 function criarElementoQuestaoHTML(q, index) {
     const wrapper = document.createElement('div');
     wrapper.className = 'coluna-questao';
@@ -346,7 +339,6 @@ function criarElementoQuestaoHTML(q, index) {
         </div>
     `;
 
-    // Eventos dos botões da questão
     wrapper.querySelector('.btn-q-space-plus').addEventListener('click', () => {
         q.espacoInferior = (q.espacoInferior || 1) + 0.5;
         renderizarProvaA4();
@@ -386,13 +378,13 @@ function criarElementoQuestaoHTML(q, index) {
 }
 
 /**
- * Redesenha a prova distribuindo dinamicamente as questões em folhas A4 separadas sem estouro
+ * Função unificada para gerenciar o overflow interno das folhas A4
  */
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
 
-    // 1. Limpa todas as páginas secundárias anteriores
+    // Remove páginas adicionais prévias
     document.querySelectorAll('.folha-a4-gerada').forEach(el => el.remove());
 
     const containerPrimeiraPagina = primeiraFolha.querySelector('.prova-questoes-2colunas');
@@ -401,7 +393,6 @@ function renderizarProvaA4() {
     containerPrimeiraPagina.innerHTML = '';
     if (questoesNaProva.length === 0) return;
 
-    // 2. Layout do select
     const selectColunas = document.getElementById('selectColunas');
     const layoutUmaColuna = selectColunas && selectColunas.value === '1';
 
@@ -415,18 +406,16 @@ function renderizarProvaA4() {
         containerAtual.classList.remove('layout-1coluna');
     }
 
-    // 3. Distribui as questões
+    // Processa item a item medindo o overflow em altura interna real
     questoesNaProva.forEach((q, idx) => {
         const elQuestao = criarElementoQuestaoHTML(q, idx);
         containerAtual.appendChild(elQuestao);
 
-        // Medição do limite de margem inferior da folha
-        const retanguloFolha = folhaAtual.getBoundingClientRect();
-        const retanguloQuestao = elQuestao.getBoundingClientRect();
+        // Medição em pixels reais do clientHeight para desconsiderar a escala do CSS transform
+        const alturaMaxUtil = folhaAtual.clientHeight - 30; 
+        const alturaConteudoAtual = folhaAtual.scrollHeight;
 
-        const limiteInferiorFolha = retanguloFolha.bottom - 50; // Margem de segurança inferior
-
-        if (retanguloQuestao.bottom > limiteInferiorFolha && containerAtual.children.length > 1) {
+        if (alturaConteudoAtual > alturaMaxUtil && containerAtual.children.length > 1) {
             containerAtual.removeChild(elQuestao);
 
             numeroPagina++;
