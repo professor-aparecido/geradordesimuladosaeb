@@ -854,4 +854,47 @@ body {
     }
 }
 
+/* ==========================================================
+   REGRAS DE IMPRESSÃO (A4 FULLPAGE)
+   ========================================================== */
+@media print {
+  /* Oculta elementos da interface do aplicativo */
+  .topbar,
+  .panel-builder,
+  .resizer,
+  .preview-header,
+  .q-actions-toolbar {
+    display: none !important;
+  }
 
+  /* Ajusta o container principal para usar todo o espaço */
+  body, 
+  #appContainer, 
+  .panel-preview {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Força cada folha A4 a manter o tamanho exato de impressão */
+  .folha-a4 {
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    border: none !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    padding: 15mm 15mm !important;
+    transform: scale(1) !important; /* Reseta o zoom de tela para impressão */
+    page-break-after: always !important; /* Força quebra de página física */
+    break-after: page !important;
+  }
+
+  /* Garante que a última página não gere uma folha em branco extra */
+  .folha-a4:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+}
