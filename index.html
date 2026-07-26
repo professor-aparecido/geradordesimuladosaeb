@@ -9,17 +9,16 @@
     <!-- Solução temporária para evitar aviso de favicon no console -->
     <link rel="icon" href="data:,">
     <!-- Suporte a LaTeX / MathJax -->
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
-    },
-    svg: { fontCache: 'global' }
-  };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: { fontCache: 'global' }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -32,29 +31,25 @@
             <h1>Gerador de Simulados <span>SAEB</span></h1>
         </div>
 
-        <!-- Lado Direito: Ações (Botões e Controles de Zoom) -->
+        <!-- Lado Direito: Ações Globais da Prova -->
         <div class="topbar-actions">
-            <!-- Ações Principais -->
-            <button type="button" id="btnInserirQuebra" class="btn btn-warning">
-                ✂️ Inserir Quebra de Página
-            </button>
-
             <button type="button" id="btnRefazerProva" class="btn btn-danger">
                 🗑️ Refazer Prova
             </button>
 
-            <!-- Controle de Zoom com Lupas e Indicador -->
-            <div class="zoom-controls">
-                <button type="button" class="btn-zoom" id="btnZoomOut" title="Diminuir Zoom">🔍-</button>
-                <span id="zoomLevel">100%</span>
-                <button type="button" class="btn-zoom" id="btnZoomIn" title="Aumentar Zoom">🔍+</button>
-                <button type="button" class="btn-zoom" id="btnZoomReset" title="Resetar Zoom para 100%">100%</button>
+            <!-- Seletor de Layout de Colunas -->
+            <div class="seletor-colunas-group" style="display: flex; align-items: center; gap: 0.4rem;">
+                <label for="selectColunas" style="color: white; font-size: 0.82rem; font-weight: bold;">Colunas:</label>
+                <select id="selectColunas" class="select-topo-colunas">
+                    <option value="2">2 Colunas (Padrão)</option>
+                    <option value="1">1 Coluna (Página inteira)</option>
+                </select>
             </div>
 
-            <!-- Botão Final de Ação -->
-             <button type="button" id="btnToggleGabarito" class="btn-topo" style="background: #059669; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-    👁️ Modos: Aluno / Gabarito
-</button>
+            <!-- Botão de Gabarito e Imprimir -->
+            <button type="button" id="btnToggleGabarito" class="btn-topo" style="background: #059669; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                👁️ Modos: Aluno / Gabarito
+            </button>
             <button type="button" class="btn btn-success" onclick="window.print()">
                 🖨️ Imprimir / Salvar PDF
             </button>
@@ -97,7 +92,7 @@
 
                     <div class="form-control">
                         <label for="inputTituloProva">Título da Prova</label>
-                        <input type="text" id="inputTituloProva" value="PROVA DE MATEMÁTICA ADAPTADA - 2º BIMESTRE">
+                        <input type="text" id="inputTituloProva" value="SIMULADO DE MATEMÁTICA - SAEB 2026">
                     </div>
 
                     <div class="form-row">
@@ -114,14 +109,6 @@
                     <div class="form-control">
                         <label for="inputProfessor">Professor(a)</label>
                         <input type="text" id="inputProfessor" value="Aparecido Sousa">
-                    </div>
-
-                    <div class="form-control">
-                        <label for="selectColunas">Layout das Questões</label>
-                        <select id="selectColunas">
-                            <option value="2">2 Colunas (Padrão)</option>
-                            <option value="1">1 Coluna (Página inteira)</option>
-                        </select>
                     </div>
 
                 </div>
@@ -199,16 +186,14 @@
                     </div>
 
                     <!-- Botões de Ação da Criação Manual -->
-<div style="display: flex; gap: 10px; margin-top: 1rem;">
-    <button type="button" id="btnPreviewCriarQuestao" class="btn-secundario" style="flex: 1; padding: 0.7rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #f1f5f9; color: #334155; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
-        👁️ Pré-visualizar
-    </button>
-    <button type="button" id="btnCriarQuestaoSubmit" class="btn-primario" style="flex: 2; padding: 0.7rem; border-radius: 6px; background: #1e293b; color: white; font-weight: 600; border: none; cursor: pointer;">
-        + Inserir Questão no Simulado
-    </button>
-</div>
-
-
+                    <div style="display: flex; gap: 10px; margin-top: 1rem;">
+                        <button type="button" id="btnPreviewCriarQuestao" class="btn-secundario" style="flex: 1; padding: 0.7rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #f1f5f9; color: #334155; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                            👁️ Pré-visualizar
+                        </button>
+                        <button type="button" id="btnCriarQuestaoSubmit" class="btn-primario" style="flex: 2; padding: 0.7rem; border-radius: 6px; background: #1e293b; color: white; font-weight: 600; border: none; cursor: pointer;">
+                            + Inserir Questão no Simulado
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -226,7 +211,24 @@
             
             <div class="preview-header">
                 <span>Pré-visualização da Folha de Prova</span>
-                <span class="tag-status">Edição Ativa</span>
+
+                <!-- Ferramentas de Edição da Folha (Quebra, Zoom e Status) -->
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <!-- Botão Inserir Quebra reposicionado aqui -->
+                    <button type="button" id="btnInserirQuebra" class="btn btn-warning" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;">
+                        ✂️ Inserir Quebra de Página
+                    </button>
+
+                    <!-- Controles de Zoom -->
+                    <div class="zoom-controls">
+                        <button type="button" class="btn-zoom" id="btnZoomOut" title="Diminuir Zoom">🔍-</button>
+                        <span id="zoomLevel">100%</span>
+                        <button type="button" class="btn-zoom" id="btnZoomIn" title="Aumentar Zoom">🔍+</button>
+                        <button type="button" class="btn-zoom" id="btnZoomReset" title="Resetar Zoom para 100%">🔍↩</button>
+                    </div>
+
+                    <span class="tag-status">Edição Ativa</span>
+                </div>
             </div>
 
             <!-- CONTAINER DE ZOOM UNIFICADO -->
@@ -263,25 +265,25 @@
 
                     <!-- Título da Prova e Caixa de Nota -->
                     <div class="titulo-nota-container">
-                        <h3 class="titulo-prova" id="displayTituloProva">PROVA DE MATEMÁTICA ADAPTADA - 2º BIMESTRE</h3>
+                        <h3 class="titulo-prova" id="displayTituloProva">SIMULADO DE MATEMÁTICA - SAEB 2026</h3>
                         <div class="box-nota">
                             <span>NOTA:</span>
                             <div class="campo-nota"></div>
                         </div>
                     </div>
 
-                    
-<!-- Container das Questões -->
-<div id="containerQuestoes">
-    <!-- MENSAGEM DE INSTRUÇÃO INICIAL -->
-    <div class="instrucao-inicial">
-        <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">👈</span>
-        <h3 style="margin: 0 0 0.5rem 0; color: #334155; font-size: 1.2rem;">Monte seu Simulado SAEB</h3>
-        <p style="margin: 0; font-size: 0.95rem; max-width: 450px; line-height: 1.4;">Selecione um descritor no painel à esquerda ou crie uma questão manualmente para começar a preencher esta folha.</p>
-    </div>
-</div>
+                    <!-- Container das Questões -->
+                    <div id="containerQuestoes">
+                        <!-- MENSAGEM DE INSTRUÇÃO INICIAL -->
+                        <div class="instrucao-inicial">
+                            <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">👈</span>
+                            <h3 style="margin: 0 0 0.5rem 0; color: #334155; font-size: 1.2rem;">Monte seu Simulado SAEB</h3>
+                            <p style="margin: 0; font-size: 0.95rem; max-width: 450px; line-height: 1.4;">Selecione um descritor no painel à esquerda ou crie uma questão manualmente para começar a preencher esta folha.</p>
+                        </div>
+                    </div>
 
-                </div> <!-- Fim do wrapper de zoom -->
+                </div>
+            </div> <!-- Fim do wrapper de zoom -->
 
         </main>
 
