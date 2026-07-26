@@ -290,7 +290,7 @@ function adicionarQuestaoNaProva(questao) {
     renderizarProvaA4();
 }
 
-// Botão "Inserir Quebra de Página" (Na Topbar)
+// Botão "Inserir Quebra de Página" (Topbar)
 const btnInserirQuebra = document.getElementById('btnInserirQuebra');
 if (btnInserirQuebra) {
     btnInserirQuebra.addEventListener('click', () => {
@@ -301,19 +301,13 @@ if (btnInserirQuebra) {
 
         const ultimaQuestao = questoesNaProva[questoesNaProva.length - 1];
         
-        // Alterna o estado de quebra da última questão adicionada
-        if (ultimaQuestao.quebraApos) {
-            ultimaQuestao.quebraApos = false;
-            alert("Quebra de página removida do final da prova.");
-        } else {
-            ultimaQuestao.quebraApos = true;
-        }
-
+        // Alterna a quebra na última questão
+        ultimaQuestao.quebraApos = !ultimaQuestao.quebraApos;
         renderizarProvaA4();
     });
 }
 
-// Botão "Refazer Prova" (Na Topbar)
+// Botão "Refazer Prova" (Topbar)
 const btnRefazerProva = document.getElementById('btnRefazerProva');
 if (btnRefazerProva) {
     btnRefazerProva.addEventListener('click', () => {
@@ -329,7 +323,7 @@ if (btnRefazerProva) {
     });
 }
 
-// Criação do elemento HTML da Questão (Sem o botão individual de quebra)
+// Criação do elemento HTML da Questão
 function criarElementoQuestaoHTML(q, index) {
     const wrapper = document.createElement('div');
     wrapper.className = 'coluna-questao';
@@ -381,7 +375,7 @@ function criarElementoQuestaoHTML(q, index) {
         </div>
     `;
 
-    // Eventos dos botões de controle individual da questão
+    // Eventos dos botões individuais
     wrapper.querySelector('.btn-q-space-plus').addEventListener('click', () => {
         q.espacoInferior = (q.espacoInferior || 1) + 0.5;
         renderizarProvaA4();
@@ -421,13 +415,13 @@ function criarElementoQuestaoHTML(q, index) {
 }
 
 /**
- * Renderiza as folhas montando as quebras no visualizador
+ * RENDERIZAÇÃO A4 COM CRIAÇÃO DE NOVA PÁGINA GARANTIDA
  */
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
     if (!primeiraFolha) return;
 
-    // Limpa páginas geradas anteriormente
+    // 1. Limpa todas as folhas adicionais geradas previamente
     document.querySelectorAll('.folha-a4-gerada').forEach(el => el.remove());
 
     const containerPrimeiraPagina = primeiraFolha.querySelector('.prova-questoes-2colunas');
@@ -442,6 +436,7 @@ function renderizarProvaA4() {
     let folhaAtual = primeiraFolha;
     let containerAtual = containerPrimeiraPagina;
     let numeroPagina = 1;
+    let criarNovaPaginaNaProxima = false;
 
     if (layoutUmaColuna) {
         containerAtual.classList.add('layout-1coluna');
@@ -450,20 +445,11 @@ function renderizarProvaA4() {
     }
 
     questoesNaProva.forEach((q, idx) => {
-        const elQuestao = criarElementoQuestaoHTML(q, idx);
-        containerAtual.appendChild(elQuestao);
-
-        // Se a questão atual possuir uma marcação de quebra de página
-        if (q.quebraApos && idx < questoesNaProva.length - 1) {
-            
-            // Indicador visual no editor
-            const avisoQuebra = document.createElement('div');
-            avisoQuebra.className = 'indicador-quebra-pagina';
-            avisoQuebra.innerHTML = `✂️ QUEBRA DE PÁGINA — (Próxima questão vai para a Página ${numeroPagina + 1})`;
-            containerAtual.appendChild(avisoQuebra);
-
-            // Criação da próxima página A4
+        
+        // Se a questão anterior solicitou quebra, cria a nova folha AGORA antes de inserir a questão
+        if (criarNovaPaginaNaProxima) {
             numeroPagina++;
+            
             const novaFolha = document.createElement('div');
             novaFolha.className = 'folha-a4 folha-a4-gerada';
             novaFolha.id = `pagina-a4-${numeroPagina}`;
@@ -476,10 +462,30 @@ function renderizarProvaA4() {
                 <div class="prova-questoes-2colunas ${layoutUmaColuna ? 'layout-1coluna' : ''}"></div>
             `;
 
+            // Insere a nova folha no DOM após a folha atual
             folhaAtual.parentNode.insertBefore(novaFolha, folhaAtual.nextSibling);
 
             folhaAtual = novaFolha;
             containerAtual = novaFolha.querySelector('.prova-questoes-2colunas');
+            
+            // Reseta a flag de criação
+            criarNovaPaginaNaProxima = false;
+        }
+
+        // Adiciona a questão na folha atual
+        const elQuestao = criarElementoQuestaoHTML(q, idx);
+        containerAtual.appendChild(elQuestao);
+
+        // Se esta questão tem marcação de quebra de página
+        if (q.quebraApos) {
+            // Desenha a linha vermelha indicadora na tela
+            const avisoQuebra = document.createElement('div');
+            avisoQuebra.className = 'indicador-quebra-pagina';
+            avisoQuebra.innerHTML = `✂️ QUEBRA DE PÁGINA (Fim da Página ${numeroPagina})`;
+            containerAtual.appendChild(avisoQuebra);
+
+            // Sinaliza para que a PRÓXIMA questão vá para a folha nova
+            criarNovaPaginaNaProxima = true;
         }
     });
 
