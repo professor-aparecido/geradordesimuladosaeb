@@ -1008,7 +1008,7 @@ body {
         box-shadow: none !important;
         border: none !important;
         margin: 0 auto !important;
-        padding: 10mm 12mm !important;
+        padding: 10mm  !important;
         width: 210mm !important;
         height: 297mm !important; /* Altura exata da A4 */
         box-sizing: border-box !important;
