@@ -17,8 +17,23 @@ body {
     overflow: hidden;
 }
 
+.w-100 { width: 100%; }
+.hidden { display: none !important; }
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-primary { background: #1a237e; color: #ffffff; }
+.btn-success { background: #2e7d32; color: #ffffff; }
+.btn-outline { background: transparent; border: 1px solid #ffffff; color: #ffffff; }
+
 /* ========================================== */
-/* 2. BARRA SUPERIOR (TOPBAR) RESPONSÍVEL     */
+/* 2. BARRA SUPERIOR (TOPBAR) RESPONSIVA      */
 /* ========================================== */
 .topbar {
     display: flex;
@@ -113,6 +128,23 @@ body {
     user-select: none;
 }
 
+/* Seletor de Colunas na Topbar */
+.select-topo-colunas {
+    background-color: #1e293b;
+    color: #ffffff;
+    border: 1px solid #475569;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+}
+
+.select-topo-colunas:hover {
+    border-color: #94a3b8;
+}
+
 @media (max-width: 900px) {
     .topbar {
         justify-content: center;
@@ -166,9 +198,6 @@ body {
     height: 20px;
     background-color: #6c757d;
 }
-
-
-
 
 /* ========================================== */
 /* 4. FORMULÁRIOS E CONTROLES DO PAINEL       */
@@ -388,11 +417,8 @@ body {
 }
 
 /* ========================================== */
-/* 6. PAINEL DE PRÉ-VISUALIZAÇÃO E ZOOM       */
+/* 6. PAINEL DE PRÉ-VISUALIZAÇÃO              */
 /* ========================================== */
-
-/* 1. PAINEL PRINCIPAL DA DIREITA */
-/* 1. PAINEL CONTAINER */
 .panel-preview,
 .preview-area {
     flex: 1;
@@ -401,57 +427,50 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    /* Mude de 'align-items: center' para 'align-items: stretch' */
     align-items: stretch;
 }
 
-/* 2. BARRA DE CONTROLES FIXA NO TOPO */
 .preview-header {
     position: sticky;
     top: 0;
     z-index: 100;
     width: 100%;
-    background-color: #f1f5f9; /* Cinza claro elegante */
-    color: #334155;            /* Texto escuro para dar contraste no fundo claro */
+    background-color: #f1f5f9;
+    color: #334155;
     padding: 0.8rem 1.5rem;
-    border-bottom: 1px solid #cbd5e1; /* Borda sutil para separar do fundo */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra mais suave */
-    
+    border-bottom: 1px solid #cbd5e1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
 }
+
 .tag-status {
     background-color: #2e7d32;
     padding: 0.2rem 0.6rem;
     border-radius: 4px;
     font-size: 0.8rem;
+    color: #ffffff;
 }
-
-/* Container de Zoom unificado */
 
 .prova-pages-wrapper,
 #provaPagesWrapper {
     padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza a folha A4 horizontalmente */
+    align-items: center;
     gap: 2rem;
     width: 100%;
-    
-    /* PONTOS CHAVE PARA O ZOOM FUNCIONAR PERFEITAMENTE */
-    transform-origin: top center; /* Garante que a folha encolha/cresça a partir do TOPO */
-    transition: transform 0.2s ease; /* Deixa o movimento do zoom suave */
+    transform-origin: top center;
+    transition: transform 0.2s ease;
 }
-
-
 
 /* ========================================== */
 /* 7. MODELO DA FOLHA DE PROVA (A4)          */
 /* ========================================== */
 .folha-a4 {
-    position: relative;
+    position: relative !important;
     box-sizing: border-box;
     background: #ffffff;
     width: 210mm;
@@ -463,6 +482,23 @@ body {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+}
+
+/* Indicador visual do limite de impressão A4 na tela */
+.folha-a4::after {
+    content: "✂️ LIMITE DA FOLHA A4 (IMPRESSÃO)";
+    position: absolute;
+    top: 980px; /* Alinhado perfeitamente ao corte físico da A4 */
+    left: 15mm;
+    right: 15mm;
+    border-top: 2px dashed #ef4444;
+    color: #ef4444;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-align: right;
+    padding-top: 4px;
+    pointer-events: none;
+    z-index: 100;
 }
 
 /* CABEÇALHO DA PROVA */
@@ -575,8 +611,6 @@ body {
 /* ========================================== */
 /* 8. ESTRUTURA DE COLUNAS E QUESTÕES         */
 /* ========================================== */
-
-
 .prova-questoes-2colunas {
     display: block;
     column-count: 2;
@@ -662,6 +696,43 @@ body {
     color: #ffffff;
 }
 
+/* Estilo para as linhas de resposta (Espaço Vertical) */
+.area-linhas {
+    width: 100%;
+    background-image: linear-gradient(to bottom, transparent 23px, #cbd5e1 24px) !important;
+    background-size: 100% 24px !important;
+    background-repeat: repeat-y !important; /* Garante que as linhas se repitam por toda a altura */
+    line-height: 24px;
+    border-top: 1px solid #cbd5e1;
+    
+    /* FORÇA A IMPRESSORA A MOSTRAR O BACKGROUND E TODAS AS LINHAS */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+
+/* GABARITO */
+.marca-gabarito {
+    display: none;
+}
+
+.folha-a4.modo-gabarito .marca-gabarito {
+    display: inline-block !important;
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #86efac;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+}
+
+.folha-a4.modo-gabarito .alternativa-correta {
+    font-weight: bold;
+    color: #15803d;
+}
+
 /* ========================================== */
 /* 9. BARRA DE AÇÕES DA QUESTÃO               */
 /* ========================================== */
@@ -742,6 +813,48 @@ body {
 
 .btn-remover-quebra:hover {
     background-color: #b91c1c;
+}
+
+@keyframes piscarQuebra {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0px rgba(245, 158, 11, 0);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+        background-color: #fef08a;
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0px rgba(245, 158, 11, 0);
+    }
+}
+
+.quebra-destacada {
+    animation: piscarQuebra 1.2s ease-in-out;
+}
+
+/* Container de instrução quando a prova estiver vazia */
+.container-instrucao-vazia {
+    width: 100%;
+    display: block;
+    margin-top: 2rem;
+}
+
+.instrucao-inicial {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: #64748b;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #f8fafc;
 }
 
 /* ========================================== */
@@ -850,19 +963,6 @@ body {
 
 .section-body.collapsed { display: none; }
 
-.btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.btn-primary { background: #1a237e; color: #ffffff; }
-.btn-success { background: #2e7d32; color: #ffffff; }
-.btn-outline { background: transparent; border: 1px solid #ffffff; color: #ffffff; }
-.w-100 { width: 100%; }
-
 .placeholder-text {
     font-size: 0.8rem;
     color: #6c757d;
@@ -870,22 +970,31 @@ body {
     padding: 0.5rem 0;
 }
 
-.hidden { display: none !important; }
-
 /* ========================================== */
-/* 12. IMPRESSÃO E PDF                        */
+/* 12. IMPRESSÃO E PDF (IMPRESSORA)           */
 /* ========================================== */
 @media print {
+    /* Configura o papel A4 sem as margens automáticas da impressora */
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+
+    /* Oculta os elementos do painel da tela e de suporte */
     .topbar,
     .panel-builder,
     .resizer,
     .preview-header,
     .q-actions-toolbar,
     .separador-quebra-pagina,
-    .indicador-quebra-pagina {
+    .indicador-quebra-pagina,
+    .container-instrucao-vazia,
+    .instrucao-inicial,
+    .folha-a4::after {
         display: none !important;
     }
 
+    /* Limpa a estrutura em volta das folhas */
     body, 
     #appContainer, 
     .panel-preview,
@@ -900,117 +1009,23 @@ body {
         transform: scale(1) !important;
     }
 
+    /* Trava a folha na altura útil real */
     .folha-a4 {
         box-shadow: none !important;
-        margin: 0 auto !important;
         border: none !important;
+        margin: 0 auto !important;
+        padding: 15mm !important;
         width: 210mm !important;
-        min-height: 297mm !important;
-        padding: 15mm 15mm !important;
-        page-break-after: always !important;
-        break-after: page !important;
-    }
-
-    .folha-a4:last-child {
+        max-height: 297mm !important; /* Múltiplo exato do papel */
+        box-sizing: border-box !important;
+        overflow: hidden !important;   /* Corta resíduos de espaço invisíveis no final */
         page-break-after: avoid !important;
         break-after: avoid !important;
     }
 
-    .prova-questoes-2colunas::before {
-        background-color: #000000 !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+    /* Só quebra página se você tiver mais de uma folha criada intencionalmente */
+    .folha-a4 + .folha-a4 {
+        page-break-before: always !important;
+        break-before: page !important;
     }
 }
-
-/* Container de instrução quando a prova estiver vazia */
-.container-instrucao-vazia {
-    width: 100%;
-    display: block;
-    margin-top: 2rem;
-}
-
-.instrucao-inicial {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 1.5rem;
-    text-align: center;
-    color: #64748b;
-    border: 2px dashed #cbd5e1;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background-color: #f8fafc;
-}
-
-/* Por padrão (Modo Aluno), o gabarito NÃO aparece */
-.marca-gabarito {
-    display: none;
-}
-
-/* Quando o botão de gabarito estiver ativo no container da prova */
-.folha-a4.modo-gabarito .marca-gabarito {
-    display: inline-block !important;
-    background-color: #dcfce7;
-    color: #15803d;
-    border: 1px solid #86efac;
-    font-size: 0.7rem;
-    font-weight: bold;
-    padding: 1px 5px;
-    border-radius: 3px;
-    margin-left: 6px;
-}
-
-.folha-a4.modo-gabarito .alternativa-correta {
-    font-weight: bold;
-    color: #15803d;
-}
-
-.area-linhas {
-    width: 100%;
-    background-image: linear-gradient(to bottom, transparent 95%, #cbd5e1 95%);
-    background-size: 100% 24px;
-    line-height: 24px;
-    border-top: 1px solid #cbd5e1;
-}
-
-/* Estilo do Seletor de Colunas na Topbar */
-.select-topo-colunas {
-    background-color: #1e293b;
-    color: #ffffff;
-    border: 1px solid #475569;
-    padding: 0.4rem 0.6rem;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    outline: none;
-}
-
-.select-topo-colunas:hover {
-    border-color: #94a3b8;
-}
-
-/* Animação para destacar a quebra recém-criada */
-@keyframes piscarQuebra {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0px rgba(245, 158, 11, 0);
-    }
-    50% {
-        transform: scale(1.02);
-        box-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
-        background-color: #fef08a; /* Amarelo mais vivo */
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0px rgba(245, 158, 11, 0);
-    }
-}
-
-.quebra-destacada {
-    animation: piscarQuebra 1.2s ease-in-out;
-}
-
