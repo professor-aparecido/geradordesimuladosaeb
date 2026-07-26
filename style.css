@@ -905,41 +905,32 @@ body {
 }
 
 /* ========================================== */
-/* BANNER DE QUEBRA DE PÁGINA COM REMOÇÃO     */
+/* 1. MENSAGEM DE QUEBRA ENTRE AS PÁGINAS     */
 /* ========================================== */
-
-.cabecalho-pagina-secundaria {
-    border-bottom: 1px solid #000;
-    padding-bottom: 4px;
-    margin-bottom: 12px;
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-}
-
-/* Banner de informação e ação dentro da nova folha */
-.banner-quebra-pagina {
+.separador-quebra-pagina {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 210mm; /* Mesma largura da folha A4 */
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 10px 16px;
     background-color: #fef2f2;
-    border: 1px dashed #ef4444;
-    border-radius: 6px;
-    padding: 8px 12px;
-    margin-bottom: 15px;
-    font-size: 0.85rem;
+    border: 2px dashed #ef4444;
+    border-radius: 8px;
     color: #991b1b;
+    font-size: 0.85rem;
     font-weight: 600;
+    box-sizing: border-box;
 }
 
 .btn-remover-quebra {
     background-color: #dc2626;
     color: #ffffff;
     border: none;
-    padding: 4px 10px;
+    padding: 6px 12px;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -949,9 +940,34 @@ body {
     background-color: #b91c1c;
 }
 
-/* ESCONDE O BANNER DE REMOÇÃO E AVISO NA IMPRESSÃO/PDF */
+/* Oculta completamente o separador na impressão e PDF */
 @media print {
-    .banner-quebra-pagina {
+    .separador-quebra-pagina {
         display: none !important;
     }
+}
+
+
+/* ========================================== */
+/* 2. FLUXO DAS QUESTÕES POR COLUNA (1, 2 BAIO/LADO) */
+/* ========================================== */
+.prova-questoes-2colunas {
+    column-count: 2;         /* Cria 2 colunas reais de fluxo vertical */
+    column-gap: 20px;        /* Espaço entre as colunas */
+    width: 100%;
+}
+
+/* Evita que uma questão seja "cortada" ao meio entre as duas colunas */
+.questao-item, 
+.questao-container { 
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 18px;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Quando o layout de 1 coluna estiver ativo */
+.prova-questoes-2colunas.layout-1coluna {
+    column-count: 1;
 }
