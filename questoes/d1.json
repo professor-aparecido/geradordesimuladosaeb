@@ -3,8 +3,7 @@
     "id": "q1_d1",
     "descritor": "D1",
     "tipo": "objetiva",
-    "enunciado": "Qual é a área de um terreno retangular com 10 metros de largura por 20 metros de comprimento?",
-    "alternativas": {
+    "enunciado": "Observe algumas figuras geométricas desenhadas na malha quadriculada abaixo. <div class='bloco-imagem'><img src='imagens/img05.png' width=\"70%\" alt='Imagem.'> </div> <div>Qual dessas figuras é um trapézio?",    "alternativas": {
       "A": "100 m²",
       "B": "200 m²",
       "C": "300 m²",
