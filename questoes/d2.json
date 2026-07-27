@@ -1,16 +1,19 @@
-[
-  {
-    "id": "q1_d2",
-    "descritor": "D2",
-    "tipo": "objetiva",
-    "enunciado": "Texto da questão...",
-    "alternativas": {
-      "A": "A",
-      "B": "B",
-      "C": "C",
-      "D": "D"
-    },
-    "respostaCorreta": "B",
-    "espacoInferior": 1
-  }
-]
+{
+  "id": "q1_d2",
+  "descritor": "D2",
+  "tipo": "objetiva",
+  "enunciado": "Observe o gráfico abaixo e responda...",
+  "imagem": {
+    "src": "imagens/grafico_01.png",
+    "posicao": "centro",
+    "tamanho": "medio"
+  },
+  "alternativas": {
+    "A": "10",
+    "B": "20",
+    "C": "30",
+    "D": "40"
+  },
+  "respostaCorreta": "B",
+  "espacoInferior": 1
+}
