@@ -5,9 +5,9 @@
   "tipo": "objetiva",
   "enunciado": "Observe o gráfico abaixo e responda...",
   "imagem": {
-    "src": "imagens/img05.png",
-    "posicao": "centro",
-    "tamanho": "medio"
+    "src": "null",
+    "posicao": "null",
+    "tamanho": "null"
   },
   "alternativas": {
     "A": "10",
