@@ -328,21 +328,16 @@ function abrirModalPreview(questao) {
 
     questaoSelecionadaAtual = questao;
 
-    let html = `<p><strong>Descritor:</strong> ${questao.descritor || 'N/A'}</p>`;
-    html += `<p style="margin-top: 0.5rem; line-height: 1.4;">${questao.enunciado}</p>`;
-
-    // 🟢 LÓGICA DA IMAGEM DA QUESTÃO NO MODAL
+    // 🟢 1. MONTAGEM DO HTML DA IMAGEM
     let htmlImagem = '';
     if (questao.imagem && questao.imagem.src) {
         const pos = questao.imagem.posicao || 'centro';
         const tam = questao.imagem.tamanho || 'medio';
         
-        // Define alinhamento CSS dinâmico
         let alignStyle = 'center';
         if (pos === 'esquerda') alignStyle = 'flex-start';
         if (pos === 'direita') alignStyle = 'flex-end';
 
-        // Define largura da imagem em pixels/porcentagem
         let widthStyle = '280px';
         if (tam === 'pequeno') widthStyle = '150px';
         if (tam === 'grande') widthStyle = '100%';
@@ -354,9 +349,19 @@ function abrirModalPreview(questao) {
         `;
     }
 
-    // Adiciona o HTML da imagem ao corpo do modal antes da tabela e alternativas
-    html += htmlImagem;
+    // 🟢 2. PROCESSAMENTO DO ENUNCIADO (TRATA A TAG [IMAGEM])
+    let textoEnunciado = questao.enunciado || '';
+    let imagemInseridaNoEnunciado = false;
 
+    if (htmlImagem && textoEnunciado.includes('[IMAGEM]')) {
+        textoEnunciado = textoEnunciado.replace('[IMAGEM]', htmlImagem);
+        imagemInseridaNoEnunciado = true;
+    }
+
+    let html = `<p><strong>Descritor:</strong> ${questao.descritor || 'N/A'}</p>`;
+    html += `<div style="margin-top: 0.5rem; line-height: 1.4;">${textoEnunciado}</div>`;
+
+    // 🟢 3. TABELA DA QUESTÃO
     if (questao.tabela) {
         html += `<table class="tabela-questao" style="margin: 0.8rem 0; width:100%; border-collapse:collapse;">`;
         if (questao.tabela.cabecalhos) {
@@ -368,6 +373,12 @@ function abrirModalPreview(questao) {
         html += `</table>`;
     }
 
+    // Se a imagem não usou [IMAGEM] no meio do texto, insere na posição padrão (após a tabela)
+    if (htmlImagem && !imagemInseridaNoEnunciado) {
+        html += htmlImagem;
+    }
+
+    // 🟢 4. ALTERNATIVAS DA QUESTÃO
     if (questao.alternativas) {
         html += `<ul style="list-style: none; padding: 0; margin-top: 0.8rem;">`;
         for (let key in questao.alternativas) {
@@ -382,7 +393,6 @@ function abrirModalPreview(questao) {
     
     renderizarLaTeX(); // Processa equações LaTeX no modal
 }
-
 /* ==========================================================
    6. MODO DE CRIAÇÃO MANUAL DE QUESTÕES
    ========================================================== */
@@ -621,18 +631,16 @@ function criarElementoQuestaoHTML(q, index) {
         htmlTabela += `</table>`;
     }
 
-    // 🟢 LÓGICA DA IMAGEM DA QUESTÃO
+    // 🟢 1. MONTAGEM DO HTML DA IMAGEM
     let htmlImagem = '';
     if (q.imagem && q.imagem.src) {
         const pos = q.imagem.posicao || 'centro';
         const tam = q.imagem.tamanho || 'medio';
         
-        // Define alinhamento CSS dinâmico
         let alignStyle = 'center';
         if (pos === 'esquerda') alignStyle = 'flex-start';
         if (pos === 'direita') alignStyle = 'flex-end';
 
-        // Define largura da imagem em pixels/porcentagem
         let widthStyle = '280px';
         if (tam === 'pequeno') widthStyle = '150px';
         if (tam === 'grande') widthStyle = '100%';
@@ -644,10 +652,19 @@ function criarElementoQuestaoHTML(q, index) {
         `;
     }
 
+    // 🟢 2. PROCESSAMENTO DO ENUNCIADO (TRATA A TAG [IMAGEM])
+    let textoEnunciado = q.enunciado || '';
+    let imagemInseridaNoEnunciado = false;
+
+    if (htmlImagem && textoEnunciado.includes('[IMAGEM]')) {
+        // Se houver a marcação [IMAGEM], substitui ela diretamente dentro do texto
+        textoEnunciado = textoEnunciado.replace('[IMAGEM]', htmlImagem);
+        imagemInseridaNoEnunciado = true;
+    }
+
     // LÓGICA DE ALTERNATIVAS OU LINHAS SUBJETIVAS
     let htmlConteudoInferior = '';
     
-    // Se a questão tiver alternativas (Múltipla Escolha)
     if (q.alternativas && typeof q.alternativas === 'object' && Object.keys(q.alternativas).length > 0) {
         htmlConteudoInferior += `<div style="display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem; font-size: 0.82rem;">`;
         for (let key in q.alternativas) {
@@ -662,14 +679,16 @@ function criarElementoQuestaoHTML(q, index) {
         }
         htmlConteudoInferior += `</div>`;
     } 
-    // Se for uma questão subjetiva/aberta
     else if (q.tipo === 'subjetiva' || !q.alternativas) {
-        // A altura da área de linhas varia proporcionalmente com o espacoInferior
         const alturaLinhas = (q.espacoInferior || 2) * 35;
         htmlConteudoInferior = `
             <div class="area-linhas" style="height: ${alturaLinhas}px; margin-top: 0.8rem;"></div>
         `;
     }
+
+    // 🟢 3. MONTAGEM FINAL DO HTML DA QUESTÃO
+    // Se a imagem NÃO foi inserida no meio do enunciado, ela vai para a posição padrão (após a tabela)
+    const imagemPosicaoPadrao = imagemInseridaNoEnunciado ? '' : htmlImagem;
 
     wrapper.innerHTML = `
         <div class="questao-header-pilar">
@@ -679,16 +698,16 @@ function criarElementoQuestaoHTML(q, index) {
             </div>
             <span class="tag-descritor">${q.descritor || 'D1'}</span>
         </div>
-        <div class="enunciado-pilar">${q.enunciado}</div>
+        <div class="enunciado-pilar">${textoEnunciado}</div>
         ${htmlTabela}
-        ${htmlImagem} <!-- 🟢 IMAGEM RENDERIZADA AQUI -->
+        ${imagemPosicaoPadrao}
         ${htmlConteudoInferior}
     `;
 
     // Eventos dos botões da Toolbar de cada questão
     wrapper.querySelector('.btn-q-space-plus').addEventListener('click', () => {
         q.espacoInferior = (q.espacoInferior || 1) + 0.5;
-        alertaExibido = false; // Libera o aviso caso o novo espaço estoure a folha
+        alertaExibido = false;
         renderizarProvaA4();
 
         setTimeout(() => {
