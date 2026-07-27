@@ -331,6 +331,32 @@ function abrirModalPreview(questao) {
     let html = `<p><strong>Descritor:</strong> ${questao.descritor || 'N/A'}</p>`;
     html += `<p style="margin-top: 0.5rem; line-height: 1.4;">${questao.enunciado}</p>`;
 
+    // 🟢 LÓGICA DA IMAGEM DA QUESTÃO NO MODAL
+    let htmlImagem = '';
+    if (questao.imagem && questao.imagem.src) {
+        const pos = questao.imagem.posicao || 'centro';
+        const tam = questao.imagem.tamanho || 'medio';
+        
+        // Define alinhamento CSS dinâmico
+        let alignStyle = 'center';
+        if (pos === 'esquerda') alignStyle = 'flex-start';
+        if (pos === 'direita') alignStyle = 'flex-end';
+
+        // Define largura da imagem em pixels/porcentagem
+        let widthStyle = '280px';
+        if (tam === 'pequeno') widthStyle = '150px';
+        if (tam === 'grande') widthStyle = '100%';
+
+        htmlImagem = `
+            <div style="display: flex; justify-content: ${alignStyle}; margin: 0.8rem 0;">
+                <img src="${questao.imagem.src}" style="max-width: ${widthStyle}; width: auto; height: auto; border-radius: 4px;" alt="Prévia da Imagem">
+            </div>
+        `;
+    }
+
+    // Adiciona o HTML da imagem ao corpo do modal antes da tabela e alternativas
+    html += htmlImagem;
+
     if (questao.tabela) {
         html += `<table class="tabela-questao" style="margin: 0.8rem 0; width:100%; border-collapse:collapse;">`;
         if (questao.tabela.cabecalhos) {
@@ -393,9 +419,22 @@ function inicializarCriacaoManual() {
             }
         });
 
+        // 🟢 CAPTURA OS DADOS DA IMAGEM SE HOUVER UMA SELECIONADA
+        let imagemObj = null;
+        if (typeof imagemNovaQuestao !== 'undefined' && imagemNovaQuestao) {
+            const elPos = document.getElementById('inputNovaImagemPosicao');
+            const elTam = document.getElementById('inputNovaImagemTamanho');
+            imagemObj = {
+                src: imagemNovaQuestao,
+                posicao: elPos ? elPos.value : 'centro',
+                tamanho: elTam ? elTam.value : 'medio'
+            };
+        }
+
         return {
             descritor: descritor || 'D1',
             enunciado: enunciado,
+            imagem: imagemObj, // 👈 🟢 NOVO CAMPO ADICIONADO AQUI
             alternativas: Object.keys(alternativasObj).length > 0 ? alternativasObj : null,
             respostaCorreta: respostaCorreta
         };
@@ -439,8 +478,62 @@ function inicializarCriacaoManual() {
 
             document.querySelectorAll('.input-alt-texto, input[placeholder^="Opção"]').forEach(i => i.value = '');
             document.querySelectorAll('input[name="correta"]').forEach(r => r.checked = false);
+
+            // 🟢 LIMPA A IMAGEM DO FORMULÁRIO APÓS INSERIR
+            const btnRemoverImg = document.getElementById('btnRemoverImagemCriar');
+            if (btnRemoverImg) btnRemoverImg.click();
         });
     }
+}
+
+
+// ==========================================
+// CAPTURA E PRÉ-VISUALIZAÇÃO DA IMAGEM
+// ==========================================
+
+// Variável global para guardar a imagem em texto (Base64)
+let imagemNovaQuestao = null;
+
+// Pega os elementos do HTML
+const inputNovaImagemFile = document.getElementById('inputNovaImagemFile');
+const boxOpcoesImagem = document.getElementById('boxOpcoesImagem');
+const boxPreviewImagem = document.getElementById('boxPreviewImagem');
+const imgPreviewCriar = document.getElementById('imgPreviewCriar');
+const btnRemoverImagemCriar = document.getElementById('btnRemoverImagemCriar');
+
+// Quando o usuário seleciona um arquivo de imagem
+if (inputNovaImagemFile) {
+    inputNovaImagemFile.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                // Guarda o resultado (Base64) na variável
+                imagemNovaQuestao = event.target.result;
+                
+                // Mostra a miniatura da foto e os seletores de tamanho/alinhamento
+                imgPreviewCriar.src = imagemNovaQuestao;
+                boxOpcoesImagem.classList.remove('hidden');
+                boxPreviewImagem.classList.remove('hidden');
+            };
+            
+            // Le o arquivo de imagem do computador
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Quando o usuário clica no botão "✕ Remover Imagem"
+if (btnRemoverImagemCriar) {
+    btnRemoverImagemCriar.addEventListener('click', function() {
+        imagemNovaQuestao = null;
+        inputNovaImagemFile.value = '';
+        imgPreviewCriar.src = '';
+        boxOpcoesImagem.classList.add('hidden');
+        boxPreviewImagem.classList.add('hidden');
+    });
 }
 
 /* ==========================================================
@@ -483,8 +576,8 @@ function verificarLimitePagina() {
         }
     });
 
-    // Usa os mesmos 980px da linha visual do CSS
-    const ALTURA_MAXIMA_UTIL = 1040; 
+    // Usa os mesmos 1080px da linha visual do CSS
+    const ALTURA_MAXIMA_UTIL = 1080; 
 
     if (posicaoMaisBaixa > ALTURA_MAXIMA_UTIL && !alertaExibido) {
         alertaExibido = true;
@@ -528,6 +621,29 @@ function criarElementoQuestaoHTML(q, index) {
         htmlTabela += `</table>`;
     }
 
+    // 🟢 LÓGICA DA IMAGEM DA QUESTÃO
+    let htmlImagem = '';
+    if (q.imagem && q.imagem.src) {
+        const pos = q.imagem.posicao || 'centro';
+        const tam = q.imagem.tamanho || 'medio';
+        
+        // Define alinhamento CSS dinâmico
+        let alignStyle = 'center';
+        if (pos === 'esquerda') alignStyle = 'flex-start';
+        if (pos === 'direita') alignStyle = 'flex-end';
+
+        // Define largura da imagem em pixels/porcentagem
+        let widthStyle = '280px';
+        if (tam === 'pequeno') widthStyle = '150px';
+        if (tam === 'grande') widthStyle = '100%';
+
+        htmlImagem = `
+            <div class="q-imagem-container" style="display: flex; justify-content: ${alignStyle}; margin: 0.6rem 0;">
+                <img src="${q.imagem.src}" style="max-width: ${widthStyle}; width: auto; height: auto; border-radius: 4px;" alt="Imagem da questão">
+            </div>
+        `;
+    }
+
     // LÓGICA DE ALTERNATIVAS OU LINHAS SUBJETIVAS
     let htmlConteudoInferior = '';
     
@@ -565,6 +681,7 @@ function criarElementoQuestaoHTML(q, index) {
         </div>
         <div class="enunciado-pilar">${q.enunciado}</div>
         ${htmlTabela}
+        ${htmlImagem} <!-- 🟢 IMAGEM RENDERIZADA AQUI -->
         ${htmlConteudoInferior}
     `;
 
@@ -611,7 +728,6 @@ function criarElementoQuestaoHTML(q, index) {
 
     return wrapper;
 }
-
 
 function renderizarProvaA4() {
     const primeiraFolha = document.querySelector('.folha-a4');
