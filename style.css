@@ -488,9 +488,9 @@ body {
 .folha-a4::after {
     content: "✂️ LIMITE DA FOLHA A4 (IMPRESSÃO)";
     position: absolute;
-    top: 1040px; /* Alinhado perfeitamente ao corte físico da A4 */
-    left: 15mm;
-    right: 15mm;
+    top: 1080px; /* Alinhado perfeitamente ao corte físico da A4 */
+    left: 10mm;
+    right: 10mm;
     border-top: 2px dashed #ef4444;
     color: #ef4444;
     font-size: 0.75rem;
@@ -1033,3 +1033,97 @@ body {
         break-after: avoid !important;
     }
 }
+
+/* ==========================================
+   ESTILOS DO UPLOAD DE IMAGEM
+   ========================================== */
+
+.box-upload-imagem {
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.input-file-custom {
+    width: 100%;
+    font-size: 0.85rem;
+}
+
+.imagem-opcoes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.imagem-opcoes-grid label {
+    font-size: 0.75rem;
+    color: #475569;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.imagem-opcoes-grid select {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.imagem-preview-box {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+}
+
+.imagem-preview-box img {
+    max-width: 70px;
+    max-height: 70px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.btn-remover-img {
+    background: #ef4444;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-remover-img:hover {
+    background: #dc2626;
+}
+
+/* ==========================================
+   ESTILOS DA IMAGEM NA FOLHA DE PROVA (A4)
+   ========================================== */
+
+.q-imagem-container {
+    display: flex;
+    width: 100%;
+    margin: 8px 0;
+}
+
+.q-imagem-container img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.q-imagem-container.pos-centro   { justify-content: center; }
+.q-imagem-container.pos-esquerda { justify-content: flex-start; }
+.q-imagem-container.pos-direita  { justify-content: flex-end; }
+
+.q-imagem-container.tam-pequeno img { max-width: 150px; }
+.q-imagem-container.tam-medio img   { max-width: 280px; }
+.q-imagem-container.tam-grande img  { max-width: 100%; }
