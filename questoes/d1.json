@@ -1,18 +1,23 @@
 [
   {
-    "id": "q1_d1",
-    "descritor": "D1",
-    "tipo": "objetiva",
-    "enunciado": "Observe algumas figuras geométricas desenhadas na malha quadriculada abaixo.<div class='bloco-imagem'><img src='imagens/img05.png' width=\"70%\" alt='Imagem.'> </div> <div>Qual dessas figuras é um trapézio?",    
-    "alternativas": {
-      "A": "100 m²",
-      "B": "200 m²",
-      "C": "300 m²",
-      "D": "400 m²"
-    },
-    "respostaCorreta": "B",
-    "espacoInferior": 1
+  "id": "q1_d1",
+  "descritor": "D1",
+  "tipo": "objetiva",
+  "enunciado": "(CAED)  Observe, na imagem abaixo, João esperando o início de uma sessão de cinema.<br>[IMAGEM]<br>Quem está à direita de João?",
+  "imagem": {
+    "src": "imagens/imgq1_d1.png",
+    "posicao": "centro",
+    "tamanho": "medio"
   },
+  "alternativas": {
+    "A": "Alice.",
+    "B": "Bento.",
+    "C": "Caio.",
+    "D": "Dainana."
+  },
+  "respostaCorreta": "B",
+  "espacoInferior": 1
+},
   {
     "id": "q2_d1",
     "descritor": "D1",
