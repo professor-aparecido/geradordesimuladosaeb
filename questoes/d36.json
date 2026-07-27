@@ -1,16 +1,21 @@
 [
   {
-    "id": "q1_d36",
-    "descritor": "D36",
-    "tipo": "objetiva",
-    "enunciado": "(CAED) Observe, no gráfico abaixo, a quantidade de materiais recicláveis coletados por essa cooperativa, em tonelada, durante quatro semanas de determinado mês.<div class='bloco-imagem'><img src='imagens/imgq1_d36.png' width=\"70%\" alt='Imagem.'> </div> <div>Qual foi a quantidade total de materiais recicláveis, em tonelada, coletados durante essas quatro semanas?",
-    "alternativas": {
-      "A": "25 toneladas.",
-      "B": "80 toneladas.",
-      "C": "105 toneladas.",
-      "D": "212 toneladas."
-    },
-    "respostaCorreta": "B",
-    "espacoInferior": 1
-  }
+  "id": "q1_d36",
+  "descritor": "D36",
+  "tipo": "objetiva",
+  "enunciado": "(CAED) Observe, no gráfico abaixo, a quantidade de materiais recicláveis coletados por essa cooperativa, em tonelada, durante quatro semanas de determinado mês. Qual foi a quantidade total de materiais recicláveis, em tonelada, coletados durante essas quatro semanas?",
+  "imagem": {
+    "src": "imagens/imgq1.png",
+    "posicao": "centro",
+    "tamanho": "medio"
+  },
+  "alternativas": {
+    "A": "25 toneladas.",
+    "B": "80 toneladas.",
+    "C": "105 toneladas.",
+    "D": "212 toneladas."
+  },
+  "respostaCorreta": "B",
+  "espacoInferior": 1
+}
 ]
