@@ -1,4 +1,5 @@
-{
+[
+  {
   "id": "q1_d2",
   "descritor": "D2",
   "tipo": "objetiva",
@@ -17,3 +18,4 @@
   "respostaCorreta": "B",
   "espacoInferior": 1
 }
+]
