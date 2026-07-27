@@ -3,7 +3,7 @@
   "id": "q1_d36",
   "descritor": "D36",
   "tipo": "objetiva",
-  "enunciado": "(CAED) Observe, no gráfico abaixo, a quantidade de materiais recicláveis coletados por essa cooperativa, em tonelada, durante quatro semanas de determinado mês.[IMAGEM] Qual foi a quantidade total de materiais recicláveis, em tonelada, coletados durante essas quatro semanas?",
+  "enunciado": "(CAED) Observe, no gráfico abaixo, a quantidade de materiais recicláveis coletados por essa cooperativa, em tonelada, durante quatro semanas de determinado mês.<br>[IMAGEM]<br> Qual foi a quantidade total de materiais recicláveis, em tonelada, coletados durante essas quatro semanas?",
   "imagem": {
     "src": "imagens/imgq1_d36.png",
     "posicao": "centro",
