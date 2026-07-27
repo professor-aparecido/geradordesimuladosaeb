@@ -162,7 +162,41 @@ relacionando-as com as suas planificações.</option>
                         <label for="inputNovoEnunciado">Enunciado da Questão</label>
                         <textarea id="inputNovoEnunciado" rows="4" placeholder="Digite o texto/enunciado da questão..."></textarea>
                     </div>
+<!-- NOVO: Seção de Imagem da Questão -->
+    <div class="form-control box-upload-imagem">
+        <label>Imagem da Questão (Opcional)</label>
+        
+        <!-- Upload do Arquivo -->
+        <input type="file" id="inputNovaImagemFile" accept="image/*" class="input-file-custom">
+        
+        <!-- Opções de Posição e Tamanho (ficam ocultas até selecionar uma imagem) -->
+        <div id="boxOpcoesImagem" class="imagem-opcoes-grid hidden">
+            <div>
+                <label for="inputNovaImagemPosicao">Alinhamento</label>
+                <select id="inputNovaImagemPosicao">
+                    <option value="centro" selected>Centralizado</option>
+                    <option value="esquerda">Esquerda</option>
+                    <option value="direita">Direita</option>
+                </select>
+            </div>
 
+            <div>
+                <label for="inputNovaImagemTamanho">Tamanho</label>
+                <select id="inputNovaImagemTamanho">
+                    <option value="medio" selected>Médio (280px)</option>
+                    <option value="pequeno">Pequeno (150px)</option>
+                    <option value="grande">Largura Total (100%)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Miniatura de Pré-visualização -->
+        <div id="boxPreviewImagem" class="imagem-preview-box hidden">
+            <img id="imgPreviewCriar" src="" alt="Pré-visualização">
+            <button type="button" id="btnRemoverImagemCriar" class="btn-remover-img">✕ Remover Imagem</button>
+        </div>
+    </div>
+                    
                     <div class="alternativas-builder">
                         <label>Alternativas (Opcional)</label>
                         
