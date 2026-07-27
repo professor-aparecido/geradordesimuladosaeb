@@ -1,21 +1,17 @@
 [
   {
-  "id": "q1_d22",
-  "descritor": "D22",
-  "tipo": "objetiva",
-  "enunciado": "(CAED) Em uma cidade, há 72 000 habitantes. Desses habitantes, \(\frac{2}{9}\) residem na zona rural.Quantos habitantes dessa cidade residem na zona rural?",
-  "imagem": {
-    "src": "null",
-    "posicao": "null",
-    "tamanho": "null"
-  },
-  "alternativas": {
-    "A": "56 000.",
-    "B": "16 000.",
-    "C": "8 000.",
-    "D": "4 000."
-  },
-  "respostaCorreta": "B",
-  "espacoInferior": 1
-}
+    "id": "q1_d22",
+    "descritor": "D22",
+    "tipo": "objetiva",
+    "enunciado": "(CAED) Em uma cidade, há 72 000 habitantes. Desses habitantes, \\(\\frac{2}{9}\\) residem na zona rural. Quantos habitantes dessa cidade residem na zona rural?",
+    "imagem": null,
+    "alternativas": {
+      "A": "56 000.",
+      "B": "16 000.",
+      "C": "8 000.",
+      "D": "4 000."
+    },
+    "respostaCorreta": "B",
+    "espacoInferior": 1
+  }
 ]
