@@ -1,1 +1,21 @@
-
+[
+  {
+  "id": "q1_d22",
+  "descritor": "D22",
+  "tipo": "objetiva",
+  "enunciado": "Observe o gráfico abaixo e responda...",
+  "imagem": {
+    "src": "imagens/img05.png",
+    "posicao": "centro",
+    "tamanho": "medio"
+  },
+  "alternativas": {
+    "A": "10",
+    "B": "20",
+    "C": "30",
+    "D": "40"
+  },
+  "respostaCorreta": "B",
+  "espacoInferior": 1
+}
+]
