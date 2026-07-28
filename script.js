@@ -612,13 +612,29 @@ function testarOverflow(conteudoDiv) {
 function renderizar() {
     containerFolhas.innerHTML = '';
 
+    // SE NÃO HOUVER QUESTÕES, EXIBE A MENSAGEM DE ORIENTAÇÃO LOGO ABAIXO DO CABEÇALHO
     if (listaQuestoes.length === 0) {
-        criarNovaFolha(1);
+        const folhaInicial = criarNovaFolha(1);
+        
+        const mensagemPlaceholder = document.createElement('div');
+        mensagemPlaceholder.className = 'mensagem-prova-vazia';
+        mensagemPlaceholder.innerHTML = `
+            <div class="placeholder-conteudo">
+                <span class="placeholder-icone">📝</span>
+                <h3>Nenhuma questão adicionada</h3>
+                <p>Utilize o menu lateral para <strong>Criar Questões</strong> ou <strong>Selecionar do Banco (SAEB)</strong>.</p>
+            </div>
+        `;
+        
+        // Injeta dentro da área de conteúdo (logo abaixo do cabeçalho A4)
+        folhaInicial.conteudo.appendChild(mensagemPlaceholder);
+
         if (paginaAtualEl) paginaAtualEl.innerText = "1";
         if (totalPaginasEl) totalPaginasEl.innerText = "1";
         return;
     }
 
+    // SE HOUVER QUESTÕES, SEGUE O FLUXO NORMAL
     let numPagina = 1;
     let folhaAtual = criarNovaFolha(numPagina);
 
@@ -654,23 +670,4 @@ function renderizar() {
         });
     }
 }
-
-// CARREGAR EXEMPLO DE QUESTÃO INICIAL
-listaQuestoes.push({
-    id: proximoId++,
-    codigoDescritor: "D13",
-    textoDescritor: BASE_DESCRITORES["D13"],
-    texto: "Um reservatório contém $3,5$ litros de água. Sabendo que a equação da capacidade total é $f(x) = x^2 + 10$, qual o volume final?",
-    tipo: "alternativas",
-    disposicao: "horizontal",
-    espacoCalculo: 20,
-    alternativas: [
-        { letra: 'A', texto: "$12,25$ L" },
-        { letra: 'B', texto: "$22,25$ L" },
-        { letra: 'C', texto: "$15,00$ L" },
-        { letra: 'D', texto: "$30,50$ L" }
-    ],
-    gabarito: "B"
-});
-
 renderizar();
