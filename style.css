@@ -1,677 +1,847 @@
-// DICIONÁRIO PRÉ-CADASTRADO DOS DESCRITORES SAEB
-const BASE_DESCRITORES = {
-    // MATEMÁTICA
-    "D1": "Identificar a localização/movimentação de objeto em mapas, croquis e outras representações gráficas.",
-    "D2": "Identificar propriedades de figuras bidimensionais pelo reconhecimento de que superfícies planas são delimitadas por contornos fechados.",
-    "D3": "Identificar propriedades de triângulos pela comparação de medidas de lados e ângulos.",
-    "D4": "Identificar relação entre quadriláteros por meio de suas propriedades.",
-    "D5": "Reconhecer a conservação ou modificação de medidas nos lados, do perímetro, da área em ampliação/redução de figuras.",
-    "D6": "Reconhecer ângulos como mudança de direção ou giros, identificando ângulos retos e não retos.",
-    "D7": "Reconhecer que as imagens de uma figura construída por uma transformação hipsométrica são congruentes.",
-    "D8": "Resolver problema utilizando propriedades dos polígonos (soma dos ângulos internos, número de diagonais, cálculo da medida de cada ângulo interno).",
-    "D9": "Interpretar informações apresentadas por meio de coordenadas cartesianas.",
-    "D10": "Utilizar relações métricas do triângulo retângulo para resolver problemas significativos.",
-    "D11": "Reconhecer círculo/circunferência, seus elementos e algumas de suas relações.",
-    "D12": "Resolver problema envolvendo o cálculo de perímetro de figuras planas.",
-    "D13": "Resolver problema envolvendo o cálculo de área de figuras planas.",
-    "D14": "Resolver problema envolvendo noção de volume.",
-    "D15": "Resolver problema envolvendo relações entre diferentes unidades de medida.",
-    "D16": "Identificar a localização de números inteiros na reta numérica.",
-    "D17": "Identificar a localização de números racionais na reta numérica.",
-    "D18": "Efetuar cálculos com números inteiros envolvendo as operações básicas.",
-    "D19": "Resolver problema com números naturais envolvendo diferentes significados das operações.",
-    "D20": "Resolver problema com números inteiros envolvendo as operações.",
-    "D21": "Reconhecer as diferentes representações de um número racional.",
-    "D22": "Identificar fração como representação que pode estar associada a diferentes significados.",
-    "D23": "Resolver problema com números racionais envolvendo as operações.",
-    "D24": "Resolver problema que envolva porcentagem.",
-    "D25": "Resolver problema que envolva variação proporcional, direta ou inversa, entre grandezas.",
-    "D26": "Resolver problema envolvendo equação do 1º grau.",
-    "D27": "Resolver problema envolvendo sistema de equações do 1º grau.",
-    "D28": "Resolver problema envolvendo equação do 2º grau.",
-    "D29": "Resolver problema envolvendo função do 1º grau.",
-    "D30": "Identificar a expressão algébrica que expressa uma regularidade observada em sequências de números ou figuras.",
-    "D31": "Resolver problema envolvendo informações apresentadas em tabelas e/ou gráficos.",
-    "D32": "Resolver problema envolvendo a média aritmética.",
-    "D33": "Resolver problema envolvendo o cálculo de probabilidade de um evento.",
-
-    // LÍNGUA PORTUGUESA (EXEMPLOS)
-    "D1_LP": "Localizar informações explícitas em um texto.",
-    "D2_LP": "Estabelecer relações entre partes de um texto, identificando repetições ou substituições.",
-    "D3_LP": "Inferir o sentido de uma palavra ou expressão.",
-    "D4_LP": "Inferir uma informação implícita em um texto.",
-    "D5_LP": "Interpretar texto com auxílio de material gráfico diverso (propagandas, quadrinhos, foto).",
-    "D6_LP": "Identificar o tema de um texto."
-};
-
-// ESTADO GLOBAL DA APLICAÇÃO
-let listaQuestoes = [];
-let questaoBancoCarregadas = []; // Armazena as questões do JSON ativo
-let proximoId = 1;
-let zoomNivel = 1.0;
-let numColunas = 2;
-let imagemCarregadaTemp = "";
-let exibirGabaritoProfessor = false;
-
-// DADOS DO CABEÇALHO
-let dadosCabecalho = {
-    nomeEscola: "ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR",
-    logoUrl: "",
-    tituloProva: "SIMULADO DE MATEMÁTICA - SAEB 2026",
-    serie: "8º ANO",
-    turma: "A",
-    professor: "Aparecido Sousa"
-};
-
-// REFERÊNCIAS DOM - GENERALS
-const containerFolhas = document.getElementById('container-folhas');
-const selectColunas = document.getElementById('selectColunas');
-const zoomVal = document.getElementById('zoomVal');
-const paginaAtualEl = document.getElementById('paginaAtual');
-const totalPaginasEl = document.getElementById('totalPaginas');
-
-const sidebar = document.getElementById('sidebar');
-const btnToggleSidebar = document.getElementById('btnToggleSidebar');
-const btnExpandSidebar = document.getElementById('btnExpandSidebar');
-const btnRefazer = document.getElementById('btnRefazer');
-const btnToggleGabarito = document.getElementById('btnToggleGabarito');
-const btnZoomIn = document.getElementById('btnZoomIn');
-const btnZoomOut = document.getElementById('btnZoomOut');
-const btnZoomReset = document.getElementById('btnZoomReset');
-
-// MODAL REFERÊNCIAS
-const modalPreview = document.getElementById('modalPreview');
-const modalBodyContent = document.getElementById('modalBodyContent');
-const btnFecharModal = document.getElementById('btnFecharModal');
-const btnModalFechar = document.getElementById('btnModalFechar');
-
-// REFERÊNCIAS DOM - CABEÇALHO
-const btnToggleCabecalho = document.getElementById('btnToggleCabecalho');
-const bodyCabecalho = document.getElementById('bodyCabecalho');
-const btnAccIcon = document.getElementById('btnAccIcon');
-const inputNomeEscola = document.getElementById('inputNomeEscola');
-const inputLogoEscola = document.getElementById('inputLogoEscola');
-const inputTituloProva = document.getElementById('inputTituloProva');
-const inputSerie = document.getElementById('inputSerie');
-const inputTurma = document.getElementById('inputTurma');
-const inputProfessor = document.getElementById('inputProfessor');
-
-// REFERÊNCIAS DOM - CRIAR QUESTÃO (BLOCO 2)
-const btnToggleCriarQuestao = document.getElementById('btnToggleCriarQuestao');
-const bodyCriarQuestao = document.getElementById('bodyCriarQuestao');
-const btnAccIconQuestao = document.getElementById('btnAccIconQuestao');
-
-const inputCodigoDescritor = document.getElementById('inputCodigoDescritor');
-const inputEnunciado = document.getElementById('inputEnunciado');
-const inputImagemQuestao = document.getElementById('inputImagemQuestao');
-const radiosTipo = document.getElementsByName('tipoQuestao');
-const painelAlternativas = document.getElementById('painelAlternativas');
-const painelSubjetiva = document.getElementById('painelSubjetiva');
-
-const altA = document.getElementById('altA');
-const altB = document.getElementById('altB');
-const altC = document.getElementById('altC');
-const altD = document.getElementById('altD');
-
-const inputRespostaGabarito = document.getElementById('inputRespostaGabarito');
-const inputAlturaCalculo = document.getElementById('inputAlturaCalculo');
-
-const btnPreVisualizar = document.getElementById('btnPreVisualizar');
-const btnAdicionarQuestao = document.getElementById('btnAdicionarQuestao');
-
-// REFERÊNCIAS DOM - BANCO DE QUESTÕES (BLOCO 3)
-const btnToggleBanco = document.getElementById('btnToggleBanco');
-const bodyBanco = document.getElementById('bodyBanco');
-const btnAccIconBanco = document.getElementById('btnAccIconBanco');
-const selectDescritorBanco = document.getElementById('selectDescritorBanco');
-const containerBancoQuestoes = document.getElementById('containerBancoQuestoes');
-
-// 1. RECOLHER / EXPANDIR PAINÉIS ACCORDION
-btnToggleSidebar.addEventListener('click', () => {
-    sidebar.classList.add('collapsed');
-    btnExpandSidebar.classList.remove('hidden');
-});
-
-btnExpandSidebar.addEventListener('click', () => {
-    sidebar.classList.remove('collapsed');
-    btnExpandSidebar.classList.add('hidden');
-});
-
-btnToggleCabecalho.addEventListener('click', () => {
-    const isCollapsed = bodyCabecalho.classList.toggle('collapsed');
-    btnAccIcon.innerText = isCollapsed ? '▲' : '▼';
-});
-
-btnToggleCriarQuestao.addEventListener('click', () => {
-    const isCollapsed = bodyCriarQuestao.classList.toggle('collapsed');
-    btnAccIconQuestao.innerText = isCollapsed ? '▲' : '▼';
-});
-
-if (btnToggleBanco) {
-    btnToggleBanco.addEventListener('click', () => {
-        const isCollapsed = bodyBanco.classList.toggle('collapsed');
-        if (btnAccIconBanco) btnAccIconBanco.innerText = isCollapsed ? '▲' : '▼';
-    });
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-// LISTENERS DO SELECT DO BANCO DE QUESTÕES
-if (selectDescritorBanco) {
-    // Carrega quando a opção é trocada
-    selectDescritorBanco.addEventListener('change', carregarBancoPorDescritor);
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3a3d40;
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-// ALTERNÂNCIA DE TIPO DE QUESTÃO
-radiosTipo.forEach(radio => {
-    radio.addEventListener('change', (e) => {
-        if (e.target.value === 'alternativas') {
-            painelAlternativas.classList.remove('hidden');
-            painelSubjetiva.classList.add('hidden');
-        } else {
-            painelAlternativas.classList.add('hidden');
-            painelSubjetiva.classList.remove('hidden');
-        }
-    });
-});
-
-// BOTÃO VER GABARITO (VERSÃO PROFESSOR)
-btnToggleGabarito.addEventListener('click', () => {
-    exibirGabaritoProfessor = !exibirGabaritoProfessor;
-    if (exibirGabaritoProfessor) {
-        btnToggleGabarito.classList.add('ativo');
-        btnToggleGabarito.innerText = '✅ Gabarito Ativado (Professor)';
-    } else {
-        btnToggleGabarito.classList.remove('ativo');
-        btnToggleGabarito.innerText = '👁️ Mostrar Gabarito (Professor)';
-    }
-    renderizar();
-});
-
-// UPLOAD DA IMAGEM DA QUESTÃO
-inputImagemQuestao.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-            imagemCarregadaTemp = evt.target.result;
-        };
-        reader.readAsDataURL(file);
-    } else {
-        imagemCarregadaTemp = "";
-    }
-});
-
-// LISTENERS DO CABEÇALHO
-inputNomeEscola.addEventListener('input', (e) => { dadosCabecalho.nomeEscola = e.target.value; renderizar(); });
-inputTituloProva.addEventListener('input', (e) => { dadosCabecalho.tituloProva = e.target.value; renderizar(); });
-inputSerie.addEventListener('input', (e) => { dadosCabecalho.serie = e.target.value; renderizar(); });
-inputTurma.addEventListener('input', (e) => { dadosCabecalho.turma = e.target.value; renderizar(); });
-inputProfessor.addEventListener('input', (e) => { dadosCabecalho.professor = e.target.value; renderizar(); });
-
-inputLogoEscola.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-            dadosCabecalho.logoUrl = evt.target.result;
-            renderizar();
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-// 2. OBTER DADOS DO FORMULÁRIO DE QUESTÃO MANUAL (BLOCO 2)
-function obterDadosFormularioQuestao() {
-    const codigoUpper = inputCodigoDescritor.value.trim().toUpperCase();
-    const textoDescritor = BASE_DESCRITORES[codigoUpper] || `Descritor ${codigoUpper}`;
-    const enunciado = inputEnunciado.value.trim() || "Enunciado da questão...";
-    const tipo = Array.from(radiosTipo).find(r => r.checked).value;
-    const espacoCalculo = parseInt(inputAlturaCalculo.value) || 0;
-
-    let questao = {
-        id: proximoId,
-        codigoDescritor: codigoUpper,
-        textoDescritor: textoDescritor,
-        texto: enunciado,
-        imagem: imagemCarregadaTemp,
-        tipo: tipo,
-        espacoCalculo: espacoCalculo
-    };
-
-    if (tipo === 'alternativas') {
-        const gabaritoOpcao = document.querySelector('input[name="gabarito"]:checked').value;
-        const disposicaoAlt = document.querySelector('input[name="disposicaoAlt"]:checked').value;
-
-        questao.disposicao = disposicaoAlt;
-        questao.alternativas = [
-            { letra: 'A', texto: altA.value.trim() || 'Opção A' },
-            { letra: 'B', texto: altB.value.trim() || 'Opção B' },
-            { letra: 'C', texto: altC.value.trim() || 'Opção C' },
-            { letra: 'D', texto: altD.value.trim() || 'Opção D' }
-        ];
-        questao.gabarito = gabaritoOpcao;
-    } else {
-        questao.respostaGabarito = inputRespostaGabarito.value.trim();
-    }
-
-    return questao;
+/* BARRA SUPERIOR (HEADER) */
+.app-header {
+    height: 50px;
+    background-color: #1e2023;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid #111;
+    z-index: 100;
 }
 
-// BOTÃO ADICIONAR QUESTÃO MANUAL
-btnAdicionarQuestao.addEventListener('click', () => {
-    const novaQuestao = obterDadosFormularioQuestao();
-    proximoId++;
-    listaQuestoes.push(novaQuestao);
-
-    // LIMPAR FORMULÁRIO
-    inputEnunciado.value = "";
-    inputCodigoDescritor.value = "";
-    inputImagemQuestao.value = "";
-    imagemCarregadaTemp = "";
-    altA.value = ""; altB.value = ""; altC.value = ""; altD.value = "";
-    inputRespostaGabarito.value = "";
-    inputAlturaCalculo.value = "0";
-
-    renderizar();
-});
-
-// ===================================================
-// 3. FUNÇÕES DO BANCO DE QUESTÕES (BLOCO 3)
-// ===================================================
-async function carregarBancoPorDescritor() {
-    if (!selectDescritorBanco) return;
-    const descritorSelecionado = selectDescritorBanco.value; // Ex: "d1", "d2"
-
-    if (!descritorSelecionado) {
-        containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Selecione um descritor acima para carregar as questões.</p>';
-        questaoBancoCarregadas = [];
-        return;
-    }
-
-    containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Carregando questões...</p>';
-
-    try {
-        const response = await fetch(`./${descritorSelecionado}.json`);
-
-        if (!response.ok) {
-            throw new Error(`Arquivo ${descritorSelecionado}.json não encontrado.`);
-        }
-
-        questaoBancoCarregadas = await response.json();
-
-        if (!questaoBancoCarregadas || questaoBancoCarregadas.length === 0) {
-            containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Nenhuma questão cadastrada neste descritor.</p>';
-            return;
-        }
-
-        renderizarListaBanco(questaoBancoCarregadas);
-
-    } catch (error) {
-        console.error("Erro ao carregar banco:", error);
-        containerBancoQuestoes.innerHTML = `
-            <div class="msg-erro-banco">
-                ⚠️ Não foi possível carregar as questões do descritor <strong>${descritorSelecionado.toUpperCase()}</strong>.
-                <br><small>Verifique se o arquivo <code>${descritorSelecionado}.json</code> está na raiz do projeto.</small>
-            </div>
-        `;
-    }
+.header-title h1 {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
-// Renderiza a lista do Banco de Questões com Botões de Pré-Visualizar e Adicionar
-function renderizarListaBanco(questoes) {
-    containerBancoQuestoes.innerHTML = '';
-
-    questoes.forEach(q => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'item-banco-questao';
-
-        let textoLimpo = q.texto ? q.texto.replace(/\[IMAGEM\]/g, '').trim() : 'Questão sem enunciado';
-        const textoResumido = textoLimpo.length > 45 ? textoLimpo.substring(0, 45) + '...' : textoLimpo;
-
-        itemDiv.innerHTML = `
-            <div class="item-banco-info">
-                <span class="badge-id">${q.id}</span>
-                <p class="item-banco-texto">${textoResumido}</p>
-            </div>
-            <div class="banco-acoes-btn">
-                <button class="btn btn-secondary btn-mini-add" onclick="previsualizarQuestaoDoBanco('${q.id}')" title="Pré-visualizar Questão">👁️</button>
-                <button class="btn btn-primary btn-mini-add" onclick="adicionarQuestaoDoBanco('${q.id}')" title="Adicionar ao Simulado">➕</button>
-            </div>
-        `;
-
-        containerBancoQuestoes.appendChild(itemDiv);
-    });
+.header-actions {
+    display: flex;
+    gap: 10px;
 }
 
-// PRÉ-VISUALIZAR QUESTÃO DO BANCO NO MODAL
-function previsualizarQuestaoDoBanco(idQuestao) {
-    const qEncontrada = questaoBancoCarregadas.find(q => q.id === idQuestao);
+/* CONTAINER PRINCIPAL */
+.app-container {
+    flex: 1;
+    display: flex;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+    position: relative;
+}
 
-    if (qEncontrada) {
-        const qTemp = JSON.parse(JSON.stringify(qEncontrada));
-        qTemp.textoDescritor = BASE_DESCRITORES[qTemp.codigoDescritor] || `Descritor ${qTemp.codigoDescritor}`;
-        
-        const el = criarElementoQuestao(qTemp, 0, true);
-        modalBodyContent.innerHTML = "";
-        modalBodyContent.appendChild(el);
-        modalPreview.classList.remove('hidden');
+/* COLUNA ESQUERDA - MENU */
+.sidebar-panel {
+    width: 40%;
+    min-width: 320px;
+    max-width: 450px;
+    height: 100%;
+    background-color: #2b2d31;
+    color: #fff;
+    border-right: 2px solid #1e2023;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease;
+    z-index: 20;
+    overflow: hidden;
+}
 
-        if (window.renderMathInElement) {
-            renderMathInElement(modalBodyContent, {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                ],
-                throwOnError: false
-            });
-        }
+.sidebar-panel.collapsed {
+    margin-left: -450px;
+}
+
+.sidebar-header {
+    height: 45px;
+    padding: 0 15px;
+    background-color: #202225;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #36393f;
+    flex-shrink: 0;
+}
+
+.sidebar-header h2 {
+    font-size: 14px;
+    color: #e0e0e0;
+}
+
+.btn-toggle-sidebar {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.btn-toggle-sidebar:hover { background-color: #36393f; color: #fff; }
+
+.sidebar-content {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ACCORDION */
+.accordion-item {
+    background-color: #202225;
+    border: 1px solid #36393f;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.accordion-header {
+    padding: 12px;
+    background-color: #1e2023;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.accordion-header:hover {
+    background-color: #2b2d31;
+}
+
+.acc-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.acc-icon { font-size: 16px; }
+
+.acc-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.btn-acc-toggle {
+    background: transparent;
+    border: none;
+    color: #949ba4;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.accordion-body {
+    padding: 12px;
+    background-color: #2b2d31;
+    border-top: 1px solid #36393f;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.accordion-body.collapsed {
+    display: none;
+}
+
+/* FORMULÁRIOS */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.col-6 { flex: 1; }
+
+.form-group label, .section-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #b9bbbe;
+    text-transform: uppercase;
+}
+
+.form-input, .form-textarea {
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #36393f;
+    background-color: #1e2023;
+    color: #fff;
+    font-size: 12px;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-textarea { resize: vertical; }
+
+.form-input:focus, .form-textarea:focus {
+    border-color: #5865f2;
+}
+
+.form-input-file {
+    font-size: 11px;
+    color: #b9bbbe;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    color: #fff;
+    padding: 4px 0;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.painel-tipo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #202225;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.alternativa-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.input-alt { flex: 1; }
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+.form-actions button { flex: 1; }
+
+/* COLUNA DIREITA - EDITOR */
+.editor-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #525659;
+    overflow: hidden;
+}
+
+.editor-toolbar {
+    height: 45px;
+    background-color: #2b2d31;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    border-bottom: 1px solid #1e2023;
+}
+
+.toolbar-left, .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+}
+
+.toolbar-left label {
+    font-size: 12px;
+    color: #b9bbbe;
+    margin-right: 4px;
+}
+
+.toolbar-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #202225;
+    padding: 4px 12px;
+    border-radius: 6px;
+}
+
+.page-counter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #e0e0e0;
+}
+
+.page-box {
+    background-color: #111214;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+.page-slash { color: #8e9297; }
+
+.toolbar-divider {
+    width: 1px;
+    height: 18px;
+    background-color: #4f545c;
+}
+
+.zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-zoom-icon {
+    background: transparent;
+    border: none;
+    color: #dbdee1;
+    font-size: 16px;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+}
+
+.btn-zoom-icon:hover { background-color: #35373c; color: #fff; }
+
+.btn-zoom-value {
+    background-color: #111214;
+    border: none;
+    color: #e0e0e0;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* WORKSPACE E FOLHA A4 */
+.workspace {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#container-folhas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    transform-origin: top center;
+    transition: transform 0.15s ease-out;
+}
+
+.folha-a4 {
+    width: 210mm !important;
+    min-width: 210mm !important;
+    max-width: 210mm !important;
+    height: 297mm !important;
+    min-height: 297mm !important;
+    max-height: 297mm !important;
+    background-color: white;
+    padding: 15mm;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    position: relative;
+    box-sizing: border-box !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* CABEÇALHO DA FOLHA */
+.folha-cabecalho-container {
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.cabecalho-box {
+    border: 1.5px solid #000;
+    display: flex;
+    min-height: 75px;
+}
+
+.cabecalho-logo-col {
+    width: 80px;
+    border-right: 1.5px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.cabecalho-logo-col img {
+    max-width: 100%;
+    max-height: 65px;
+    object-fit: contain;
+}
+
+.cabecalho-info-col {
+    flex: 1;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cabecalho-nome-escola {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #000;
+    line-height: 1.2;
+}
+
+.cabecalho-aluno-row {
+    font-size: 11px;
+    font-weight: bold;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 4px 0;
+}
+
+.linha-aluno {
+    flex: 1;
+    border-bottom: 1.5px solid #000;
+    height: 10px;
+}
+
+.cabecalho-detalhes-row {
+    font-size: 10px;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho-detalhes-row span { font-weight: bold; }
+
+.prova-titulo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0 5px;
+}
+
+.prova-titulo {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+}
+
+.prova-nota-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.box-nota-quadrado {
+    width: 50px;
+    height: 25px;
+    border: 1.5px solid #000;
+}
+
+/* CONTEÚDO E COLUNAS */
+.folha-conteudo {
+    flex: 1;
+    height: 220mm;
+    max-height: 220mm;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+}
+
+.folha-conteudo.duas-colunas {
+    display: block;
+    column-count: 2;
+    column-gap: 8mm;
+    column-fill: auto;
+    column-rule: 1px solid #000;
+}
+
+.folha-rodape {
+    position: absolute;
+    bottom: 10mm;
+    left: 15mm;
+    right: 15mm;
+    height: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 4px;
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+    background: white;
+}
+
+/* DESIGN COMPACTO DA QUESTÃO */
+.questao {
+    border: 1.5px dashed #888;
+    background-color: #fff;
+    padding: 6px;
+    border-radius: 4px;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.questao-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    gap: 6px;
+}
+
+.questao-top-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.questao-retangulo-titulo {
+    border: 1.5px solid #000;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #f5f5f5;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.questao-linha-divisoria {
+    border-bottom: 1.5px solid #000;
+    margin-bottom: 6px;
+}
+
+.questao-descritor-tag {
+    font-size: 10.5px;
+    font-weight: bold;
+    color: #000;
+    background-color: #e0e0e0;
+    padding: 1px 6px;
+    border-radius: 3px;
+    cursor: help;
+    white-space: nowrap;
+}
+
+.questao-acoes {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.questao-corpo {
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.questao-imagem {
+    max-width: 100%;
+    max-height: 160px;
+    object-fit: contain;
+    margin: 6px auto;
+    display: block; /* Garante que a imagem fique em uma linha própria no meio do texto */
+}
+
+/* LAYOUT DE ALTERNATIVAS (VERTICAL E HORIZONTAL) */
+.questao-alternativas {
+    margin-top: 6px;
+    display: flex;
+    gap: 6px;
+}
+
+.questao-alternativas.vertical {
+    flex-direction: column;
+}
+
+.questao-alternativas.horizontal {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.questao-alternativas.horizontal .opcao-alt {
+    flex: 1;
+    min-width: 20%;
+}
+
+.opcao-alt {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 11.5px;
+}
+
+/* GABARITO PROFESSOR */
+.gabarito-tag {
+    background-color: #27ae60;
+    color: white;
+    font-weight: bold;
+    font-size: 9px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin-left: 3px;
+    display: inline-block;
+}
+
+.gabarito-subjetiva {
+    margin-top: 6px;
+    padding: 6px;
+    background-color: #eafaf1;
+    border: 1px solid #27ae60;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #1e8449;
+}
+
+.espaco-calculo {
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 14px,
+        #f0f0f0 15px
+    );
+    border-radius: 2px;
+    margin-top: 5px;
+}
+
+/* BOTÕES DA BARRA DE QUESTÃO (COMPACTOS) */
+.btn-mini-compact {
+    padding: 1px 4px;
+    font-size: 9px;
+    background: #e0e0e0;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    cursor: pointer;
+    line-height: 1.1;
+}
+
+.btn-mini-compact:hover { background: #ccc; }
+.btn-move { background: #3498db; color: white; border: none; font-weight: bold; }
+.btn-move:disabled { background: #bdc3c7; cursor: not-allowed; opacity: 0.6; }
+.btn-del { background: #e74c3c; color: white; border: none; }
+
+.espaco-tag { font-size: 9px; color: #333; font-weight: bold; margin: 0 2px; }
+
+/* MODAL DE PRÉ-VISUALIZAÇÃO */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-card {
+    background: #fff;
+    width: 90%;
+    max-width: 550px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    background: #202225;
+    color: #fff;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header h3 { font-size: 14px; }
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+    background: #f9f9f9;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 10px 15px;
+    background: #eee;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* BOTÕES E FOOTER */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-primary { background-color: #27ae60; }
+.btn-primary:hover { background-color: #219653; }
+.btn-secondary { background-color: #3498db; }
+.btn-secondary:hover { background-color: #2980b9; }
+.btn-danger { background-color: #e74c3c; }
+.btn-danger:hover { background-color: #c0392b; }
+.btn-print { background-color: #8e44ad; }
+.btn-print:hover { background-color: #732d91; }
+
+.btn-toggle-gabarito { background-color: #f39c12; color: #fff; }
+.btn-toggle-gabarito.ativo { background-color: #27ae60; }
+
+.btn-select {
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: #202225;
+    color: white;
+    border: 1px solid #4f545c;
+    font-size: 12px;
+}
+
+.btn-expand-sidebar {
+    background: #202225;
+    color: white;
+    border: 1px solid #4f545c;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.hidden { display: none !important; }
+
+.app-footer {
+    height: 30px;
+    background-color: #1e2023;
+    color: #8e9297;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-size: 11px;
+    border-top: 1px solid #111;
+    z-index: 100;
+}
+
+/* REGRAS DE IMPRESSÃO */
+@page {
+    size: A4 portrait;
+    margin: 0 !important;
+}
+
+@media print {
+    html, body {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm;
+        height: 297mm;
+        overflow: visible !important;
     }
-}
 
-// ADICIONAR QUESTÃO DO BANCO À PROVA
-function adicionarQuestaoDoBanco(idQuestao) {
-    const questaoEncontrada = questaoBancoCarregadas.find(q => q.id === idQuestao);
-
-    if (questaoEncontrada) {
-        const novaQuestao = JSON.parse(JSON.stringify(questaoEncontrada));
-        
-        novaQuestao.id = proximoId++;
-        novaQuestao.textoDescritor = BASE_DESCRITORES[novaQuestao.codigoDescritor] || `Descritor ${novaQuestao.codigoDescritor}`;
-        
-        listaQuestoes.push(novaQuestao);
-        renderizar();
+    .app-header, .app-footer, .sidebar-panel, .editor-toolbar, .modal-overlay { 
+        display: none !important; 
     }
-}
 
-// MODAL DE PRÉ-VISUALIZAÇÃO DA CRIAÇÃO MANUAL (BLOCO 2)
-btnPreVisualizar.addEventListener('click', () => {
-    const qTemp = obterDadosFormularioQuestao();
-    const el = criarElementoQuestao(qTemp, 0, true);
+    .app-container, .editor-panel, .workspace { 
+        margin: 0 !important; 
+        padding: 0 !important; 
+        display: block !important;
+        overflow: visible !important;
+    }
+
+    #container-folhas { 
+        transform: none !important; 
+        gap: 0 !important; 
+        display: block !important; 
+    }
     
-    modalBodyContent.innerHTML = "";
-    modalBodyContent.appendChild(el);
-    modalPreview.classList.remove('hidden');
-
-    if (window.renderMathInElement) {
-        renderMathInElement(modalBodyContent, {
-            delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false}
-            ],
-            throwOnError: false
-        });
-    }
-});
-
-btnFecharModal.addEventListener('click', () => modalPreview.classList.add('hidden'));
-btnModalFechar.addEventListener('click', () => modalPreview.classList.add('hidden'));
-
-btnRefazer.addEventListener('click', () => {
-    if (listaQuestoes.length === 0 || confirm("Deseja realmente apagar todas as questões e refazer a prova?")) {
-        listaQuestoes = [];
-        proximoId = 1;
-        renderizar();
-    }
-});
-
-// CONTROLES DE ZOOM
-btnZoomIn.addEventListener('click', () => { if (zoomNivel < 1.5) { zoomNivel += 0.1; aplicarZoom(); } });
-btnZoomOut.addEventListener('click', () => { if (zoomNivel > 0.5) { zoomNivel -= 0.1; aplicarZoom(); } });
-btnZoomReset.addEventListener('click', () => { zoomNivel = 1.0; aplicarZoom(); });
-
-function aplicarZoom() {
-    containerFolhas.style.transform = `scale(${zoomNivel})`;
-    zoomVal.innerText = `${Math.round(zoomNivel * 100)}%`;
-}
-
-// FUNÇÕES DE AÇÃO NAS QUESTÕES
-window.alterarEspaco = function(index, delta) {
-    const novoEspaco = (listaQuestoes[index].espacoCalculo || 0) + delta;
-    if (novoEspaco >= 0 && novoEspaco <= 500) {
-        listaQuestoes[index].espacoCalculo = novoEspaco;
-        renderizar();
-    }
-};
-
-window.moverQuestao = function(index, direcao) {
-    const novoIndex = index + direcao;
-    if (novoIndex < 0 || novoIndex >= listaQuestoes.length) return;
-    const temp = listaQuestoes[index];
-    listaQuestoes[index] = listaQuestoes[novoIndex];
-    listaQuestoes[novoIndex] = temp;
-    renderizar();
-};
-
-window.excluirQuestao = function(index) {
-    listaQuestoes.splice(index, 1);
-    renderizar();
-};
-
-selectColunas.addEventListener('change', (e) => {
-    numColunas = parseInt(e.target.value);
-    renderizar();
-});
-
-// CRIAR ELEMENTO HTML DA QUESTÃO
-function criarElementoQuestao(q, index, isPreviewMode = false) {
-    const div = document.createElement('div');
-    div.className = 'questao';
-    
-    const isPrimeiro = index === 0;
-    const isUltimo = index === listaQuestoes.length - 1;
-
-    let textoProcessado = q.texto;
-    let htmlImagem = q.imagem ? `<img src="${q.imagem}" class="questao-imagem" alt="Imagem da questão">` : '';
-
-    if (q.imagem) {
-        if (textoProcessado.includes('[IMAGEM]')) {
-            textoProcessado = textoProcessado.replace('[IMAGEM]', htmlImagem);
-            htmlImagem = ''; 
-        }
-    } else {
-        textoProcessado = textoProcessado.replace(/\[IMAGEM\]/g, '');
+    .folha-a4 {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        box-sizing: border-box !important;
     }
 
-    let textoTooltip = BASE_DESCRITORES[q.codigoDescritor] || q.textoDescritor || q.codigoDescritor;
-    let tagDescritor = q.codigoDescritor ? `<span class="questao-descritor-tag" title="${textoTooltip}">${q.codigoDescritor}</span>` : '';
-
-    let htmlConteudoTipo = '';
-
-    if (q.tipo === 'alternativas' && q.alternativas) {
-        let classeDisposicao = q.disposicao === 'horizontal' ? 'horizontal' : 'vertical';
-        let altHtml = q.alternativas.map(alt => {
-            let marcaGabarito = (exibirGabaritoProfessor && alt.letra === q.gabarito) 
-                ? `<span class="gabarito-tag" title="Gabarito Marcado">✓</span>` 
-                : '';
-            return `
-                <div class="opcao-alt">
-                    <strong>(${alt.letra})</strong>
-                    <span>${alt.texto}</span>
-                    ${marcaGabarito}
-                </div>
-            `;
-        }).join('');
-
-        htmlConteudoTipo = `<div class="questao-alternativas ${classeDisposicao}">${altHtml}</div>`;
-    } else {
-        let htmlGabaritoSubjetiva = (exibirGabaritoProfessor && q.respostaGabarito)
-            ? `<div class="gabarito-subjetiva"><strong>Gabarito Esperado:</strong> ${q.respostaGabarito}</div>`
-            : '';
-
-        htmlConteudoTipo = htmlGabaritoSubjetiva;
+    .questao { 
+        border: none !important; 
+        padding: 0 !important;
+        margin-bottom: 12px !important;
     }
 
-    let htmlEspacoCalculo = q.espacoCalculo > 0 
-        ? `<div class="espaco-calculo" style="height: ${q.espacoCalculo}px;"></div>` 
-        : '';
-
-    let acoesHtml = isPreviewMode ? '' : `
-        <div class="questao-acoes">
-            <button class="btn-mini-compact btn-move" onclick="moverQuestao(${index}, -1)" ${isPrimeiro ? 'disabled' : ''} title="Subir">▲</button>
-            <button class="btn-mini-compact btn-move" onclick="moverQuestao(${index}, 1)" ${isUltimo ? 'disabled' : ''} title="Descer">▼</button>
-            <button class="btn-mini-compact" onclick="alterarEspaco(${index}, 10)" title="+10px Espaço">+E</button>
-            <button class="btn-mini-compact" onclick="alterarEspaco(${index}, -10)" title="-10px Espaço">-E</button>
-            <span class="espaco-tag">${q.espacoCalculo || 0}px</span>
-            <button class="btn-mini-compact btn-del" onclick="excluirQuestao(${index})" title="Excluir">🗑️</button>
-        </div>
-    `;
-
-    div.innerHTML = `
-        <div class="questao-top-bar">
-            <div class="questao-top-left">
-                <div class="questao-retangulo-titulo">QUESTÃO ${index + 1}</div>
-                ${acoesHtml}
-            </div>
-            ${tagDescritor}
-        </div>
-        <div class="questao-linha-divisoria"></div>
-        <div class="questao-corpo">
-            <div class="questao-enunciado">${textoProcessado}</div>
-            ${htmlImagem}
-            ${htmlConteudoTipo}
-            ${htmlEspacoCalculo}
-        </div>
-    `;
-    return div;
-}
-
-// CRIAR FOLHA A4
-function criarNovaFolha(numPagina) {
-    const folha = document.createElement('div');
-    folha.className = 'folha-a4';
-    
-    let htmlCabecalho = '';
-
-    if (numPagina === 1) {
-        const logoImg = dadosCabecalho.logoUrl 
-            ? `<img src="${dadosCabecalho.logoUrl}" alt="Logo">` 
-            : `<span style="font-size: 10px; color: #999;">[LOGO]</span>`;
-
-        htmlCabecalho = `
-            <div class="folha-cabecalho-container">
-                <div class="cabecalho-box">
-                    <div class="cabecalho-logo-col">
-                        ${logoImg}
-                    </div>
-                    <div class="cabecalho-info-col">
-                        <div class="cabecalho-nome-escola">${dadosCabecalho.nomeEscola}</div>
-                        <div class="cabecalho-aluno-row">
-                            ALUNO(A): <div class="linha-aluno"></div>
-                        </div>
-                        <div class="cabecalho-detalhes-row">
-                            <div>Série: <span>${dadosCabecalho.serie}</span></div>
-                            <div>Turma: <span>${dadosCabecalho.turma}</span></div>
-                            <div>Data: ____/____/_______</div>
-                            <div>Professor(a): <span>${dadosCabecalho.professor}</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="prova-titulo-container">
-                    <div class="prova-titulo">${dadosCabecalho.tituloProva} ${exibirGabaritoProfessor ? ' (GABARITO DO PROFESSOR)' : ''}</div>
-                    <div class="prova-nota-box">
-                        NOTA: <div class="box-nota-quadrado"></div>
-                    </div>
-                </div>
-            </div>
-        `;
-    } else {
-        htmlCabecalho = `
-            <div class="folha-cabecalho-container" style="border-bottom: 1px solid #000; padding-bottom: 5px;">
-                <div style="font-size: 10px; display: flex; justify-content: space-between; font-weight: bold;">
-                    <span>${dadosCabecalho.nomeEscola}</span>
-                    <span>${dadosCabecalho.tituloProva} ${exibirGabaritoProfessor ? ' (GABARITO)' : ''}</span>
-                </div>
-            </div>
-        `;
+    .questao-acoes { 
+        display: none !important; 
     }
 
-    const conteudo = document.createElement('div');
-    conteudo.className = 'folha-conteudo';
-    if (numColunas === 2) conteudo.classList.add('duas-colunas');
-
-    folha.innerHTML = htmlCabecalho;
-    folha.appendChild(conteudo);
-
-    const rodape = document.createElement('div');
-    rodape.className = 'folha-rodape';
-    rodape.innerText = `Página ${numPagina}`;
-    folha.appendChild(rodape);
-
-    containerFolhas.appendChild(folha);
-    return { folha, conteudo, rodape };
-}
-
-function testarOverflow(conteudoDiv) {
-    if (numColunas === 1) {
-        return conteudoDiv.scrollHeight > conteudoDiv.clientHeight;
-    } else {
-        return conteudoDiv.scrollWidth > conteudoDiv.clientWidth || conteudoDiv.scrollHeight > conteudoDiv.clientHeight;
+    .folha-conteudo.duas-colunas {
+        column-rule: 1.5px solid #000 !important;
     }
 }
 
-// RENDERIZADOR PRINCIPAL
-function renderizar() {
-    containerFolhas.innerHTML = '';
-
-    if (listaQuestoes.length === 0) {
-        criarNovaFolha(1);
-        if (paginaAtualEl) paginaAtualEl.innerText = "1";
-        if (totalPaginasEl) totalPaginasEl.innerText = "1";
-        return;
-    }
-
-    let numPagina = 1;
-    let folhaAtual = criarNovaFolha(numPagina);
-
-    listaQuestoes.forEach((qData, index) => {
-        const elQuestao = criarElementoQuestao(qData, index);
-        folhaAtual.conteudo.appendChild(elQuestao);
-
-        if (testarOverflow(folhaAtual.conteudo)) {
-            folhaAtual.conteudo.removeChild(elQuestao);
-            numPagina++;
-            folhaAtual = criarNovaFolha(numPagina);
-            folhaAtual.conteudo.appendChild(elQuestao);
-        }
-    });
-
-    const todasFolhas = containerFolhas.querySelectorAll('.folha-a4');
-    todasFolhas.forEach((folha, idx) => {
-        const rodape = folha.querySelector('.folha-rodape');
-        rodape.innerText = `Página ${idx + 1} de ${todasFolhas.length}`;
-    });
-
-    if (paginaAtualEl) paginaAtualEl.innerText = "1";
-    if (totalPaginasEl) totalPaginasEl.innerText = todasFolhas.length;
-
-    // PROCESSAR FÓRMULAS LATEX
-    if (window.renderMathInElement) {
-        renderMathInElement(containerFolhas, {
-            delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false}
-            ],
-            throwOnError: false
-        });
-    }
-}
-
-// CARREGAR EXEMPLO DE QUESTÃO INICIAL
-listaQuestoes.push({
-    id: proximoId++,
-    codigoDescritor: "D13",
-    textoDescritor: BASE_DESCRITORES["D13"],
-    texto: "Um reservatório contém $3,5$ litros de água. Sabendo que a equação da capacidade total é $f(x) = x^2 + 10$, qual o volume final?",
-    tipo: "alternativas",
-    disposicao: "horizontal",
-    espacoCalculo: 20,
-    alternativas: [
-        { letra: 'A', texto: "$12,25$ L" },
-        { letra: 'B', texto: "$22,25$ L" },
-        { letra: 'C', texto: "$15,00$ L" },
-        { letra: 'D', texto: "$30,50$ L" }
-    ],
-    gabarito: "B"
-});
-
-renderizar();
