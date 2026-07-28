@@ -139,18 +139,18 @@ btnExpandSidebar.addEventListener('click', () => {
 
 btnToggleCabecalho.addEventListener('click', () => {
     const isCollapsed = bodyCabecalho.classList.toggle('collapsed');
-    btnAccIcon.innerText = isCollapsed ? '▲' : '▼';
+    btnAccIcon.innerText = isCollapsed ? '▼' : '▲';
 });
 
 btnToggleCriarQuestao.addEventListener('click', () => {
     const isCollapsed = bodyCriarQuestao.classList.toggle('collapsed');
-    btnAccIconQuestao.innerText = isCollapsed ? '▲' : '▼';
+    btnAccIconQuestao.innerText = isCollapsed ? '▼' : '▲';
 });
 
 if (btnToggleBanco) {
     btnToggleBanco.addEventListener('click', () => {
         const isCollapsed = bodyBanco.classList.toggle('collapsed');
-        if (btnAccIconBanco) btnAccIconBanco.innerText = isCollapsed ? '▲' : '▼';
+        if (btnAccIconBanco) btnAccIconBanco.innerText = isCollapsed ? '▼' : '▲';
     });
 }
 
