@@ -1,30 +1,26 @@
 [
   {
-  "id": "q1_d1",
-  "descritor": "D1",
-  "tipo": "objetiva",
-  "enunciado": "(CAED)  Observe, na imagem abaixo, João esperando o início de uma sessão de cinema.<br>[IMAGEM]<br>Quem está à direita de João?",
-  "imagem": {
-    "src": "imagens/imgq1_d1.png",
-    "posicao": "centro",
-    "tamanho": "medio"
+    "id": "q1_d1",
+    "codigoDescritor": "D1",
+    "texto": "(CAED)  Observe, na imagem abaixo, João esperando o início de uma sessão de cinema.<br>[IMAGEM]<br>Quem está à direita de João?",
+    "imagem": "imagens/imgq1_d1.png",
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 40,
+    "alternativas": [
+      { "letra": "A", "texto": "Alice." },
+      { "letra": "B", "texto": "Bento." },
+      { "letra": "C", "texto": "Caio." },
+      { "letra": "D", "texto": "Daiana." }
+    ],
+    "gabarito": "D"
   },
-  "alternativas": {
-    "A": "Alice.",
-    "B": "Bento.",
-    "C": "Caio.",
-    "D": "Dainana."
-  },
-  "respostaCorreta": "D",
-  "espacoInferior": 1
-},
   {
     "id": "q2_d1",
-    "descritor": "D1",
+    "codigoDescritor": "D1",
+    "texto": "Determine a posição aproximada da fração $3/4$ na reta numérica.",
     "tipo": "subjetiva",
-    "enunciado": "Desenhe um retângulo no espaço abaixo com dimensões 5 cm por 3 cm e calcule seu perímetro.",
-    "alternativas": null,
-    "respostaCorreta": null,
-    "espacoInferior": 2
+    "respostaGabarito": "A fração $3/4$ equivale a 0,75, ficando entre 0 e 1.",
+    "espacoCalculo": 60
   }
 ]
