@@ -290,7 +290,7 @@ async function carregarBancoPorDescritor() {
     containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Carregando questões...</p>';
 
     try {
-        const response = await fetch(`./${descritorSelecionado}.json`);
+        const response = await fetch(`./questoes/${descritorSelecionado}.json`);
 
         if (!response.ok) {
             throw new Error(`Arquivo ${descritorSelecionado}.json não encontrado.`);
