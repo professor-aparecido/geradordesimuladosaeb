@@ -901,3 +901,50 @@ body {
     border-radius: 4px;
     cursor: pointer;
 }
+
+/* Mensagem de orientação dentro da folha A4 vazia */
+
+.mensagem-prova-vazia {
+    /* Força o elemento a cruzar TODAS as colunas quando usar column-count */
+    column-span: all;
+    -webkit-column-span: all; 
+
+    /* Força o elemento a cruzar TODAS as colunas se usar CSS Grid */
+    grid-column: 1 / -1; 
+
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* O cartão com o texto de instrução */
+.placeholder-conteudo {
+    width: 100%;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 30px 20px;
+    background-color: #f8fafc;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.placeholder-icone {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.placeholder-conteudo h3 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    color: #334155;
+    font-weight: 700;
+}
+
+.placeholder-conteudo p {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+}
