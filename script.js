@@ -325,12 +325,11 @@ function renderizarListaBanco(questoes) {
         itemDiv.className = 'item-banco-questao';
 
         let textoLimpo = q.texto ? q.texto.replace(/\[IMAGEM\]/g, '').trim() : 'Questão sem enunciado';
-        const textoResumido = textoLimpo.length > 45 ? textoLimpo.substring(0, 45) + '...' : textoLimpo;
+        const textoResumido = textoLimpo.length > 35 ? textoLimpo.substring(0, 35) + '...' : textoLimpo;
 
         itemDiv.innerHTML = `
             <div class="item-banco-info">
-                <span class="badge-id">${q.id}</span>
-                <p class="item-banco-texto">${textoResumido}</p>
+                <p class="item-banco-texto" title="${textoLimpo}">${textoResumido}</p>
             </div>
             <div class="banco-acoes-btn">
                 <button class="btn btn-secondary btn-mini-add" onclick="previsualizarQuestaoDoBanco('${q.id}')" title="Pré-visualizar Questão">👁️</button>
