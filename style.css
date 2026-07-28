@@ -845,3 +845,59 @@ body {
     }
 }
 
+/* Layout da linha do card de questão no Banco */
+.item-banco-questao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background-color: #2b2b2b; /* Ou a cor do fundo dos seus cards */
+    border-radius: 6px;
+    border: 1px solid #3a3a3a;
+}
+
+/* Área de texto e ID da questão */
+.item-banco-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0; /* Impede o texto de estourar a linha */
+}
+
+/* ID da questão (ex: q1_d1) */
+.badge-id {
+    font-size: 11px;
+    font-weight: bold;
+    color: #3b82f6;
+    white-space: nowrap;
+}
+
+/* Enunciado resumido na mesma linha */
+.item-banco-texto {
+    margin: 0;
+    font-size: 12px;
+    color: #e5e7eb;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Coloca "..." se o texto for longo */
+}
+
+/* Container dos botões do lado direito */
+.banco-acoes-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0; /* Garante que os botões não diminuam de tamanho */
+}
+
+/* Ajuste nos botões individuais */
+.banco-acoes-btn .btn-mini-add {
+    padding: 4px 8px;
+    font-size: 12px;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+}
