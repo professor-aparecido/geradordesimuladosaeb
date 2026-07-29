@@ -1096,6 +1096,9 @@ body {
     background: #f1f5f9;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #e2e8f0;
 }
 
 .btn-expand-sidebar {
