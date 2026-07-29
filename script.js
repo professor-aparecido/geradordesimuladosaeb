@@ -331,7 +331,6 @@ function renderizarListaBanco(questoes) {
 
         itemDiv.innerHTML = `
             <div class="item-banco-info">
-                <span class="badge-id">${q.id}</span>
                 <p class="item-banco-texto" title="${textoLimpo}">${textoResumido}</p>
             </div>
             <div class="banco-acoes-btn">
