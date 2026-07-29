@@ -5,8 +5,8 @@
     "texto": "(CAED) Observe abaixo o ponto K destacado na reta numérica que está dividida em partes iguais.<br>[IMAGEM]<br>Esse ponto K representa a localização de qual número nessa reta?",
     "imagem": "imagens/imgq1_d17.png",
     "tipo": "alternativas",
-    "disposicao": "vertical",
-    "espacoCalculo": 40,
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
     "alternativas": [
       { "letra": "A", "texto": "1,5." },
       { "letra": "B", "texto": "1,8." },
