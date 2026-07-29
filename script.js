@@ -52,6 +52,7 @@ let zoomNivel = 1.0;
 let numColunas = 2;
 let imagemCarregadaTemp = "";
 let exibirGabaritoProfessor = false;
+let questaoEmPreview = null;
 
 // DADOS DO CABEÇALHO
 let dadosCabecalho = {
@@ -290,7 +291,7 @@ async function carregarBancoPorDescritor() {
     containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Carregando questões...</p>';
 
     try {
-        const response = await fetch(`./questoes/${descritorSelecionado}.json`);
+        const response = await fetch(`./${descritorSelecionado}.json`);
 
         if (!response.ok) {
             throw new Error(`Arquivo ${descritorSelecionado}.json não encontrado.`);
@@ -310,7 +311,7 @@ async function carregarBancoPorDescritor() {
         containerBancoQuestoes.innerHTML = `
             <div class="msg-erro-banco">
                 ⚠️ Não foi possível carregar as questões do descritor <strong>${descritorSelecionado.toUpperCase()}</strong>.
-                <br><small>Verifique se o arquivo <code>questoes/${descritorSelecionado}.json</code> existe.</small>
+                <br><small>Verifique se o arquivo <code>${descritorSelecionado}.json</code> está na raiz do projeto.</small>
             </div>
         `;
     }
@@ -325,10 +326,12 @@ function renderizarListaBanco(questoes) {
         itemDiv.className = 'item-banco-questao';
 
         let textoLimpo = q.texto ? q.texto.replace(/\[IMAGEM\]/g, '').trim() : 'Questão sem enunciado';
-        const textoResumido = textoLimpo.length > 35 ? textoLimpo.substring(0, 35) + '...' : textoLimpo;
+        // Corta um pouco antes para encaixar perfeitamente na mesma linha
+        const textoResumido = textoLimpo.length > 30 ? textoLimpo.substring(0, 30) + '...' : textoLimpo;
 
         itemDiv.innerHTML = `
             <div class="item-banco-info">
+                <span class="badge-id">${q.id}</span>
                 <p class="item-banco-texto" title="${textoLimpo}">${textoResumido}</p>
             </div>
             <div class="banco-acoes-btn">
@@ -342,16 +345,20 @@ function renderizarListaBanco(questoes) {
 }
 
 // PRÉ-VISUALIZAR QUESTÃO DO BANCO NO MODAL
+
+// 1. PRÉ-VISUALIZAR QUESTÃO DO BANCO NO MODAL
 function previsualizarQuestaoDoBanco(idQuestao) {
-    const qEncontrada = questaoBancoCarregadas.find(q => q.id === idQuestao);
+    const qEncontrada = questaoBancoCarregadas.find(q => q.id == idQuestao);
 
     if (qEncontrada) {
-        const qTemp = JSON.parse(JSON.stringify(qEncontrada));
-        qTemp.textoDescritor = BASE_DESCRITORES[qTemp.codigoDescritor] || `Descritor ${qTemp.codigoDescritor}`;
+        // Clona a questão e garante a formatação
+        questaoEmPreview = JSON.parse(JSON.stringify(qEncontrada));
+        questaoEmPreview.textoDescritor = BASE_DESCRITORES[questaoEmPreview.codigoDescritor] || `Descritor ${questaoEmPreview.codigoDescritor}`;
         
-        const el = criarElementoQuestao(qTemp, 0, true);
+        const el = criarElementoQuestao(questaoEmPreview, 0, true);
         modalBodyContent.innerHTML = "";
         modalBodyContent.appendChild(el);
+
         modalPreview.classList.remove('hidden');
 
         if (window.renderMathInElement) {
@@ -366,9 +373,71 @@ function previsualizarQuestaoDoBanco(idQuestao) {
     }
 }
 
-// ADICIONAR QUESTÃO DO BANCO À PROVA
+// 2. PRÉ-VISUALIZAR DA CRIAÇÃO MANUAL (BLOCO 2)
+btnPreVisualizar.addEventListener('click', () => {
+    // Armazena a questão manual na mesma variável global
+    questaoEmPreview = obterDadosFormularioQuestao();
+    
+    const el = criarElementoQuestao(questaoEmPreview, 0, true);
+    modalBodyContent.innerHTML = "";
+    modalBodyContent.appendChild(el);
+    modalPreview.classList.remove('hidden');
+
+    if (window.renderMathInElement) {
+        renderMathInElement(modalBodyContent, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+        });
+    }
+});
+
+// 3. AÇÃO DO BOTÃO "ADICIONAR À PROVA" DO MODAL
+function adicionarQuestaoDoModal() {
+    if (questaoEmPreview) {
+        const novaQuestao = JSON.parse(JSON.stringify(questaoEmPreview));
+        
+        // Atribui o novo ID sequencial da prova
+        novaQuestao.id = proximoId++;
+        
+        listaQuestoes.push(novaQuestao);
+        renderizar();
+        
+        // Esconde o modal
+        modalPreview.classList.add('hidden');
+        
+        // Limpa a variável
+        questaoEmPreview = null;
+    }
+}
+
+// Função chamada quando clica no botão "➕ Adicionar à Prova" do modal
+// Função chamada quando clica no botão "➕ Adicionar à Prova" do modal
+function adicionarQuestaoDoModal() {
+    if (questaoEmPreview) {
+        // Clona o objeto para não alterar a questão original do banco
+        const novaQuestao = JSON.parse(JSON.stringify(questaoEmPreview));
+        
+        // Atribui o novo ID incremental da prova
+        novaQuestao.id = proximoId++;
+        novaQuestao.textoDescritor = BASE_DESCRITORES[novaQuestao.codigoDescritor] || `Descritor ${novaQuestao.codigoDescritor}`;
+        
+        // Adiciona à lista da prova e renderiza a folha A4
+        listaQuestoes.push(novaQuestao);
+        renderizar();
+        
+        // Fecha o modal
+        if (modalPreview) {
+            modalPreview.classList.add('hidden');
+        }
+    }
+}
+
+// ADICIONAR QUESTÃO DO BANCO À PROVA (direto pelo botão ➕ da lista lateral)
 function adicionarQuestaoDoBanco(idQuestao) {
-    const questaoEncontrada = questaoBancoCarregadas.find(q => q.id === idQuestao);
+    const questaoEncontrada = questaoBancoCarregadas.find(q => q.id == idQuestao);
 
     if (questaoEncontrada) {
         const novaQuestao = JSON.parse(JSON.stringify(questaoEncontrada));
@@ -380,6 +449,24 @@ function adicionarQuestaoDoBanco(idQuestao) {
         renderizar();
     }
 }
+
+
+// ADICIONAR QUESTÃO DO BANCO À PROVA
+
+function adicionarQuestaoDoBanco(idQuestao) {
+    const questaoEncontrada = questaoBancoCarregadas.find(q => q.id == idQuestao);
+
+    if (questaoEncontrada) {
+        const novaQuestao = JSON.parse(JSON.stringify(questaoEncontrada));
+        
+        novaQuestao.id = proximoId++;
+        novaQuestao.textoDescritor = BASE_DESCRITORES[novaQuestao.codigoDescritor] || `Descritor ${novaQuestao.codigoDescritor}`;
+        
+        listaQuestoes.push(novaQuestao);
+        renderizar();
+    }
+}
+
 
 // MODAL DE PRÉ-VISUALIZAÇÃO DA CRIAÇÃO MANUAL (BLOCO 2)
 btnPreVisualizar.addEventListener('click', () => {
@@ -680,4 +767,6 @@ function renderizar() {
         });
     }
 }
+
+
 renderizar();
