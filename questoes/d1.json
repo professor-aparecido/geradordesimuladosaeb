@@ -6,7 +6,7 @@
     "imagem": "imagens/imgq1_d1.png",
     "tipo": "alternativas",
     "disposicao": "horizontal",
-    "espacoCalculo": 40,
+    "espacoCalculo": null,
     "alternativas": [
       { "letra": "A", "texto": "Alice." },
       { "letra": "B", "texto": "Bento." },
