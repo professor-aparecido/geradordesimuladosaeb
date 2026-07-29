@@ -1,35 +1,18 @@
 [
   {
-  "id": "q1_d17",
-  "descritor": "D17",
-  "tipo": "objetiva",
-  "enunciado": "(CAED) Observe abaixo o ponto K destacado na reta numérica que está dividida em partes iguais.<br>[IMAGEM]<br>Esse ponto K representa a localização de qual número nessa reta?",
-  "imagem": {
-    "src": "imagens/imgq1_d17.png",
-    "posicao": "centro",
-    "tamanho": "medio"
-  },
-  "alternativas": {
-    "A": "1,5.",
-    "B": "1,8.",
-    "C": "2,1.",
-    "D": "3,0."
-  },
-  "respostaCorreta": "c",
-  "espacoInferior": 1
-},
-  {
-    "id": "q2_d17",
-    "descritor": "D17",
-    "tipo": "objetiva",
-    "enunciado": "Texto da questão...",
-    "alternativas": {
-      "A": "A",
-      "B": "B",
-      "C": "C",
-      "D": "D"
-    },
-    "respostaCorreta": "B",
-    "espacoInferior": 1
+    "id": "q1_d17",
+    "codigoDescritor": "D17",
+    "texto": "(CAED) Observe abaixo o ponto K destacado na reta numérica que está dividida em partes iguais.<br>[IMAGEM]<br>Esse ponto K representa a localização de qual número nessa reta?",
+    "imagem": "imagens/imgq1_d17.png",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 40,
+    "alternativas": [
+      { "letra": "A", "texto": "1,5." },
+      { "letra": "B", "texto": "1,8." },
+      { "letra": "C", "texto": "2,1." },
+      { "letra": "D", "texto": "3,0." }
+    ],
+    "gabarito": "C"
   }
 ]
