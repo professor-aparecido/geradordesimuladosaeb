@@ -1239,3 +1239,40 @@ body {
         print-color-adjust: exact !important;
     }
 }
+
+/* AJUSTES PARA TELAS PEQUENAS / CELULAR */
+@media (max-width: 768px) {
+    /* 1. Faz a estrutura principal virar uma coluna */
+    .app-container {
+        flex-direction: column;
+    }
+
+    /* 2. O painel lateral ocupa a largura total no celular */
+    .sidebar {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* 3. A área da folha A4 centraliza e ganha margem */
+    .main-content, #container-folhas {
+        padding: 10px;
+        overflow-x: auto; /* Permite rolar para os lados se a folha não couber inteira */
+    }
+
+    /* 4. A folha A4 diminui visualmente para caber na tela do celular */
+    .folha-a4 {
+        transform-origin: top center;
+        margin: 0 auto 20px auto;
+    }
+
+    /* 5. Ajusta os botões do modal para ficarem empilhados e fáceis de tocar */
+    .modal-footer {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .modal-footer .btn {
+        width: 100%; /* Botão ocupa a largura toda para facilitar o toque com o dedo */
+    }
+}
