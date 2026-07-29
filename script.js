@@ -475,6 +475,7 @@ function criarElementoQuestao(q, index, isPreviewMode = false) {
 
     let htmlConteudoTipo = '';
 
+    // 1. QUESTÃO DE MÚLTIPLA ESCOLHA
     if (q.tipo === 'alternativas' && q.alternativas) {
         let classeDisposicao = q.disposicao === 'horizontal' ? 'horizontal' : 'vertical';
         let altHtml = q.alternativas.map(alt => {
@@ -491,18 +492,28 @@ function criarElementoQuestao(q, index, isPreviewMode = false) {
         }).join('');
 
         htmlConteudoTipo = `<div class="questao-alternativas ${classeDisposicao}">${altHtml}</div>`;
-    } else {
-        let htmlGabaritoSubjetiva = (exibirGabaritoProfessor && q.respostaGabarito)
-            ? `<div class="gabarito-subjetiva"><strong>Gabarito Esperado:</strong> ${q.respostaGabarito}</div>`
-            : '';
+    } 
 
+    // 2. MONTAGEM DO ESPAÇO DE RESPOSTA / CÁLCULO E GABARITO DA QUESTÃO ABERTA
+    let htmlGabaritoSubjetiva = (exibirGabaritoProfessor && q.respostaGabarito)
+        ? `<div class="gabarito-subjetiva"><strong>Gabarito Esperado:</strong> ${q.respostaGabarito}</div>`
+        : '';
+
+    let htmlEspacoCalculo = '';
+    
+    if (q.espacoCalculo > 0) {
+        // Se houver espaço definido, injeta o gabarito DENTRO da própria caixa de cálculo
+        htmlEspacoCalculo = `
+            <div class="espaco-calculo" style="height: ${q.espacoCalculo}px;">
+                ${q.tipo !== 'alternativas' ? htmlGabaritoSubjetiva : ''}
+            </div>
+        `;
+    } else if (q.tipo !== 'alternativas' && htmlGabaritoSubjetiva) {
+        // Fallback: se for questão aberta e NÃO tiver espaço de cálculo cadastrado, insere o gabarito abaixo do enunciado
         htmlConteudoTipo = htmlGabaritoSubjetiva;
     }
 
-    let htmlEspacoCalculo = q.espacoCalculo > 0 
-        ? `<div class="espaco-calculo" style="height: ${q.espacoCalculo}px;"></div>` 
-        : '';
-
+    // 3. BARRA DE AÇÕES (SUBIR, DESCER, ESPAÇO, EXCLUIR)
     let acoesHtml = isPreviewMode ? '' : `
         <div class="questao-acoes">
             <button class="btn-mini-compact btn-move" onclick="moverQuestao(${index}, -1)" ${isPrimeiro ? 'disabled' : ''} title="Subir">▲</button>
@@ -532,7 +543,6 @@ function criarElementoQuestao(q, index, isPreviewMode = false) {
     `;
     return div;
 }
-
 // CRIAR FOLHA A4
 function criarNovaFolha(numPagina) {
     const folha = document.createElement('div');
