@@ -2,7 +2,7 @@
   {
     "id": "q1_d1",
     "codigoDescritor": "D1",
-    "texto": "Na reta numérica abaixo, qual número corresponde ao ponto P? [IMAGEM]",
+    "texto": "(CAED) Observe abaixo o ponto K destacado na reta numérica que está dividida em partes iguais.<br>[IMAGEM]<br>Esse ponto K representa a localização de qual número nessa reta?",
     "imagem": "https://via.placeholder.com/150",
     "tipo": "alternativas",
     "disposicao": "vertical",
