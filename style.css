@@ -1,3 +1,7 @@
+/* =========================================================
+   TEMA SLATE LIGHT - SISTEMA DE GERADOR DE PROVAS
+   ========================================================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,16 +9,18 @@
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #e2e8f0;
-    color: #1e293b;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    background-color: #f1f5f9;
+    color: #0f172a;
     height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
-/* BARRA SUPERIOR (HEADER) */
+/* =========================================================
+   1. BARRA SUPERIOR (HEADER)
+   ========================================================= */
 .app-header {
     height: 52px;
     background-color: #1e293b;
@@ -29,7 +35,7 @@ body {
 
 .header-title h1 {
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.5px;
 }
 
@@ -38,7 +44,57 @@ body {
     gap: 10px;
 }
 
-/* CONTAINER PRINCIPAL */
+.btn-toggle-gabarito {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle-gabarito:hover {
+    background-color: #d97706;
+    border-color: #d97706;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3);
+}
+
+.btn-toggle-gabarito.ativo {
+    background-color: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+}
+
+.btn-print {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: 1px solid #2563eb;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-print:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35);
+}
+
+.btn-toggle-gabarito:active,
+.btn-print:active {
+    transform: translateY(1px) scale(0.97);
+}
+
+/* =========================================================
+   2. ESTRUTURA PRINCIPAL E PAINEL LATERAL (SIDEBAR)
+   ========================================================= */
 .app-container {
     flex: 1;
     display: flex;
@@ -47,14 +103,13 @@ body {
     position: relative;
 }
 
-/* COLUNA ESQUERDA - MENU */
 .sidebar-panel {
     width: 40%;
     min-width: 320px;
     max-width: 450px;
     height: 100%;
     background-color: #ffffff;
-    color: #334155;
+    color: #0f172a;
     border-right: 1px solid #cbd5e1;
     display: flex;
     flex-direction: column;
@@ -80,7 +135,7 @@ body {
 
 .sidebar-header h2 {
     font-size: 15px;
-    color: #0f172a;
+    color: #1e293b;
     font-weight: 700;
 }
 
@@ -94,7 +149,10 @@ body {
     border-radius: 4px;
 }
 
-.btn-toggle-sidebar:hover { background-color: #e2e8f0; color: #0f172a; }
+.btn-toggle-sidebar:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
 
 .sidebar-content {
     flex: 1;
@@ -105,18 +163,21 @@ body {
     gap: 15px;
 }
 
-/* ACCORDION */
+/* =========================================================
+   3. COMPONENTES DO MENU (ACCORDION E FORMULÁRIOS)
+   ========================================================= */
 .accordion-item {
     background-color: #ffffff;
-    border: 1px solid #cbd5e1;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     overflow: hidden;
     flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .accordion-header {
     padding: 12px;
-    background-color: #f1f5f9;
+    background-color: #f8fafc;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -126,7 +187,7 @@ body {
 }
 
 .accordion-header:hover {
-    background-color: #e2e8f0;
+    background-color: #f1f5f9;
 }
 
 .acc-title-group {
@@ -135,7 +196,9 @@ body {
     gap: 10px;
 }
 
-.acc-icon { font-size: 16px; }
+.acc-icon {
+    font-size: 16px;
+}
 
 .acc-title {
     font-size: 14px;
@@ -164,7 +227,6 @@ body {
     display: none;
 }
 
-/* FORMULÁRIOS */
 .form-group {
     display: flex;
     flex-direction: column;
@@ -176,31 +238,39 @@ body {
     gap: 10px;
 }
 
-.col-6 { flex: 1; }
+.col-6 {
+    flex: 1;
+}
 
-.form-group label, .section-label {
+.form-group label,
+.section-label {
     font-size: 12px;
     font-weight: 700;
     color: #475569;
     text-transform: uppercase;
 }
 
-.form-input, .form-textarea, .btn-select {
-    padding: 9px 12px;
+.form-input,
+.form-textarea,
+.btn-select {
+    padding: 8px 10px;
     border-radius: 6px;
     border: 1px solid #cbd5e1;
-    background-color: #f8fafc;
+    background-color: #ffffff;
     color: #0f172a;
     font-size: 13px;
     outline: none;
     font-family: inherit;
 }
 
-.form-textarea { resize: vertical; }
+.form-textarea {
+    resize: vertical;
+}
 
-.form-input:focus, .form-textarea:focus {
+.form-input:focus,
+.form-textarea:focus {
     border-color: #2563eb;
-    background-color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
 .form-input-file {
@@ -212,7 +282,7 @@ body {
     display: flex;
     gap: 15px;
     font-size: 13px;
-    color: #334155;
+    color: #0f172a;
     padding: 4px 0;
 }
 
@@ -238,10 +308,12 @@ body {
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #334155;
+    color: #0f172a;
 }
 
-.input-alt { flex: 1; }
+.input-alt {
+    flex: 1;
+}
 
 .form-actions {
     display: flex;
@@ -250,9 +322,200 @@ body {
     padding-bottom: 10px;
 }
 
-.form-actions button { flex: 1; }
+.form-actions button {
+    flex: 1;
+}
 
-/* COLUNA DIREITA - EDITOR */
+/* Mensagens do Banco de Questões */
+.msg-orientacao {
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: #475569;
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+.msg-erro-banco {
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: #991b1b;
+    background-color: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+.msg-erro-banco code {
+    background-color: #fee2e2;
+    color: #7f1d1d;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   4. ESTILIZAÇÃO GERAL DE BOTÕES (MÍDIA / PAINEL / BANCO)
+   ========================================================= */
+.btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background-color: #eff6ff;
+    color: #2563eb;
+    border-color: #bfdbfe;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 2px 5px rgba(37, 99, 235, 0.25);
+}
+
+.btn-secondary {
+    background-color: #f1f5f9;
+    color: #475569;
+    border-color: #cbd5e1;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+    border-color: #94a3b8;
+}
+
+.btn-danger {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+    box-shadow: 0 2px 5px rgba(220, 38, 38, 0.25);
+}
+
+.item-banco-questao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #f8fafc;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.item-banco-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.badge-id {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2563eb;
+    white-space: nowrap;
+}
+
+.item-banco-texto {
+    margin: 0;
+    font-size: 13px;
+    color: #334155;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.banco-acoes-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.banco-acoes-btn button,
+.banco-acoes-btn .btn-mini-add,
+.btn-mini-compact {
+    font-family: inherit;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    line-height: 1;
+    border: 1px solid transparent;
+}
+
+.btn-preview-banco,
+.banco-acoes-btn .btn-secondary {
+    background-color: #f1f5f9;
+    color: #475569;
+    border-color: #cbd5e1;
+}
+
+.btn-preview-banco:hover,
+.banco-acoes-btn .btn-secondary:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+    border-color: #94a3b8;
+}
+
+.btn-add-banco,
+.banco-acoes-btn .btn-primary,
+.banco-acoes-btn .btn-mini-add {
+    background-color: #eff6ff;
+    color: #2563eb;
+    border-color: #bfdbfe;
+}
+
+.btn-add-banco:hover,
+.banco-acoes-btn .btn-primary:hover,
+.banco-acoes-btn .btn-mini-add:hover {
+    background-color: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 1px 4px rgba(37, 99, 235, 0.2);
+}
+
+.btn:active,
+.banco-acoes-btn button:active,
+.banco-acoes-btn .btn-mini-add:active {
+    transform: scale(0.97);
+}
+
+/* =========================================================
+   5. ÁREA DE EDIÇÃO E BARRA DE FERRAMENTAS DO DOCUMENTO
+   ========================================================= */
 .editor-panel {
     flex: 1;
     display: flex;
@@ -264,7 +527,7 @@ body {
 .editor-toolbar {
     height: 48px;
     background-color: #ffffff;
-    color: #1e293b;
+    color: #0f172a;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -272,7 +535,8 @@ body {
     border-bottom: 1px solid #cbd5e1;
 }
 
-.toolbar-left, .toolbar-right {
+.toolbar-left,
+.toolbar-right {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -289,7 +553,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    background-color: #f1f5f9;
+    background-color: #f8fafc;
     padding: 4px 12px;
     border-radius: 6px;
     border: 1px solid #cbd5e1;
@@ -300,7 +564,7 @@ body {
     align-items: center;
     gap: 6px;
     font-size: 14px;
-    color: #1e293b;
+    color: #0f172a;
 }
 
 .page-box {
@@ -313,7 +577,9 @@ body {
     border: 1px solid #cbd5e1;
 }
 
-.page-slash { color: #64748b; }
+.page-slash {
+    color: #64748b;
+}
 
 .toolbar-divider {
     width: 1px;
@@ -330,7 +596,7 @@ body {
 .btn-zoom-icon {
     background: transparent;
     border: none;
-    color: #334155;
+    color: #0f172a;
     font-size: 16px;
     font-weight: bold;
     width: 24px;
@@ -342,7 +608,10 @@ body {
     border-radius: 3px;
 }
 
-.btn-zoom-icon:hover { background-color: #e2e8f0; color: #0f172a; }
+.btn-zoom-icon:hover {
+    background-color: #e2e8f0;
+    color: #2563eb;
+}
 
 .btn-zoom-value {
     background-color: #ffffff;
@@ -355,7 +624,9 @@ body {
     cursor: pointer;
 }
 
-/* WORKSPACE E FOLHA A4 */
+/* =========================================================
+   6. FOLHA A4 E MONTAGEM DA PROVA
+   ========================================================= */
 .workspace {
     flex: 1;
     padding: 30px;
@@ -384,7 +655,7 @@ body {
     max-height: 297mm !important;
     background-color: white;
     padding: 15mm;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
     position: relative;
     box-sizing: border-box !important;
     display: flex;
@@ -392,7 +663,6 @@ body {
     overflow: hidden;
 }
 
-/* CABEÇALHO DA FOLHA */
 .folha-cabecalho-container {
     margin-bottom: 12px;
     flex-shrink: 0;
@@ -459,7 +729,9 @@ body {
     align-items: center;
 }
 
-.cabecalho-detalhes-row span { font-weight: bold; }
+.cabecalho-detalhes-row span {
+    font-weight: bold;
+}
 
 .prova-titulo-container {
     display: flex;
@@ -491,7 +763,6 @@ body {
     border: 1.5px solid #000;
 }
 
-/* CONTEÚDO E COLUNAS */
 .folha-conteudo {
     flex: 1;
     height: 220mm;
@@ -507,7 +778,9 @@ body {
     column-count: 2;
     column-gap: 8mm;
     column-fill: auto;
-    column-rule: 1px solid #000;
+    column-rule-width: 1.5px;
+    column-rule-style: solid;
+    column-rule-color: #000000;
 }
 
 .folha-rodape {
@@ -524,7 +797,9 @@ body {
     background: white;
 }
 
-/* DESIGN COMPACTO DA QUESTÃO */
+/* =========================================================
+   7. COMPONENTE QUESTÃO - TUDO NA MESMA LINHA
+   ========================================================= */
 .questao {
     border: 1.5px dashed #888;
     background-color: #fff;
@@ -535,55 +810,120 @@ body {
     break-inside: avoid !important;
     -webkit-column-break-inside: avoid !important;
     page-break-inside: avoid !important;
-    display: inline-block;
-    width: 100%;
+    display: block !important;
+    width: 100% !important;
 }
 
-.questao-top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 4px;
-    gap: 6px;
+/* CABEÇALHO DA QUESTÃO: TÍTULO, AÇÕES E DESCRITOR NA MESMA LINHA */
+.questao-top-bar,
+.questao-header,
+.questao-toolbar {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    margin-bottom: 6px !important;
+    gap: 4px !important;
 }
 
-.questao-top-left {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+/* Título (ex: QUESTÃO 1) */
+.questao-retangulo-titulo,
+.questao-titulo {
+    border: 1px solid #1e293b !important;
+    padding: 1px 6px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    background-color: #f1f5f9 !important;
+    border-radius: 3px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 20px !important;
 }
 
-.questao-retangulo-titulo {
-    border: 1.5px solid #000;
-    padding: 2px 8px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-    background-color: #f5f5f5;
-    display: inline-block;
-    white-space: nowrap;
+/* Botões de Ação (+E, -E, setas, lixeira) */
+.questao-acoes,
+.controles-questao {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 3px !important;
+    flex-wrap: nowrap !important;
+    flex-shrink: 0 !important;
+}
+
+.questao-acoes button,
+.controles-questao button {
+    height: 20px !important;
+    min-width: 20px !important;
+    padding: 0 5px !important;
+    font-size: 9.5px !important;
+    font-weight: 600 !important;
+    border-radius: 3px !important;
+    border: 1px solid #cbd5e1 !important;
+    background-color: #ffffff !important;
+    color: #334155 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    transition: all 0.15s ease !important;
+}
+
+.questao-acoes button:hover,
+.controles-questao button:hover {
+    background-color: #e2e8f0 !important;
+    border-color: #94a3b8 !important;
+    color: #0f172a !important;
+}
+
+.questao-acoes button.btn-del,
+.questao-acoes button[title*="Excluir"],
+.questao-acoes button[title*="Remover"],
+.controles-questao button.btn-del {
+    background-color: #fef2f2 !important;
+    color: #dc2626 !important;
+    border-color: #fca5a5 !important;
+}
+
+.questao-acoes button.btn-del:hover,
+.controles-questao button.btn-del:hover {
+    background-color: #dc2626 !important;
+    color: #ffffff !important;
+    border-color: #dc2626 !important;
+}
+
+.questao-acoes span,
+.controles-questao span {
+    font-size: 9.5px !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+    padding: 0 2px !important;
+    white-space: nowrap !important;
+}
+
+/* Tag do Descritor (ex: D13) */
+.questao-descritor-tag,
+.descritor-tag {
+    font-size: 10px !important;
+    font-weight: bold !important;
+    color: #000 !important;
+    background-color: #e0e0e0 !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
 }
 
 .questao-linha-divisoria {
     border-bottom: 1.5px solid #000;
     margin-bottom: 6px;
-}
-
-.questao-descritor-tag {
-    font-size: 10.5px;
-    font-weight: bold;
-    color: #000;
-    background-color: #e0e0e0;
-    padding: 1px 6px;
-    border-radius: 3px;
-    cursor: help;
-    white-space: nowrap;
-}
-
-.questao-acoes {
-    display: flex;
-    align-items: center;
-    gap: 2px;
 }
 
 .questao-corpo {
@@ -600,7 +940,7 @@ body {
     display: block;
 }
 
-/* ALTERNATIVAS */
+/* ALTERNATIVAS NA HORIZONTAL (A, B, C, D LADO A LADO) */
 .questao-alternativas {
     margin-top: 6px;
     display: flex;
@@ -613,10 +953,15 @@ body {
     flex-direction: column;
 }
 
-.questao-alternativas.horizontal {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 6px 12px;
+.questao-alternativas.horizontal,
+.questao-alternativas[data-disposicao="horizontal"] {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 4px !important;
 }
 
 .opcao-alt {
@@ -627,13 +972,19 @@ body {
     word-break: break-word;
 }
 
-.questao-alternativas.horizontal .opcao-alt {
-    flex: 1 1 auto;
-    min-width: 40px;
+.questao-alternativas.horizontal .opcao-alt,
+.questao-alternativas[data-disposicao="horizontal"] .opcao-alt {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
 }
 
 .gabarito-tag {
-    background-color: #27ae60;
+    background-color: #16a34a;
     color: white;
     font-weight: bold;
     font-size: 9px;
@@ -641,6 +992,7 @@ body {
     border-radius: 3px;
     margin-left: 3px;
     display: inline-block;
+    flex-shrink: 0;
 }
 
 .espaco-calculo {
@@ -665,11 +1017,11 @@ body {
     height: 100%;
     padding: 6px 8px;
     background-color: rgba(234, 250, 241, 0.95);
-    border: 1px solid #27ae60;
+    border: 1px solid #16a34a;
     border-radius: 2px;
     font-size: 10px;
     line-height: 1.3;
-    color: #1e8449;
+    color: #15803d;
     overflow: hidden;
     box-sizing: border-box;
 }
@@ -677,39 +1029,23 @@ body {
 .questao-corpo > .gabarito-subjetiva {
     margin-top: 6px;
     padding: 6px 8px;
-    background-color: #eafaf1;
-    border: 1px solid #27ae60;
+    background-color: #f0fdf4;
+    border: 1px solid #16a34a;
     border-radius: 4px;
     font-size: 10px;
-    color: #1e8449;
+    color: #15803d;
 }
 
-/* BOTÕES DE QUESTÃO */
-.btn-mini-compact {
-    padding: 1px 4px;
-    font-size: 9px;
-    background: #e0e0e0;
-    border: 1px solid #aaa;
-    border-radius: 3px;
-    cursor: pointer;
-    line-height: 1.1;
-}
-
-.btn-mini-compact:hover { background: #ccc; }
-.btn-move { background: #3498db; color: white; border: none; font-weight: bold; }
-.btn-move:disabled { background: #bdc3c7; cursor: not-allowed; opacity: 0.6; }
-.btn-del { background: #e74c3c; color: white; border: none; }
-
-.espaco-tag { font-size: 9px; color: #333; font-weight: bold; margin: 0 2px; }
-
-/* MODAIS E BOTÕES */
+/* =========================================================
+   8. MODAIS, RODAPÉ E PLACEHOLDERS
+   ========================================================= */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(15, 23, 42, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -722,7 +1058,7 @@ body {
     max-width: 550px;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
 }
@@ -736,7 +1072,9 @@ body {
     justify-content: space-between;
 }
 
-.modal-header h3 { font-size: 15px; }
+.modal-header h3 {
+    font-size: 15px;
+}
 
 .modal-close {
     background: transparent;
@@ -760,28 +1098,6 @@ body {
     justify-content: flex-end;
 }
 
-.btn {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    color: white;
-}
-
-.btn-primary { background-color: #16a34a; }
-.btn-primary:hover { background-color: #15803d; }
-.btn-secondary { background-color: #2563eb; }
-.btn-secondary:hover { background-color: #1d4ed8; }
-.btn-danger { background-color: #dc2626; }
-.btn-danger:hover { background-color: #b91c1c; }
-.btn-print { background-color: #9333ea; }
-.btn-print:hover { background-color: #7e22ce; }
-
-.btn-toggle-gabarito { background-color: #d97706; color: #fff; }
-.btn-toggle-gabarito.ativo { background-color: #16a34a; }
-
 .btn-expand-sidebar {
     background: #ffffff;
     color: #0f172a;
@@ -792,78 +1108,27 @@ body {
     font-size: 13px;
 }
 
-.hidden { display: none !important; }
+.hidden {
+    display: none !important;
+}
 
 .app-footer {
     height: 30px;
-    background-color: #1e293b;
+    background-color: #0f172a;
     color: #94a3b8;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 15px;
     font-size: 12px;
-    border-top: 1px solid #0f172a;
+    border-top: 1px solid #020617;
     z-index: 100;
 }
 
-/* ITENS DO BANCO DE QUESTÕES */
-.item-banco-questao {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 10px;
-    margin-bottom: 8px;
-    background-color: #f8fafc;
-    border-radius: 6px;
-    border: 1px solid #e2e8f0;
-}
-
-.item-banco-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
-}
-
-.badge-id {
-    font-size: 12px;
-    font-weight: bold;
-    color: #2563eb;
-    white-space: nowrap;
-}
-
-.item-banco-texto {
-    margin: 0;
-    font-size: 13px;
-    color: #334155;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.banco-acoes-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
-}
-
-.banco-acoes-btn .btn-mini-add {
-    padding: 5px 9px;
-    font-size: 12px;
-    line-height: 1;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* MENSAGEM PROVA VAZIA */
 .mensagem-prova-vazia {
     column-span: all;
-    -webkit-column-span: all; 
-    grid-column: 1 / -1; 
+    -webkit-column-span: all;
+    grid-column: 1 / -1;
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -900,7 +1165,9 @@ body {
     line-height: 1.5;
 }
 
-/* REGRAS DE IMPRESSÃO */
+/* =========================================================
+   9. REGRAS DE IMPRESSÃO
+   ========================================================= */
 @page {
     size: A4 portrait;
     margin: 0 !important;
@@ -914,6 +1181,8 @@ body {
         width: 210mm;
         height: 297mm;
         overflow: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 
     .app-header, .app-footer, .sidebar-panel, .editor-toolbar, .modal-overlay { 
@@ -950,46 +1219,20 @@ body {
         margin-bottom: 12px !important;
     }
 
-    .questao-acoes { 
+    .questao-acoes, .controles-questao { 
         display: none !important; 
     }
 
     .folha-conteudo.duas-colunas {
-        column-rule: 1.5px solid #000 !important;
+        column-count: 2 !important;
+        column-gap: 8mm !important;
+        column-rule-width: 1.5px !important;
+        column-rule-style: solid !important;
+        column-rule-color: #000000 !important;
+        -webkit-column-rule-width: 1.5px !important;
+        -webkit-column-rule-style: solid !important;
+        -webkit-column-rule-color: #000000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
-}
-
-/* MENSAGEM DE INSTRUÇÃO (ex: Selecione um descritor / Nenhuma questão) */
-.msg-orientacao {
-    font-size: 12.5px;
-    line-height: 1.4;
-    color: #475569;
-    background-color: #f1f5f9;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    padding: 10px;
-    margin-top: 8px;
-}
-
-/* MENSAGEM DE ERRO (ex: Não foi possível carregar as questões) */
-.msg-erro-banco {
-    font-size: 12.5px;
-    line-height: 1.4;
-    color: #991b1b;
-    background-color: #fef2f2;
-    border: 1px solid #fca5a5;
-    border-radius: 6px;
-    padding: 10px;
-    margin-top: 8px;
-}
-
-/* DESTAQUE PARA NOME DE ARQUIVOS (code) DENTRO DO ERRO */
-.msg-erro-banco code {
-    background-color: #fee2e2;
-    color: #7f1d1d;
-    padding: 2px 5px;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 11.5px;
-    font-weight: 600;
 }
