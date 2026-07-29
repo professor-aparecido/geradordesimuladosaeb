@@ -291,7 +291,7 @@ async function carregarBancoPorDescritor() {
     containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Carregando questões...</p>';
 
     try {
-        const response = await fetch(`./${descritorSelecionado}.json`);
+        const response = await fetch(`./questoes/${descritorSelecionado}.json`);
 
         if (!response.ok) {
             throw new Error(`Arquivo ${descritorSelecionado}.json não encontrado.`);
@@ -311,7 +311,7 @@ async function carregarBancoPorDescritor() {
         containerBancoQuestoes.innerHTML = `
             <div class="msg-erro-banco">
                 ⚠️ Não foi possível carregar as questões do descritor <strong>${descritorSelecionado.toUpperCase()}</strong>.
-                <br><small>Verifique se o arquivo <code>${descritorSelecionado}.json</code> está na raiz do projeto.</small>
+                <br><small>Verifique se o arquivo <code>questoes/${descritorSelecionado}.json</code> existe.</small>
             </div>
         `;
     }
