@@ -263,9 +263,10 @@
             <div class="modal-body" id="modalBodyContent">
                 <!-- Conteúdo renderizado via JS -->
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" id="btnModalFechar">Fechar</button>
-            </div>
+           <div class="modal-footer">
+    <button class="btn btn-secondary" id="btnModalFechar" type="button" onclick="modalPreview.classList.add('hidden')">Fechar</button>
+    <button class="btn btn-primary" id="btnModalAdicionar" type="button" onclick="adicionarQuestaoDoModal()">➕ Adicionar</button>
+</div>
         </div>
     </div>
 
