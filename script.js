@@ -576,7 +576,7 @@ function criarNovaFolha(numPagina) {
                 </div>
 
                 <div class="prova-titulo-container">
-                    <div class="prova-titulo">${dadosCabecalho.tituloProva} ${exibirGabaritoProfessor ? ' (GABARITO DO PROFESSOR)' : ''}</div>
+                    <div class="prova-titulo">${dadosCabecalho.tituloProva} ${exibirGabaritoProfessor ? ' (GABARITO)' : ''}</div>
                     <div class="prova-nota-box">
                         NOTA: <div class="box-nota-quadrado"></div>
                     </div>
