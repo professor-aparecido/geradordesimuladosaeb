@@ -31,212 +31,181 @@
         
         <!-- COLUNA ESQUERDA (MENU LATERAL) -->
         <aside class="sidebar-panel" id="sidebar">
-    <div class="sidebar-header">
-        <h2>Painel de Controle</h2>
-        <button class="btn-toggle-sidebar" id="btnToggleSidebar" title="Recolher Menu">◀</button>
-    </div>
-    
-    <div class="sidebar-content">
-        
-        <!-- SEÇÃO 1: CONFIGURAÇÃO DE CABEÇALHO -->
-        <div class="accordion-item" id="accCabecalho">
-            <div class="accordion-header" id="btnToggleCabecalho" title="Clique para expandir/recolher">
-                <div class="acc-title-group">
-                    <span class="acc-icon">⚙️</span>
-                    <span class="acc-title">Configuração de Cabeçalho</span>
-                </div>
-                <button class="btn-acc-toggle" id="btnAccIcon">▼</button>
+            <div class="sidebar-header">
+                <h2>Painel de Controle</h2>
+                <button class="btn-toggle-sidebar" id="btnToggleSidebar" title="Recolher Menu">◀</button>
             </div>
-
-            <div class="accordion-body collapsed" id="bodyCabecalho">
-                <div class="form-group">
-                    <label for="inputNomeEscola">Nome da Escola:</label>
-                    <input type="text" id="inputNomeEscola" class="form-input" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR">
-                </div>
-
-                <div class="form-group">
-                    <label for="inputLogoEscola">Upload da Logo da Escola:</label>
-                    <input type="file" id="inputLogoEscola" accept="image/*" class="form-input-file">
-                </div>
-
-                <div class="form-group">
-                    <label for="inputTituloProva">Título da Prova / Simulado:</label>
-                    <input type="text" id="inputTituloProva" class="form-input" value="SIMULADO DE MATEMÁTICA - SAEB 2026">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-6">
-                        <label for="inputSerie">Série / Etapa:</label>
-                        <input type="text" id="inputSerie" class="form-input" value="8º ANO">
+            
+            <div class="sidebar-content">
+                
+                <!-- SEÇÃO 1: CONFIGURAÇÃO DE CABEÇALHO -->
+                <div class="accordion-item" id="accCabecalho">
+                    <div class="accordion-header" id="btnToggleCabecalho" title="Clique para expandir/recolher">
+                        <div class="acc-title-group">
+                            <span class="acc-icon">⚙️</span>
+                            <span class="acc-title">Configuração de Cabeçalho</span>
+                        </div>
+                        <button class="btn-acc-toggle" id="btnAccIcon">▼</button>
                     </div>
-                    <div class="form-group col-6">
-                        <label for="inputTurma">Turma:</label>
-                        <input type="text" id="inputTurma" class="form-input" value="A">
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="inputProfessor">Professor(a):</label>
-                    <input type="text" id="inputProfessor" class="form-input" value="Aparecido Sousa">
-                </div>
-            </div>
-        </div>
+                    <div class="accordion-body collapsed" id="bodyCabecalho">
+                        <div class="form-group">
+                            <label for="inputNomeEscola">Nome da Escola:</label>
+                            <input type="text" id="inputNomeEscola" class="form-input" value="ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR">
+                        </div>
 
-        <!-- SEÇÃO 2: CRIAR QUESTÕES -->
-        <div class="accordion-item" id="accCriarQuestao">
-            <div class="accordion-header" id="btnToggleCriarQuestao" title="Clique para expandir/recolher">
-                <div class="acc-title-group">
-                    <span class="acc-icon">📝</span>
-                    <span class="acc-title">Criar Questões</span>
-                </div>
-                <button class="btn-acc-toggle" id="btnAccIconQuestao">▼</button>
-            </div>
+                        <div class="form-group">
+                            <label for="inputLogoEscola">Upload da Logo da Escola:</label>
+                            <input type="file" id="inputLogoEscola" accept="image/*" class="form-input-file">
+                        </div>
 
-            <div class="accordion-body collapsed" id="bodyCriarQuestao">
-                <div class="form-group">
-                    <label for="inputCodigoDescritor">Código do Descritor (Ex: D1, D13, D20):</label>
-                    <input type="text" id="inputCodigoDescritor" class="form-input" placeholder="Digite ex: D13">
-                </div>
+                        <div class="form-group">
+                            <label for="inputTituloProva">Título da Prova / Simulado:</label>
+                            <input type="text" id="inputTituloProva" class="form-input" value="SIMULADO DE MATEMÁTICA - SAEB 2026">
+                        </div>
 
-                <div class="form-group">
-                    <label for="inputEnunciado">Enunciado da Questão (Aceita LaTeX ex: $x^2 + 5 = 9$):</label>
-                    <textarea id="inputEnunciado" class="form-textarea" rows="4" placeholder="Digite o enunciado da questão..."></textarea>
-                </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="inputSerie">Série / Etapa:</label>
+                                <input type="text" id="inputSerie" class="form-input" value="8º ANO">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="inputTurma">Turma:</label>
+                                <input type="text" id="inputTurma" class="form-input" value="A">
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label for="inputImagemQuestao">Imagem da Questão (Opcional):</label>
-                    <input type="file" id="inputImagemQuestao" accept="image/*" class="form-input-file">
-                </div>
-
-                <div class="form-group">
-                    <label>Tipo de Questão:</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="tipoQuestao" value="alternativas" checked> Com Alternativas</label>
-                        <label><input type="radio" name="tipoQuestao" value="subjetiva"> Subjetiva</label>
-                    </div>
-                </div>
-
-                <!-- CAMPOS PARA QUESTÃO COM ALTERNATIVAS -->
-                <div id="painelAlternativas" class="painel-tipo">
-                    <div class="form-group">
-                        <label>Layout das Alternativas:</label>
-                        <div class="radio-group">
-                            <label><input type="radio" name="disposicaoAlt" value="vertical" checked> Vertical</label>
-                            <label><input type="radio" name="disposicaoAlt" value="horizontal"> Horizontal</label>
+                        <div class="form-group">
+                            <label for="inputProfessor">Professor(a):</label>
+                            <input type="text" id="inputProfessor" class="form-input" value="Aparecido Sousa">
                         </div>
                     </div>
+                </div>
 
-                    <label class="section-label">Alternativas e Gabarito:</label>
-                    <div class="alternativa-row">
-                        <input type="radio" name="gabarito" value="A" checked title="Marcar como correta">
-                        <span>A)</span>
-                        <input type="text" class="form-input input-alt" id="altA" placeholder="Alternativa A">
+                <!-- SEÇÃO 2: CRIAR QUESTÕES -->
+                <div class="accordion-item" id="accCriarQuestao">
+                    <div class="accordion-header" id="btnToggleCriarQuestao" title="Clique para expandir/recolher">
+                        <div class="acc-title-group">
+                            <span class="acc-icon">📝</span>
+                            <span class="acc-title">Criar Questões</span>
+                        </div>
+                        <button class="btn-acc-toggle" id="btnAccIconQuestao">▼</button>
                     </div>
-                    <div class="alternativa-row">
-                        <input type="radio" name="gabarito" value="B" title="Marcar como correta">
-                        <span>B)</span>
-                        <input type="text" class="form-input input-alt" id="altB" placeholder="Alternativa B">
-                    </div>
-                    <div class="alternativa-row">
-                        <input type="radio" name="gabarito" value="C" title="Marcar como correta">
-                        <span>C)</span>
-                        <input type="text" class="form-input input-alt" id="altC" placeholder="Alternativa C">
-                    </div>
-                    <div class="alternativa-row">
-                        <input type="radio" name="gabarito" value="D" title="Marcar como correta">
-                        <span>D)</span>
-                        <input type="text" class="form-input input-alt" id="altD" placeholder="Alternativa D">
+
+                    <div class="accordion-body collapsed" id="bodyCriarQuestao">
+                        <div class="form-group">
+                            <label for="inputCodigoDescritor">Código do Descritor (Ex: D1, D13, D20):</label>
+                            <input type="text" id="inputCodigoDescritor" class="form-input" placeholder="Digite ex: D13">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEnunciado">Enunciado da Questão (Aceita LaTeX ex: $x^2 + 5 = 9$):</label>
+                            <textarea id="inputEnunciado" class="form-textarea" rows="4" placeholder="Digite o enunciado da questão..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputImagemQuestao">Imagem da Questão (Opcional):</label>
+                            <input type="file" id="inputImagemQuestao" accept="image/*" class="form-input-file">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tipo de Questão:</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="tipoQuestao" value="alternativas" checked> Com Alternativas</label>
+                                <label><input type="radio" name="tipoQuestao" value="subjetiva"> Subjetiva</label>
+                            </div>
+                        </div>
+
+                        <!-- CAMPOS PARA QUESTÃO COM ALTERNATIVAS -->
+                        <div id="painelAlternativas" class="painel-tipo">
+                            <div class="form-group">
+                                <label>Layout das Alternativas:</label>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="disposicaoAlt" value="vertical" checked> Vertical</label>
+                                    <label><input type="radio" name="disposicaoAlt" value="horizontal"> Horizontal</label>
+                                </div>
+                            </div>
+
+                            <label class="section-label">Alternativas e Gabarito:</label>
+                            <div class="alternativa-row">
+                                <input type="radio" name="gabarito" value="A" checked title="Marcar como correta">
+                                <span>A)</span>
+                                <input type="text" class="form-input input-alt" id="altA" placeholder="Alternativa A">
+                            </div>
+                            <div class="alternativa-row">
+                                <input type="radio" name="gabarito" value="B" title="Marcar como correta">
+                                <span>B)</span>
+                                <input type="text" class="form-input input-alt" id="altB" placeholder="Alternativa B">
+                            </div>
+                            <div class="alternativa-row">
+                                <input type="radio" name="gabarito" value="C" title="Marcar como correta">
+                                <span>C)</span>
+                                <input type="text" class="form-input input-alt" id="altC" placeholder="Alternativa C">
+                            </div>
+                            <div class="alternativa-row">
+                                <input type="radio" name="gabarito" value="D" title="Marcar como correta">
+                                <span>D)</span>
+                                <input type="text" class="form-input input-alt" id="altD" placeholder="Alternativa D">
+                            </div>
+                        </div>
+
+                        <!-- CAMPOS PARA QUESTÃO SUBJETIVA -->
+                        <div id="painelSubjetiva" class="painel-tipo hidden">
+                            <div class="form-group">
+                                <label for="inputRespostaGabarito">Gabarito / Resposta Esperada:</label>
+                                <textarea id="inputRespostaGabarito" class="form-textarea" rows="2" placeholder="Digite a resposta oficial..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- CONFIGURAÇÃO DE ESPAÇO INICIAL -->
+                        <div class="form-group" style="margin-top: 8px;">
+                            <label for="inputAlturaCalculo">Espaço para Cálculo / Rascunho (px):</label>
+                            <input type="number" id="inputAlturaCalculo" class="form-input" value="0" min="0" step="10">
+                        </div>
+
+                        <!-- BOTÕES DE AÇÃO -->
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" id="btnPreVisualizar">👁️ Pré-visualizar</button>
+                            <button class="btn btn-primary" id="btnAdicionarQuestao">➕ Adicionar</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- CAMPOS PARA QUESTÃO SUBJETIVA -->
-                <div id="painelSubjetiva" class="painel-tipo hidden">
-                    <div class="form-group">
-                        <label for="inputRespostaGabarito">Gabarito / Resposta Esperada:</label>
-                        <textarea id="inputRespostaGabarito" class="form-textarea" rows="2" placeholder="Digite a resposta oficial..."></textarea>
+                <!-- SEÇÃO 3: BANCO DE QUESTÕES (ATUALIZADO COM CAMPO PESQUISÁVEL) -->
+                <div class="accordion-item" id="accBancoQuestoes">
+                    <div class="accordion-header" id="btnToggleBanco" title="Clique para expandir/recolher">
+                        <div class="acc-title-group">
+                            <span class="acc-icon">📚</span>
+                            <span class="acc-title">Banco de Questões (SAEB)</span>
+                        </div>
+                        <button class="btn-acc-toggle" id="btnAccIconBanco">▼</button>
+                    </div>
+
+                    <div class="accordion-body collapsed" id="bodyBanco">
+                        <div class="form-group">
+                            <label for="selectDescritorBanco">Digite ou Selecione o Descritor:</label>
+                            <input 
+                                type="text" 
+                                id="selectDescritorBanco" 
+                                list="listaDescritores" 
+                                class="form-input" 
+                                placeholder="Ex: D1, D12 ou digite palavra-chave..." 
+                                autocomplete="off"
+                            >
+                            <datalist id="listaDescritores">
+                             <!-- As opções são geradas dinamicamente via JS (popularDatalistDescritores) -->
+                            </datalist>
+
+                        <!-- LISTA ONDE AS QUESTÕES DO BANCO SERÃO EXIBIDAS -->
+                        <div id="containerBancoQuestoes" class="banco-lista">
+                            <p class="msg-orientacao">Digite ou escolha um descritor acima para carregar as questões.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- CONFIGURAÇÃO DE ESPAÇO INICIAL -->
-                <div class="form-group" style="margin-top: 8px;">
-                    <label for="inputAlturaCalculo">Espaço para Cálculo / Rascunho (px):</label>
-                    <input type="number" id="inputAlturaCalculo" class="form-input" value="0" min="0" step="10">
-                </div>
-
-                <!-- BOTÕES DE AÇÃO -->
-                <div class="form-actions">
-                    <button class="btn btn-secondary" id="btnPreVisualizar">👁️ Pré-visualizar</button>
-                    <button class="btn btn-primary" id="btnAdicionarQuestao">➕ Adicionar</button>
-                </div>
             </div>
-        </div>
-
-        <!-- SEÇÃO 3: BANCO DE QUESTÕES (NOVO BLOCO) -->
-        <div class="accordion-item" id="accBancoQuestoes">
-            <div class="accordion-header" id="btnToggleBanco" title="Clique para expandir/recolher">
-                <div class="acc-title-group">
-                    <span class="acc-icon">📚</span>
-                    <span class="acc-title">Banco de Questões (SAEB)</span>
-                </div>
-                <button class="btn-acc-toggle" id="btnAccIconBanco">▼</button>
-            </div>
-
-            <div class="accordion-body collapsed" id="bodyBanco">
-                <div class="form-group">
-                    <label for="selectDescritorBanco">Selecione o Descritor:</label>
-                    <select id="selectDescritorBanco" class="form-input" onchange="carregarBancoPorDescritor()">
-                        <option value="">-- Escolha um Descritor --</option>
-                        <option value="d1">D1 - Identificar a localização/movimentação...</option>
-                        <option value="d2">D2 - Identificar propriedades comuns...</option>
-                        <option value="d3">D3 - Identificar propriedades de triângulos...</option> 
-                        <option value="d4">D4 - Identificar relação...</option>
-                        <option value="d5">D5 - Reconhecer a conservação...</option>
-                        <option value="d6">D6 - Reconhecer ângulos como...</option>
-                        <option value="d7">D7 - Reconhecer que as imagens...</option>
-                        <option value="d8">D8 - Resolver problema utilizando...</option>
-                        <option value="d9">D9 - Interpretar informações...</option>
-                        <option value="d10">D10 - Utilizar relações métricas...</option>
-                        <option value="d11">D11 - Reconhecer círculo/circunferência...</option>
-                        <option value="d12">D12 - Resolver problema envolvendo...</option>
-                        <option value="d13">D13 - Resolver problema envolvendo...</option>
-                        <option value="d14">D14 - Resolver problema envolvendo...</option>
-                        <option value="d15">D15 - Resolver problema utilizando...</option>
-                        <option value="d16">D16 - Identificar a localização...</option>
-                        <option value="d17">D17 - Identificar a localização...</option>
-                        <option value="d18">D18 - Resolver problema envolvendo...</option>
-                        <option value="d19">D19 - Resolver problema envolvendo...</option>
-                        <option value="d20">D20 - Resolver problema envolvendo...</option>
-                        <option value="d21">D21 - Resolver problema utilizando...</option>
-                        <option value="d22">D22 - Identificar a localização...</option>
-                        <option value="d23">D23 - Identificar a localização...</option>
-                        <option value="d24">D24 - Identificar a localização...</option>
-                        <option value="d25">D25 - Identificar a localização...</option>
-                        <option value="d26">D26 - Identificar a localização...</option>                        
-                        <option value="d27">D27 - Resolver problema utilizando...</option>
-                        <option value="d28">D28 - Identificar a localização...</option>
-                        <option value="d29">D29 - Identificar a localização...</option>
-                        <option value="d30">D30 - Identificar a localização...</option>
-                        <option value="d31">D31 - Identificar a localização...</option>
-                        <option value="d32">D32 - Identificar a localização...</option> 
-                        <option value="d33">D33 - Identificar a localização...</option>
-                        <option value="d34">D34 - Identificar a localização...</option>
-                        <option value="d35">D35 - Identificar a localização...</option>
-                        <option value="d36">D36 - Identificar a localização...</option>
-                        <!-- Adicione aqui os demais descritores conforme criar os JSONs -->
-                    </select>
-                </div>
-
-                <!-- LISTA ONDE AS QUESTÕES DO BANCO SERÃO EXIBIDAS -->
-                <div id="containerBancoQuestoes" class="banco-lista">
-                    <p class="msg-orientacao">Selecione um descritor acima para carregar as questões.</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    
-</aside>
-
+            
+        </aside>
 
         <!-- COLUNA DIREITA (EDITOR / LEITOR DE PÁGINAS) -->
         <section class="editor-panel">
@@ -295,10 +264,10 @@
             <div class="modal-body" id="modalBodyContent">
                 <!-- Conteúdo renderizado via JS -->
             </div>
-           <div class="modal-footer">
-    <button class="btn btn-secondary" id="btnModalFechar" type="button" onclick="modalPreview.classList.add('hidden')">Fechar</button>
-    <button class="btn btn-primary" id="btnModalAdicionar" type="button" onclick="adicionarQuestaoDoModal()">➕ Adicionar</button>
-</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btnModalFechar" type="button" onclick="modalPreview.classList.add('hidden')">Fechar</button>
+                <button class="btn btn-primary" id="btnModalAdicionar" type="button" onclick="adicionarQuestaoDoModal()">➕ Adicionar</button>
+            </div>
         </div>
     </div>
 
