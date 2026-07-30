@@ -1168,6 +1168,26 @@ body {
     line-height: 1.5;
 }
 
+/* Limita a altura da lista e cria a barra de rolagem quando houver muitas questões */
+#containerBancoQuestoes, 
+#listaQuestoesBanco {
+    max-height: 400px; /* Altura máxima para mostrar cerca de 6 a 8 questões por vez */
+    overflow-y: auto;  /* Adiciona a barra de rolagem vertical automaticamente */
+    padding-right: 5px; /* Espaço para a barra de rolagem não cobrir os botões */
+}
+
+/* Personaliza a barra de rolagem para ficar discreta */
+#containerBancoQuestoes::-webkit-scrollbar,
+#listaQuestoesBanco::-webkit-scrollbar {
+    width: 6px;
+}
+
+#containerBancoQuestoes::-webkit-scrollbar-thumb,
+#listaQuestoesBanco::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
 /* =========================================================
    9. REGRAS DE IMPRESSÃO
    ========================================================= */
@@ -1238,24 +1258,4 @@ body {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
     }
-}
-
-/* Limita a altura da lista e cria a barra de rolagem quando houver muitas questões */
-#containerBancoQuestoes, 
-#listaQuestoesBanco {
-    max-height: 400px; /* Altura máxima para mostrar cerca de 6 a 8 questões por vez */
-    overflow-y: auto;  /* Adiciona a barra de rolagem vertical automaticamente */
-    padding-right: 5px; /* Espaço para a barra de rolagem não cobrir os botões */
-}
-
-/* Personaliza a barra de rolagem para ficar discreta */
-#containerBancoQuestoes::-webkit-scrollbar,
-#listaQuestoesBanco::-webkit-scrollbar {
-    width: 6px;
-}
-
-#containerBancoQuestoes::-webkit-scrollbar-thumb,
-#listaQuestoesBanco::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 4px;
 }
