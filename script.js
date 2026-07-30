@@ -34,14 +34,6 @@ const BASE_DESCRITORES = {
     "D31": "Resolver problema envolvendo informações apresentadas em tabelas e/ou gráficos.",
     "D32": "Resolver problema envolvendo a média aritmética.",
     "D33": "Resolver problema envolvendo o cálculo de probabilidade de um evento.",
-
-    // LÍNGUA PORTUGUESA (EXEMPLOS)
-    "D1_LP": "Localizar informações explícitas em um texto.",
-    "D2_LP": "Estabelecer relações entre partes de um texto, identificando repetições ou substituições.",
-    "D3_LP": "Inferir o sentido de uma palavra ou expressão.",
-    "D4_LP": "Inferir uma informação implícita em um texto.",
-    "D5_LP": "Interpretar texto com auxílio de material gráfico diverso (propagandas, quadrinhos, foto).",
-    "D6_LP": "Identificar o tema de um texto."
 };
 
 // ESTADO GLOBAL DA APLICAÇÃO
@@ -278,23 +270,53 @@ btnAdicionarQuestao.addEventListener('click', () => {
 // ===================================================
 // 3. FUNÇÕES DO BANCO DE QUESTÕES (BLOCO 3)
 // ===================================================
+// POPULA O DATALIST EXIBINDO APENAS UMA LINHA COM O TEXTO EM MAIÚSCULAS
+function popularDatalistDescritores() {
+    const listaDatalist = document.getElementById('listaDescritores');
+    if (!listaDatalist) return;
+
+    listaDatalist.innerHTML = '';
+
+    Object.keys(BASE_DESCRITORES).forEach(codigo => {
+        const option = document.createElement('option');
+        // Ao definir APENAS o value com a frase em MAIÚSCULA, o navegador exibe 1 única linha limpa
+        option.value = `${codigo.toUpperCase()} - ${BASE_DESCRITORES[codigo]}`;
+        listaDatalist.appendChild(option);
+    });
+}
+
+// BUSCA E CARREGA O ARQUIVO JSON DO DESCRITOR SELECIONADO/DIGITADO
 async function carregarBancoPorDescritor() {
     if (!selectDescritorBanco) return;
-    const descritorSelecionado = selectDescritorBanco.value; // Ex: "d1", "d2"
+    
+    let valorDigitado = selectDescritorBanco.value.trim();
 
-    if (!descritorSelecionado) {
-        containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Selecione um descritor acima para carregar as questões.</p>';
+    if (!valorDigitado) {
+        containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Digite ou escolha um descritor acima para carregar as questões.</p>';
         questaoBancoCarregadas = [];
         return;
     }
 
+    // Extrai apenas o código (ex: de "D1 - Identificar..." extrai "D1")
+    const match = valorDigitado.match(/d\d+(_lp)?/i);
+    const codigoFormatado = match ? match[0].toUpperCase() : valorDigitado.split(' ')[0].toUpperCase();
+
+    // 💡 AQUI ESTÁ O TRUQUE: Se o campo contiver mais do que só o código, 
+    // atualizamos o input para exibir Apenas o Código (ex: D1)
+    if (selectDescritorBanco.value !== codigoFormatado) {
+        selectDescritorBanco.value = codigoFormatado;
+    }
+
+    // Nome do arquivo .json em minúsculo (ex: "d1")
+    const arquivoJson = codigoFormatado.toLowerCase();
+
     containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Carregando questões...</p>';
 
     try {
-        const response = await fetch(`./questoes/${descritorSelecionado}.json`);
+        const response = await fetch(`./questoes/${arquivoJson}.json`);
 
         if (!response.ok) {
-            throw new Error(`Arquivo ${descritorSelecionado}.json não encontrado.`);
+            throw new Error(`Arquivo ${arquivoJson}.json não encontrado em ./questoes/`);
         }
 
         questaoBancoCarregadas = await response.json();
@@ -310,12 +332,20 @@ async function carregarBancoPorDescritor() {
         console.error("Erro ao carregar banco:", error);
         containerBancoQuestoes.innerHTML = `
             <div class="msg-erro-banco">
-                ⚠️ Não foi possível carregar as questões do descritor <strong>${descritorSelecionado.toUpperCase()}</strong>.
-                <br><small>Verifique se o arquivo <code>questoes/${descritorSelecionado}.json</code> existe.</small>
+                ⚠️ Não foi possível carregar as questões do descritor <strong>${codigoFormatado}</strong>.
+                <br><small>Verifique se o arquivo <code>questoes/${arquivoJson}.json</code> existe.</small>
             </div>
         `;
     }
 }
+
+// LISTENERS E INICIALIZAÇÃO
+if (selectDescritorBanco) {
+    popularDatalistDescritores(); // Preenche as opções do datalist no início
+    selectDescritorBanco.addEventListener('input', carregarBancoPorDescritor);
+    selectDescritorBanco.addEventListener('change', carregarBancoPorDescritor);
+}
+
 
 // Renderiza a lista do Banco de Questões com Botões de Pré-Visualizar e Adicionar
 function renderizarListaBanco(questoes) {
