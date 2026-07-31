@@ -2,7 +2,7 @@
   {
     "id": "q1_d31",
     "codigoDescritor": "D31",
-    "texto": "(CAED) Durante essa festa de inauguração, foram utilizadas 36 cadeiras e determinada quantidade x de mesas no salão. A quantidade x de mesas pode ser determinada pela equação polinomial de 2º grau apresentada no quadro abaixo.\n\n$\\boxed{\\frac{x^2}{4} = 36}$\n\nQual é o conjunto S solução dessa equação?",
+    "texto": "(CAED) Durante essa festa de inauguração, foram utilizadas 36 cadeiras e determinada quantidade x de mesas no salão. A quantidade x de mesas pode ser determinada pela equação polinomial de 2º grau apresentada no quadro abaixo.\n\n$$\\frac{x^2}{4} = 36$$\n\nQual é o conjunto S solução dessa equação?",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -17,7 +17,7 @@
 {
     "id": "q2_d31",
     "codigoDescritor": "D31",
-    "texto": "(CAED) Observe a equação polinomial apresentada no quadro abaixo.\n\n$\\boxed{\\frac{2}{3}x^2 = 600}$\n\nO conjunto S solução dessa equação está apresentado em",
+    "texto": "(CAED) Observe a equação polinomial apresentada no quadro abaixo.\n\n$$\\frac{2}{3}x^2 = 600$$\n\nO conjunto S solução dessa equação está apresentado em",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -33,7 +33,7 @@
   {
     "id": "q3_d31",
     "codigoDescritor": "D31",
-    "texto": "(CAED) Observe a equação apresentada no quadro abaixo.\n\n$$\\boxed{2x^2 + 8x - 10 = 0}$$\n\nQual é o conjunto solução dessa equação?",
+    "texto": "(CAED) Observe a equação apresentada no quadro abaixo.\n\n$$2x^2 + 8x - 10 = 0$$\n\nQual é o conjunto solução dessa equação?",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
