@@ -891,5 +891,28 @@ function renderizar() {
     }
 }
 
+//Detecta a rolagem em QUALQUER elemento e atualiza o X (paginaAtual)
+function atualizarNumeroPaginaAtual() {
+    const elX = document.getElementById('paginaAtual');
+    const folhas = document.querySelectorAll('.folha-a4');
+
+    if (!elX || folhas.length === 0) return;
+
+    let paginaVisivel = 1;
+    const centroTela = window.innerHeight / 2;
+
+    folhas.forEach((folha, index) => {
+        const rect = folha.getBoundingClientRect();
+        // Verifica se a folha A4 cruzou a metade vertical da tela
+        if (rect.top <= centroTela && rect.bottom >= 0) {
+            paginaVisivel = index + 1;
+        }
+    });
+
+    elX.textContent = paginaVisivel;
+}
+
+// Escuta o scroll na janela (useCapture = true garante que pega o scroll de divs internas também)
+window.addEventListener('scroll', atualizarNumeroPaginaAtual, true);
 
 renderizar();
