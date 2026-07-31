@@ -2,15 +2,16 @@
   {
     "id": "q1_d13",
     "codigoDescritor": "D13",
-    "texto": "(CAED) O vidro plano desse relógio que será substituído tem o formato de um círculo com 60 cm de diâmetro. Qual é a medida da área, em centímetro quadrado, desse vidro? (Considere: $\\pi = 3$)",
+    "texto": "(M00206570) Para estimar a quantidade de tinta que será utilizada na pintura da cerca que contorna o canteiro dessa estrutura, foi necessário determinar o perímetro desse canteiro. Visto de cima, esse canteiro tem o formato de um trapézio isósceles. Observe, na figura abaixo, a representação desse formato com algumas medidas indicadas.\n\n[IMAGEM]\n\nQual é a medida do perímetro desse canteiro, em centímetro?",
+    "imagem": "imagens/imgq1_d13.png",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
     "alternativas": [
-      { "letra": "A", "texto": "$10\\ 800\\ \\text{cm}^2$" },
-      { "letra": "B", "texto": "$5\\ 400\\ \\text{cm}^2$" },
-      { "letra": "C", "texto": "$2\\ 700\\ \\text{cm}^2$" },
-      { "letra": "D", "texto": "$180\\ \\text{cm}^2$" }
+      { "letra": "A", "texto": "480 cm." },
+      { "letra": "B", "texto": "730 cm." },
+      { "letra": "C", "texto": "980 cm." },
+      { "letra": "D", "texto": "980 cm." }
     ],
     "gabarito": "C"
   }
