@@ -14,5 +14,20 @@
       { "letra": "D", "texto": "980 cm." }
     ],
     "gabarito": "C"
-  }
+  },
+{
+    "id": "q2_d12",
+    "codigoDescritor": "D12",
+    "texto": "(M00206574) O técnico dessa instalação fixou, ajustada em todo o entorno da pilastra, uma fita de sustentação, de modo que essa fita ficou totalmente firme na pilastra. O raio da circunferência dessa pilastra onde foi fixada a fita mede 15 cm.\nConsidere: $\\pi = 3$\n\nNo mínimo, quantos centímetros de comprimento tem essa fita de sustentação?",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "45 cm." },
+      { "letra": "B", "texto": "90 cm." },
+      { "letra": "C", "texto": "675 cm." },
+      { "letra": "D", "texto": "1 350 cm." }
+    ],
+    "gabarito": "B"
+  }  
 ]
