@@ -95,12 +95,12 @@
                     <div class="accordion-body collapsed" id="bodyCriarQuestao">
                         <div class="form-group">
                             <label for="inputCodigoDescritor">Código do Descritor (Ex: D1, D13, D20):</label>
-                            <input type="text" id="inputCodigoDescritor" class="form-input" placeholder="Digite ex: D13">
+                            <input type="text" id="inputCodigoDescritor" class="form-input" placeholder="Ex.: D13">
                         </div>
 
                         <div class="form-group">
-                            <label for="inputEnunciado">Enunciado da Questão (Aceita LaTeX ex: $x^2 + 5 = 9$):</label>
-                            <textarea id="inputEnunciado" class="form-textarea" rows="4" placeholder="Digite o enunciado da questão..."></textarea>
+                            <label for="inputEnunciado">Enunciado da Questão: (ACEITA LATEX)</label>
+                            <textarea id="inputEnunciado" class="form-textarea" rows="4" placeholder="Ex.: Resolva a equação $x^2=16$..."></textarea>
                         </div>
 
                         <div class="form-group">
@@ -189,7 +189,7 @@
                                 id="selectDescritorBanco" 
                                 list="listaDescritores" 
                                 class="form-input" 
-                                placeholder="Ex: D1, D12 ou digite palavra-chave..." 
+                                placeholder="Ex.: D1, D12 ou digite palavra-chave..." 
                                 autocomplete="off"
                             >
                             <datalist id="listaDescritores">
@@ -242,7 +242,17 @@
                     </div>
                 </div>
 
-                <div class="toolbar-right"></div>
+<div class="toolbar-right">
+    <div class="layout-control">
+        <label for="selectModoGabarito">Cartão de Respostas:</label>
+        <select id="selectModoGabarito" class="btn-select">
+            <option value="nenhum">Sem Cartão</option>
+            <option value="final_prova" selected>Ao Final da Prova</option>
+            <option value="folha_separada">Em Folha Separada</option>
+        </select>
+    </div>
+</div>
+
             </div>
 
             <!-- ÁREA DAS FOLHAS A4 -->
