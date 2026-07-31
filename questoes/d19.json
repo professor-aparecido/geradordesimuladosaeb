@@ -1,0 +1,17 @@
+[
+  {
+    "id": "q1_d19",
+    "codigoDescritor": "D19",
+    "texto": "(VUNESP) Rita resolveu casar-se na chácara de seu tio e, para poder acomodar todos os seus convidados sentados, colocou no gramado, entre as árvores, 18 filas de cadeiras, com 32 cadeiras em cada fila. O número de convidados que Rita receberá em seu casamento é",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "90." },
+      { "letra": "B", "texto": "256." },
+      { "letra": "C", "texto": "304." },
+      { "letra": "D", "texto": "576." }
+    ],
+    "gabarito": "D"
+  }
+]
