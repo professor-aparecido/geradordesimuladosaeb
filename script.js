@@ -742,8 +742,13 @@ function criarNovaFolha(numPagina) {
 }
 
 function testarOverflow(el) {
-    const TOLERANCIA_PX = 15; // Aceita até 15px de variação antes de pular a página
-    return (el.scrollHeight - el.clientHeight) > TOLERANCIA_PX;
+    const TOLERANCIA_PX = 5; // Tolerância reduzida para ser mais precisa
+    
+    // Detecta estouro tanto vertical (1 coluna) quanto horizontal (vazamento no layout de 2 colunas)
+    const estouroVertical = (el.scrollHeight - el.clientHeight) > TOLERANCIA_PX;
+    const estouroHorizontal = (el.scrollWidth - el.clientWidth) > TOLERANCIA_PX;
+
+    return estouroVertical || estouroHorizontal;
 }
 
 
