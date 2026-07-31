@@ -953,7 +953,9 @@ body {
     page-break-inside: avoid;
     max-width: 100%;
     box-sizing: border-box;
-    overflow-wrap: break-word;}
+    overflow-wrap: break-word;
+    white-space: pre-line; /* Faz o \n pular linha automaticamente no HTML */
+}
 
 /* ALTERNATIVAS NA HORIZONTAL (A, B, C, D LADO A LADO) */
 .questao-alternativas {
