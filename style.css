@@ -943,7 +943,7 @@ body {
 .questao-enunciado {
     text-align: justify;
     text-justify: inter-word; /* Melhora o alinhamento e o espaçamento das palavras */
-    hyphens: auto;           /* Separa as palavras com hífen se necessário */
+    /*hyphens: auto;            Separa as palavras com hífen se necessário */
     line-height: 1.4;        /* Ajusta o espaçamento entre linhas para melhor leitura */
 }
 
