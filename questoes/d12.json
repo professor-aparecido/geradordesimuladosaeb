@@ -18,7 +18,7 @@
 {
     "id": "q2_d12",
     "codigoDescritor": "D12",
-    "texto": "(CAED) O técnico dessa instalação fixou, ajustada em todo o entorno da pilastra, uma fita de sustentação, de modo que essa fita ficou totalmente firme na pilastra. O raio da circunferência dessa pilastra onde foi fixada a fita mede 15 cm. No mínimo, quantos centímetros de comprimento tem essa fita de sustentação? \n\n(Considere: $\\pi = 3$)",
+    "texto": "(CAED) O técnico dessa instalação fixou, ajustada em todo o entorno da pilastra, uma fita de sustentação, de modo que essa fita ficou totalmente firme na pilastra. O raio da circunferência dessa pilastra onde foi fixada a fita mede 15 cm. No mínimo, quantos centímetros de comprimento tem essa fita de sustentação?\n\n(Considere: $\\pi = 3$)",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
