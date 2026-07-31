@@ -1,1 +1,17 @@
-
+[
+  {
+   "id": "q1_d13",
+    "codigoDescritor": D13,
+    "texto": " O vidro plano desse relógio que será substituído tem o formato de um círculo com 60 cm de diâmetro. Qual é a medida da área, em centímetro quadrado, desse vidro? (Considere: $\\pi=3$)",
+    "tipo": "alternativas",
+    "disposição": "vertical",
+    "espacoCalculo":5,
+    "alternativas":[
+      {"letra": "A", "texto": $10 800 cm^2.$},
+      {"letra": "B", "texto": $5 400 cm^2$.},
+      {"letra": "C", "texto": $2 700 cm^2$.},
+      {"letra": "D", "texto": $180 cm^2$.},
+    ],
+    "gabarito": "C"
+  }
+]
