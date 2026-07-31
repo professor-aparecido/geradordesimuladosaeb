@@ -10,7 +10,7 @@
       {"letra": "A", "texto": "$10 800 cm^2.$"},
       {"letra": "B", "texto": "$5 400 cm^2$."},
       {"letra": "C", "texto": "$2 700 cm^2$."},
-      {"letra": "D", "texto": "$180 cm^2$."},
+      {"letra": "D", "texto": "$180 cm^2$."}
     ],
     "gabarito": "C"
   }
