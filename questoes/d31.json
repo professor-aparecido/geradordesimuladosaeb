@@ -1,0 +1,17 @@
+[
+  {
+    "id": "q1_d31",
+    "codigoDescritor": "D31",
+    "texto": "(M00206578) Cada prato do menu de massas está sendo vendido a um preço fixo de R$ 30,00. Os primeiros clientes que chegaram a essa festa de inauguração ganharam 12% de desconto no preço de um prato.\n\nQual foi o preço do prato do menu de massas de um cliente que ganhou esse desconto?",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "R$ 18,00." },
+      { "letra": "B", "texto": "R$ 26,40." },
+      { "letra": "C", "texto": "R$ 29,64." },
+      { "letra": "D", "texto": "R$ 33,60." }
+    ],
+    "gabarito": "B"
+  }
+]
