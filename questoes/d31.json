@@ -1,0 +1,17 @@
+[
+  {
+    "id": "q1_d31",
+    "codigoDescritor": "D31",
+    "texto": "(CAED) Durante essa festa de inauguração, foram utilizadas 36 cadeiras e determinada quantidade x de mesas no salão. A quantidade x de mesas pode ser determinada pela equação polinomial de 2º grau apresentada no quadro abaixo.\n\n$$\\frac{x^2}{4} = 36$$\n\nQual é o conjunto S solução dessa equação?",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "$S = \\{-3, 3\\}$." },
+      { "letra": "B", "texto": "$S = \\{-6, 6\\}$." },
+      { "letra": "C", "texto": "$S = \\{-12, 12\\}$." },
+      { "letra": "D", "texto": "$S = \\{-144, 1\\}$." }
+    ],
+    "gabarito": "C"
+  }
+]
