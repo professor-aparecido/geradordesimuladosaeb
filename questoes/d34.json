@@ -1,0 +1,17 @@
+[
+  {
+    "id": "q1_d34",
+    "codigoDescritor": "D34",
+    "texto": "(CAED) Observe, no quadro abaixo, o sistema de equações que pode ser utilizado para determinar a quantidade x de canais e a quantidade y de aplicativos que o técnico irá configurar na televisão nova de Isabel.\n\n$$\\begin{cases} x + y = 165 \\\\ x - 2y = 15 \\end{cases}$$\n\nO par ordenado (x, y) solução desse sistema de equações está apresentado em",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "(215, 50)." },
+      { "letra": "B", "texto": "(165, 15)." },
+      { "letra": "C", "texto": "(115, 50)." },
+      { "letra": "D", "texto": "(105, 60)." }
+    ],
+    "gabarito": "C"
+  }
+]
