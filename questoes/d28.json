@@ -13,5 +13,20 @@
       { "letra": "D", "texto": "R$ 33,60." }
     ],
     "gabarito": "B"
+  },
+  {
+    "id": "q2_d28",
+    "codigoDescritor": "D28",
+    "texto": "(CAED) Nessa compra, Isabel pagou 1 230 reais pela televisão e, além disso, pagou 20% desse valor para incluir o serviço de instalação.\n\nQual foi a quantia total que Isabel pagou nessa compra?",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "1 476 reais." },
+      { "letra": "B", "texto": "1 250 reais." },
+      { "letra": "C", "texto": "984 reais." },
+      { "letra": "D", "texto": "246 reais." }
+    ],
+    "gabarito": "A"
   }
 ]
