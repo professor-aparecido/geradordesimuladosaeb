@@ -28,5 +28,21 @@
       { "letra": "D", "texto": "246 reais." }
     ],
     "gabarito": "A"
+  },
+
+  {
+    "id": "q3_d28",
+    "codigoDescritor": "D28",
+    "texto": "(CAED) Em 2022, 65 pessoas se voluntariaram para decorar essa rua em que Zeca mora. Já em 2026, houve um aumento de 20% na quantidade de voluntários.\n\nAo todo, quantas pessoas se voluntariaram para decorar essa rua em 2026?",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "52." },
+      { "letra": "B", "texto": "66." },
+      { "letra": "C", "texto": "78." },
+      { "letra": "D", "texto": "85." }
+    ],
+    "gabarito": "C"
   }
-]
+]  
