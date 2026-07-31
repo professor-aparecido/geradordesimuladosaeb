@@ -63,7 +63,7 @@ if (selectModoGabarito) {
 // DADOS DO CABEÇALHO
 let dadosCabecalho = {
     nomeEscola: "ESCOLA MUNICIPAL DE EDUCAÇÃO BÁSICA NOSSA SENHORA DO PILAR",
-    logoUrl: "",
+    logoUrl: "/images/logopilar.png",
     tituloProva: "SIMULADO DE MATEMÁTICA - SAEB 2026",
     serie: "8º ANO",
     turma: "A",
