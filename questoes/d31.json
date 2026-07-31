@@ -28,5 +28,22 @@
       { "letra": "D", "texto": "$S = \\{1, 900\\}$." }
     ],
     "gabarito": "A"
-  }  
-]
+  },
+
+  {
+    "id": "q3_d31",
+    "codigoDescritor": "D31",
+    "texto": "(CAED) Observe a equação apresentada no quadro abaixo.\n\n$$\\boxed{2x^2 + 8x - 10 = 0}$$\n\nQual é o conjunto solução dessa equação?",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "{-6, 2}." },
+      { "letra": "B", "texto": "{-5, 1}." },
+      { "letra": "C", "texto": "{-1, 5}." },
+      { "letra": "D", "texto": "{2, 8}." }
+    ],
+    "gabarito": "B"
+  }
+]  
+
