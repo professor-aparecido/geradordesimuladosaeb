@@ -13,5 +13,20 @@
       { "letra": "D", "texto": "$S = \\{-144, 1\\}$." }
     ],
     "gabarito": "C"
-  }
+  },
+{
+    "id": "q2_d31",
+    "codigoDescritor": "D31",
+    "texto": "(CAED) Observe a equação polinomial apresentada no quadro abaixo.\n\n$$\\boxed{\\frac{2}{3}x^2 = 600}$$\n\nO conjunto S solução dessa equação está apresentado em",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "$S = \\{-30, 30\\}$." },
+      { "letra": "B", "texto": "$S = \\{-20, 20\\}$." },
+      { "letra": "C", "texto": "$S = \\{0, 450\\}$." },
+      { "letra": "D", "texto": "$S = \\{1, 900\\}$." }
+    ],
+    "gabarito": "A"
+  }  
 ]
