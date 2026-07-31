@@ -1407,17 +1407,8 @@ body {
     transform: translateY(0);
 }
 
-/* 1. Força os blocos das questões a não vazarem a largura da coluna */
-.questao-corpo, 
-.questao-enunciado {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-wrap: break-word; /* Força quebra de palavras/textos muito longos */
-}
 
-/* 2. Impede que fórmulas LaTeX em bloco ($$ ... $$) estourem a largura */
+/* Impede que fórmulas LaTeX em bloco ($$ ... $$) estourem a largura */
 .mjx-chtml, .MathJax_Display, .katex-display {
     max-width: 100% !important;
     overflow-x: auto;
@@ -1425,7 +1416,7 @@ body {
     margin: 0.5em 0 !important;
 }
 
-/* 3. Evita que imagens ou quadros criem rolagens/vazamentos laterais */
+/* Evita que imagens ou quadros criem rolagens/vazamentos laterais */
 .questao-corpo img, 
 .questao-corpo table {
     max-width: 100% !important;
