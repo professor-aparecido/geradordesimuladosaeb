@@ -2,7 +2,7 @@
   {
     "id": "q1_d31",
     "codigoDescritor": "D31",
-    "texto": "(CAED) Durante essa festa de inauguração, foram utilizadas 36 cadeiras e determinada quantidade x de mesas no salão. A quantidade x de mesas pode ser determinada pela equação polinomial de 2º grau apresentada no quadro abaixo.\n\n$$\\frac{x^2}{4} = 36$$\n\nQual é o conjunto S solução dessa equação?",
+    "texto": "(CAED) Durante essa festa de inauguração, foram utilizadas 36 cadeiras e determinada quantidade x de mesas no salão. A quantidade x de mesas pode ser determinada pela equação polinomial de 2º grau apresentada no quadro abaixo.\n\n$$\\boxed{\\frac{x^2}{4} = 36$$}\n\nQual é o conjunto S solução dessa equação?",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -44,6 +44,21 @@
       { "letra": "D", "texto": "{2, 8}." }
     ],
     "gabarito": "B"
-  }
+  },
+{
+    "id": "q4_d31",
+    "codigoDescritor": "D31",
+    "texto": "(CAED) Ernesto estava em dúvida se produziria um controle que fosse ligado ao videogame por meio de um fio ou se investiria em peças mais modernas a fim de que o controle fosse conectado ao videogame por meio de Bluetooth. No processo de escolha, Ernesto fez umas contas para analisar o custo-benefício e precisou, em determinado momento, encontrar o conjunto solução da equação $x^2 - 10x - 200 = 0$.\n\nEsse conjunto está apresentado em",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "{-10, 20}." },
+      { "letra": "B", "texto": "{-20, 10}." },
+      { "letra": "C", "texto": "{-10, -200}." },
+      { "letra": "D", "texto": "{-900, 900}." }
+    ],
+    "gabarito": "A"
+  }  
 ]  
 
