@@ -1,39 +1,43 @@
 // DICIONÁRIO PRÉ-CADASTRADO DOS DESCRITORES SAEB
 const BASE_DESCRITORES = {
     // MATEMÁTICA
-    "D1": "Identificar a localização/movimentação de objeto em mapas, croquis e outras representações gráficas.",
-    "D2": "Identificar propriedades de figuras bidimensionais pelo reconhecimento de que superfícies planas são delimitadas por contornos fechados.",
-    "D3": "Identificar propriedades de triângulos pela comparação de medidas de lados e ângulos.",
-    "D4": "Identificar relação entre quadriláteros por meio de suas propriedades.",
-    "D5": "Reconhecer a conservação ou modificação de medidas nos lados, do perímetro, da área em ampliação/redução de figuras.",
-    "D6": "Reconhecer ângulos como mudança de direção ou giros, identificando ângulos retos e não retos.",
-    "D7": "Reconhecer que as imagens de uma figura construída por uma transformação hipsométrica são congruentes.",
-    "D8": "Resolver problema utilizando propriedades dos polígonos (soma dos ângulos internos, número de diagonais, cálculo da medida de cada ângulo interno).",
-    "D9": "Interpretar informações apresentadas por meio de coordenadas cartesianas.",
-    "D10": "Utilizar relações métricas do triângulo retângulo para resolver problemas significativos.",
-    "D11": "Reconhecer círculo/circunferência, seus elementos e algumas de suas relações.",
-    "D12": "Resolver problema envolvendo o cálculo de perímetro de figuras planas.",
-    "D13": "Resolver problema envolvendo o cálculo de área de figuras planas.",
-    "D14": "Resolver problema envolvendo noção de volume.",
-    "D15": "Resolver problema envolvendo relações entre diferentes unidades de medida.",
-    "D16": "Identificar a localização de números inteiros na reta numérica.",
-    "D17": "Identificar a localização de números racionais na reta numérica.",
-    "D18": "Efetuar cálculos com números inteiros envolvendo as operações básicas.",
-    "D19": "Resolver problema com números naturais envolvendo diferentes significados das operações.",
-    "D20": "Resolver problema com números inteiros envolvendo as operações.",
-    "D21": "Reconhecer as diferentes representações de um número racional.",
-    "D22": "Identificar fração como representação que pode estar associada a diferentes significados.",
-    "D23": "Resolver problema com números racionais envolvendo as operações.",
-    "D24": "Resolver problema que envolva porcentagem.",
-    "D25": "Resolver problema que envolva variação proporcional, direta ou inversa, entre grandezas.",
-    "D26": "Resolver problema envolvendo equação do 1º grau.",
-    "D27": "Resolver problema envolvendo sistema de equações do 1º grau.",
-    "D28": "Resolver problema envolvendo equação do 2º grau.",
-    "D29": "Resolver problema envolvendo função do 1º grau.",
-    "D30": "Identificar a expressão algébrica que expressa uma regularidade observada em sequências de números ou figuras.",
-    "D31": "Resolver problema envolvendo informações apresentadas em tabelas e/ou gráficos.",
-    "D32": "Resolver problema envolvendo a média aritmética.",
-    "D33": "Resolver problema envolvendo o cálculo de probabilidade de um evento.",
+"D1": "Identificar a localização/movimentação de objeto em mapas, croquis e outras representações gráficas.",
+"D2": "Identificar propriedades comuns e diferenças entre figuras bidimensionais e tridimensionais, relacionando-as com as suas planificações.",
+"D3": "Identificar propriedades de triângulos pela comparação de medidas de lados e ângulos.",
+"D4": "Identificar relação entre quadriláteros por meio de suas propriedades.",
+"D5": "Reconhecer a conservação ou modificação de medidas dos lados, do perímetro, da área em ampliação e/ou redução de figuras poligonais usando malhas quadriculadas.",
+"D6": "Reconhecer ângulos como mudança de direção ou giros, identificando ângulos retos e não retos.",
+"D7": "Reconhecer que as imagens de uma figura construída por uma transformação homotética são semelhantes, identificando propriedades e/ou medidas que se modificam ou não se alteram.",
+"D8": "Resolver problema utilizando propriedades dos polígonos (soma de seus ângulos internos, número de diagonais, cálculo da medida de cada ângulo interno nos polígonos regulares).",
+"D9": "Interpretar informações apresentadas por meio de coordenadas cartesianas.",
+"D10": "Utilizar relações métricas do triângulo retângulo para resolver problemas significativos.",
+"D11": "Reconhecer círculo/circunferência, seus elementos e algumas de suas relações.",
+"D12": "Resolver problema envolvendo o cálculo de perímetro de figuras planas.",
+"D13": "Resolver problema envolvendo o cálculo de área de figuras planas.",
+"D14": "Resolver problema envolvendo noções de volume.",
+"D15": "Resolver problema utilizando relações entre diferentes unidades de medida.",
+"D16": "Identificar a localização de números inteiros na reta numérica.",
+"D17": "Identificar a localização de números racionais na reta numérica.",
+"D18": "Efetuar cálculos com números inteiros, envolvendo as operações (adição, subtração, multiplicação, divisão, potenciação).",
+"D19": "Resolver problema com números naturais, envolvendo diferentes significados das operações (adição, subtração, multiplicação, divisão, potenciação).",
+"D20": "Resolver problema com números inteiros envolvendo as operações (adição, subtração, multiplicação, divisão, potenciação).",
+"D21": "Reconhecer as diferentes representações de um número racional.",
+"D22": "Identificar fração como representação que pode estar associada a diferentes significados.",
+"D23": "Identificar frações equivalentes.",
+"D24": "Reconhecer as representações decimais dos números racionais como uma extensão do sistema de numeração decimal, identificando a existência de “ordens” como décimos, centésimos e milésimos.",
+"D25": "Efetuar cálculos que envolvam operações com números racionais (adição, subtração, multiplicação, divisão, potenciação).",
+"D26": "Resolver problema com números racionais envolvendo as operações (adição, subtração, multiplicação, divisão, potenciação).",
+"D27": "Efetuar cálculos simples com valores aproximados de radicais.",
+"D28": "Resolver problema que envolva porcentagem.",
+"D29": "Resolver problema que envolva variação proporcional, direta ou inversa, entre grandezas.",
+"D30": "Calcular o valor numérico de uma expressão algébrica.",
+"D31": "Resolver problema que envolva equação do 2º grau.",
+"D32": "Identificar a expressão algébrica que expressa uma regularidade observada em seqüências de números ou figuras (padrões).",
+"D33": "Identificar uma equação ou inequação do 1º grau que expressa um problema.",
+"D34": "Identificar um sistema de equações do 1º grau que expressa um problema.",
+"D35": "Identificar a relação entre as representações algébrica e geométrica de um sistema de equações do 1º grau.",
+"D36": "Resolver problema envolvendo informações apresentadas em tabelas e/ou gráficos.",
+"D37": "Associar informações apresentadas em listas e/ou tabelas simples aos gráficos que as representam e vice-versa.",
 };
 
 // ESTADO GLOBAL DA APLICAÇÃO
@@ -45,6 +49,16 @@ let numColunas = 2;
 let imagemCarregadaTemp = "";
 let exibirGabaritoProfessor = false;
 let questaoEmPreview = null;
+let modoGabarito = 'final_prova'; // 'nenhum', 'final_prova' ou 'folha_separada'
+
+const selectModoGabarito = document.getElementById('selectModoGabarito');
+
+if (selectModoGabarito) {
+    selectModoGabarito.addEventListener('change', (e) => {
+        modoGabarito = e.target.value;
+        renderizar();
+    });
+}
 
 // DADOS DO CABEÇALHO
 let dadosCabecalho = {
@@ -55,6 +69,7 @@ let dadosCabecalho = {
     turma: "A",
     professor: "Aparecido Sousa"
 };
+
 
 // REFERÊNCIAS DOM - GENERALS
 const containerFolhas = document.getElementById('container-folhas');
@@ -586,10 +601,10 @@ function criarElementoQuestao(q, index, isPreviewMode = false) {
         textoProcessado = textoProcessado.replace(/\[IMAGEM\]/g, '');
     }
 
-    let textoTooltip = BASE_DESCRITORES[q.codigoDescritor] || q.textoDescritor || q.codigoDescritor;
-    let tagDescritor = q.codigoDescritor ? `<span class="questao-descritor-tag" title="${textoTooltip}">${q.codigoDescritor}</span>` : '';
+let textoTooltip = BASE_DESCRITORES[q.codigoDescritor] || q.textoDescritor || q.codigoDescritor;
+let tagDescritor = q.codigoDescritor ? `<span class="questao-descritor-tag tooltip-descritor" data-tooltip="${textoTooltip}">${q.codigoDescritor}</span>` : '';
 
-    let htmlConteudoTipo = '';
+let htmlConteudoTipo = '';
 
     // 1. QUESTÃO DE MÚLTIPLA ESCOLHA
     if (q.tipo === 'alternativas' && q.alternativas) {
@@ -726,22 +741,75 @@ function criarNovaFolha(numPagina) {
     return { folha, conteudo, rodape };
 }
 
-function testarOverflow(conteudoDiv) {
-    if (numColunas === 1) {
-        return conteudoDiv.scrollHeight > conteudoDiv.clientHeight;
-    } else {
-        return conteudoDiv.scrollWidth > conteudoDiv.clientWidth || conteudoDiv.scrollHeight > conteudoDiv.clientHeight;
-    }
+function testarOverflow(el) {
+    const TOLERANCIA_PX = 15; // Aceita até 15px de variação antes de pular a página
+    return (el.scrollHeight - el.clientHeight) > TOLERANCIA_PX;
 }
+
+
+// ===================================================
+// GERADOR DO CARTÃO DE RESPOSTAS (GABARITO)
+// ===================================================
+function criarElementoGabarito() {
+    const container = document.createElement('div');
+    container.className = 'cartao-respostas-container';
+
+    let htmlItens = '';
+
+    listaQuestoes.forEach((q, index) => {
+        if (q.tipo === 'alternativas') {
+            const letras = ['A', 'B', 'C', 'D'];
+            let bolinhasHtml = letras.map(letra => {
+                const isCorreta = (exibirGabaritoProfessor && q.gabarito === letra) ? 'correta' : '';
+                return `<div class="bolinha ${isCorreta}">${letra}</div>`;
+            }).join('');
+
+            htmlItens += `
+                <div class="gabarito-item">
+                    <span class="gabarito-num">${String(index + 1).padStart(2, '0')}</span>
+                    <div class="gabarito-opcoes">${bolinhasHtml}</div>
+                </div>
+            `;
+        } else {
+            htmlItens += `
+                <div class="gabarito-item">
+                    <span class="gabarito-num">${String(index + 1).padStart(2, '0')}</span>
+                    <span style="font-size: 10px; color: #555;">[ Discursiva ]</span>
+                </div>
+            `;
+        }
+    });
+
+    const totalLinhas = Math.max(1, Math.ceil(listaQuestoes.length / 2));
+
+    container.innerHTML = `
+        <div class="cartao-respostas-titulo">
+            FOLHA DE RESPOSTAS (GABARITO)
+        </div>
+
+        <!-- GRADE COM AS QUESTÕES -->
+        <div class="cartao-respostas-grid" style="grid-template-rows: repeat(${totalLinhas}, auto);">
+            ${htmlItens}
+        </div>
+
+        <!-- ASSINATURA NO FINAL (RODAPÉ) COM TRAÇO EM CIMA DO TEXTO -->
+        <div class="gabarito-assinatura-rodape">
+            <div class="gabarito-linha-assinatura"></div>
+            <span class="gabarito-texto-assinatura">Assinatura do Aluno(a)</span>
+        </div>
+    `;
+
+    return container;
+}
+
 
 // RENDERIZADOR PRINCIPAL
 function renderizar() {
     containerFolhas.innerHTML = '';
 
-    // SE NÃO HOUVER QUESTÕES, EXIBE A MENSAGEM DE ORIENTAÇÃO LOGO ABAIXO DO CABEÇALHO
+    // SE NÃO HOUVER QUESTÕES, EXIBE A MENSAGEM DE ORIENTAÇÃO...
     if (listaQuestoes.length === 0) {
         const folhaInicial = criarNovaFolha(1);
-        
         const mensagemPlaceholder = document.createElement('div');
         mensagemPlaceholder.className = 'mensagem-prova-vazia';
         mensagemPlaceholder.innerHTML = `
@@ -751,8 +819,6 @@ function renderizar() {
                 <p>Utilize o menu lateral para <strong>Criar Questões</strong> ou <strong>Selecionar do Banco (SAEB)</strong>.</p>
             </div>
         `;
-        
-        // Injeta dentro da área de conteúdo (logo abaixo do cabeçalho A4)
         folhaInicial.conteudo.appendChild(mensagemPlaceholder);
 
         if (paginaAtualEl) paginaAtualEl.innerText = "1";
@@ -760,7 +826,7 @@ function renderizar() {
         return;
     }
 
-    // SE HOUVER QUESTÕES, SEGUE O FLUXO NORMAL
+    // 1. RENDERIZA AS QUESTÕES DA PROVA
     let numPagina = 1;
     let folhaAtual = criarNovaFolha(numPagina);
 
@@ -776,6 +842,29 @@ function renderizar() {
         }
     });
 
+    // 2. APLICA A LÓGICA DO CARTÃO DE RESPOSTAS (GABARITO)
+    if (modoGabarito === 'final_prova') {
+        const elGabarito = criarElementoGabarito();
+        folhaAtual.conteudo.appendChild(elGabarito);
+
+        // Se o gabarito não couber no final da última folha, cria uma nova página para ele
+        if (testarOverflow(folhaAtual.conteudo)) {
+            folhaAtual.conteudo.removeChild(elGabarito);
+            numPagina++;
+            folhaAtual = criarNovaFolha(numPagina);
+            folhaAtual.conteudo.appendChild(elGabarito);
+        }
+    } else if (modoGabarito === 'folha_separada') {
+        // Cria uma nova folha dedicada exclusivamente ao Cartão de Respostas
+        numPagina++;
+        const folhaGabaritoDedicada = criarNovaFolha(numPagina);
+        const elGabarito = criarElementoGabarito();
+        
+        // Em folha separada, podemos duplicar o cartão na mesma folha para economizar papel ao cortar!
+        folhaGabaritoDedicada.conteudo.appendChild(elGabarito);
+    }
+
+    // ATUALIZA NÚMERO DAS PÁGINAS NO RODAPÉ
     const todasFolhas = containerFolhas.querySelectorAll('.folha-a4');
     todasFolhas.forEach((folha, idx) => {
         const rodape = folha.querySelector('.folha-rodape');
