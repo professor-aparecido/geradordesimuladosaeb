@@ -1406,3 +1406,11 @@ body {
     visibility: visible;
     transform: translateY(0);
 }
+
+/*Impede que fórmulas LaTeX em bloco ($$ ... $$) estourem a largura */
+.mjx-chtml, .MathJax_Display, .katex-display {
+    max-width: 100% !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0.5em 0 !important;
+}
