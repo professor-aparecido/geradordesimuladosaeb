@@ -930,7 +930,11 @@ body {
     font-size: 12px;
     line-height: 1.35;
     word-break: break-word;
-}
+    break-inside: avoid;
+    page-break-inside: avoid;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;}
 
 .questao-imagem {
     max-width: 100%;
@@ -945,7 +949,11 @@ body {
     text-justify: inter-word; /* Melhora o alinhamento e o espaçamento das palavras */
     /*hyphens: auto;            Separa as palavras com hífen se necessário */
     line-height: 1.4;        /* Ajusta o espaçamento entre linhas para melhor leitura */
-}
+    break-inside: avoid;
+    page-break-inside: avoid;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;}
 
 /* ALTERNATIVAS NA HORIZONTAL (A, B, C, D LADO A LADO) */
 .questao-alternativas {
