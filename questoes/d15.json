@@ -60,5 +60,21 @@
     { "letra": "D", "texto": "128." }
   ],
   "gabarito": "C"
-}  
+},
+
+  {
+    "id": "q5_d15",
+    "codigoDescritor": "D15",
+    "texto": "Em agosto, a energia elétrica foi interrompida três vezes em um bairro da capital. Na primeira vez, por 2 horas e 15 minutos, na segunda, por 3 horas e 37 minutos, e na terceira vez, por 1h e 28 minutos. No total, em agosto, esse bairro ficou sem energia elétrica por",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "6h e 50 min." },
+      { "letra": "B", "texto": "6h e 55 min." },
+      { "letra": "C", "texto": "7h e 00 min." },
+      { "letra": "D", "texto": "7h e 20 min." }
+    ],
+    "gabarito": "D"
+  }  
 ]
