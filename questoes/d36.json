@@ -37,7 +37,7 @@
   "texto": "<b>(ENCCEJA)</b> O gráfico apresenta o número de inscritos no Exame Nacional do Ensino Médio (Enem) no período de 1998 a 2011.<br>[IMAGEM]<br><small>MEC/INEP. Disponível em: http://painel.mec.gov.br. Acesso em: 5 set. 2014.</small><br><br>O ano em que se verificou o maior aumento percentual de inscritos na prova, em relação ao ano anterior, foi o de",
   "imagem": "imagens/imgq3_d36.png",
   "tipo": "alternativas",
-  "disposicao": "vertical",
+  "disposicao": "horizontal",
   "espacoCalculo": 0,
   "alternativas": [
     {"letra": "A", "texto": "1999."},
