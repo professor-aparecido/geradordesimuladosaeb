@@ -1,0 +1,15 @@
+{
+  "id": "q1_d24",
+  "codigoDescritor": "D24",
+  "texto": "(SARESP) Se colocados em ordem crescente os números decimais $0,05$ – $0,5$ – $0,003$ – $0,057$ – $0,35$ têm-se",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "$0,05 - 0,5 - 0,003 - 0,057 - 0,35$." },
+    { "letra": "B", "texto": "$0,003 - 0,05 - 0,057 - 0,35 - 0,5$." },
+    { "letra": "C", "texto": "$0,003 - 0,05 - 0,057 - 0,5 - 0,35$." },
+    { "letra": "D", "texto": "$0,5 - 0,35 - 0,057 - 0,05 - 0,003$." }
+  ],
+  "gabarito": "B"
+}
