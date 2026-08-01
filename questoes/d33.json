@@ -2,7 +2,7 @@
   {
   "id": "q1_d33",
   "codigoDescritor": "D33",
-  "texto": "<b>(ENCCEJA)</b> Para comprar uma televisão, um micro-ondas e uma máquina de lavar roupas, Felipe fez uma pesquisa no comércio e observou que o preço do micro-ondas era um quarto do preço da televisão. A máquina de lavar custava R$ 100,00 a menos que a televisão. Com R$ 2 600,00, Felipe comprou os três produtos, sem lhe restar troco.<br><br>A equação algébrica que oferece como resultado o valor pago pela TV é",
+  "texto": "<b>(ENCCEJA)</b> Para comprar uma televisão, um micro-ondas e uma máquina de lavar roupas, Felipe fez uma pesquisa no comércio e observou que o preço do micro-ondas era um quarto do preço da televisão. A máquina de lavar custava $\\text{R\\$ 100,00}$ a menos que a televisão. Com $\\text{R\\$ 2 600,00}$, Felipe comprou os três produtos, sem lhe restar troco. A equação algébrica que oferece como resultado o valor pago pela TV é\n",
   "tipo": "alternativas",
   "disposicao": "vertical",
   "espacoCalculo": 5,
