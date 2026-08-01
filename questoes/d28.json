@@ -44,5 +44,21 @@
       { "letra": "D", "texto": "85." }
     ],
     "gabarito": "C"
-  }
+  },
+
+  {
+    "id": "q4_d28",
+    "codigoDescritor": "D28",
+    "texto": "(VUNESP) Aos 12 anos, uma criança tinha 1,50 metro de altura e hoje, aos 15 anos, cresceu 20% em relação àquela estatura. Essa criança tem hoje uma altura, em metros, de",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "1,52." },
+      { "letra": "B", "texto": "1,60." },
+      { "letra": "C", "texto": "1,75." },
+      { "letra": "D", "texto": "1,80." }
+    ],
+    "gabarito": "D"
+  }  
 ]  
