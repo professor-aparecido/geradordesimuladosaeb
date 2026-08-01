@@ -8,10 +8,10 @@
   "disposicao": "horizontal",
   "espacoCalculo": 5,
   "alternativas": [
-    { "letra": "A", "texto": "360°" },
-    { "letra": "B", "texto": "240°" },
-    { "letra": "C", "texto": "150°" },
-    { "letra": "D", "texto": "120°" }
+    { "letra": "A", "texto": "360°." },
+    { "letra": "B", "texto": "240°." },
+    { "letra": "C", "texto": "150°." },
+    { "letra": "D", "texto": "120°." }
   ],
   "gabarito": "D"
 }
