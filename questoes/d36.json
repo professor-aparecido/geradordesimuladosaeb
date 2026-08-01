@@ -14,5 +14,20 @@
     { "letra": "D", "texto": "212 toneladas." }
   ],
   "gabarito": "B"
-}
+},
+{
+  "id": "q2_d36",
+  "codigoDescritor": "D36",
+  "texto": "<b>(CAED)</b> Observe, na tabela abaixo, a quantidade de animais que foram atendidos pelo veterinário Paulo em cada período de determinado dia.<br><br><table style=\"margin: 10px auto; border-collapse: collapse; text-align: center; border: 1px solid #000;\"><thead><tr style=\"background-color: #e5e7eb; border-bottom: 1px solid #000;\"><th style=\"padding: 6px 14px; border-right: 1px solid #000;\">Tipos de animais</th><th style=\"padding: 6px 14px; border-right: 1px solid #000;\">Manhã</th><th style=\"padding: 6px 14px;\">Tarde</th></tr></thead><tbody><tr style=\"border-bottom: 1px solid #ccc;\"><td style=\"padding: 4px 14px; border-right: 1px solid #000;\">Cães</td><td style=\"padding: 4px 14px; border-right: 1px solid #000;\">124</td><td style=\"padding: 4px 14px;\">131</td></tr><tr><td style=\"padding: 4px 14px; border-right: 1px solid #000;\">Gatos</td><td style=\"padding: 4px 14px; border-right: 1px solid #000;\">136</td><td style=\"padding: 4px 14px;\">129</td></tr></tbody></table><br>De acordo com essa tabela, quantos cães foram atendidos no período da tarde?",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "124." },
+    { "letra": "B", "texto": "129." },
+    { "letra": "C", "texto": "131." },
+    { "letra": "D", "texto": "136." }
+  ],
+  "gabarito": "C"
+}  
 ]
