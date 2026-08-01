@@ -13,5 +13,21 @@
     { "letra": "D", "texto": "150." }
   ],
   "gabarito": "D"
-}
+},
+
+{
+  "id": "q2_d15",
+  "codigoDescritor": "D15",
+  "texto": "(VUNESP) Os moradores do bairro do Limão receberam um aviso da companhia de água e esgoto do município de que os serviços serão suspensos das 19 horas de segunda-feira até as 7 horas de terça-feira para realização de reparos na rede de distribuição. O período de tempo em que os moradores do bairro ficarão sem água, em horas, é de",
+  "tipo": "alternativas",
+  "disposicao": "grade2x2",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "12." },
+    { "letra": "B", "texto": "10." },
+    { "letra": "C", "texto": "8." },
+    { "letra": "D", "texto": "6." }
+  ],
+  "gabarito": "A"
+}  
 ]
