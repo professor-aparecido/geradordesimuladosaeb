@@ -13,5 +13,21 @@
       { "letra": "D", "texto": "576." }
     ],
     "gabarito": "D"
+  },
+  {
+    "id": "q2_d19",
+    "codigoDescritor": "D19",
+    "texto": "(VUNESP) Na construção de uma ponte sobre o rio Formiga, foram utilizadas 12 placas de concreto, cada uma medindo 6 metros de comprimento. Então é correto afirmar que o comprimento dessa ponte, em metros, é",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "78." },
+      { "letra": "B", "texto": "74." },
+      { "letra": "C", "texto": "72." },
+      { "letra": "D", "texto": "70." }
+    ],
+    "gabarito": "C"
   }
 ]
+
