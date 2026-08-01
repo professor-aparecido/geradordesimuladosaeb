@@ -1,26 +1,18 @@
 [
   {
-    "id": "q1_d2",
-    "codigoDescritor": "D2",
-    "texto": "Na reta numérica abaixo, qual número corresponde ao ponto P? [IMAGEM]",
-    "imagem": "https://via.placeholder.com/150",
-    "tipo": "alternativas",
-    "disposicao": "vertical",
-    "espacoCalculo": 10,
-    "alternativas": [
-      { "letra": "A", "texto": "1,5" },
-      { "letra": "B", "texto": "2,0" },
-      { "letra": "C", "texto": "2,5" },
-      { "letra": "D", "texto": "3,0" }
-    ],
-    "gabarito": "C"
-  },
-  {
-    "id": "q2_d2",
-    "codigoDescritor": "D2",
-    "texto": "Determine a posição aproximada da fração $3/4$ na reta numérica.",
-    "tipo": "subjetiva",
-    "respostaGabarito": "A fração $3/4$ equivale a 0,75, ficando entre 0 e 1.",
-    "espacoCalculo": 60
-  }
+  "id": "q1_d2",
+  "codigoDescritor": "D2",
+  "texto": "<b>(ENCCEJA)</b> Uma chapelaria criou um novo modelo de chapéu para o figurino de uma escola de samba. Para a entrega dos chapéus, foram utilizadas embalagens especiais com tampas, como apresenta a figura.<br>[IMAGEM]<br>A base de cada uma dessas embalagens tem a forma de",
+  "imagem": "imagens/imgq1_d2.png",
+  "tipo": "alternativas",
+  "disposicao": "grade2x2",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "paralelepípedo." },
+    { "letra": "B", "texto": "pentágono." },
+    { "letra": "C", "texto": "pirâmide." },
+    { "letra": "D", "texto": "triângulo." }
+  ],
+  "gabarito": "B"
+}
 ]
