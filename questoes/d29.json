@@ -1,0 +1,18 @@
+[
+  {
+  "id": "q1_d29",
+  "codigoDescritor": "D29",
+  "texto": "(VUNESP) Um clube com 2400 sócios registrou que, em cada bloco de 200 sócios, 5 estavam inadimplentes, ou seja, com a mensalidade atrasada. O total de sócios inadimplentes desse clube é",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "50." },
+    { "letra": "B", "texto": "52." },
+    { "letra": "C", "texto": "54." },
+    { "letra": "D", "texto": "58." },
+    { "letra": "E", "texto": "60." }
+  ],
+  "gabarito": "E"
+}
+]
