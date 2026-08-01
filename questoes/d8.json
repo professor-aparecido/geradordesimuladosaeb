@@ -1,0 +1,18 @@
+[
+  {
+  "id": "q1_d8",
+  "codigoDescritor": "D8",
+  "texto": "(ENCCEJA) Na construção civil existe uma grande variedade de materiais de acabamento. Em especial, na linha de cerâmica e porcelanato, diversas formas e modelos estão disponíveis no mercado. A figura mostra um ambiente que foi revestido com peças de porcelanato que, por terem a forma de um hexágono regular, encaixam-se perfeitamente em torno do ponto P.<br><br>[IMAGEM]<br><br>A medida do ângulo interno do hexágono regular, que representa a peça de porcelanato na figura, é",
+  "imagem": "imagens/imgq1_d8.png",
+  "tipo": "alternativas",
+  "disposicao": "horizontal",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "360°" },
+    { "letra": "B", "texto": "240°" },
+    { "letra": "C", "texto": "150°" },
+    { "letra": "D", "texto": "120°" }
+  ],
+  "gabarito": "D"
+}
+]
