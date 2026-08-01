@@ -28,6 +28,21 @@
       { "letra": "D", "texto": "70." }
     ],
     "gabarito": "C"
-  }
+  },
+{
+    "id": "q3_d19",
+    "codigoDescritor": "D19",
+    "texto": "(VUNESP) Uma família tem uma renda mensal de R$ 5.000,00. Se ela gasta metade da renda com moradia e alimentação; R$ 1.500,00, com educação e transporte e o que sobra no final do mês é aplicado em poupança, o valor aplicado, em reais, é",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "2.500,00." },
+      { "letra": "B", "texto": "2.000,00." },
+      { "letra": "C", "texto": "1.000,00." },
+      { "letra": "D", "texto": "500,00." }
+    ],
+    "gabarito": "C"
+  }  
 ]
 
