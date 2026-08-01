@@ -29,5 +29,22 @@
     { "letra": "D", "texto": "$3x + 1$" }
   ],
   "gabarito": "B"
+},
+
+{
+  "id": "q3_d32",
+  "codigoDescritor": "D32",
+  "texto": "<b>(ENCCEJA)</b> Um artista plástico criará murais com azulejos pretos e brancos, seguindo o padrão indicado nas figuras.<br>[IMAGEM]<br>Representando por $N$ a quantidade de colunas de azulejos pretos, observa-se que para $N$ igual a 1, 2 e 3 os murais terão, respectivamente, 7, 10 e 13 azulejos brancos. A expressão algébrica que representa a quantidade de azulejos brancos presentes em um mural, em função do número $N$ de colunas de azulejos pretos, é",
+  "imagem": "imagens/imgq3_d32.png",
+  "tipo": "alternativas",
+  "disposicao": "grade2x2",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "$3N + 4$" },
+    { "letra": "B", "texto": "$3N + 1$" },
+    { "letra": "C", "texto": "$N^2 + N$" },
+    { "letra": "D", "texto": "$N^2 + 4$" }
+  ],
+  "gabarito": "A"
 }  
 ]
