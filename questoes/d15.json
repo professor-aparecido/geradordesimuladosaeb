@@ -1,0 +1,17 @@
+[
+{
+  "id": "q1_d15",
+  "codigoDescritor": "D15",
+  "texto": "(VUNESP) Eduardo e Sara foram ao cinema do shopping da cidade e assistiram a um filme cuja duração foi de 2 horas e 30 minutos. É correto afirmar que a duração do filme, em minutos, foi",
+  "tipo": "alternativas",
+  "disposicao": "grade2x2",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "180." },
+    { "letra": "B", "texto": "170." },
+    { "letra": "C", "texto": "160." },
+    { "letra": "D", "texto": "150." }
+  ],
+  "gabarito": "D"
+}
+]
