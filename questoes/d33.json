@@ -1,0 +1,17 @@
+[
+  {
+  "id": "q1_d33",
+  "codigoDescritor": "D33",
+  "texto": "<b>(ENCCEJA)</b> Para comprar uma televisão, um micro-ondas e uma máquina de lavar roupas, Felipe fez uma pesquisa no comércio e observou que o preço do micro-ondas era um quarto do preço da televisão. A máquina de lavar custava R$ 100,00 a menos que a televisão. Com R$ 2 600,00, Felipe comprou os três produtos, sem lhe restar troco.<br><br>A equação algébrica que oferece como resultado o valor pago pela TV é",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "$x + \\frac{1}{2} = 2\\,600$" },
+    { "letra": "B", "texto": "$x + (x - 100) = 2\\,600$" },
+    { "letra": "C", "texto": "$x + \\frac{x}{4} - 100 = 2\\,600$" },
+    { "letra": "D", "texto": "$x + \\frac{x}{4} + (x - 100) = 2\\,600$" }
+  ],
+  "gabarito": "D"
+}
+]
