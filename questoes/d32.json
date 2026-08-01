@@ -1,0 +1,17 @@
+[
+{
+  "id": "q1_d32",
+  "codigoDescritor": "D32",
+  "texto": "(SARESP) As variáveis <b>x</b> e <b>n</b> assumem valores conforme tabela abaixo.<br><br><table style=\"margin: 10px auto; border-collapse: collapse; text-align: center; border: 1px solid #f87171;\"><tr style=\"background-color: #fee2e2; border-bottom: 1px solid #f87171;\"><th style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">x</th><td style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">2</td><td style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">4</td><td style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">6</td><td style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">8</td><td style=\"padding: 6px 14px;\">10</td></tr><tr><th style=\"padding: 6px 14px; background-color: #fee2e2; border-right: 1px solid #f87171;\">n</th><td style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">4</td><td style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">8</td><td style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">12</td><td style=\"padding: 6px 14px; border-right: 1px solid #f87171;\">16</td><td style=\"padding: 6px 14px;\">20</td></tr></table><br>A relação entre <b>x</b> e <b>n</b> é dada pela expressão",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "$n = x + 2$." },
+    { "letra": "B", "texto": "$n = 2x$." },
+    { "letra": "C", "texto": "$n = 2x + 2$." },
+    { "letra": "D", "texto": "$n = x + 4$." }
+  ],
+  "gabarito": "B"
+}
+]
