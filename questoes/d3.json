@@ -1,0 +1,18 @@
+[
+  {
+  "id": "q1_d3",
+  "codigoDescritor": "D3",
+  "texto": "<b>(CAED)</b> Observe o triângulo representado abaixo com as medidas de seus ângulos internos indicadas.<br>[IMAGEM]<br>Com base nas medidas de seus ângulos internos, como esse triângulo é classificado?",
+  "imagem": "imagens/imgq1_d3.png",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "Acutângulo." },
+    { "letra": "B", "texto": "Equilátero." },
+    { "letra": "C", "texto": "Obtusângulo." },
+    { "letra": "D", "texto": "Retângulo." }
+  ],
+  "gabarito": "C"
+}
+]
