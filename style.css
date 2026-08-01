@@ -765,12 +765,12 @@ body {
 
 .folha-conteudo {
     flex: 1;
-    height: 220mm;
-    max-height: 220mm;
+    min-height: 0; /* Permite que o flexbox ajuste a altura sem estourar */
     display: flex;
     flex-direction: column;
     gap: 8px;
     box-sizing: border-box;
+    overflow: hidden; /* SEGURANÇA: Corta qualquer vazamento para a 3ª coluna */
 }
 
 .folha-conteudo.duas-colunas {
@@ -778,9 +778,10 @@ body {
     column-count: 2;
     column-gap: 8mm;
     column-fill: auto;
-    column-rule-width: 1.5px;
-    column-rule-style: solid;
-    column-rule-color: #000000;
+    column-rule: 1.5px solid #000000;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .folha-rodape {
