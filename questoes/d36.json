@@ -40,8 +40,8 @@
   "disposicao": "vertical",
   "espacoCalculo": 0,
   "alternativas": [
-    {"letra": "A","texto": "1999."},
-    {"letra": "B", "texto": "2001.},
+    {"letra": "A", "texto": "1999."},
+    {"letra": "B", "texto": "2001."},
     {"letra": "C", "texto": "2005."},
     {"letra": "D", "texto": "2011."}
   ],
