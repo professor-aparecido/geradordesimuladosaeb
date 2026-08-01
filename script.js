@@ -742,9 +742,11 @@ function criarNovaFolha(numPagina) {
 }
 
 function testarOverflow(el) {
-    // Para estouro horizontal (2 colunas), tolerância ZERO para não desenhar a 3ª coluna
-    const estouroVertical = (el.scrollHeight - el.clientHeight) > 3;
-    const estouroHorizontal = (el.scrollWidth - el.clientWidth) > 0;
+    const TOLERANCIA_PX = 5; // Tolerância reduzida para ser mais precisa
+    
+    // Detecta estouro tanto vertical (1 coluna) quanto horizontal (vazamento no layout de 2 colunas)
+    const estouroVertical = (el.scrollHeight - el.clientHeight) > TOLERANCIA_PX;
+    const estouroHorizontal = (el.scrollWidth - el.clientWidth) > TOLERANCIA_PX;
 
     return estouroVertical || estouroHorizontal;
 }
