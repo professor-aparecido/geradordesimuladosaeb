@@ -33,7 +33,7 @@
   {
     "id": "q3_d31",
     "codigoDescritor": "D31",
-    "texto": "(CAED) Observe a equação apresentada no quadro abaixo.\n$\\boxed{2x^2 + 8x - 10 = 0}$\n\nQual é o conjunto solução dessa equação?",
+    "texto": "(CAED) Observe a equação apresentada no quadro abaixo.\n$$\\boxed{2x^2 + 8x - 10 = 0}$$\nQual é o conjunto solução dessa equação?",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
