@@ -29,5 +29,21 @@
     { "letra": "D", "texto": "6." }
   ],
   "gabarito": "A"
-}  
+},
+
+{
+    "id": "q3_d15",
+    "codigoDescritor": "D15",
+    "texto": "(VUNESP) Em seu restaurante, Dona Lucinha utiliza 125 g de feijão para fazer tutu. Se ela comprar um pacote de 5 kg de feijão, o número de vezes que ela poderá fazer tutu em seu restaurante é",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "40." },
+      { "letra": "B", "texto": "35." },
+      { "letra": "C", "texto": "33." },
+      { "letra": "D", "texto": "30." }
+    ],
+    "gabarito": "A"
+  }
 ]
