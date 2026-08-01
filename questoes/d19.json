@@ -43,6 +43,22 @@
       { "letra": "D", "texto": "500,00." }
     ],
     "gabarito": "C"
+  },
+
+{
+    "id": "q4_d19",
+    "codigoDescritor": "D19",
+    "texto": "(ENCCEJA) Uma pessoa deseja comprar um notebook pela internet que custa R$ 1 200,00 e o frete para entrega, R$ 40,00. Ela pagará R$ 200,00 de entrada e o restante, incluindo o frete, em cinco parcelas iguais, sem juros.<br><br>O valor de cada parcela, em real, será igual a",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "208." },
+      { "letra": "B", "texto": "200." },
+      { "letra": "C", "texto": "248." },
+      { "letra": "D", "texto": "240." }
+    ],
+    "gabarito": "A"
   }  
 ]
 
