@@ -1,0 +1,17 @@
+[
+  {
+    "id": "q1_26",
+    "codigoDescritor": "D26",
+    "texto": "(VUNESP) Ana comprou 5 litros de suco de uva para servir no lanche da tarde. Se ela pagou com uma nota de R$ 10,00 e recebeu R$ 4,00 de troco, é correto afirmar que cada litro de suco de uva custou, em reais,",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "1,20." },
+      { "letra": "B", "texto": "4,00." },
+      { "letra": "C", "texto": "4,80." },
+      { "letra": "D", "texto": "6,00." }
+    ],
+    "gabarito": "A"
+  }
+]
