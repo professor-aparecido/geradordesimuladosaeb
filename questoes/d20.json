@@ -1,0 +1,17 @@
+[
+  {
+  "id": "q1_d20",
+  "codigoDescritor": "D20",
+  "texto": "(VUNESP) Um aposentado tinha um saldo de R$ 800,00 em sua conta bancária. Devido ao gasto com remédios, ele precisou fazer um cheque de R$ 1.200,00 e, em seguida, outro de R$ 1.500,00. Alguns dias depois, foi depositado R$ 850,00 em sua conta, que ficou com um saldo negativo de",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "R$ 650,00." },
+    { "letra": "B", "texto": "R$ 1050,00." },
+    { "letra": "C", "texto": "R$ 1.900,00." },
+    { "letra": "D", "texto": "R$ 2.700,00." }
+  ],
+  "gabarito": "B"
+}
+]
