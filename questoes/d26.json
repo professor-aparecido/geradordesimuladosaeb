@@ -13,5 +13,21 @@
       { "letra": "D", "texto": "6,00." }
     ],
     "gabarito": "A"
-  }
+  },
+
+{
+  "id": "q2_d26",
+  "codigoDescritor": "D26",
+  "texto": "(VUNESP) Aline sempre confere seu cupom fiscal para ter certeza de que efetuou o pagamento correto. Ontem, no supermercado, ela comprou:<br><br><table style=\"width:100%; max-width:260px; margin:10px auto; border-collapse:collapse; border:1px solid #000; text-align:center;\"><thead><tr style=\"border-bottom:1px solid #000;\"><th colspan=\"2\" style=\"padding:4px;\">CUPOM FISCAL</th></tr><tr style=\"border-bottom:1px solid #000;\"><th style=\"padding:4px; text-align:left; border-right:1px solid #000;\">Produto</th><th style=\"padding:4px;\">Valor (R$)</th></tr></thead><tbody><tr style=\"border-bottom:1px solid #ccc;\"><td style=\"padding:4px; text-align:left; border-right:1px solid #000;\">Bolacha</td><td style=\"padding:4px;\">4,00</td></tr><tr style=\"border-bottom:1px solid #ccc;\"><td style=\"padding:4px; text-align:left; border-right:1px solid #000;\">Leite</td><td style=\"padding:4px;\">3,00</td></tr><tr style=\"border-bottom:1px solid #ccc;\"><td style=\"padding:4px; text-align:left; border-right:1px solid #000;\">Ovos</td><td style=\"padding:4px;\">2,00</td></tr><tr style=\"border-bottom:1px solid #ccc;\"><td style=\"padding:4px; text-align:left; border-right:1px solid #000;\">Açúcar</td><td style=\"padding:4px;\">1,79</td></tr><tr><td style=\"padding:4px; text-align:left; border-right:1px solid #000;\">Suco</td><td style=\"padding:4px;\">4,21</td></tr></tbody></table><br>O valor total que Aline gastou no supermercado, em reais, foi",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "17." },
+    { "letra": "B", "texto": "16." },
+    { "letra": "C", "texto": "15." },
+    { "letra": "D", "texto": "14." }
+  ],
+  "gabarito": "C"
+}  
 ]
