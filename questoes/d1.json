@@ -5,7 +5,7 @@
     "texto": "(CAED)  Observe, na imagem abaixo, João esperando o início de uma sessão de cinema.<br>[IMAGEM]<br>Quem está à direita de João?",
     "imagem": "imagens/imgq1_d1.png",
     "tipo": "alternativas",
-    "disposicao": "horizontal",
+    "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
       { "letra": "A", "texto": "Alice." },
