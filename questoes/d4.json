@@ -1,0 +1,18 @@
+[
+  {
+  "id": "q1_d4",
+  "codigoDescritor": "D4",
+  "texto": "<b>(CAED)</b> Observe a figura geométrica plana colorida de cinza na malha quadriculada abaixo.<br>[IMAGEM]<br>Qual é o nome dessa figura geométrica plana?",
+  "imagem": "imagens/imgq1_d4.png",
+  "tipo": "alternativas",
+  "disposicao": "grade2x2",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "Paralelogramo." },
+    { "letra": "B", "texto": "Quadrado." },
+    { "letra": "C", "texto": "Trapézio." },
+    { "letra": "D", "texto": "Triângulo." }
+  ],
+  "gabarito": "C"
+}
+]
