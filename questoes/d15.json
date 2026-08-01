@@ -92,6 +92,22 @@
       { "letra": "D", "texto": "320,00" }
     ],
     "gabarito": "D"
-  }
+  },
+
+{
+  "id": "q7_d15",
+  "codigoDescritor": "D15",
+  "texto": "<b>(ENCCEJA)</b> Tonel é um recipiente utilizado para armazenar líquidos. Uma vinícola utiliza tonéis com capacidade de 1 000 litros cada um, para armazenar sua produção de 50 m³ de vinho.<br><br>Quantos tonéis serão necessários para armazenar toda a produção dessa vinícola?",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "50" },
+    { "letra": "B", "texto": "20" },
+    { "letra": "C", "texto": "5" },
+    { "letra": "D", "texto": "2" }
+  ],
+  "gabarito": "A"
+}  
   
 ]
