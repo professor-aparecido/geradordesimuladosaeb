@@ -76,5 +76,22 @@
       { "letra": "D", "texto": "7h e 20 min." }
     ],
     "gabarito": "D"
-  }  
+  },
+
+{
+    "id": "q6_d15",
+    "codigoDescritor": "D15",
+    "texto": "(ENCCEJA) Um torcedor, antes de acessar as instalações de um estádio, comprou uma bebida cujo vasilhame de vidro traz no seu rótulo a informação: “Conteúdo líquido: 320 mL”. Não podendo acessar o estádio com esse vasilhame, ele deverá passar toda a bebida para um copo descartável de plástico em que caiba todo o conteúdo.<br><br>Que capacidade mínima deverá ter o copo, em centímetro cúbico, para comportar todo o conteúdo descrito no rótulo?",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 5,
+    "alternativas": [
+      { "letra": "A", "texto": "0,32" },
+      { "letra": "B", "texto": "3,20" },
+      { "letra": "C", "texto": "32,00" },
+      { "letra": "D", "texto": "320,00" }
+    ],
+    "gabarito": "D"
+  }
+  
 ]
