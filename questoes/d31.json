@@ -48,7 +48,7 @@
 {
     "id": "q4_d31",
     "codigoDescritor": "D31",
-    "texto": "(CAED) Ernesto estava em dúvida se produziria um controle que fosse ligado ao videogame por meio de um fio ou se investiria em peças mais modernas a fim de que o controle fosse conectado ao videogame por meio de Bluetooth. No processo de escolha, Ernesto fez umas contas para analisar o custo-benefício e precisou, em determinado momento, encontrar o conjunto solução da equação $x^2 - 10x - 200 = 0$. Esse conjunto está apresentado em",
+    "texto": "(CAED) Ernesto estava em dúvida se produziria um controle que fosse ligado ao videogame por meio de um fio ou se investiria em peças mais modernas a fim de que o controle fosse conectado ao videogame por meio de Bluetooth. No processo de escolha, Ernesto fez umas contas para analisar o custo-benefício e precisou, em determinado momento, encontrar o conjunto solução da equação\n$$x^2 - 10x - 200 = 0$$.\nEsse conjunto está apresentado em",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
