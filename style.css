@@ -765,8 +765,8 @@ body {
 
 .folha-conteudo {
     flex: 1;
-    height: 250mm !important;
-    max-height: 250mm !important;
+    height: 220mm !important;
+    max-height: 220mm !important;
     display: flex;
     flex-direction: column;
     gap: 8px;
