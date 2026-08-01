@@ -14,5 +14,22 @@
     { "letra": "D", "texto": "Retângulo." }
   ],
   "gabarito": "C"
-}
+},
+
+{
+  "id": "q2_d3",
+  "codigoDescritor": "D3",
+  "texto": "<b>(CAED)</b> No setor de prensa dessa cooperativa, uma estrutura metálica em forma de triângulo é usada para dar sustentação à máquina de prensagem. Observe abaixo a representação de uma das superfícies dessa estrutura.<br>[IMAGEM]<br>Em relação às medidas de seus lados, a superfície dessa estrutura é classificada como um triângulo",
+  "imagem": "imagens/imgq2_d3.png",
+  "tipo": "alternativas",
+  "disposicao": "grade2x2",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "acutângulo." },
+    { "letra": "B", "texto": "equilátero." },
+    { "letra": "C", "texto": "escaleno." },
+    { "letra": "D", "texto": "isósceles." }
+  ],
+  "gabarito": "D"
+}  
 ]
