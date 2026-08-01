@@ -7,12 +7,11 @@
   "disposicao": "vertical",
   "espacoCalculo": 5,
   "alternativas": [
-    { "letra": "A", "texto": "50." },
-    { "letra": "B", "texto": "52." },
-    { "letra": "C", "texto": "54." },
-    { "letra": "D", "texto": "58." },
-    { "letra": "E", "texto": "60." }
+    { "letra": "A", "texto": "52." },
+    { "letra": "B", "texto": "54." },
+    { "letra": "C", "texto": "58." },
+    { "letra": "D", "texto": "40." }
   ],
-  "gabarito": "E"
+  "gabarito": "D"
 }
 ]
