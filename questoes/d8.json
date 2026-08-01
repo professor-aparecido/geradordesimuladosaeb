@@ -14,5 +14,22 @@
     { "letra": "D", "texto": "120°." }
   ],
   "gabarito": "D"
-}
+},
+
+{
+  "id": "q2_d8",
+  "codigoDescritor": "D8",
+  "texto": "<b>(ENCCEJA)</b> Uma porca sextavada tem o formato de um hexágono regular com um furo, representado por um círculo de centro <i>O</i>, o mesmo centro do hexágono regular.<br>[IMAGEM]<br>Essa porca será girada em torno de seu centro, no sentido horário, de forma que o segmento $AB$ se posicione exatamente onde está o segmento $BC$. A amplitude dessa rotação será de",
+  "imagem": "imagens/imgq2_d8.png",
+  "tipo": "alternativas",
+  "disposicao": "horizontal",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "30°" },
+    { "letra": "B", "texto": "60°" },
+    { "letra": "C", "texto": "70°" },
+    { "letra": "D", "texto": "120°" }
+  ],
+  "gabarito": "B"
+}  
 ]
