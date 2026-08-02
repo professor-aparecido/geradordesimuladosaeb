@@ -33,6 +33,25 @@
       { "letra": "D", "texto": "José" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q3_d22",
+    "codigoDescritor": "D22",
+    "texto": "Observe o círculo abaixo. Natália deve representar a parte colorida desse círculo em relação ao círculo todo com uma fração.<br>[IMAGEM]<br>Como Natália deve escrever essa fração?",
+    "imagem": "imagens/imgq3_d22.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\frac{6}{8}$" },
+      { "letra": "B", "texto": "$\\frac{2}{4}$" },
+      { "letra": "C", "texto": "$\\frac{2}{6}$" },
+      { "letra": "D", "texto": "$\\frac{2}{8}$" }
+    ],
+    "gabarito": "D"
   }
 ]  
+
 
