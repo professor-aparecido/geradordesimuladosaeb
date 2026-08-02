@@ -48,6 +48,25 @@
       { "letra": "D", "texto": "720º." }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q4_d8",
+    "codigoDescritor": "D8",
+    "texto": "<b>(CAED)</b> Sr. Lopes revestiu o piso do banheiro de sua casa com ladrilhos em forma de hexágono. Observe, abaixo, como os ladrilhos foram combinados.<br>[IMAGEM]<br>Sr. Lopes observou que todos os ângulos internos de cada ladrilho são iguais. Dessa forma, concluiu que o ângulo ($\\ hat a$) assinalado mede",
+    "imagem": "imagens/imgq4_d8.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "60º." },
+      { "letra": "B", "texto": "90º." },
+      { "letra": "C", "texto": "120º." },
+      { "letra": "D", "texto": "180º." }
+    ],
+    "gabarito": "C"
   }
 ]  
+ 
 
