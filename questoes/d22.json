@@ -15,5 +15,24 @@
       { "letra": "D", "texto": "$\\frac{2}{3}$." }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q2_d22",
+    "codigoDescritor": "D22",
+    "texto": "<b>(EduQA)</b> Os lotes de terreno que o José, o Lino, o Nuno e o Rui têm, na horta comunitária da cidade, são iguais. Cada um dos lotes foi dividido em partes iguais.<br>[IMAGEM]<br>A zona colorida de cada figura representa a quantidade de terreno em que cada um plantou ervas aromáticas. Assinala o nome de quem tem menos terreno plantado com ervas aromáticas.",
+    "imagem": "imagens/imgq2_d22.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "Lino" },
+      { "letra": "B", "texto": "Rui" },
+      { "letra": "C", "texto": "Nuno" },
+      { "letra": "D", "texto": "José" }
+    ],
+    "gabarito": "C"
   }
-]
+]  
+
