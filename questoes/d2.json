@@ -37,7 +37,7 @@
   {
     "id": "q3_d2",
     "codigoDescritor": "D2",
-    "texto": "Quatro meninas desenharam as figuras geométricas abaixo.<br>[IMAGEM]<br>Qual dessas meninas desenhou um pentágono?",
+    "texto": "<b>(CAED)</b> Quatro meninas desenharam as figuras geométricas abaixo.<br>[IMAGEM]<br>Qual dessas meninas desenhou um pentágono?",
     "imagem": "imagens/imgq3_d2.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
