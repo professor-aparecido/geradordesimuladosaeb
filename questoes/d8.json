@@ -53,7 +53,7 @@
   {
     "id": "q4_d8",
     "codigoDescritor": "D8",
-    "texto": "<b>(CAED)</b> Sr. Lopes revestiu o piso do banheiro de sua casa com ladrilhos em forma de hexágono. Observe, abaixo, como os ladrilhos foram combinados.<br>[IMAGEM]<br>Sr. Lopes observou que todos os ângulos internos de cada ladrilho são iguais. Dessa forma, concluiu que o ângulo ($\\ hat a$) assinalado mede",
+    "texto": "<b>(CAED)</b> Sr. Lopes revestiu o piso do banheiro de sua casa com ladrilhos em forma de hexágono. Observe, abaixo, como os ladrilhos foram combinados.<br>[IMAGEM]<br>Sr. Lopes observou que todos os ângulos internos de cada ladrilho são iguais. Dessa forma, concluiu que o ângulo ($\\hat a$) assinalado mede",
     "imagem": "imagens/imgq4_d8.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
@@ -66,7 +66,26 @@
       { "letra": "D", "texto": "180º." }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q5_d8",
+    "codigoDescritor": "D8",
+    "texto": "Em um espaço aberto de um condomínio, foram construídos dois jardins a partir de uma parede em comum. As muretas que delimitam esses jardins foram construídas de maneira que, entre elas, formou-se um ângulo ω. No desenho abaixo, estão representados os jardins I e II, cujos formatos são, respectivamente, de um triângulo e de um paralelogramo, e também as medidas de alguns ângulos.<br>[IMAGEM]<br>A medida do ângulo ω é",
+    "imagem": "imagens/imgq5_d8.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "24º." },
+      { "letra": "B", "texto": "96º." },
+      { "letra": "C", "texto": "120º." },
+      { "letra": "D", "texto": "156º." }
+    ],
+    "gabarito": "B"
   }
 ]  
+
  
 
