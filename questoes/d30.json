@@ -1,0 +1,18 @@
+[
+  {
+    "id": "q1_d30",
+    "codigoDescritor": "D30",
+    "texto": "Para calcular o valor arrecadado, em real, com a venda dos ingressos de uma peça de teatro, foi utilizada a expressão $20x + 25y$. Nela, $x$ representa a quantidade de crianças que assistiram a essa peça e $y$ representa a quantidade de adultos. Foram assistir a essa peça de teatro 100 crianças e 150 adultos. Qual foi o valor arrecadado com a venda desses ingressos?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "R$ 295,00." },
+      { "letra": "B", "texto": "R$ 5 500,00." },
+      { "letra": "C", "texto": "R$ 5 750,00." },
+      { "letra": "D", "texto": "R$ 11 250,00." }
+    ],
+    "gabarito": "C"
+  }
+]
