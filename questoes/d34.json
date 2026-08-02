@@ -13,5 +13,22 @@
       { "letra": "D", "texto": "(105, 60)." }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q2_d34",
+    "codigoDescritor": "D34",
+    "texto": "<b>(INEP)</b> Lucas comprou 3 canetas e 2 lápis pagando $\\text{R\\$ 7,20}$. Danilo comprou 2 canetas e 1 lápis pagando $\\text{R\\$ 4,40}%. O sistema de equações do 1º grau que melhor representa a situação é",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\begin{cases} 2x + 2y = 7,20 \\ 2x + y = 4,40 \\end{cases}$" },
+      { "letra": "B", "texto": "$\\begin{cases} 3x - 2y = 7,20 \\ 2x - y = 4,40 \\end{cases}$"},
+      { "letra": "C", "texto": "$\\begin{cases} x + y = 3,60 \\ x - y = 2,20 \\end{cases}$" },
+      { "letra": "D", "texto": "$\\begin{cases} 3x + y = 7,20 \\ x + y = 4,40 \\end{cases}$" }
+    ],
+    "gabarito": "A"
   }
-]
+]  
