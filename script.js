@@ -689,22 +689,25 @@ let htmlConteudoTipo = '';
         htmlConteudoTipo = htmlGabaritoSubjetiva;
     }
 
-    const rotulosDisposicao = { vertical: 'V', horizontal: 'H', grade2x2: 'G' };
+    const rotulosDisposicao = { vertical: 'Vertical', horizontal: 'Horizontal', grade2x2: 'Grade 2x2' };
     let botaoDisposicao = (q.tipo === 'alternativas') ? `
-            <button class="btn-mini-compact" onclick="alterarDisposicao(${index})" title="Alternar disposição das alternativas (Vertical → Horizontal → Grade 2x2)">⇄ ${rotulosDisposicao[q.disposicao] || 'V'}</button>
+            <button class="btn-mini-compact" onclick="alterarDisposicao(${index})" title="Alternar disposição das alternativas (atual: ${rotulosDisposicao[q.disposicao] || 'Vertical'}) → clique para trocar">⇄</button>
     ` : '';
 
-    // 3. BARRA DE AÇÕES (SUBIR, DESCER, ESPAÇO, DISPOSIÇÃO, EXCLUIR)
-    // A escala da imagem é ajustada só no painel/formulário (campo
-    // "Escala da Imagem"), sem botões aqui, pra economizar espaço.
+    let botoesEscalaImagem = q.imagem ? `
+            <button class="btn-mini-compact" onclick="alterarEscalaImagem(${index}, 10)" title="+10% na Imagem (atual: ${escalaImg}%)">I+</button>
+            <button class="btn-mini-compact" onclick="alterarEscalaImagem(${index}, -10)" title="-10% na Imagem (atual: ${escalaImg}%)">I-</button>
+    ` : '';
+
+    // 3. BARRA DE AÇÕES (SUBIR, DESCER, ESPAÇO, DISPOSIÇÃO, ESCALA DE IMAGEM, EXCLUIR)
     let acoesHtml = isPreviewMode ? '' : `
         <div class="questao-acoes">
             <button class="btn-mini-compact btn-move" onclick="moverQuestao(${index}, -1)" ${isPrimeiro ? 'disabled' : ''} title="Subir">▲</button>
             <button class="btn-mini-compact btn-move" onclick="moverQuestao(${index}, 1)" ${isUltimo ? 'disabled' : ''} title="Descer">▼</button>
-            <button class="btn-mini-compact" onclick="alterarEspaco(${index}, 5)" title="+5px Espaço">+E</button>
-            <button class="btn-mini-compact" onclick="alterarEspaco(${index}, -5)" title="-5px Espaço">-E</button>
-            <span class="espaco-tag">${q.espacoCalculo || 0}px</span>
+            <button class="btn-mini-compact" onclick="alterarEspaco(${index}, 5)" title="+5px Espaço (atual: ${q.espacoCalculo || 0}px)">+E</button>
+            <button class="btn-mini-compact" onclick="alterarEspaco(${index}, -5)" title="-5px Espaço (atual: ${q.espacoCalculo || 0}px)">-E</button>
             ${botaoDisposicao}
+            ${botoesEscalaImagem}
             <button class="btn-mini-compact btn-del" onclick="excluirQuestao(${index})" title="Excluir">🗑️</button>
         </div>
     `;
@@ -950,11 +953,16 @@ function renderizar() {
 
         if (testarOverflowColuna(colunaAtual)) {
             colunaAtual.removeChild(elQuestao);
-            avancarColuna();
-            colunaAtual.appendChild(elQuestao);
-            // Caso extremo (raro): uma única questão maior que uma coluna
-            // inteira (ex.: imagem enorme). Não há para onde mais mover --
-            // ela permanece nessa coluna, podendo ultrapassar o limite.
+            let tentativas = 0;
+            do {
+                avancarColuna();
+                colunaAtual.appendChild(elQuestao);
+                tentativas++;
+            } while (testarOverflowColuna(colunaAtual) && colunaAtual.children.length > 1 && tentativas < 6);
+            // Se mesmo sozinha numa coluna vazia a questão não couber
+            // (colunaAtual.children.length === 1), é porque ela é maior
+            // que uma coluna inteira -- não há mais pra onde mover, então
+            // ela fica ali mesmo, podendo ultrapassar o limite.
         }
     });
 
@@ -963,10 +971,15 @@ function renderizar() {
         const elGabarito = criarElementoGabarito();
         colunaAtual.appendChild(elGabarito);
 
-        if (testarOverflowColuna(colunaAtual)) {
+        // Continua tentando a próxima coluna/página até caber -- uma
+        // única tentativa não bastava quando a coluna seguinte também já
+        // estava ocupada por questões, deixando o gabarito cortado.
+        let tentativas = 0;
+        while (testarOverflowColuna(colunaAtual) && tentativas < 6) {
             colunaAtual.removeChild(elGabarito);
             avancarColuna();
             colunaAtual.appendChild(elGabarito);
+            tentativas++;
         }
     } else if (modoGabarito === 'folha_separada') {
         // Cria uma nova folha dedicada exclusivamente ao Cartão de Respostas
