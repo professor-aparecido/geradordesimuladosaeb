@@ -14,5 +14,24 @@
     { "letra": "D", "texto": "triângulo." }
   ],
   "gabarito": "B"
-}
-] 
+},
+
+  {
+    "id": "q2_d2",
+    "codigoDescritor": "D2",
+    "texto": "<b>(CAED)</b> Observe os desenhos abaixo.<br>[IMAGEM]<br>Quais desses desenhos representam a planificação de um cubo?",
+    "imagem": "imagens/imgq2d_2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "I e II." },
+      { "letra": "B", "texto": "I e IV." },
+      { "letra": "C", "texto": "II e III." },
+      { "letra": "D", "texto": "II e IV." }
+    ],
+    "gabarito": "A"
+  }
+]  
+
