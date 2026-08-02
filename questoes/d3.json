@@ -4,7 +4,7 @@
   "codigoDescritor": "D3",
   "texto": "<b>(CAED)</b> Observe o triângulo representado abaixo com as medidas de seus ângulos internos indicadas.<br>[IMAGEM]<br>Com base nas medidas de seus ângulos internos, como esse triângulo é classificado?",
   "imagem": "imagens/imgq1_d3.png",
-  "escalaImagem": 25,  
+  "escalaImagem": 50,  
   "tipo": "alternativas",
   "disposicao": "grade2x2",
   "espacoCalculo": 5,
