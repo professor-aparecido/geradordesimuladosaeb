@@ -36,8 +36,8 @@
   {
     "id": "q3_d13",
     "codigoDescritor": "D3",
-    "texto": "O trapézio retangular, abaixo, representa um terreno de uma determinada região cujo preço do metro quadrado é de R$ 5,00.<br>[IMAGEM]<br>O valor total desse terreno é",
-    "imagem": "imagens/imgq3_d3.png",
+    "texto": "<b>(CAED)</b> trapézio retangular, abaixo, representa um terreno de uma determinada região cujo preço do metro quadrado é de R$ 5,00.<br>[IMAGEM]<br>O valor total desse terreno é",
+    "imagem": "imagens/imgq3_d13.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
     "disposicao": "vertical",
