@@ -15,5 +15,24 @@
       { "letra": "D", "texto": "(2, 2) e (1, 2)." }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q2_d9",
+    "codigoDescritor": "D9",
+    "texto": "Observe os pontos M, N, O, P e Q que estão destacados no plano cartesiano abaixo.<br>[IMAGEM]<br>Qual desses pontos tem coordenadas (– 2, 1)?",
+    "imagem": "imagens/imgq2_d9.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "N." },
+      { "letra": "B", "texto": "P." },
+      { "letra": "C", "texto": "Q." },
+      { "letra": "D", "texto": "M." }
+    ],
+    "gabarito": "B"
   }
-]
+]  
+
