@@ -40,7 +40,7 @@
     "codigoDescritor": "D1",
     "texto": "<b>(PROEB)</b> A figura a seguir representa uma sala de aula com doze carteiras e seus respectivos bancos.<br>[IMAGEM]<br>Qual é a carteira que, ao mesmo tempo, está mais afastada do fundo da sala e mais próxima da carteira de número 9?",
     "imagem": "imagens/imgq3_d1.png",
-    "escalaImagem": 90,    
+    "escalaImagem": 100,    
     "tipo": "alternativas",
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
