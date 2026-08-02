@@ -1,0 +1,19 @@
+[
+  {
+    "id": "q1_d16",
+    "codigoDescritor": "D16",
+    "texto": "<b>(CAED)</b> A reta numérica abaixo está dividida em intervalos de mesmo comprimento.<br>[IMAGEM]<br>Nessa reta numérica, o ponto V corresponde a qual número?",
+    "imagem": "imagens/imgq1_d16.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "152" },
+      { "letra": "B", "texto": "170" },
+      { "letra": "C", "texto": "180" },
+      { "letra": "D", "texto": "200" }
+    ],
+    "gabarito": "D"
+  }
+]
