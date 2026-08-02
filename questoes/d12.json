@@ -70,7 +70,7 @@
 {
     "id": "q5_d12",
     "codigoDescritor": "D12",
-    "texto": "Em uma cidade, foi construída ao redor de um lago uma pista para caminhada, cujas medidas estão representadas no desenho abaixo. Patrícia caminha todos os dias nessa pista, dando 6 voltas completas ao seu redor.<br>[IMAGEM]<br>Quantos metros Patrícia caminha diariamente nessa pista?",
+    "texto": "<b>(CAED)</b> Em uma cidade, foi construída ao redor de um lago uma pista para caminhada, cujas medidas estão representadas no desenho abaixo. Patrícia caminha todos os dias nessa pista, dando 6 voltas completas ao seu redor.<br>[IMAGEM]<br>Quantos metros Patrícia caminha diariamente nessa pista?",
     "imagem": "imagens/imgq5_d12.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
@@ -88,7 +88,7 @@
   {
     "id": "q6_12",
     "codigoDescritor": "D12",
-    "texto": "O desenho abaixo representa a planta do estacionamento de um supermercado. O seu proprietário o contornou com duas faixas amarelas, paralelas verticalmente, para chamar mais a atenção dos usuários.<br>[IMAGEM]<br>Qual foi a quantidade mínima de faixa, em metros, comprada por esse proprietário?",
+    "texto": "<b>(CAED)</b> O desenho abaixo representa a planta do estacionamento de um supermercado. O seu proprietário o contornou com duas faixas amarelas, paralelas verticalmente, para chamar mais a atenção dos usuários.<br>[IMAGEM]<br>Qual foi a quantidade mínima de faixa, em metros, comprada por esse proprietário?",
     "imagem": "imagens/imgq6_d12.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
