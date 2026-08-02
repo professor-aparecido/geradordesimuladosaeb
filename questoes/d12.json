@@ -65,6 +65,24 @@
       { "letra": "D", "texto": "31,4 m." }
     ],
     "gabarito": "B"
-  }
+  },
+
+{
+    "id": "q5_d12",
+    "codigoDescritor": "D12",
+    "texto": "Em uma cidade, foi construída ao redor de um lago uma pista para caminhada, cujas medidas estão representadas no desenho abaixo. Patrícia caminha todos os dias nessa pista, dando 6 voltas completas ao seu redor.<br>[IMAGEM]<br>Quantos metros Patrícia caminha diariamente nessa pista?",
+    "imagem": "imagens/imgq5_d12.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "1 470 m" },
+      { "letra": "B", "texto": "2 700 m" },
+      { "letra": "C", "texto": "9 100 m" },
+      { "letra": "D", "texto": "11 600 m" }
+    ],
+    "gabarito": "A"
+  }  
 ]  
  
