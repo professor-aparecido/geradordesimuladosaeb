@@ -83,6 +83,25 @@
       { "letra": "D", "texto": "11 600 m" }
     ],
     "gabarito": "A"
-  }  
+  },
+
+  {
+    "id": "q6_12",
+    "codigoDescritor": "D12",
+    "texto": "O desenho abaixo representa a planta do estacionamento de um supermercado. O seu proprietário o contornou com duas faixas amarelas, paralelas verticalmente, para chamar mais a atenção dos usuários.<br>[IMAGEM]<br>Qual foi a quantidade mínima de faixa, em metros, comprada por esse proprietário?",
+    "imagem": "imagens/imgq6_d12.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "156,2" },
+      { "letra": "B", "texto": "286,4" },
+      { "letra": "C", "texto": "312,4" },
+      { "letra": "D", "texto": "134,6" }
+    ],
+    "gabarito": "C"
+  }
 ]  
+ 
  
