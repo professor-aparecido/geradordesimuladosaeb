@@ -2,7 +2,7 @@
   {
     "id": "q1_d12",
     "codigoDescritor": "D12",
-    "texto": "(CAED) Para estimar a quantidade de tinta que será utilizada na pintura da cerca que contorna o canteiro dessa estrutura, foi necessário determinar o perímetro desse canteiro. Visto de cima, esse canteiro tem o formato de um trapézio isósceles. Observe, na figura abaixo, a representação desse formato com algumas medidas indicadas.\n\n[IMAGEM]\n\nQual é a medida do perímetro desse canteiro, em centímetro?",
+    "texto": "<b>(CAED)</b> Para estimar a quantidade de tinta que será utilizada na pintura da cerca que contorna o canteiro dessa estrutura, foi necessário determinar o perímetro desse canteiro. Visto de cima, esse canteiro tem o formato de um trapézio isósceles. Observe, na figura abaixo, a representação desse formato com algumas medidas indicadas.\n\n[IMAGEM]\n\nQual é a medida do perímetro desse canteiro, em centímetro?",
     "imagem": "imagens/imgq1_d12.png",
     "tipo": "alternativas",
     "disposicao": "vertical",
@@ -18,7 +18,7 @@
 {
     "id": "q2_d12",
     "codigoDescritor": "D12",
-    "texto": "(CAED) O técnico dessa instalação fixou, ajustada em todo o entorno da pilastra, uma fita de sustentação, de modo que essa fita ficou totalmente firme na pilastra. O raio da circunferência dessa pilastra onde foi fixada a fita mede 15 cm. No mínimo, quantos centímetros de comprimento tem essa fita de sustentação?\n(Considere: $\\pi = 3$)\n",
+    "texto": "<b>(CAED)</b> O técnico dessa instalação fixou, ajustada em todo o entorno da pilastra, uma fita de sustentação, de modo que essa fita ficou totalmente firme na pilastra. O raio da circunferência dessa pilastra onde foi fixada a fita mede 15 cm. No mínimo, quantos centímetros de comprimento tem essa fita de sustentação?\n(Considere: $\\pi = 3$)\n",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -29,5 +29,22 @@
       { "letra": "D", "texto": "1 350 cm." }
     ],
     "gabarito": "B"
-  }  
-]
+  },
+
+  {
+    "id": "q3_d12",
+    "codigoDescritor": "D12",
+    "texto": "<b>(CAED)</b> Na malha quadriculada abaixo, o lado de cada quadradinho equivale a 1 metro, e o desenho em cinza representa o formato de um palco que foi montado para a festa de aniversário de uma cidade.<br>[IMAGEM]<br>Por segurança, uma tira de borracha foi colocada em todo o perímetro desse palco. Quantos metros dessa tira de borracha foram utilizados, no mínimo, para fazer esse serviço?",
+    "imagem": "imagens/imgq3_d12.png",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "13" },
+      { "letra": "B", "texto": "22" },
+      { "letra": "C", "texto": "26" },
+      { "letra": "D", "texto": "28" }
+    ],
+    "gabarito": "B"
+  }
+]  
