@@ -31,5 +31,22 @@
     { "letra": "D", "texto": "120°" }
   ],
   "gabarito": "B"
-}  
-]
+},
+  {
+    "id": "q3_d8",
+    "codigoDescritor": "D8",
+    "texto": "<b>(PROEB)<\b>Lucas desenhou uma figura formada por dois hexágonos. Veja o que ele desenhou.<br>[IMAGEM]<br>Nessa figura, a soma das medidas dos ângulos $\\hat A$,$\\hat B$ é",
+    "imagem": "imagens/imgq8_d8.png",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "60º" },
+      { "letra": "B", "texto": "120º" },
+      { "letra": "C", "texto": "240º" },
+      { "letra": "D", "texto": "720º" }
+    ],
+    "gabarito": "C"
+  }
+]  
+
