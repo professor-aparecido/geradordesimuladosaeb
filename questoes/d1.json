@@ -17,11 +17,20 @@
   },
   
     {
-    "id": "q2_d1",
-    "codigoDescritor": "D1",
-    "texto": "Determine a posição aproximada da fração $3/4$ na reta numérica.",
-    "tipo": "subjetiva",
-    "respostaGabarito": "A fração $3/4$ equivale a 0,75, ficando entre 0 e 1.",
-    "espacoCalculo": 60
-  }
+  "id": "q2_d1",
+  "codigoDescritor": "D1",
+  "texto": "<b>(ENCCEJA)</b> As linhas de grade da malha quadriculada representam as ruas de uma cidade.<br>[IMAGEM]<br>Uma pessoa, de carro, parte do ponto <i>P</i> no sentido oeste, entra na primeira rua à esquerda, atravessa três quarteirões e entra à sua direita, dirigindo por mais três quarteirões e chegando ao seu destino, que fica na esquina de duas ruas.<br><br>Após realizar esses deslocamentos, essa pessoa chega ao local indicado pelo ponto",
+  "imagem": "imagens/imgq2_d1.png",
+  "escalaImagem": 90,
+  "tipo": "alternativas",
+  "disposicao": "horizontal",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "<i>Q</i>." },
+    { "letra": "B", "texto": "<i>R</i>." },
+    { "letra": "C", "texto": "<i>S</i>." },
+    { "letra": "D", "texto": "<i>T</i>." }
+  ],
+  "gabarito": "D"
+}
 ]
