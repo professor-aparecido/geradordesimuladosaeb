@@ -33,5 +33,24 @@
     { "letra": "D", "texto": "isósceles." }
   ],
   "gabarito": "D"
-}  
-]
+},
+
+  {
+    "id": "q3_d3",
+    "codigoDescritor": "D3",
+    "texto": "<b>(CAED)</b> Observe o triângulo abaixo.<br>[IMAGEM]<br>Em relação aos lados e aos ângulos, esse triângulo pode ser classificado como",
+    "imagem": "imagens/imgq3_d3.png",
+    "escalaImagem":100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "equilátero e acutângulo." },
+      { "letra": "B", "texto": "escaleno e acutângulo." },
+      { "letra": "C", "texto": "escaleno e obtusângulo." },
+      { "letra": "D", "texto": "isósceles e acutângulo." }
+    ],
+    "gabarito": "D"
+  }
+]  
+
