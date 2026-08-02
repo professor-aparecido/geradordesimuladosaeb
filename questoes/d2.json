@@ -20,7 +20,7 @@
     "id": "q2_d2",
     "codigoDescritor": "D2",
     "texto": "<b>(CAED)</b> Observe os desenhos abaixo.<br>[IMAGEM]<br>Quais desses desenhos representam a planificação de um cubo?",
-    "imagem": "imagens/imgq2d_2.png",
+    "imagem": "imagens/imgq2_d2.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
     "disposicao": "grade2x2",
@@ -32,6 +32,25 @@
       { "letra": "D", "texto": "II e IV." }
     ],
     "gabarito": "A"
+  },
+
+  {
+    "id": "q3_d2",
+    "codigoDescritor": "D2",
+    "texto": "Quatro meninas desenharam as figuras geométricas abaixo.<br>[IMAGEM]<br>Qual dessas meninas desenhou um pentágono?",
+    "imagem": "imagens/imgq3_d2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "Bia." },
+      { "letra": "B", "texto": "Cida." },
+      { "letra": "C", "texto": "Marta." },
+      { "letra": "D", "texto": "Rita." }
+    ],
+    "gabarito": "B"
   }
 ]  
+ 
 
