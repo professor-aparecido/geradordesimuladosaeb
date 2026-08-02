@@ -31,6 +31,25 @@
       { "letra": "D", "texto": "960 m²" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q3_d13",
+    "codigoDescritor": "D3",
+    "texto": "O trapézio retangular, abaixo, representa um terreno de uma determinada região cujo preço do metro quadrado é de R$ 5,00.<br>[IMAGEM]<br>O valor total desse terreno é",
+    "imagem": "imagens/imgq3_d3.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "R$ 1.200,00" },
+      { "letra": "B", "texto": "R$ 12.000,00" },
+      { "letra": "C", "texto": "R$ 15.000,00" },
+      { "letra": "D", "texto": "R$ 24.000,00" }
+    ],
+    "gabarito": "B"
   }
 ]  
+
 
