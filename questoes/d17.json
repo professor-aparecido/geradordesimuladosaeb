@@ -2,8 +2,9 @@
   {
     "id": "q1_d17",
     "codigoDescritor": "D17",
-    "texto": "(CAED) Observe abaixo o ponto K destacado na reta numérica que está dividida em partes iguais.<br>[IMAGEM]<br>Esse ponto K representa a localização de qual número nessa reta?",
+    "texto": "<b>(CAED)</b> Observe abaixo o ponto K destacado na reta numérica que está dividida em partes iguais.<br>[IMAGEM]<br>Esse ponto K representa a localização de qual número nessa reta?",
     "imagem": "imagens/imgq1_d17.png",
+    "escalaImagem": 100,
     "tipo": "alternativas",
     "disposicao": "horizontal",
     "espacoCalculo": 0,
@@ -14,5 +15,24 @@
       { "letra": "D", "texto": "3,0." }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q2_d17",
+    "codigoDescritor": "D17",
+    "texto": "<b>(CAED)</b> A reta numérica abaixo está dividida em intervalos de mesmo comprimento.<br>[IMAGEM]<br>Nessa reta numérica, qual dos pontos marcados corresponde ao número 2,0?",
+    "imagem": "imagens/imgq2_d17.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "E" },
+      { "letra": "B", "texto": "F" },
+      { "letra": "C", "texto": "J" },
+      { "letra": "D", "texto": "L" }
+    ],
+    "gabarito": "C"
   }
-]
+]  
+
