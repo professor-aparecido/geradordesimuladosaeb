@@ -13,5 +13,25 @@
       { "letra": "D", "texto": "$180\\ \\text{cm}^2$" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q2_d13",
+    "codigoDescritor": "D13",
+    "texto": "Observe, no desenho abaixo, o esquema de um estábulo que foi construído para acomodar dez cavalos.<br>[IMAGEM]<br>Qual é a medida da área ocupada por esse estábulo?",
+    "imagem": "imagens/imgq2_d13.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "34 m²" },
+      { "letra": "B", "texto": "140 m²" },
+      { "letra": "C", "texto": "280 m²" },
+      { "letra": "D", "texto": "960 m²" },
+     
+    ],
+    "gabarito": "C"
   }
-]
+]  
+
