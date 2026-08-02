@@ -46,5 +46,23 @@
     {"letra": "D", "texto": "2011."}
   ],
   "gabarito": "C"
-}  
+},
+
+  {
+    "id": "q4_d36",
+    "codigoDescritor": "D36",
+    "texto": "Paulo é gerente de uma loja de roupas. Para calcular a comissão de seus funcionários, ele precisa saber o valor total referente às vendas de roupas masculinas, femininas e infantis de cada um deles. A tabela abaixo indica o valor das vendas, em reais, referente ao mês de outubro.<br>[IMAGEM]<br>Qual é o valor que Paulo deve utilizar para calcular a comissão referente ao mês de outubro do vendedor 3?",
+    "imagem": "imagens/imgq4_d36.png",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "2 700 reais." },
+      { "letra": "B", "texto": "8 400 reais." },
+      { "letra": "C", "texto": "13 500 reais." },
+      { "letra": "D", "texto": "41 600 reais." }
+    ],
+    "gabarito": "B"
+  }
 ]
+  
