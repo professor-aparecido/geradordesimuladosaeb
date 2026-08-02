@@ -13,5 +13,22 @@
     { "letra": "D", "texto": "$x + \\frac{x}{4} + (x - 100) = 2\\,600$" }
   ],
   "gabarito": "D"
+},
+
+  {
+  "id": "q2_d33",
+  "codigoDescritor": "D33",
+  "texto": "Quando um fazendeiro percebeu que algumas frutas de seu pomar estavam ficando maduras, prometeu ao filho que pagaria R$ 3,00 por hora trabalhada, se ele o ajudasse por um dia na colheita. Represente por $t$ o número de horas trabalhadas pelo filho do fazendeiro e por $q$ a quantidade que ele recebeu do pai ao final do dia de trabalho. A expressão matemática que relaciona as grandezas $q$ e $t$ é",
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "$q = 3t$" },
+    { "letra": "B", "texto": "$q = 3 + t$" },
+    { "letra": "C", "texto": "$t = 3q$" },
+    { "letra": "D", "texto": "$t = 3 + q$" }
+  ],
+  "gabarito": "A"
 }
+  
 ]
