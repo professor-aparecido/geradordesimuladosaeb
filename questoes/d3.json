@@ -51,6 +51,24 @@
       { "letra": "D", "texto": "isósceles e acutângulo." }
     ],
     "gabarito": "D"
-  }
+  },
+
+  {
+    "id": "q4_d3",
+    "codigoDescritor": "D3",
+    "texto": "Para instalar uma prateleira, Renato precisa fixar dois suportes na parede, conforme representado em cinza no desenho abaixo.<br>[IMAGEM]<br>Esse suporte forma com a prateleira e a parede um ângulo de 90°. Qual é o comprimento da haste desse suporte representada pela letra $x$?",
+    "imagem": "imagens/imgq4_d3.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "13,23 cm" },
+      { "letra": "B", "texto": "25 cm" },
+      { "letra": "C", "texto": "35 cm" },
+      { "letra": "D", "texto": "32,5 cm" }
+    ],
+    "gabarito": "B"
+  },
 ]  
 
