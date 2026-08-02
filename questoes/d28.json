@@ -2,7 +2,7 @@
   {
     "id": "q1_d28",
     "codigoDescritor": "D28",
-    "texto": "(CAED) Cada prato do menu de massas está sendo vendido a um preço fixo de R$ 30,00. Os primeiros clientes que chegaram a essa festa de inauguração ganharam 12% de desconto no preço de um prato.\n\nQual foi o preço do prato do menu de massas de um cliente que ganhou esse desconto?",
+    "texto": "<b>(CAED)<b> Cada prato do menu de massas está sendo vendido a um preço fixo de R$ 30,00. Os primeiros clientes que chegaram a essa festa de inauguração ganharam 12% de desconto no preço de um prato.\n\nQual foi o preço do prato do menu de massas de um cliente que ganhou esse desconto?",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -17,7 +17,7 @@
   {
     "id": "q2_d28",
     "codigoDescritor": "D28",
-    "texto": "(CAED) Nessa compra, Isabel pagou 1 230 reais pela televisão e, além disso, pagou 20% desse valor para incluir o serviço de instalação.\n\nQual foi a quantia total que Isabel pagou nessa compra?",
+    "texto": "<b>(CAED)<b> Nessa compra, Isabel pagou 1 230 reais pela televisão e, além disso, pagou 20% desse valor para incluir o serviço de instalação.\n\nQual foi a quantia total que Isabel pagou nessa compra?",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -33,7 +33,7 @@
   {
     "id": "q3_d28",
     "codigoDescritor": "D28",
-    "texto": "(CAED) Em 2022, 65 pessoas se voluntariaram para decorar essa rua em que Zeca mora. Já em 2026, houve um aumento de 20% na quantidade de voluntários. Ao todo, quantas pessoas se voluntariaram para decorar essa rua em 2026?",
+    "texto": "<b>(CAED)<b> Em 2022, 65 pessoas se voluntariaram para decorar essa rua em que Zeca mora. Já em 2026, houve um aumento de 20% na quantidade de voluntários. Ao todo, quantas pessoas se voluntariaram para decorar essa rua em 2026?",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -49,7 +49,7 @@
   {
     "id": "q4_d28",
     "codigoDescritor": "D28",
-    "texto": "(VUNESP) Aos 12 anos, uma criança tinha 1,50 metro de altura e hoje, aos 15 anos, cresceu 20% em relação àquela estatura. Essa criança tem hoje uma altura, em metros, de",
+    "texto": "<b>(VUNESP)</b> Aos 12 anos, uma criança tinha 1,50 metro de altura e hoje, aos 15 anos, cresceu 20% em relação àquela estatura. Essa criança tem hoje uma altura, em metros, de",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -65,7 +65,7 @@
 {
   "id": "q5_d28",
   "codigoDescritor": "D28",
-  "texto": "O gráfico descreve o volume de água, em milhão de metros cúbicos, presente em um reservatório, no dia 31 de dezembro nos anos de 2015 a 2017.<br>[IMAGEM]<br>Suponha que em 31 de dezembro de 2018 o volume de água presente nesse reservatório registrou a mesma queda percentual que as observadas nos anos anteriores. O volume de água, em milhão de metros cúbicos, registrado em 31 de dezembro de 2018 foi",
+  "texto": "<b>(ENCCEJA)</b> O gráfico descreve o volume de água, em milhão de metros cúbicos, presente em um reservatório, no dia 31 de dezembro nos anos de 2015 a 2017.<br>[IMAGEM]<br>Suponha que em 31 de dezembro de 2018 o volume de água presente nesse reservatório registrou a mesma queda percentual que as observadas nos anos anteriores. O volume de água, em milhão de metros cúbicos, registrado em 31 de dezembro de 2018 foi",
   "imagem": "imagens/imgq5_d28.png",
   "escalaImagem": 100,
   "tipo": "alternativas",
