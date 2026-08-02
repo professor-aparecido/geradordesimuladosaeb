@@ -18,7 +18,7 @@
   {
   "id": "q2_d33",
   "codigoDescritor": "D33",
-  "texto": "<b>(ENCCEJA)</b> Quando um fazendeiro percebeu que algumas frutas de seu pomar estavam ficando maduras, prometeu ao filho que pagaria R$ 3,00 por hora trabalhada, se ele o ajudasse por um dia na colheita. Represente por $t$ o número de horas trabalhadas pelo filho do fazendeiro e por $q$ a quantidade que ele recebeu do pai ao final do dia de trabalho. A expressão matemática que relaciona as grandezas $q$ e $t$ é",
+  "texto": "<b>(ENCCEJA)</b> Quando um fazendeiro percebeu que algumas frutas de seu pomar estavam ficando maduras, prometeu ao filho que pagaria $\\text{R$ 3,00}$ por hora trabalhada, se ele o ajudasse por um dia na colheita. Represente por $t$ o número de horas trabalhadas pelo filho do fazendeiro e por $q$ a quantidade que ele recebeu do pai ao final do dia de trabalho. A expressão matemática que relaciona as grandezas $q$ e $t$ é",
   "tipo": "alternativas",
   "disposicao": "vertical",
   "espacoCalculo": 5,
@@ -45,6 +45,23 @@
     { "letra": "D", "texto": "$P = 40 + 20h$" }
   ],
   "gabarito": "D"
-}  
+},
+
+  {
+    "id": "q4_d33",
+    "codigoDescritor": "D33",
+    "texto": "Na primeira semana do ano de 2013, foi vendida certa quantidade de cocos em um quiosque na praia e, na semana seguinte, foi vendido o quádruplo do número de cocos vendidos na primeira semana. Nessas duas semanas, foi vendido um total de 1 300 cocos nesse quiosque. Qual é a equação que permite calcular o número $x$ de cocos vendidos na primeira semana?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "x + \\frac{x}{4} = 1\\ 300" },
+      { "letra": "B", "texto": "x + 4x = 1\\ 300" },
+      { "letra": "C", "texto": "x + x^{4} = 1\\ 300" },
+      { "letra": "D", "texto": "4x = 1\\ 300" }
+    ],
+    "gabarito": "B"
+  }
+]  
   
-]
