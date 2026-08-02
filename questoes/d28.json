@@ -78,5 +78,22 @@
     { "letra": "D", "texto": "35,00." }
   ],
   "gabarito": "A"
-}  
+},
+
+  {
+    "id": "q6_d28",
+    "codigoDescritor": "D28",
+    "texto": "<b>(CAED)</b> Uma loja oferece duas modalidades de pagamentos para seus produtos: à vista ou parcelado em 3 prestações mensais iguais. Nas compras parceladas, o valor do produto sofre um acréscimo de 5% em seu preço. Roberto comprou nessa loja um sofá que, à vista, custava R$ 680,00, optando pelo pagamento em 3 parcelas. Qual será o valor de cada parcela da compra de Roberto?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "R$ 228,33." },
+      { "letra": "B", "texto": "R$ 238,00." },
+      { "letra": "C", "texto": "R$ 340,00." },
+      { "letra": "D", "texto": "R$ 226,67." }
+    ],
+    "gabarito": "B"
+  }
 ]  
