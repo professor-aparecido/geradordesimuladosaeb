@@ -6,7 +6,7 @@
     "imagem": "imagens/imgq1_d22.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
-    "disposicao": "grade2x2",
+    "disposicao": "horizontal",
     "espacoCalculo": 0,
     "alternativas": [
       { "letra": "A", "texto": "$\\frac{1}{3}$." },
