@@ -2,8 +2,9 @@
   {
     "id": "q1_d1",
     "codigoDescritor": "D1",
-    "texto": "(CAED)  Observe, na imagem abaixo, João esperando o início de uma sessão de cinema.<br>[IMAGEM]<br>Quem está à direita de João?",
+    "texto": "<b>(CAED)</b>  Observe, na imagem abaixo, João esperando o início de uma sessão de cinema.<br>[IMAGEM]<br>Quem está à direita de João?",
     "imagem": "imagens/imgq1_d1.png",
+    "escalaImagem": 100,    
     "tipo": "alternativas",
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
@@ -32,5 +33,24 @@
     { "letra": "D", "texto": "<i>T</i>." }
   ],
   "gabarito": "D"
-}
+},
+
+  {
+    "id": "q3_d1",
+    "codigoDescritor": "D1",
+    "texto": "<b>(PROEB)</b> A figura a seguir representa uma sala de aula com doze carteiras e seus respectivos bancos.<br>[IMAGEM]<br>Qual é a carteira que, ao mesmo tempo, está mais afastada do fundo da sala e mais próxima da carteira de número 9?",
+    "imagem": "imagens/imgq3_d1.png",
+    "escalaImagem": 90,    
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "Carteira nº 1" },
+      { "letra": "B", "texto": "Carteira nº 2" },
+      { "letra": "C", "texto": "Carteira nº 3" },
+      { "letra": "D", "texto": "Carteira nº 4" }
+    ],
+    "gabarito": "A"
+  }
+
 ]
