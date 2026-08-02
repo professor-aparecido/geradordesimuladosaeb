@@ -56,7 +56,7 @@
   {
     "id": "q4_d1",
     "codigoDescritor": "D1",
-    "texto": "<b>(EduQA)</b> Na figura, está representado o mapa da horta comunitária de uma cidade.<br>[IMAGEM]<br>A Rita está virada para Norte, no ponto de coordenadas (5,E). Ela vai efetuar o percurso seguinte.<br>— Andar 300 metros em frente.<br>— Virar um quarto de volta à esquerda.<br>— Andar 200 metros em frente.<br><br>Assinala a opção que completa corretamente a frase.<br><br>No final do percurso, a Rita vai estar virada para",
+    "texto": "<b>(EduQA)</b> Na figura, está representado o mapa da horta comunitária de uma cidade.<br>[IMAGEM]<br>A Rita está virada para Norte, no ponto de coordenadas (5,E). Ela vai efetuar o percurso seguinte.<br><br>— Andar 300 metros em frente.<br>— Virar um quarto de volta à esquerda.<br>— Andar 200 metros em frente.<br><br>Assinala a opção que completa corretamente a frase.<br><br>No final do percurso, a Rita vai estar virada para",
     "imagem": "imagens/imgq4_d1.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
