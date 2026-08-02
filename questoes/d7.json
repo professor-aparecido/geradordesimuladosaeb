@@ -1,0 +1,18 @@
+[
+  {
+    "id": "q1_d7",
+    "codigoDescritor": "D7",
+    "texto": "<b>(INEP)</b> Ampliando-se o triângulo ABC obtem-se um novo triângulo A'B'C', em que cada lado é o dobro do seu correspondente em ABC.<br>[IMAGEM]<br>Em figuras ampliadas ou reduzidas os elementos que conservam a mesma medida são",
+    "imagem": "imagens/imgq1_d7.png",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "as áreas." },
+      { "letra": "B", "texto": "os perímetros." },
+      { "letra": "C", "texto": "os lados." },
+      { "letra": "D", "texto": "os ângulos." }
+    ],
+    "gabarito": "D"
+  }
+]
