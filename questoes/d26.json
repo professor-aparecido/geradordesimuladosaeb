@@ -29,5 +29,23 @@
     { "letra": "D", "texto": "14." }
   ],
   "gabarito": "C"
-}  
+},
+
+  {
+    "id": "q3_d26",
+    "codigoDescritor": "D26",
+    "texto": "<b>(CAED)</b> Leandro comprou uma barra de chocolate por $\\text{R\\$ 4,50}$ e pagou com uma nota de $\\text{R\\$ 20,00}$. Com o troco, ele comprou um pouco de presunto, que custou $\\text{R\\$ 6,80}$. Após essas compras, sobrou para Leandro",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "R$ 15,50" },
+      { "letra": "B", "texto": "R$ 13,20" },
+      { "letra": "C", "texto": "R$ 11,30" },
+      { "letra": "D", "texto": "R$ 8,70" }
+    ],
+    "gabarito": "D"
+  }
+
 ]
