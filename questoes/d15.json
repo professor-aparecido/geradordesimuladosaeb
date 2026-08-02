@@ -125,5 +125,22 @@
       { "letra": "D", "texto": "0,44 Km" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q9_d15",
+    "codigoDescritor": "D15",
+    "texto": "<b>(CAED)</b> Uma ponte possui extensão de 13,29 km. O comprimento dessa ponte, em metros, é",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "1,329" },
+      { "letra": "B", "texto": "132,9" },
+      { "letra": "C", "texto": "1 329" },
+      { "letra": "D", "texto": "13 290" }
+    ],
+    "gabarito": "D"
   }
-]
+]  
