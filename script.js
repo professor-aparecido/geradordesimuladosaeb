@@ -132,7 +132,8 @@ const btnAdicionarQuestao = document.getElementById('btnAdicionarQuestao');
 const btnToggleBanco = document.getElementById('btnToggleBanco');
 const bodyBanco = document.getElementById('bodyBanco');
 const btnAccIconBanco = document.getElementById('btnAccIconBanco');
-const selectDescritorBanco = document.getElementById('selectDescritorBanco');
+const inputDescritorBanco = document.getElementById('inputDescritorBanco');
+const comboboxDescritores = document.getElementById('comboboxDescritores');
 const containerBancoQuestoes = document.getElementById('containerBancoQuestoes');
 
 // 1. RECOLHER / EXPANDIR PAINÉIS ACCORDION
@@ -161,12 +162,6 @@ if (btnToggleBanco) {
         const isCollapsed = bodyBanco.classList.toggle('collapsed');
         if (btnAccIconBanco) btnAccIconBanco.innerText = isCollapsed ? '▼' : '▲';
     });
-}
-
-// LISTENERS DO SELECT DO BANCO DE QUESTÕES
-if (selectDescritorBanco) {
-    // Carrega quando a opção é trocada
-    selectDescritorBanco.addEventListener('change', carregarBancoPorDescritor);
 }
 
 // ALTERNÂNCIA DE TIPO DE QUESTÃO
@@ -288,26 +283,121 @@ btnAdicionarQuestao.addEventListener('click', () => {
 // ===================================================
 // 3. FUNÇÕES DO BANCO DE QUESTÕES (BLOCO 3)
 // ===================================================
-// POPULA O DATALIST EXIBINDO APENAS UMA LINHA COM O TEXTO EM MAIÚSCULAS
-function popularDatalistDescritores() {
-    const listaDatalist = document.getElementById('listaDescritores');
-    if (!listaDatalist) return;
+// COMBOBOX CUSTOMIZADO DE DESCRITORES (substitui o antigo <datalist>)
+// ===================================================
+let opcoesDescritores = [];
+let indiceAtivoCombobox = -1;
 
-    listaDatalist.innerHTML = '';
+function popularOpcoesDescritores() {
+    opcoesDescritores = Object.keys(BASE_DESCRITORES).map(codigo => ({
+        codigo: codigo.toUpperCase(),
+        texto: BASE_DESCRITORES[codigo]
+    }));
+}
 
-    Object.keys(BASE_DESCRITORES).forEach(codigo => {
-        const option = document.createElement('option');
-        // Ao definir APENAS o value com a frase em MAIÚSCULA, o navegador exibe 1 única linha limpa
-        option.value = `${codigo.toUpperCase()} - ${BASE_DESCRITORES[codigo]}`;
-        listaDatalist.appendChild(option);
+function escapeHtmlCombobox(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Envolve o trecho que bateu com o termo digitado em <mark> pra destacar
+function destacarTermo(texto, termo) {
+    const textoSeguro = escapeHtmlCombobox(texto);
+    if (!termo) return textoSeguro;
+    const idx = texto.toLowerCase().indexOf(termo.toLowerCase());
+    if (idx === -1) return textoSeguro;
+    const antes = escapeHtmlCombobox(texto.slice(0, idx));
+    const meio = escapeHtmlCombobox(texto.slice(idx, idx + termo.length));
+    const depois = escapeHtmlCombobox(texto.slice(idx + termo.length));
+    return `${antes}<mark>${meio}</mark>${depois}`;
+}
+
+function renderComboboxDescritores(termoBruto) {
+    const termo = termoBruto.trim().toLowerCase();
+    // Busca "fuzzy": bate tanto no código (D12) quanto em qualquer
+    // palavra do texto do descritor -- não só no começo da frase.
+    const resultados = termo
+        ? opcoesDescritores.filter(op =>
+            op.codigo.toLowerCase().includes(termo) || op.texto.toLowerCase().includes(termo))
+        : opcoesDescritores;
+
+    indiceAtivoCombobox = -1;
+
+    if (resultados.length === 0) {
+        comboboxDescritores.innerHTML = `<div class="combobox-vazio">Nenhum descritor encontrado</div>`;
+        comboboxDescritores.hidden = false;
+        return;
+    }
+
+    comboboxDescritores.innerHTML = resultados.map(op => `
+        <div class="combobox-item" data-codigo="${op.codigo}">
+            <span class="combobox-item-codigo">${destacarTermo(op.codigo, termo)}</span>
+            <span class="combobox-item-texto">${destacarTermo(op.texto, termo)}</span>
+        </div>
+    `).join('');
+    comboboxDescritores.hidden = false;
+
+    comboboxDescritores.querySelectorAll('.combobox-item').forEach(item => {
+        // mousedown (não click) pra disparar ANTES do blur do input esconder a lista
+        item.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            selecionarDescritor(item.dataset.codigo);
+        });
+    });
+}
+
+function atualizarDestaqueCombobox(itens) {
+    itens.forEach((item, i) => item.classList.toggle('combobox-item--ativo', i === indiceAtivoCombobox));
+    if (indiceAtivoCombobox >= 0) itens[indiceAtivoCombobox].scrollIntoView({ block: 'nearest' });
+}
+
+function selecionarDescritor(codigo) {
+    inputDescritorBanco.value = codigo;
+    comboboxDescritores.hidden = true;
+    carregarBancoPorDescritor(codigo);
+}
+
+if (inputDescritorBanco) {
+    popularOpcoesDescritores();
+
+    inputDescritorBanco.addEventListener('input', () => renderComboboxDescritores(inputDescritorBanco.value));
+    inputDescritorBanco.addEventListener('focus', () => renderComboboxDescritores(inputDescritorBanco.value));
+
+    inputDescritorBanco.addEventListener('blur', () => {
+        // pequeno atraso pra dar tempo do mousedown do item rodar antes de esconder
+        setTimeout(() => { comboboxDescritores.hidden = true; }, 120);
+    });
+
+    inputDescritorBanco.addEventListener('keydown', (e) => {
+        const itens = comboboxDescritores.querySelectorAll('.combobox-item');
+        if (comboboxDescritores.hidden || itens.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            indiceAtivoCombobox = Math.min(indiceAtivoCombobox + 1, itens.length - 1);
+            atualizarDestaqueCombobox(itens);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            indiceAtivoCombobox = Math.max(indiceAtivoCombobox - 1, 0);
+            atualizarDestaqueCombobox(itens);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (indiceAtivoCombobox >= 0 && itens[indiceAtivoCombobox]) {
+                selecionarDescritor(itens[indiceAtivoCombobox].dataset.codigo);
+            } else {
+                comboboxDescritores.hidden = true;
+                carregarBancoPorDescritor(inputDescritorBanco.value);
+            }
+        } else if (e.key === 'Escape') {
+            comboboxDescritores.hidden = true;
+        }
     });
 }
 
 // BUSCA E CARREGA O ARQUIVO JSON DO DESCRITOR SELECIONADO/DIGITADO
-async function carregarBancoPorDescritor() {
-    if (!selectDescritorBanco) return;
-    
-    let valorDigitado = selectDescritorBanco.value.trim();
+async function carregarBancoPorDescritor(valorBruto) {
+    if (!inputDescritorBanco) return;
+
+    let valorDigitado = (typeof valorBruto === 'string' ? valorBruto : inputDescritorBanco.value).trim();
 
     if (!valorDigitado) {
         containerBancoQuestoes.innerHTML = '<p class="msg-orientacao">Digite ou escolha um descritor acima para carregar as questões.</p>';
@@ -319,10 +409,8 @@ async function carregarBancoPorDescritor() {
     const match = valorDigitado.match(/d\d+(_lp)?/i);
     const codigoFormatado = match ? match[0].toUpperCase() : valorDigitado.split(' ')[0].toUpperCase();
 
-    // 💡 AQUI ESTÁ O TRUQUE: Se o campo contiver mais do que só o código, 
-    // atualizamos o input para exibir Apenas o Código (ex: D1)
-    if (selectDescritorBanco.value !== codigoFormatado) {
-        selectDescritorBanco.value = codigoFormatado;
+    if (inputDescritorBanco.value !== codigoFormatado) {
+        inputDescritorBanco.value = codigoFormatado;
     }
 
     // Nome do arquivo .json em minúsculo (ex: "d1")
@@ -355,13 +443,6 @@ async function carregarBancoPorDescritor() {
             </div>
         `;
     }
-}
-
-// LISTENERS E INICIALIZAÇÃO
-if (selectDescritorBanco) {
-    popularDatalistDescritores(); // Preenche as opções do datalist no início
-    selectDescritorBanco.addEventListener('input', carregarBancoPorDescritor);
-    selectDescritorBanco.addEventListener('change', carregarBancoPorDescritor);
 }
 
 

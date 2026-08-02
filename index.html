@@ -188,19 +188,16 @@
                     </div>
 
                     <div class="accordion-body collapsed" id="bodyBanco">
-                        <div class="form-group">
-                            <label for="selectDescritorBanco">Digite ou Selecione o Descritor:</label>
+                        <div class="form-group combobox-wrapper">
+                            <label for="inputDescritorBanco">Digite ou Selecione o Descritor:</label>
                             <input 
                                 type="text" 
-                                id="selectDescritorBanco" 
-                                list="listaDescritores" 
+                                id="inputDescritorBanco" 
                                 class="form-input" 
                                 placeholder="Ex.: D1, D12 ou digite palavra-chave..." 
                                 autocomplete="off"
                             >
-                            <datalist id="listaDescritores">
-                             <!-- As opções são geradas dinamicamente via JS (popularDatalistDescritores) -->
-                            </datalist>
+                            <div id="comboboxDescritores" class="combobox-lista" hidden></div>
                         </div>
 
                         <!-- LISTA ONDE AS QUESTÕES DO BANCO SERÃO EXIBIDAS -->
