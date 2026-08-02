@@ -59,6 +59,24 @@
       { "letra": "D", "texto": "{-900, 900}." }
     ],
     "gabarito": "A"
-  }  
+  },
+
+  {
+    "id": "q5_d31",
+    "codigoDescritor": "D31",
+    "texto": "<b>(CAED)</b> Um livro de suspense começou a ser vendido em uma livraria. Na primeira semana foi vendida certa quantidade desse livro e, na semana seguinte, as vendas atingiram o quadrado do número de livros vendidos na primeira semana. Nessas duas semanas foram vendidos 342 livros no total. Quantos desses livros foram vendidos na primeira semana?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "36" },
+      { "letra": "B", "texto": "171" },
+      { "letra": "C", "texto": "324" },
+      { "letra": "D", "texto": "18" }
+    ],
+    "gabarito": "D"
+  }
 ]  
+
 
