@@ -15,5 +15,23 @@
       { "letra": "D", "texto": "200" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q2_d16",
+    "codigoDescritor": "D16",
+    "texto": "Caroline está completando a reta numérica representada abaixo, na qual as distâncias entre dois pontos consecutivos são todas iguais.<br>[IMAGEM]<br>Para completar essa reta numérica, qual número Caroline deve escrever no lugar da letra R?",
+    "imagem": "imagens/imgq2_d16.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "– 23" },
+      { "letra": "B", "texto": "– 16" },
+      { "letra": "C", "texto": "– 9" },
+      { "letra": "D", "texto": "– 7" }
+    ],
+    "gabarito": "E"
   }
 ]
