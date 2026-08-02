@@ -1,0 +1,19 @@
+[
+  {
+    "id": "q1_d9",
+    "codigoDescritor": "D9",
+    "texto": "Observe o triângulo PQR representado no plano cartesiano abaixo.<br>[IMAGEM]<br>De acordo com o sistema de coordenadas cartesianas apresentado, as coordenadas dos pontos P e R são, respectivamente,",
+    "imagem": "imagens/imgq1_d9.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "(- 2, 2) e (1, - 2)." },
+      { "letra": "B", "texto": "(- 2, - 2) e (2, 1)." },
+      { "letra": "C", "texto": "(- 2, - 2) e (1, 2)." },
+      { "letra": "D", "texto": "(2, 2) e (1, 2)." }
+    ],
+    "gabarito": "C"
+  }
+]
