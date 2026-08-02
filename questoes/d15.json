@@ -142,5 +142,23 @@
       { "letra": "D", "texto": "13 290" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q10_d15",
+    "codigoDescritor": "D15",
+    "texto": "Daniel deu uma volta completa ao caminhar ao redor da praça de seu bairro. Sabendo que o contorno dessa praça tem 2,4 km de extensão, quantos metros Daniel percorreu nessa caminhada?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "24 000 metros." },
+      { "letra": "B", "texto": "2 400 metros." },
+      { "letra": "C", "texto": "240 metros." },
+      { "letra": "D", "texto": "24 metros." }
+    ],
+    "gabarito": "B"
   }
 ]  
+
