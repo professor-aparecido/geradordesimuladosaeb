@@ -1,0 +1,19 @@
+[
+  {
+    "id": "q1_d11",
+    "codigoDescritor": "D11",
+    "texto": "Observe as circunferências de centro O representadas nos cartões abaixo.<br>[IMAGEM]<br>Em qual dos cartões o segmento traçado representa o diâmetro da circunferência?",
+    "imagem": "imagens/imgq1_d11.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "Cartão 1." },
+      { "letra": "B", "texto": "Cartão 2." },
+      { "letra": "C", "texto": "Cartão 3." },
+      { "letra": "D", "texto": "Cartão 4." }
+    ],
+    "gabarito": "B"
+  }
+]
