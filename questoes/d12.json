@@ -48,5 +48,23 @@
       { "letra": "D", "texto": "28" }
     ],
     "gabarito": "C"
+  },
+  
+  {
+    "id": "q4_d12",
+    "codigoDescritor": "D12",
+    "texto": "<b>(CAED)</b> O jardim da casa de José tem o formato circular com 5 m de diâmetro. Para cercá-lo, ele precisou dar 4 voltas, em torno do jardim, com o arame esticado e preso a estacas de madeira.$$\\boxed{Dado: π ≅ 3,14}$$A quantidade mínima de arame que José usou para cercar esse jardim foi de",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "125,6 m"},
+      { "letra": "B", "texto": "62,8 m" },
+      { "letra": "C", "texto": "125,6 m"},
+      { "letra": "D", "texto": "31,4 m" }
+    ],
+    "gabarito": "B"
   }
 ]  
+ 
