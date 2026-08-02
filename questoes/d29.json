@@ -29,5 +29,23 @@
     { "letra": "D", "texto": "45." }
   ],
   "gabarito": "B"
-}  
-]
+},
+
+  {
+    "id": "q3_d29",
+    "codigoDescritor": "D29",
+    "texto": "<b>(CAED)</b> Alex é músico e cobra R$ 300,00 por uma apresentação de 75 minutos de duração. Certa vez, a pedido do contratante, sua apresentação foi estendida 40 minutos, de maneira que o valor recebido por esse tempo estendido foi calculado proporcionalmente à quantia cobrada por uma apresentação de 75 minutos. Qual foi o valor total que Alex recebeu por essa apresentação?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "R$ 160,00." },
+      { "letra": "B", "texto": "R$ 340,00." },
+      { "letra": "C", "texto": "R$ 300,00." },
+      { "letra": "D", "texto": "R$ 460,00." }
+    ],
+    "gabarito": "D"
+  }
+]  
+
