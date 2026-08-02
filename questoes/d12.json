@@ -59,10 +59,10 @@
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "125,6 m"},
-      { "letra": "B", "texto": "62,8 m" },
-      { "letra": "C", "texto": "125,6 m"},
-      { "letra": "D", "texto": "31,4 m" }
+      { "letra": "A", "texto": "125,6 m."},
+      { "letra": "B", "texto": "62,8 m." },
+      { "letra": "C", "texto": "125,6 m."},
+      { "letra": "D", "texto": "31,4 m." }
     ],
     "gabarito": "B"
   }
