@@ -90,7 +90,7 @@
   {
     "id": "q6_d2",
     "codigoDescritor": "D2",
-    "texto": "Observe os poliedros desenhados abaixo.<br>[IMAGEM]<br>Qual desses poliedros possui 6 arestas?",
+    "texto": "<b>(CAED)</b> Observe os poliedros desenhados abaixo.<br>[IMAGEM]<br>Qual desses poliedros possui 6 arestas?",
     "imagem": "imagens/imgq6_d2.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
