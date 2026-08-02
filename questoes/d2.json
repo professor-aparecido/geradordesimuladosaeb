@@ -50,7 +50,43 @@
       { "letra": "D", "texto": "Rita." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q4_d2",
+    "codigoDescritor": "D2",
+    "texto": "<b>(CAED)</b> Observe abaixo o desenho de um paralelepípedo.<br>[IMAGEM]<br>Qual é o número de vértices desse paralelepípedo?",
+    "imagem": "imagens/imgq4_d2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "4" },
+      { "letra": "B", "texto": "6" },
+      { "letra": "C", "texto": "8" },
+      { "letra": "D", "texto": "12" }
+    ],
+    "gabarito": "C"
+  },
+  {
+    "id": "q5_d2",
+    "codigoDescritor": "D2",
+    "texto": "<b>(CAED)</b> Observe os polígonos desenhados abaixo.<br>[IMAGEM]<br>Qual desses polígonos é um hexágono?",
+    "imagem": "imagens/imgq5_d2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "I" },
+      { "letra": "B", "texto": "II" },
+      { "letra": "C", "texto": "III" },
+      { "letra": "D", "texto": "IV" }
+    ],
+    "gabarito": "D"
   }
 ]  
+  
  
 
