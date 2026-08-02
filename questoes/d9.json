@@ -2,7 +2,7 @@
   {
     "id": "q1_d9",
     "codigoDescritor": "D9",
-    "texto": "Observe o triângulo PQR representado no plano cartesiano abaixo.<br>[IMAGEM]<br>De acordo com o sistema de coordenadas cartesianas apresentado, as coordenadas dos pontos P e R são, respectivamente,",
+    "texto": "<b>(CAED)</b> Observe o triângulo PQR representado no plano cartesiano abaixo.<br>[IMAGEM]<br>De acordo com o sistema de coordenadas cartesianas apresentado, as coordenadas dos pontos P e R são, respectivamente,",
     "imagem": "imagens/imgq1_d9.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
@@ -20,7 +20,7 @@
   {
     "id": "q2_d9",
     "codigoDescritor": "D9",
-    "texto": "Observe os pontos M, N, O, P e Q que estão destacados no plano cartesiano abaixo.<br>[IMAGEM]<br>Qual desses pontos tem coordenadas (– 2, 1)?",
+    "texto": "<b>(CAED)</b> Observe os pontos M, N, O, P e Q que estão destacados no plano cartesiano abaixo.<br>[IMAGEM]<br>Qual desses pontos tem coordenadas (– 2, 1)?",
     "imagem": "imagens/imgq2_d9.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
