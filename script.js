@@ -634,7 +634,11 @@ function criarElementoQuestao(q, index, isPreviewMode = false) {
 
     let textoProcessado = q.texto;
     const escalaImg = q.escalaImagem || 100;
-    let htmlImagem = q.imagem ? `<img src="${q.imagem}" class="questao-imagem" style="width: ${escalaImg}%;" alt="Imagem da questão">` : '';
+    // zoom (não width) faz a escala partir do tamanho natural/ajustado da
+    // própria imagem, em vez de "esticar pra caber no card". O CSS já tem
+    // max-width:100% e max-height:160px em .questao-imagem, que seguem
+    // valendo como trava de segurança mesmo com o zoom aplicado.
+    let htmlImagem = q.imagem ? `<img src="${q.imagem}" class="questao-imagem" style="zoom: ${escalaImg}%;" alt="Imagem da questão">` : '';
 
     if (q.imagem) {
         if (textoProcessado.includes('[IMAGEM]')) {
