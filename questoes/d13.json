@@ -28,8 +28,7 @@
       { "letra": "A", "texto": "34 m²" },
       { "letra": "B", "texto": "140 m²" },
       { "letra": "C", "texto": "280 m²" },
-      { "letra": "D", "texto": "960 m²" },
-     
+      { "letra": "D", "texto": "960 m²" }
     ],
     "gabarito": "C"
   }
