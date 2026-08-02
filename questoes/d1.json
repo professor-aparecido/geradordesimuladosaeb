@@ -74,7 +74,7 @@
   {
     "id": "q5_d1",
     "codigoDescritor": "D1",
-    "texto": "Observe a planta baixa do condomínio onde Fernando mora.<br>[IMAGEM]<br>Para chegar ao bloco onde mora, Fernando entra no condomínio, segue em frente, vira na segunda rua à esquerda, segue em frente, vira na primeira rua à direita, segue em frente e, por fim, vira à esquerda e segue até o final da rua. Em qual bloco desse condomínio Fernando mora?",
+    "texto": "<b>(CAED)</b> Observe a planta baixa do condomínio onde Fernando mora.<br>[IMAGEM]<br>Para chegar ao bloco onde mora, Fernando entra no condomínio, segue em frente, vira na segunda rua à esquerda, segue em frente, vira na primeira rua à direita, segue em frente e, por fim, vira à esquerda e segue até o final da rua. Em qual bloco desse condomínio Fernando mora?",
     "imagem": "imagens/imgq5_d1.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
