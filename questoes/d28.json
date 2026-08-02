@@ -60,5 +60,23 @@
       { "letra": "D", "texto": "1,80." }
     ],
     "gabarito": "D"
-  }  
+  },
+
+{
+  "id": "q5_d28",
+  "codigoDescritor": "D28",
+  "texto": "O gráfico descreve o volume de água, em milhão de metros cúbicos, presente em um reservatório, no dia 31 de dezembro nos anos de 2015 a 2017.<br>[IMAGEM]<br>Suponha que em 31 de dezembro de 2018 o volume de água presente nesse reservatório registrou a mesma queda percentual que as observadas nos anos anteriores. O volume de água, em milhão de metros cúbicos, registrado em 31 de dezembro de 2018 foi",
+  "imagem": "imagens/imgq5_d28.png",
+  "escalaImagem": 100,
+  "tipo": "alternativas",
+  "disposicao": "vertical",
+  "espacoCalculo": 5,
+  "alternativas": [
+    { "letra": "A", "texto": "36,45." },
+    { "letra": "B", "texto": "36,00." },
+    { "letra": "C", "texto": "35,50." },
+    { "letra": "D", "texto": "35,00." }
+  ],
+  "gabarito": "A"
+}  
 ]  
