@@ -24,10 +24,10 @@
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$\\begin{cases} 2x + 2y = 7,20 \\ 2x + y = 4,40 \\end{cases}$" },
-      { "letra": "B", "texto": "$\\begin{cases} 3x - 2y = 7,20 \\ 2x - y = 4,40 \\end{cases}$"},
-      { "letra": "C", "texto": "$\\begin{cases} x + y = 3,60 \\ x - y = 2,20 \\end{cases}$" },
-      { "letra": "D", "texto": "$\\begin{cases} 3x + y = 7,20 \\ x + y = 4,40 \\end{cases}$" }
+      { "letra": "A", "texto": "$\\begin{cases} 2x + 2y = 7,20 \\\\ 2x + y = 4,40 \\end{cases}$" },
+      { "letra": "B", "texto": "$\\begin{cases} 3x - 2y = 7,20 \\\\ 2x - y = 4,40 \\end{cases}$"},
+      { "letra": "C", "texto": "$\\begin{cases} x + y = 3,60 \\\\ x - y = 2,20 \\end{cases}$" },
+      { "letra": "D", "texto": "$\\begin{cases} 3x + y = 7,20 \\\\ x + y = 4,40 \\end{cases}$" }
     ],
     "gabarito": "A"
   }
