@@ -67,19 +67,37 @@
   {
     "id": "q5_d33",
     "codigoDescritor": "D33",
-    "texto": "Uma avó faz doces e salgados para vender, sendo que cada doce custa 30 centavos e cada salgado custa 50 centavos. Sua neta quer lhe ensinar como proceder para calcular o valor total V a receber pela venda de d unidades de doces e de s unidades de salgados. Para isso acontecer, ela apresenta para sua avó uma relação envolvendo $V$, $d$ e $s$ que expressa, corretamente, o valor a receber pela venda dos doces e salgados. A expressão algébrica apresentada pela neta é",
+    "texto": "<b>(ENCCEJA)</b> Uma avó faz doces e salgados para vender, sendo que cada doce custa $30$ centavos e cada salgado custa $50$ centavos. Sua neta quer lhe ensinar como proceder para calcular o valor total $V$ a receber pela venda de $d$ unidades de doces e de $s$ unidades de salgados. Para isso acontecer, ela apresenta para sua avó uma relação envolvendo $V$, $d$ e $s$ que expressa, corretamente, o valor a receber pela venda dos doces e salgados. A expressão algébrica apresentada pela neta é",
     "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$V = 0,80 \\cdot d \\cdot s$." },
+      { "letra": "B", "texto": "$V = 0,80 \\cdot (d + s)$." },
+      { "letra": "C", "texto": "$V = 0,30 \\cdot d + 0,50 \\cdot s$." },
+      { "letra": "D", "texto": "$V = (0,30 + d) \\cdot (0,50 + s)$." }
+    ],
+    "gabarito": "C"
+  },
+
+  {
+    "id": "q6_d33",
+    "codigoDescritor": "D33",
+    "texto": "As antigas balanças de prato ainda são usadas em algumas mercearias para a pesagem de alimentos. O equilíbrio ocorre quando a soma das massas dos objetos colocados em um dos pratos é igual à soma das massas dos objetos colocados no outro prato. Um estudante foi desafiado a descobrir qual é o valor de x representado na balança equilibrada da figura, sabendo que todas as caixinhas marcadas com x têm a mesma massa em kg.<br>[IMAGEM]<br>O valor de x, em quilograma, é igual a",
+    "imagem": "imagens/imgq6_d33.png",
+    "escalaImagem": 100,
     "tipo": "alternativas",
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$V = 0,80 · d · s$." },
-      { "letra": "B", "texto": "$V = 0,80 · (d + s)$." },
-      { "letra": "C", "texto": "$V = 0,30 · d + 0,50 · s$." },
-      { "letra": "D", "texto": "$V = (0,30 + d) · (0,50 + s)$." }
+      { "letra": "A", "texto": "1." },
+      { "letra": "B", "texto": "2." },
+      { "letra": "C", "texto": "5." },
+      { "letra": "D", "texto": "8." }
     ],
-    "gabarito": "C"
+    "gabarito": "B"
   }
-]  
+]
  
   
