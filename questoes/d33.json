@@ -97,7 +97,24 @@
       { "letra": "D", "texto": "8." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q7_d33",
+    "codigoDescritor": "D33",
+    "texto": "A transportadora Vaptvupt cobra $\\text{R\\$ 10,00}$ mais $\\text{R\\$ 1,00]$ por quilômetro rodado para fazer uma entrega. Já a transportadora Ligeirinho cobra $\\text{R\\$ 0,75}$ por quilômetro rodado e uma taxa fixa de $\\text{R\\$ 15,00}$. Se x é o número de quilômetros rodados, então podemos dizer que a Vaptvupt cobra menos que a Ligeirinho no intervalo:",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$15 ≤ x$" },
+      { "letra": "B", "texto": "$x ≤ 15$" },
+      { "letra": "C", "texto": "$x > 20$" },
+      { "letra": "D", "texto": "$x < 20$" }
+    ],
+    "gabarito": "D"
   }
-]
+]  
  
   
