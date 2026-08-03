@@ -84,11 +84,11 @@
   {
     "id": "q6_d33",
     "codigoDescritor": "D33",
-    "texto": "As antigas balanças de prato ainda são usadas em algumas mercearias para a pesagem de alimentos. O equilíbrio ocorre quando a soma das massas dos objetos colocados em um dos pratos é igual à soma das massas dos objetos colocados no outro prato. Um estudante foi desafiado a descobrir qual é o valor de x representado na balança equilibrada da figura, sabendo que todas as caixinhas marcadas com x têm a mesma massa em kg.<br>[IMAGEM]<br>O valor de x, em quilograma, é igual a",
+    "texto": "<b>(ENCCEJA)</b> As antigas balanças de prato ainda são usadas em algumas mercearias para a pesagem de alimentos. O equilíbrio ocorre quando a soma das massas dos objetos colocados em um dos pratos é igual à soma das massas dos objetos colocados no outro prato. Um estudante foi desafiado a descobrir qual é o valor de x representado na balança equilibrada da figura, sabendo que todas as caixinhas marcadas com x têm a mesma massa em kg.<br>[IMAGEM]<br>O valor de x, em quilograma, é igual a",
     "imagem": "imagens/imgq6_d33.png",
-    "escalaImagem": 100,
+    "escalaImagem": 70,
     "tipo": "alternativas",
-    "disposicao": "grade2x2",
+    "disposicao": "horizontal",
     "espacoCalculo": 0,
     "alternativas": [
       { "letra": "A", "texto": "1." },
