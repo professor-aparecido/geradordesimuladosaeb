@@ -42,7 +42,7 @@
     "imagem": "imagens/imgq3_d3.png",
     "escalaImagem":100,
     "tipo": "alternativas",
-    "disposicao": "grade2x2",
+    "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
       { "letra": "A", "texto": "equilátero e acutângulo." },
