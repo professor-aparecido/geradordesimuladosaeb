@@ -8,10 +8,10 @@
     "disposicao": "horizontal",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$\\frac{3}{300}$." },
-      { "letra": "B", "texto": "$\\frac{3}{100}$." },
-      { "letra": "C", "texto": "$\\frac{3}{10}$." },
-      { "letra": "D", "texto": "$\\frac{1}{3}$." }
+      { "letra": "A", "texto": "$\\frac{3}{300}.$" },
+      { "letra": "B", "texto": "$\\frac{3}{100}.$" },
+      { "letra": "C", "texto": "$\\frac{3}{10}.$" },
+      { "letra": "D", "texto": "$\\frac{1}{3}.$" }
     ],
     "gabarito": "B"
   }
