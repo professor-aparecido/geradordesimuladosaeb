@@ -114,7 +114,25 @@
       { "letra": "D", "texto": "$x < 20$" }
     ],
     "gabarito": "D"
+  },
+  
+  {
+    "id": "q8_d33",
+    "codigoDescritor": "D33",
+    "texto": "Certo guindaste suporta uma carga máxima de 12 toneladas. Sabendo que ele vai transportar dois contêineres de mesma massa x e uma caixa de 4 toneladas, a inequação que representa essa situação é",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "2x + 4 ≤ 12." },
+      { "letra": "B", "texto": "2x + 4 ≥ 12." },
+      { "letra": "C", "texto": "x + 4 ≤ 12." },
+      { "letra": "D", "texto": "2x + 4 = 12." }
+    ],
+    "gabarito": "A"
   }
 ]  
+ 
  
   
