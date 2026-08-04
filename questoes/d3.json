@@ -76,7 +76,7 @@
     "codigoDescritor": "D3",
     "texto": "<b>(CAED)</b> Wagner vai encomendar a produção de alguns suportes para organizar as bicicletas na sua loja. Ele pediu que todos os suportes dessa encomenda fossem idênticos, com formato triangular, conforme representado na figura abaixo, em que seus ângulos estão indicados.<br>[IMAGEM]<br>Nessa representação, a medida do ângulo α, em grau, é",
     "imagem": "imagens/imgq5_d3.png",
-    "escalaImagem": 100,
+    "escalaImagem": 80,
     "tipo": "alternativas",
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
