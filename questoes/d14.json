@@ -14,5 +14,24 @@
       { "letra": "D", "texto": "28 m³" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q2_d14",
+    "codigoDescritor": "D14",
+    "texto": "Antes de começar a reforma, Sara embalou seus livros utilizando caixas com o formato de um bloco retangular. Observe, na figura abaixo, a representação de uma dessas caixas com algumas medidas indicadas.<br>[IMAGEM]<br>Qual é a medida do volume, em centímetro cúbico, de cada uma dessas caixas?",
+    "imagem": "imagens/imgq2_d14.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "95 cm³." },
+      { "letra": "B", "texto": "1 225 cm³." },
+      { "letra": "C", "texto": "3 500 cm³." },
+      { "letra": "D", "texto": "30 000 cm³." }
+    ],
+    "gabarito": "D"
   }
-]
+]  
+
