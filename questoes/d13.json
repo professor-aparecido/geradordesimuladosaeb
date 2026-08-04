@@ -49,7 +49,26 @@
       { "letra": "D", "texto": "R$ 24.000,00" }
     ],
     "gabarito": "B"
+  },
+  
+  {
+    "id": "q4_d13",
+    "codigoDescritor": "D13",
+    "texto": "Durante a reforma, foi necessário trocar todo o piso do escritório. Observe, na figura abaixo, a representação do formato desse escritório com algumas medidas indicadas.<br>[IMAGEM]<br>Qual é a medida da área, em metro quadrado, do piso desse escritório?",
+    "imagem": "imagens/imgq4_d13.png",
+    "escalaImagem": 80,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "16 m²." },
+      { "letra": "B", "texto": "18 m²." },
+      { "letra": "C", "texto": "20 m²." },
+      { "letra": "D", "texto": "22 m²." }
+    ],
+    "gabarito": "A"
   }
 ]  
+
 
 
