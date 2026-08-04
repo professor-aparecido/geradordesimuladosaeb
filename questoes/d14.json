@@ -32,6 +32,24 @@
       { "letra": "D", "texto": "30 000 cm³." }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q3_d14",
+    "codigoDescritor": "D14",
+    "texto": "Wagner comprou para essa loja um novo reservatório de água que possui o formato de um bloco retangular. Observe, na figura abaixo, uma representação desse reservatório com algumas medidas indicadas.<br>[IMAGEM]<br>Qual é a medida do volume, em centímetro cúbico, desse reservatório?",
+    "imagem": "imagens/imgq3_d14.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "12 800 cm³." },
+      { "letra": "B", "texto": "19 600 cm³." },
+      { "letra": "C", "texto": "48 000 cm³." },
+      { "letra": "D", "texto": "96 000 cm³." }
+    ],
+    "gabarito": "D"
   }
 ]  
 
