@@ -251,6 +251,24 @@
       { "letra": "D", "texto": "$y = 3 + 2(x \\ - \\ 1)$." }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q16_d33",
+    "codigoDescritor": "D33",
+    "texto": "<b>(ENCCEJA)</b> Na bula de um medicamento infantil, aplicado em gotas, as instruções de uso contêm a seguinte informação:<br><br><i>Para saber a quantidade máxima de gotas administrável a uma criança, por dia, basta multiplicar sua massa, em quilograma inteiro, por 2.</i><br><br>Seja $g$ a quantidade máxima de gotas do medicamento que podem ser dadas em um dia a uma criança que tem massa $p$ em quilograma. A expressão que relaciona $p$ e $g$ é",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$p = 2g$." },
+      { "letra": "B", "texto": "$p = g + 2$." },
+      { "letra": "C", "texto": "$g = 2p$." },
+      { "letra": "D", "texto": "$g = p + 2$." }
+    ],
+    "gabarito": "C"
   }
-]
+]  
+
   
