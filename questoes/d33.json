@@ -135,16 +135,16 @@
   {
     "id": "q9_d33",
     "codigoDescritor": "D33",
-    "texto": "<b>(UFG-GO)</b> O menor múltiplo de 3 que satisfaz a inequação x + 5 < 2x – 1 é:",
+    "texto": "<b>(UFG-GO)</b> O menor múltiplo de $3$ que satisfaz a inequação $x + 5 < 2x\\ –\\ 1$ é:",
     "imagem": "",
     "tipo": "alternativas",
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "12." },
-      { "letra": "B", "texto": "9." },
-      { "letra": "C", "texto": "6." },
-      { "letra": "D", "texto": "3." }
+      { "letra": "A", "texto": "$12$." },
+      { "letra": "B", "texto": "$9$." },
+      { "letra": "C", "texto": "$6$." },
+      { "letra": "D", "texto": "$3$." }
     ],
     "gabarito": "B"
   },
