@@ -43,10 +43,10 @@
     "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "R$ 1.200,00" },
-      { "letra": "B", "texto": "R$ 12.000,00" },
-      { "letra": "C", "texto": "R$ 15.000,00" },
-      { "letra": "D", "texto": "R$ 24.000,00" }
+      { "letra": "A", "texto": "R$ 1.200,00." },
+      { "letra": "B", "texto": "R$ 12.000,00." },
+      { "letra": "C", "texto": "R$ 15.000,00." },
+      { "letra": "D", "texto": "R$ 24.000,00." }
     ],
     "gabarito": "B"
   },
