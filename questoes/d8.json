@@ -84,8 +84,27 @@
       { "letra": "D", "texto": "156º." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q6_d8",
+    "codigoDescritor": "D8",
+    "texto": "Na loja de Wagner, há uma bancada que possui o formato de um polígono regular. Observe, na figura abaixo, uma representação dessa bancada com um de seus ângulos internos indicado.<br>[IMAGEM]<br>Nessa bancada, serão instaladas cantoneiras e, para isso, a medida desse ângulo precisa ser calculada. A medida do ângulo interno θ desse polígono, em grau, é",
+    "imagem": "imagens/imgq6_d8.png",
+    "escalaImagem": 80,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "30°." },
+      { "letra": "B", "texto": "60°." },
+      { "letra": "C", "texto": "120°." },
+      { "letra": "D", "texto": "150°." }
+    ],
+    "gabarito": "C"
   }
 ]  
+
 
  
 
