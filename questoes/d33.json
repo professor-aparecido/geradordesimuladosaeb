@@ -147,7 +147,26 @@
       { "letra": "D", "texto": "3." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q10_d33",
+    "codigoDescritor": "D33",
+    "texto": "<b>(Prova Brasil)</b> A figura abaixo mostra uma roldana, na qual em cada um dos pratos há um peso de valor conhecido e esferas de peso x.<br>[IMAGEM]<br>Uma expressão matemática que relaciona os pesos nos pratos da roldana é",
+    "imagem": "imagens/imgq10_d33.png",
+    "escalaImagem": 70,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "3x – 5 < 8 – 2x." },
+      { "letra": "B", "texto": "3x – 5 > 8 – 2x." },
+      { "letra": "C", "texto": "2x + 8 < 5 + 3x." },
+      { "letra": "D", "texto": "2x + 8 > 5 + 3x." }
+    ],
+    "gabarito": "C"
   }
+
 ]  
 
  
