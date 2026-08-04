@@ -23,10 +23,10 @@
   "disposicao": "vertical",
   "espacoCalculo": 5,
   "alternativas": [
-    { "letra": "A", "texto": "$q = 3t$" },
-    { "letra": "B", "texto": "$q = 3 + t$" },
-    { "letra": "C", "texto": "$t = 3q$" },
-    { "letra": "D", "texto": "$t = 3 + q$" }
+    { "letra": "A", "texto": "$q = 3t$." },
+    { "letra": "B", "texto": "$q = 3 + t$." },
+    { "letra": "C", "texto": "$t = 3q$." },
+    { "letra": "D", "texto": "$t = 3 + q$." }
   ],
   "gabarito": "A"
 },
