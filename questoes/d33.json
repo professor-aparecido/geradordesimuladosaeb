@@ -154,7 +154,7 @@
     "codigoDescritor": "D33",
     "texto": "<b>(Prova Brasil)</b> A figura abaixo mostra uma roldana, na qual em cada um dos pratos há um peso de valor conhecido e esferas de peso x.<br>[IMAGEM]<br>Uma expressão matemática que relaciona os pesos nos pratos da roldana é",
     "imagem": "imagens/imgq10_d33.png",
-    "escalaImagem": 70,
+    "escalaImagem": 100,
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 0,
