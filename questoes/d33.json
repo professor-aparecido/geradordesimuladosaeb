@@ -7,10 +7,10 @@
   "disposicao": "vertical",
   "espacoCalculo": 5,
   "alternativas": [
-    { "letra": "A", "texto": "$x + \\frac{1}{2} = 2\\,600$" },
-    { "letra": "B", "texto": "$x + (x - 100) = 2\\,600$" },
-    { "letra": "C", "texto": "$x + \\frac{x}{4} - 100 = 2\\,600$" },
-    { "letra": "D", "texto": "$x + \\frac{x}{4} + (x - 100) = 2\\,600$" }
+    { "letra": "A", "texto": "$x + \\frac{1}{2} = 2\\,600$." },
+    { "letra": "B", "texto": "$x + (x - 100) = 2\\,600$." },
+    { "letra": "C", "texto": "$x + \\frac{x}{4} - 100 = 2\\,600$." },
+    { "letra": "D", "texto": "$x + \\frac{x}{4} + (x - 100) = 2\\,600$." }
   ],
   "gabarito": "D"
 },
@@ -39,10 +39,10 @@
   "disposicao": "vertical",
   "espacoCalculo": 5,
   "alternativas": [
-    { "letra": "A", "texto": "$P = 40h$" },
-    { "letra": "B", "texto": "$P = 60h$" },
-    { "letra": "C", "texto": "$P = 20 + 40h$" },
-    { "letra": "D", "texto": "$P = 40 + 20h$" }
+    { "letra": "A", "texto": "$P = 40h$." },
+    { "letra": "B", "texto": "$P = 60h$." },
+    { "letra": "C", "texto": "$P = 20 + 40h$." },
+    { "letra": "D", "texto": "$P = 40 + 20h$." }
   ],
   "gabarito": "D"
 },
@@ -108,10 +108,10 @@
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$15 ≤ x$" },
-      { "letra": "B", "texto": "$x ≤ 15$" },
-      { "letra": "C", "texto": "$x > 20$" },
-      { "letra": "D", "texto": "$x < 20$" }
+      { "letra": "A", "texto": "$15 ≤ x$." },
+      { "letra": "B", "texto": "$x ≤ 15$." },
+      { "letra": "C", "texto": "$x > 20$." },
+      { "letra": "D", "texto": "$x < 20$." }
     ],
     "gabarito": "D"
   },
@@ -228,10 +228,10 @@
     "disposicao": "vetical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$x + 850 = 250$" },
-      { "letra": "B", "texto": "$x\\ –\\ 850 = 750$" },
-      { "letra": "C", "texto": "$850 = x + 250$" },
-      { "letra": "D", "texto": "$850 = x + 750$" }
+      { "letra": "A", "texto": "$x + 850 = 250$." },
+      { "letra": "B", "texto": "$x\\ –\\ 850 = 750$." },
+      { "letra": "C", "texto": "$850 = x + 250$." },
+      { "letra": "D", "texto": "$850 = x + 750$." }
     ],
     "gabarito": "D"
   },
@@ -268,7 +268,58 @@
       { "letra": "D", "texto": "$g = p + 2$." }
     ],
     "gabarito": "C"
-  }
-]  
+  },
+  
+  {
+    "id": "q17_d33",
+    "codigoDescritor": "D33",
+    "texto": "<b>(CAED)</b> Observe, no quadro abaixo, uma equação polinomial de 1º grau.$$6x + 18 = 36$$Qual é o conjunto solução S dessa equação?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$S = \\{3\\}$." },
+      { "letra": "B", "texto": "$S = \\{9\\}$." },
+      { "letra": "C", "texto": "$S = \\{12\\}$." },
+      { "letra": "D", "texto": "$S = \\{18\\}$." }
+    ],
+    "gabarito": "A"
+  },
+
+{
+    "id": "q18_d33",
+    "codigoDescritor": "D33",
+    "texto": "<b>(ENCCEJA)</b> Um número par sempre pode ser obtido a partir de uma única operação entre o número 2 e outro número inteiro. A expressão que representa a operação a ser efetuada entre o número 2 e um número inteiro y, que resultará sempre em um número par, é",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "2 + y" },
+      { "letra": "B", "texto": "2<sup>y</sup>" },
+      { "letra": "C", "texto": "2 ÷ y" },
+      { "letra": "D", "texto": "2y" }
+    ],
+    "gabarito": "D"
+  },
+  {
+    "id": "q19_d33",
+    "codigoDescritor": "D33",
+    "texto": "<b>(ENCCEJA)</b> Um grupo de professores e alunos de uma escola irá ao cinema. O preço do ingresso é R$ 20,00 por pessoa, sendo que os alunos pagam somente a metade desse valor, enquanto os professores pagam o valor inteiro do ingresso. Nesse grupo há 40 alunos e uma quantidade p de professores que ainda será definida. Qual é a expressão que representa o valor arrecadado v, em real, na venda de ingressos para esse grupo, em função do número p de professores?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "v = 20 + 40p" },
+      { "letra": "B", "texto": "v = 40 + 20p" },
+      { "letra": "C", "texto": "v = 400 + 10p" },
+      { "letra": "D", "texto": "v = 400 + 20p" }
+    ],
+    "gabarito": "D"
+  }  
+]
+
 
   
