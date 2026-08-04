@@ -19,9 +19,9 @@
   {
     "id": "q2_d14",
     "codigoDescritor": "D14",
-    "texto": "Antes de começar a reforma, Sara embalou seus livros utilizando caixas com o formato de um bloco retangular. Observe, na figura abaixo, a representação de uma dessas caixas com algumas medidas indicadas.<br>[IMAGEM]<br>Qual é a medida do volume, em centímetro cúbico, de cada uma dessas caixas?",
+    "texto": "<b>(CAED)</b> Antes de começar a reforma, Sara embalou seus livros utilizando caixas com o formato de um bloco retangular. Observe, na figura abaixo, a representação de uma dessas caixas com algumas medidas indicadas.<br>[IMAGEM]<br>Qual é a medida do volume, em centímetro cúbico, de cada uma dessas caixas?",
     "imagem": "imagens/imgq2_d14.png",
-    "escalaImagem": 100,
+    "escalaImagem": 80,
     "tipo": "alternativas",
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
