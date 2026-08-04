@@ -54,9 +54,9 @@
   {
     "id": "q4_d13",
     "codigoDescritor": "D13",
-    "texto": "Durante a reforma, foi necessário trocar todo o piso do escritório. Observe, na figura abaixo, a representação do formato desse escritório com algumas medidas indicadas.<br>[IMAGEM]<br>Qual é a medida da área, em metro quadrado, do piso desse escritório?",
+    "texto": "<b>(CAED)</b> Durante a reforma, foi necessário trocar todo o piso do escritório. Observe, na figura abaixo, a representação do formato desse escritório com algumas medidas indicadas.<br>[IMAGEM]<br>Qual é a medida da área, em metro quadrado, do piso desse escritório?",
     "imagem": "imagens/imgq4_d13.png",
-    "escalaImagem": 80,
+    "escalaImagem": 100,
     "tipo": "alternativas",
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
