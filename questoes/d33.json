@@ -165,9 +165,26 @@
       { "letra": "D", "texto": "2x + 8 > 5 + 3x." }
     ],
     "gabarito": "C"
-  }
+  },
 
-]  
+  {
+    "id": "q11_d33",
+    "codigoDescritor": "D33",
+    "texto": "<b>(SARESP)</b> A professora colocou o seguinte desafio:<br><br>- Pensei em um número.<br>- Multipliquei por 12.<br>- Somei 10 ao resultado, obtendo 58.<br>- Em qual número eu pensei?<br><br>Júlia resolveu corretamente o desafio, obtendo o número",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "1." },
+      { "letra": "B", "texto": "2." },
+      { "letra": "C", "texto": "3." },
+      { "letra": "D", "texto": "4." }
+    ],
+    "gabarito": "D"
+  }
+]
+ 
 
  
  
