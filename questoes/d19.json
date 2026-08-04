@@ -2,7 +2,7 @@
   {
     "id": "q1_d19",
     "codigoDescritor": "D19",
-    "texto": "(VUNESP) Rita resolveu casar-se na chácara de seu tio e, para poder acomodar todos os seus convidados sentados, colocou no gramado, entre as árvores, 18 filas de cadeiras, com 32 cadeiras em cada fila. O número de convidados que Rita receberá em seu casamento é",
+    "texto": "<b>(VUNESP)</b> Rita resolveu casar-se na chácara de seu tio e, para poder acomodar todos os seus convidados sentados, colocou no gramado, entre as árvores, 18 filas de cadeiras, com 32 cadeiras em cada fila. O número de convidados que Rita receberá em seu casamento é",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -17,7 +17,7 @@
   {
     "id": "q2_d19",
     "codigoDescritor": "D19",
-    "texto": "(VUNESP) Na construção de uma ponte sobre o rio Formiga, foram utilizadas 12 placas de concreto, cada uma medindo 6 metros de comprimento. Então é correto afirmar que o comprimento dessa ponte, em metros, é",
+    "texto": "<b>(VUNESP)</b> Na construção de uma ponte sobre o rio Formiga, foram utilizadas 12 placas de concreto, cada uma medindo 6 metros de comprimento. Então é correto afirmar que o comprimento dessa ponte, em metros, é",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -32,7 +32,7 @@
 {
     "id": "q3_d19",
     "codigoDescritor": "D19",
-    "texto": "(VUNESP) Uma família tem uma renda mensal de $\\text{R\\$ 5.000,00}$. Se ela gasta metade da renda com moradia e alimentação; $\\text{R\\$ 1.500,00}$, com educação e transporte e o que sobra no final do mês é aplicado em poupança, o valor aplicado, em reais, é",
+    "texto": "<b>(VUNESP)</b> Uma família tem uma renda mensal de $\\text{R\\$ 5.000,00}$. Se ela gasta metade da renda com moradia e alimentação; $\\text{R\\$ 1.500,00}$, com educação e transporte e o que sobra no final do mês é aplicado em poupança, o valor aplicado, em reais, é",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
@@ -48,7 +48,7 @@
 {
     "id": "q4_d19",
     "codigoDescritor": "D19",
-    "texto": "(ENCCEJA) Uma pessoa deseja comprar um notebook pela internet que custa $\\text{R\\$ 1 200,00}$ e o frete para entrega, $\\text{R\\$ 40,00}$. Ela pagará $\\text{R\\$ 200,00}$ de entrada e o restante, incluindo o frete, em cinco parcelas iguais, sem juros. O valor de cada parcela, em real, será igual a",
+    "texto": "<b>(ENCCEJA)</b> Uma pessoa deseja comprar um notebook pela internet que custa $\\text{R\\$ 1 200,00}$ e o frete para entrega, $\\text{R\\$ 40,00}$. Ela pagará $\\text{R\\$ 200,00}$ de entrada e o restante, incluindo o frete, em cinco parcelas iguais, sem juros. O valor de cada parcela, em real, será igual a",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 5,
