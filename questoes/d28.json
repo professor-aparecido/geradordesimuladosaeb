@@ -95,5 +95,22 @@
       { "letra": "D", "texto": "R$ 226,67." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q7_d28",
+    "codigoDescritor": "D28",
+    "texto": "<b>(CAED)</b> O aplicativo que Rebeca utiliza para trabalhar retém uma taxa administrativa de 20% do valor pago pelo cliente que efetuou a viagem. Em uma viagem feita por meio desse aplicativo, um cliente pagou R$ 42,00.<br><br>Qual foi o valor retido pelo aplicativo na viagem feita por esse cliente?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "R$ 2,10." },
+      { "letra": "B", "texto": "R$ 8,40." },
+      { "letra": "C", "texto": "R$ 20,00." },
+      { "letra": "D", "texto": "R$ 22,00." }
+    ],
+    "gabarito": "B"
   }
-]  
+]    
