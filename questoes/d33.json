@@ -222,14 +222,14 @@
   {
     "id": "q14_d33",
     "codigoDescritor": "D33",
-    "texto": "<b>(SAEB)</b> Uma prefeitura aplicou $\\text{R\\$ 850} mil na construção de 3 creches e um parque infantil. O custo de cada creche foi de $\\text{R\\$ 250} mil. A expressão que representa o custo do parque, em mil reais, é:",
+    "texto": "<b>(SAEB)</b> Uma prefeitura aplicou $\\text{R\\$ 850} mil na construção de 3 creches e um parque infantil. O custo de cada creche foi de $\\text{R\\$ 250}$ mil. A expressão que representa o custo do parque, em mil reais, é:",
     "imagem": "",
     "tipo": "alternativas",
     "disposicao": "vetical",
     "espacoCalculo": 0,
     "alternativas": [
       { "letra": "A", "texto": "$x + 850 = 250$" },
-      { "letra": "B", "texto": "$x\\ – \\850 = 750$" },
+      { "letra": "B", "texto": "$x\\ –\\ 850 = 750$" },
       { "letra": "C", "texto": "$850 = x + 250$" },
       { "letra": "D", "texto": "$850 = x + 750$" }
     ],
@@ -239,16 +239,16 @@
   {
     "id": "q15_d33",
     "codigoDescritor": "D33",
-    "texto": "<b>(ENCCEJA)</b> O dono de um estacionamento criou uma expressão algébrica para facilitar o cálculo do valor cobrado de cada carro (y), em real, pela utilização do estacionamento por x hora. Nesse cálculo, considera somente valores inteiros de hora, e cada fração de hora é considerada como uma hora de utilização.<br><br>Nesse estacionamento é cobrada a taxa de R$ 3,00 pela primeira hora de permanência e, da segunda hora em diante, são cobrados R$ 2,00 adicionais para cada hora de permanência do carro.<br><br>A representação algébrica correta criada pelo dono do estacionamento foi",
+    "texto": "<b>(ENCCEJA)</b> O dono de um estacionamento criou uma expressão algébrica para facilitar o cálculo do valor cobrado de cada carro ($y$), em real, pela utilização do estacionamento por $x$ hora. Nesse cálculo, considera somente valores inteiros de hora, e cada fração de hora é considerada como uma hora de utilização. Nesse estacionamento é cobrada a taxa de $\\text{R\\$ 3,00}$ pela primeira hora de permanência e, da segunda hora em diante, são cobrados $\\text{R\\$ 2,00}$ adicionais para cada hora de permanência do carro. A representação algébrica correta criada pelo dono do estacionamento foi",
     "imagem": "",
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "y = 5x" },
-      { "letra": "B", "texto": "y = 6x" },
-      { "letra": "C", "texto": "y = 3 + 2x" },
-      { "letra": "D", "texto": "y = 3 + 2(x - 1)" }
+      { "letra": "A", "texto": "$y = 5x$." },
+      { "letra": "B", "texto": "$y = 6x$." },
+      { "letra": "C", "texto": "$y = 3 + 2x$." },
+      { "letra": "D", "texto": "$y = 3 + 2(x \\ - \\ 1)$." }
     ],
     "gabarito": "D"
   }
