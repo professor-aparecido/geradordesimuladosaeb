@@ -335,6 +335,24 @@
       { "letra": "D", "texto": "$\\{88\\}$." }
     ],
     "gabarito": "B"
+  },
+  
+  {
+    "id": "q21_d33",
+    "codigoDescritor": "D33",
+    "texto": "A expressão matemática que relaciona os pesos nos pratos da balança é:<br>[IMAGEM]",
+    "imagem": "imagens/imgq21_d33.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$3x - 5 < 8 - 2x$." },
+      { "letra": "B", "texto": "$3x - 5 > 8 - 2x$." },
+      { "letra": "C", "texto": "$2x + 8 < 5 + 3x$." },
+      { "letra": "D", "texto": "$2x + 8 > 5 + 3x$." }
+    ],
+    "gabarito": "C"
   }
 ]  
 
