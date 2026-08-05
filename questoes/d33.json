@@ -152,17 +152,17 @@
   {
     "id": "q10_d33",
     "codigoDescritor": "D33",
-    "texto": "<b>(Prova Brasil)</b> A figura abaixo mostra uma roldana, na qual em cada um dos pratos há um peso de valor conhecido e esferas de peso x.<br>[IMAGEM]<br>Uma expressão matemática que relaciona os pesos nos pratos da roldana é",
+    "texto": "<b>(Prova Brasil)</b> A figura abaixo mostra uma roldana, na qual em cada um dos pratos há um peso de valor conhecido e esferas de peso $x$.<br>[IMAGEM]<br>Uma expressão matemática que relaciona os pesos nos pratos da roldana é",
     "imagem": "imagens/imgq10_d33.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
     "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "3x – 5 < 8 – 2x." },
-      { "letra": "B", "texto": "3x – 5 > 8 – 2x." },
-      { "letra": "C", "texto": "2x + 8 < 5 + 3x." },
-      { "letra": "D", "texto": "2x + 8 > 5 + 3x." }
+      { "letra": "A", "texto": "$3x – 5 < 8 – 2x$." },
+      { "letra": "B", "texto": "$3x – 5 > 8 – 2x$." },
+      { "letra": "C", "texto": "$2x + 8 < 5 + 3x$." },
+      { "letra": "D", "texto": "$2x + 8 > 5 + 3x$." }
     ],
     "gabarito": "C"
   },
@@ -353,8 +353,27 @@
       { "letra": "D", "texto": "$2x + 8 > 5 + 3x$." }
     ],
     "gabarito": "C"
+  },
+  
+  {
+    "id": "q22_d33",
+    "codigoDescritor": "D33",
+    "texto": "A figura abaixo mostra uma balança, na qual em cada um dos pratos há valores de pesos conhecidos e valores de pesos desconhecidos, representados por $x$.<br>[IMAGEM]<br>A expressão matemática que relaciona os pesos nos pratos da balança é",
+    "imagem": "imagens/imgq22_d33.png",
+    "escalaImagem": 80,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$2x – 2 > x – 4$." },
+      { "letra": "B", "texto": "$2x – 2 < x – 4$." },
+      { "letra": "C", "texto": "$2x + 2 > x + 4$." },
+      { "letra": "D", "texto": "$2x + 2 < x + 4$." }
+    ],
+    "gabarito": "C"
   }
 ]  
+
 
 
 
