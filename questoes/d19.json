@@ -59,6 +59,23 @@
       { "letra": "D", "texto": "240." }
     ],
     "gabarito": "A"
-  }  
-]
+  },
+  
+  {
+    "id": "q5_d19",
+    "codigoDescritor": "D19",
+    "texto": "<b>(CAED)</b> Wagner pretende encomendar determinada quantidade de peças para sua loja. Ele solicitou dois orçamentos, um com a empresa de Lucas, que pode entregar essa quantidade em 20 caixas com 36 peças em cada, e outro com a empresa de Marina, que pode entregar essa mesma quantidade em 15 caixas.<br><br>Qual é a quantidade de peças em cada uma das caixas que podem ser entregues pela empresa de Marina?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "27." },
+      { "letra": "B", "texto": "41." },
+      { "letra": "C", "texto": "45." },
+      { "letra": "D", "texto": "48." }
+    ],
+    "gabarito": "D"
+  }
+]  
 
