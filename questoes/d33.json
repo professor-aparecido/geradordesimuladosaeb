@@ -347,8 +347,8 @@
     "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$3x - 5 < 8 - 2x$." },
-      { "letra": "B", "texto": "$3x - 5 > 8 - 2x$." },
+      { "letra": "A", "texto": "$3x\\ -\\ 5 < 8\\ -\\ 2x$." },
+      { "letra": "B", "texto": "$3x\\ -\\ 5 > 8\\ -\\ 2x$." },
       { "letra": "C", "texto": "$2x + 8 < 5 + 3x$." },
       { "letra": "D", "texto": "$2x + 8 > 5 + 3x$." }
     ],
