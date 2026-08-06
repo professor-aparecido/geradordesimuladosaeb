@@ -159,6 +159,24 @@
       { "letra": "D", "texto": "24 metros." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q11_d15",
+    "codigoDescritor": "D15",
+    "texto": "<b>(CAED)</b> Gilmara comprou uma jarra de vidro com capacidade de 3 litros para sua cozinha. Qual é a capacidade, em mililitro, da jarra que Gilmara comprou?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "3 mL." },
+      { "letra": "B", "texto": "30 mL." },
+      { "letra": "C", "texto": "300 mL." },
+      { "letra": "D", "texto": "3 000 mL." }
+    ],
+    "gabarito": "D"
   }
 ]  
+  
 
