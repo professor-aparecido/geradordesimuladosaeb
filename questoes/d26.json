@@ -57,10 +57,10 @@
     "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$\frac{22}{45}$" },
-      { "letra": "B", "texto": "$\frac{37}{22}$" },
-      { "letra": "C", "texto": "$\frac{45}{22}$" },
-      { "letra": "D", "texto": "$\fac{55}{18}$" }
+      { "letra": "A", "texto": "$\\frac{22}{45}$" },
+      { "letra": "B", "texto": "$\\frac{37}{22}$" },
+      { "letra": "C", "texto": "$\\frac{45}{22}$" },
+      { "letra": "D", "texto": "$\\fac{55}{18}$" }
     ],
     "gabarito": "D"
   }
