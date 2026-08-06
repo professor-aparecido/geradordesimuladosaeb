@@ -46,6 +46,22 @@
       { "letra": "D", "texto": "R$ 8,70." }
     ],
     "gabarito": "D"
-  }
+  },
 
+  {
+    "id": "q4_d26",
+    "codigoDescritor": "D26",
+    "texto": "Observe a operação apresentada no quadro abaixo.<br>$$\\boxed{\\frac{5}{2} \\div \\frac{9}{11}}$$<br>Qual é o resultado dessa operação?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\frac{22}{45}$" },
+      { "letra": "B", "texto": "$\frac{37}{22}$" },
+      { "letra": "C", "texto": "$\frac{45}{22}$" },
+      { "letra": "D", "texto": "$\fac{55}{18}$" }
+    ],
+    "gabarito": "D"
+  }
 ]
