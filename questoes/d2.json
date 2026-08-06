@@ -103,6 +103,24 @@
       { "letra": "D", "texto": "IV" }
     ],
     "gabarito": "A"
+  },
+
+  {
+    "id": "q7_d2",
+    "codigoDescritor": "D2",
+    "texto": "Observe os polígonos regulares apresentados abaixo.<br>[IMAGEM]<br>Qual desses polígonos é um heptágono?",
+    "imagem": "imagens/imgq7_d2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "I." },
+      { "letra": "B", "texto": "II." },
+      { "letra": "C", "texto": "III." },
+      { "letra": "D", "texto": "IV." }
+    ],
+    "gabarito": "C"
   }
 ]   
   
