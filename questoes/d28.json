@@ -112,5 +112,23 @@
       { "letra": "D", "texto": "R$ 22,00." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q8_d28",
+    "codigoDescritor": "D28",
+    "texto": "<b>(OBMEP)</b> A escola de Paraqui organizou uma Olimpíada de Matemática para seus 250 alunos e premiou com medalhas os 8% que obtiveram as notas mais altas. Quantas medalhas foram distribuídas?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [ 
+      { "letra": "A", "texto": "8" },
+      { "letra": "B", "texto": "11" },
+      { "letra": "C", "texto": "14" },
+      { "letra": "D", "texto": "20" }
+    ],
+    "gabarito": "D"
   }
-]    
+]  
+
