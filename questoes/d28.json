@@ -129,6 +129,23 @@
       { "letra": "D", "texto": "20" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q9_d28",
+    "codigoDescritor": "D28",
+    "texto": "Em uma empresa, trabalham $25$ funcionários. Em uma segunda-feira, $8%$ desses funcionários faltaram. O número de funcionários que não faltaram nesse dia foi",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$23$." },
+      { "letra": "B", "texto": "$21$." },
+      { "letra": "C", "texto": "$20$." },
+      { "letra": "D", "texto": "$18$." }
+    ],
+    "gabarito": "A"
   }
-]  
+]
 
