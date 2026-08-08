@@ -51,7 +51,25 @@
       { "letra": "D", "texto": "$\\frac{2}{8}$" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q4_d22",
+    "codigoDescritor": "D22",
+    "texto": "João recebeu $\\text{R\\$ 580,00}$ de abono salarial. Desse valor, ele gastou $\\frac{3}{5}$ no supermercado. Do valor que sobrou, ele gastou metade na farmácia. O valor que restou do abono recebido por João após esses dois gastos foi",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vetical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\text{R\\$ 116,00}$." },
+      { "letra": "B", "texto": "$\\text{R\\$ 174,00}$." },
+      { "letra": "C", "texto": "$\\text{R\\$ 232,00}$." },
+      { "letra": "D", "texto": "$\\text{R\\$ 290,00}$." }
+    ],
+    "gabarito": "A"
   }
 ]  
+
 
 
