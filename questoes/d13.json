@@ -85,8 +85,23 @@
       { "letra": "D", "texto": "$125\\, cm^2$" }
     ],
     "gabarito": "A"
+  },
+
+  {
+    "id": "q6_d13",
+    "codigoDescritor": "D13",
+    "texto": "<b>(OBMEP)</b> Um quadrado de papel de $20\\, cm$ de lado, com a frente branca e o verso cinza, foi dobrado ao longo das linhas pontilhadas, como na figura.<br>[IMAGEM]<br> Qual é a área da parte branca que ficou visível?",
+    "imagem": "imagens/imgq6_d13.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$18 cm^2$" },
+      { "letra": "B", "texto": "$32 cm^2$" },
+      { "letra": "C", "texto": "$36 cm^2$" },
+      { "letra": "D", "texto": "$72 cm^2$" }
+    ],
+    "gabarito": "B"
   }
 ]  
-
-
-
