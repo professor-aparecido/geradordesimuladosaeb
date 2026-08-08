@@ -46,6 +46,23 @@
       { "letra": "D", "texto": "R$ 460,00." }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q4_d29",
+    "codigoDescritor": "D29",
+    "texto": "<b>(VUNESP)</b> Diariamente, em um depósito de materiais de construção, para cada 2 sacos vendidos de cimento, são vendidos 9 sacos de areia. Mantendo-se sempre essa proporção nas vendas, se, em certo dia, esse depósito vender 36 sacos de areia, o número total de sacos de areia mais de sacos de cimento vendidos será igual a",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "38." },
+      { "letra": "B", "texto": "39." },
+      { "letra": "C", "texto": "42." },
+      { "letra": "D", "texto": "44." }
+    ],
+    "gabarito": "D"
   }
-]  
+]   
 
