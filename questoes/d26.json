@@ -63,5 +63,23 @@
       { "letra": "D", "texto": "$\\frac{55}{18}$" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q5_d26",
+    "codigoDescritor": "D26",
+    "texto": "<b>(INEP)</b> Paula ganhou $\\text{R\\$ 35,00}$ em moedas e guardou-as em seu cofre. Nos dias posteriores, ela retirou $\\text{R\\$ 12,00}$ para comprar um livro, depositou $\\text{R\\$ 23,50}$ que ganhou de sua mãe e retirou $\\text{R\\$ 5,00}$ para levar para a escola. Então, a quantia que ela ainda tem no cofre é:",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\text{R\\$ 41,50}$." },
+      { "letra": "B", "texto": "$\\text{R\\$ 46,50}$." },
+      { "letra": "C", "texto": "$\\text{R\\$ 58,50}$." },
+      { "letra": "D", "texto": "$\\text{R\\$ 75,50}$." }
+    ],
+    "gabarito": "A"
   }
-]
+]  
+
