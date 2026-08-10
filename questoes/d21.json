@@ -19,10 +19,10 @@
   {
     "id": "q2_d21",
     "codigoDescritor": "D21",
-    "texto": "<b>(CAED)</b> Observe o número apresentado no quadro abaixo.<br>$$\\boxed{30,4}$$<br>Uma representação fracionária desse número está apresentada em",
+    "texto": "<b>(CAED)</b> Observe o número apresentado no quadro abaixo.$$\\boxed{30,4}$$Uma representação fracionária desse número está apresentada em",
     "imagem": "",
     "tipo": "alternativas",
-    "disposicao": "grade2x2",
+    "disposicao": "horizontal",
     "espacoCalculo": 0,
     "alternativas": [
       { "letra": "A", "texto": "$\\frac{304}{10}$." },
