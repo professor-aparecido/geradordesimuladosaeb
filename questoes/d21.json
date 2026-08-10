@@ -14,5 +14,23 @@
       { "letra": "D", "texto": "$\\frac{1}{3}$." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q2_d21",
+    "codigoDescritor": "D21",
+    "texto": "<b>(CAED)</b> Observe o número apresentado no quadro abaixo.<br>$$\\boxed{30,4}$$<br>Uma representação fracionária desse número está apresentada em",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\frac{304}{10}$." },
+      { "letra": "B", "texto": "$\\frac{30}{4}$." },
+      { "letra": "C", "texto": "$\\frac{304}{1 000}$." },
+      { "letra": "D", "texto": "$\\frac{4}{30}$." }
+    ],
+    "gabarito": "A"
   }
-]
+]  
+
