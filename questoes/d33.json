@@ -385,7 +385,7 @@
       { "letra": "A", "texto": "$\\{6\\}$." },
       { "letra": "B", "texto": "$\\{9\\}$." },
       { "letra": "C", "texto": "$\\{12\\}$." },
-      { "letra": "D", "texto": "$$\\{20\\}$." }
+      { "letra": "D", "texto": "$\\{20\\}$." }
     ],
     "gabarito": "A"
   }
