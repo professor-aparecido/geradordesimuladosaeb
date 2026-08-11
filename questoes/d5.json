@@ -1,0 +1,19 @@
+[
+  {
+    "id": "q1_d5",
+    "codigoDescritor": "D5",
+    "texto": "Observe os desenhos abaixo.<br>[IMAGEM]<br>A área da Figura I é",
+    "imagem": "imagens/imgq1_d5.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "duas vezes a área da Figura II." },
+      { "letra": "B", "texto": "quatro vezes a área da Figura II." },
+      { "letra": "C", "texto": "seis vezes a área da Figura II." },
+      { "letra": "D", "texto": "oito vezes a área da Figura II." }
+    ],
+    "gabarito": "B"
+  }
+]
