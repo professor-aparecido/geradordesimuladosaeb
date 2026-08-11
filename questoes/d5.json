@@ -15,5 +15,24 @@
       { "letra": "D", "texto": "oito vezes a área da Figura II." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q2_d5",
+    "codigoDescritor": "D5",
+    "texto": "<b>(SPAECE)</b> A figura abaixo mostra um polígono desenhado em uma malha quadriculada, em que todos os quadradinhos têm o mesmo tamanho e o lado de cada um deles corresponde à unidade de medida de comprimento.<br>[IMAGEM]<br>Duplicando-se as medidas dos lados desse polígono, o perímetro do novo polígono ficará",
+    "imagem": "imagens/imgq2_d5.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "dividido por 2." },
+      { "letra": "B", "texto": "dividido por 4." },
+      { "letra": "C", "texto": "multiplicado por 2." },
+      { "letra": "D", "texto": "multiplicado por 4." }
+    ],
+    "gabarito": "C"
   }
 ]
+  
