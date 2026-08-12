@@ -51,7 +51,26 @@
       { "letra": "D", "texto": "$- 4,6$." }
     ],
     "gabarito": "C"
+  },
+  
+  {
+    "id": "q4_d17",
+    "codigoDescritor": "D17",
+    "texto": "<b>(SPAECE)</b> Observe a reta numérica abaixo. Ela está dividida em segmentos de mesma medida.<br>[IMAGEM]Qual ponto dessa reta representa o número $– \\frac{3}{4}$?",
+    "imagem": "imagens/imgq4_d17.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "X." },
+      { "letra": "B", "texto": "Y." },
+      { "letra": "C", "texto": "Z." },
+      { "letra": "D", "texto": "W." }
+    ],
+    "gabarito": "B"
   }
-]  
+]      
+ 
  
 
