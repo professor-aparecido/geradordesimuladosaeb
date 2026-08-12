@@ -33,5 +33,24 @@
       { "letra": "D", "texto": "– 7" }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q3_d16",
+    "codigoDescritor": "D16",
+    "texto": "<b>(SPAECE)</b> Abaixo, temos a representação de uma reta numérica. Ela está dividida em segmentos de mesma medida.<br>[IMAGEM]Qual é o ponto associado ao número $– 3$?",
+    "imagem": "imagens/imgq3_d16.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "P." },
+      { "letra": "B", "texto": "Q." },
+      { "letra": "C", "texto": "R." },
+      { "letra": "D", "texto": "S." }
+    ],
+    "gabarito": "A"
   }
-]
+]  
+
