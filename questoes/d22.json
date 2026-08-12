@@ -119,5 +119,22 @@
       { "letra": "D", "texto": "$375,1$" }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q8_d22",
+    "codigoDescritor": "D22",
+    "texto": "Observe as frações abaixo.$$\\boxed{\\frac{5}{7} \\quad \\frac{75}{10} \\quad \\frac{10}{75} \\quad \\frac{7}{5}}$$Qual dessas frações representa o número decimal 7,5?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\frac{10}{75}$" },
+      { "letra": "B", "texto": "$\\frac{5}{7}}$" },
+      { "letra": "C", "texto": "$\\frac{7}{5}$" },
+      { "letra": "D", "texto": "$\\frac{75}{10}$" }
+    ],
+    "gabarito": "D"
   }
-]  
+] 
