@@ -121,9 +121,25 @@
       { "letra": "D", "texto": "IV." }
     ],
     "gabarito": "C"
+  },
+  
+  {
+    "id": "q8_d2",
+    "codigoDescritor": "D2",
+    "texto": "<b>(SPAECE)</b> Em uma aula de Geometria, a professora Flávia desenhou no quadro o sólido abaixo.<br>[IMAGEM]Quantos vértices e faces, respectivamente, tem esse sólido?",
+    "imagem": "imagens/imgq8_d2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "8 e 10." },
+      { "letra": "B", "texto": "10 e 5." },
+      { "letra": "C", "texto": "12 e 10." },
+      { "letra": "D", "texto": "12 e 11." }
+    ],
+    "gabarito": "D"
   }
-]
+]      
   
   
- 
-
