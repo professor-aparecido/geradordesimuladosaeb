@@ -33,6 +33,24 @@
       { "letra": "D", "texto": "M." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q3_d9",
+    "codigoDescritor": "D9",
+    "texto": "<b>(SPAECE)</b> Observe o pentágono IJKLM representado no plano cartesiano abaixo.<br>[IMAGEM]<br>De acordo com esse plano cartesiano, o ponto de coordenadas $(-2, -1)$ é",
+    "imagem": "imagens/imgq3_d9.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "I." },
+      { "letra": "B", "texto": "J." },
+      { "letra": "C", "texto": "K." },
+      { "letra": "D", "texto": "M." }
+    ],
+    "gabarito": "D"
   }
-]  
+]    
 
