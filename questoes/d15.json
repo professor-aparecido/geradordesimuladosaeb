@@ -193,6 +193,23 @@
       { "letra": "D", "texto": "$105\\, 000\\, L$" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q13_d15",
+    "codigoDescritor": "D15",
+    "texto": "<b>(SPAECE)</b> Pedro vai comprar $2$ litros de refrigerante. Ao chegar ao supermercado, a garrafa de refrigerante de $500\\, ml$ estava na promoção. Pedro precisa comprar quantas garrafas de $500\\, ml$ para levar os dois litros de refrigerantes que ele precisa?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$3$ garrafas." },
+      { "letra": "B", "texto": "$2$ garrafas." },
+      { "letra": "C", "texto": "$4$ garrafas." },
+      { "letra": "D", "texto": "$5$ garrafas." }
+    ],
+    "gabarito": "C"
   }
 ]  
   
