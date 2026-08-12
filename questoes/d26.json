@@ -91,10 +91,10 @@
     "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$\\frac{1}{4}$.$\\$" },
-      { "letra": "B", "texto": "$\\frac{2}{6}$.$\\$" },
-      { "letra": "C", "texto": "$\\frac{1}{2}$.$\\$" },
-      { "letra": "D", "texto": "$\\frac{3}{4}$.$\\$" }
+      { "letra": "A", "texto": "$\\frac{1}{4}$." },
+      { "letra": "B", "texto": "$\\frac{2}{6}$." },
+      { "letra": "C", "texto": "$\\frac{1}{2}$." },
+      { "letra": "D", "texto": "$\\frac{3}{4}$." }
     ],
     "gabarito": "A"
   }
