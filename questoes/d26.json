@@ -119,7 +119,7 @@
   {
     "id": "q8_d26",
     "codigoDescritor": "D26",
-    "texto": "Observe abaixo o preço do porta-retratos, da luminária e do porta-lápis que Amanda comprou em uma loja.<br>[IMAGEM]<br>Ela pagou essa compra com uma nota de $\\text{R\\$ 100,00}$. Quanto Amanda recebeu de troco por essa compra?",
+    "texto": "<b>(SPAECE)</b> Observe abaixo o preço do porta-retratos, da luminária e do porta-lápis que Amanda comprou em uma loja.<br>[IMAGEM]<br>Ela pagou essa compra com uma nota de $\\text{R\\$ 100,00}$. Quanto Amanda recebeu de troco por essa compra?",
     "imagem": "imagens/imgq8_d26.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
