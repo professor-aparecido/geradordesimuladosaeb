@@ -119,8 +119,27 @@
       { "letra": "D", "texto": "72°" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q8_d8",
+    "codigoDescritor": "D8",
+    "texto": "<b>(SPAECE)</b> O desenho abaixo representa uma medalha, em formato pentagonal, fabricada para premiar os jogadores de um torneio de futebol.<br>[IMAGEM]<br>Qual é a medida do ângulo x nesse desenho?",
+    "imagem": "imagens/imgq8_d8.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "45°" },
+      { "letra": "B", "texto": "90°" },
+      { "letra": "C", "texto": "108°" },
+      { "letra": "D", "texto": "135°" }
+    ],
+    "gabarito": "D"
   }
 ]  
+
 
 
 
