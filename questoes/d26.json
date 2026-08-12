@@ -88,13 +88,13 @@
     "texto": "<b>(SPAECE)</b> Marina comprou uma cartela de adesivos. Dessas adesivos, ela utilizou $\\frac{1}{4}$ em uma atividade na escola e $\\frac{1}{2}$ para enfeitar sua agenda. Em relação à quantidade total de adesivos dessa cartela, qual é a fração que representa os adesivos que sobraram?",
     "imagem": "",
     "tipo": "alternativas",
-    "disposicao": "grade2x2",
+    "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$\\frac{1}{4}$." },
-      { "letra": "B", "texto": "$\\frac{2}{6}$." },
-      { "letra": "C", "texto": "$\\frac{1}{2}$." },
-      { "letra": "D", "texto": "$\\frac{3}{4}$." }
+      { "letra": "A", "texto": "$\\frac{1}{4}.\\$" },
+      { "letra": "B", "texto": "$\\frac{2}{6}.\\$" },
+      { "letra": "C", "texto": "$\\frac{1}{2}.\\$" },
+      { "letra": "D", "texto": "$\\frac{3}{4}.\\$" }
     ],
     "gabarito": "A"
   }
