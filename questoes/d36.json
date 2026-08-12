@@ -68,7 +68,7 @@
   {
     "id": "q5_d36",
     "codigoDescritor": "D36",
-    "texto": "O dono de uma locadora fez uma pesquisa para saber a quantidade de filmes que os clientes alugam por mês. Os resultados dessa pesquisa estão representados na tabela abaixo.<br>[IMAGEM]<br>De acordo com essa tabela, quantos clientes alugam menos de 5 filmes por mês?",
+    "texto": "<b>(SPAECE)</b> O dono de uma locadora fez uma pesquisa para saber a quantidade de filmes que os clientes alugam por mês. Os resultados dessa pesquisa estão representados na tabela abaixo.<br>[IMAGEM]<br>De acordo com essa tabela, quantos clientes alugam menos de 5 filmes por mês?",
     "imagem": "imagens/imgq5_d36.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
