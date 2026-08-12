@@ -132,6 +132,23 @@
       { "letra": "D", "texto": "$\\text{R\\$ 190,00}$" }
     ],
     "gabarito": "A"
+  },
+
+  {
+    "id": "q9_d26",
+    "codigoDescritor": "D26",
+    "texto": "<b>(SPAECE)</b> Carlos foi a uma loja de material de construção e comprou uma chave de fenda por $\\text{R\\$ 12,50}$, uma escova de aço por $\\text{R\\$ 8,80}$ e um conjunto de espátulas por $\\text{R\\$ 25,90}$. Quanto ele pagou por essa compra?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\text{R\\$ 21,30}$" },
+      { "letra": "B", "texto": "$\\text{R\\$ 45,00}$" },
+      { "letra": "C", "texto": "$\\text{R\\$ 46,30}$" },
+      { "letra": "D", "texto": "$\\text{R\\$ 47,20}$" }
+    ],
+    "gabarito": "D"
   }
-]
+]  
   
