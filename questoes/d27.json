@@ -1,0 +1,18 @@
+[
+  {
+    "id": "q1_d27",
+    "codigoDescritor": "D27",
+    "texto": "Observe a expressão numérica no quadro abaixo.$$\\boxed{3\\sqrt{7} + \\sqrt{2}}$$O valor dessa expressão melhor se aproxima de qual número inteiro?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$5$" },
+      { "letra": "B", "texto": "$6$" },
+      { "letra": "C", "texto": "$9$" },
+      { "letra": "D", "texto": "$11$" }
+    ],
+    "gabarito": "C"
+  }
+]
