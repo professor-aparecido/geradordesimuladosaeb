@@ -163,7 +163,23 @@
       { "letra": "D", "texto": "$120$" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q11_d28",
+    "codigoDescritor": "D28",
+    "texto": "<b>(SPAECE)</b> Em uma padaria trabalham 40 funcionários. Nessa padaria, 25% dos funcionários praticam esportes.<br>Quantos funcionários que trabalham nessa padaria praticam esportes?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "25." },
+      { "letra": "B", "texto": "20." },
+      { "letra": "C", "texto": "15." },
+      { "letra": "D", "texto": "10." }
+    ],
+    "gabarito": "D"
   }
-]  
-
-
+]
+  
