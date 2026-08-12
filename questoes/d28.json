@@ -197,7 +197,23 @@
       { "letra": "D", "texto": "$88$" }
     ],
     "gabarito": "C"
-  }
-]  
-
+  },
   
+  {
+    "id": "q13_d28",
+    "codigoDescritor": "D28",
+    "texto": "Na empresa de Alberto, $75\\%$ das $200$ mulheres são casadas. Quantas mulheres dessa empresa são casadas?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade3x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$15$" },
+      { "letra": "B", "texto": "$50$" },
+      { "letra": "C", "texto": "$75$" },
+      { "letra": "D", "texto": "$150$" }
+    ],
+    "gabarito": "D"
+  }
+]
+ 
