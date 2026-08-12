@@ -56,11 +56,11 @@
   {
     "id": "q4_d9",
     "codigoDescritor": "D9",
-    "texto": "Para a realização de uma pesquisa, foram usados os submarinos Alfa, Beta e Gama para verificar o ecossistema de determinada área marítima. As posições desses três submarinos foram relacionadas a pontos no plano cartesiano, no qual o submarino Alfa está representado pelo ponto de coordenadas $(– 3, 2)$, Beta pelo ponto $(– 2, – 3)$ e Gama pelo ponto $(2, – 3)$ conforme indicado abaixo.<br>[IMAGEM]<br>Os pontos que representam, respectivamente, a localização dos submarinos Alfa, Beta e Gama nesse plano cartesiano são",
+    "texto": "<b>(SPAECE)</b> Para a realização de uma pesquisa, foram usados os submarinos Alfa, Beta e Gama para verificar o ecossistema de determinada área marítima. As posições desses três submarinos foram relacionadas a pontos no plano cartesiano, no qual o submarino Alfa está representado pelo ponto de coordenadas $(– 3, 2)$, Beta pelo ponto $(– 2, – 3)$ e Gama pelo ponto $(2, – 3)$ conforme indicado abaixo.<br>[IMAGEM]<br>Os pontos que representam, respectivamente, a localização dos submarinos Alfa, Beta e Gama nesse plano cartesiano são",
     "imagem": "imagens/imgq4_d9.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
-    "disposicao": "vertical",
+    "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
       { "letra": "A", "texto": "P, Q e R." },
