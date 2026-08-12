@@ -63,6 +63,24 @@
       { "letra": "D", "texto": "44." }
     ],
     "gabarito": "D"
+  }, 
+
+  {
+    "id": "q5_d29",
+    "codigoDescritor": "D29",
+    "texto": "<b>(SPAECE)</b> Mariana utilizou $2,5\\, kg$ de farinha de trigo para fazer 30 pães.<br>Para ela fazer $90$ desses pães, quantos quilogramas de farinha, no total, serão necessários?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$5,5\\, kg$" },
+      { "letra": "B", "texto": "$7,5\\, kg$" },
+      { "letra": "C", "texto": "$27,5\\, kg$" },
+      { "letra": "D", "texto": "$36\\, kg$" }
+    ],
+    "gabarito": "B"
   }
-]   
+]  
+
 
