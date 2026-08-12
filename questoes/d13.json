@@ -103,5 +103,23 @@
       { "letra": "D", "texto": "$72 cm^2$" }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q7_d13",
+    "codigoDescritor": "D13",
+    "texto": "O campo de futebol abaixo tem as seguintes medidas:<br>[IMAGEM]<br>A medida da área desse campo, em metros quadrados, é",
+    "imagem": "imagens/imgq7_d13.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$3 840$." },
+      { "letra": "B", "texto": "$1 920$." },
+      { "letra": "C", "texto": "$272$." },
+      { "letra": "D", "texto": "$136$." }
+    ],
+    "gabarito": "A"
   }
-]  
+]   
