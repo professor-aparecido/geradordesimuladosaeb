@@ -33,6 +33,25 @@
       { "letra": "D", "texto": "L" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q3_d17",
+    "codigoDescritor": "D17",
+    "texto": "<b>(SPAECE)</b> Observe abaixo a reta numérica dividida em segmentos de mesma medida.<br>[IMAGEM]<br>O número racional representado pelo ponto <b>X</b> é",
+    "imagem": "imagens/imgq3_d17.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$- 6,4$." },
+      { "letra": "B", "texto": "$- 5,5$." },
+      { "letra": "C", "texto": "$- 4,5$." },
+      { "letra": "D", "texto": "$- 4,6$." }
+    ],
+    "gabarito": "C"
   }
 ]  
+ 
 
