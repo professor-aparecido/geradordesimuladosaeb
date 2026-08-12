@@ -139,7 +139,23 @@
       { "letra": "D", "texto": "12 e 11." }
     ],
     "gabarito": "C"
+  },
+  
+  {
+    "id": "q9_d2",
+    "codigoDescritor": "D2",
+    "texto": "<b>(SPAECE)</b> Observe o sólido geométrico formado com canudinhos de refrigerante e responda à pergunta.<br>[IMAGEM]Quantas arestas possui este sólido?",
+    "imagem": "imagens/imgq9_d2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "4" },
+      { "letra": "B", "texto": "6" },
+      { "letra": "C", "texto": "8" },
+      { "letra": "D", "texto": "12" }
+    ],
+    "gabarito": "D"
   }
-]      
-  
-  
+]  
