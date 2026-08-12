@@ -93,8 +93,25 @@
       { "letra": "D", "texto": "45." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q7_d31",
+    "codigoDescritor": "D31",
+    "texto": "<b>(SPAECE)</b> Em uma confraternização, um grupo de amigos fez uma troca de chocolates, na qual, cada participante deu um chocolate a cada um dos demais participantes da confraternização. Essa troca envolveu, ao todo, $132$ chocolates. Quantos amigos participaram dessa confraternização?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$12$" },
+      { "letra": "B", "texto": "$24$" },
+      { "letra": "C", "texto": "$66$" },
+      { "letra": "D", "texto": "$132$" }
+    ],
+    "gabarito": "A"
   }
-  
 ]  
+ 
 
 
