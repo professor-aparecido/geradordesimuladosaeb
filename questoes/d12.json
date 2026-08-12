@@ -106,7 +106,7 @@
   {
     "id": "q7_d12",
     "codigoDescritor": "D12",
-    "texto": "O desenho abaixo apresenta as dimensões da laje da casa de Isadora. Ela irá colocar um muro de proteção nessa laje e, para calcular a quantidade de material a ser comprado, precisou medir o seu contorno.<br>[IMAGEM]<br>Qual é o perímetro da laje dessa casa?",
+    "texto": "<b>(SPAECE)</b> O desenho abaixo apresenta as dimensões da laje da casa de Isadora. Ela irá colocar um muro de proteção nessa laje e, para calcular a quantidade de material a ser comprado, precisou medir o seu contorno.<br>[IMAGEM]<br>Qual é o perímetro da laje dessa casa?",
     "imagem": "imagens/imgq7_d12.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
@@ -116,7 +116,7 @@
       { "letra": "A", "texto": "$58\\, m$" },
       { "letra": "B", "texto": "$116\\, m$" },
       { "letra": "C", "texto": "$232\\, m$" },
-      { "letra": "D", "texto": "$360\\, m$" }
+      { "letra": "D", "texto": "$720\\, m$" }
     ],
     "gabarito": "B"
   }
