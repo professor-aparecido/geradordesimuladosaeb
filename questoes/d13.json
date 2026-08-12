@@ -108,7 +108,7 @@
   {
     "id": "q7_d13",
     "codigoDescritor": "D13",
-    "texto": "O campo de futebol abaixo tem as seguintes medidas:<br>[IMAGEM]<br>A medida da área desse campo, em metros quadrados, é",
+    "texto": "<b>(SPAECE)</b> O campo de futebol abaixo tem as seguintes medidas:<br><br>[IMAGEM]<br>A medida da área desse campo, em metros quadrados, é",
     "imagem": "imagens/imgq7_d13.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
