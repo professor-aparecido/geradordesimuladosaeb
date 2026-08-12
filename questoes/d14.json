@@ -68,6 +68,22 @@
       { "letra": "D", "texto": "$3\\,000$." }
     ],
     "gabarito": "D"
-  }
-]
+  },
 
+  {
+    "id": "q5_d14",
+    "codigoDescritor": "D14",
+    "texto": "<b>(SPAECE)</b> Devido ao aumento na venda de bancadas de mármore e granito, o dono de uma marmoraria instalou em seu estabelecimento outra caixa d’água, com formato de paralelepípedo retângulo, cujas medidas internas são: $1,7\\, m$ de comprimento, $1,5\\, m$ de largura e $5,6\\, m$ de altura. Qual é o volume interno dessa caixa d’água?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$14,28\\,m^3$" },
+      { "letra": "B", "texto": "$8,80\\, m^3$" },
+      { "letra": "C", "texto": "$8,15\\, m^3$" },
+      { "letra": "D", "texto": "$2,55\\, m^3$" }
+    ],
+    "gabarito": "A"
+  }
+]  
