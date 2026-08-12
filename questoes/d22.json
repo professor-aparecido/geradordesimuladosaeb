@@ -102,5 +102,22 @@
       { "letra": "D", "texto": "$\\frac{38}{10}$" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q7_d22",
+    "codigoDescritor": "D22",
+    "texto": "<b>(SAPECE)</b> Observe o número racional no quadro abaixo.$$\\boxed{\\frac{375}{100}}$$Qual é a representação decimal desse número?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$0,375$" },
+      { "letra": "B", "texto": "$3,75$" },
+      { "letra": "C", "texto": "$37,5$" },
+      { "letra": "D", "texto": "$375,1$" }
+    ],
+    "gabarito": "B"
   }
 ]  
