@@ -102,8 +102,26 @@
       { "letra": "D", "texto": "150°." }
     ],
     "gabarito": "C"
+  },
+  
+  {
+    "id": "q7_d8",
+    "codigoDescritor": "D8",
+    "texto": "<b>(SPAECE)</b> Para cercar a horta de seu sítio de uma forma decorativa, Priscila planejou um cercado que tem o formato de um pentágono regular. Para que ela obtenha esse formato desejado, qual deve ser a medida do ângulo formado entre cada dois lados consecutivos no interior desse cercado?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "540°" },
+      { "letra": "B", "texto": "360°" },
+      { "letra": "C", "texto": "108°" },
+      { "letra": "D", "texto": "72°" }
+    ],
+    "gabarito": "C"
   }
 ]  
+
 
 
  
