@@ -87,5 +87,23 @@
       { "letra": "D", "texto": "280°." }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q6_d3",
+    "codigoDescritor": "D3",
+    "texto": "<b>(SPAECE)</b> Getúlio cercará um terreno triangular que será utilizado no plantio de algodão. Esse terreno já possui cerca em dois de seus lados, sendo necessário cercar apenas o terceiro lado, conforme representado na figura abaixo.<br>[IMAGEM]<br>Qual é a medida do comprimento do lado desse terreno que deverá ser cercado?",
+    "imagem": "imagens/imgq6_d3.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$200\\, m$" },
+      { "letra": "B", "texto": "$600\\, m$" },
+      { "letra": "C", "texto": "$800\\, m$" },
+      { "letra": "D", "texto": "$400\\sqrt{5}\\, m$" }
+    ],
+    "gabarito": "B"
   }
 ]  
