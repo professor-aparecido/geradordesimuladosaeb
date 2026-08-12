@@ -146,6 +146,24 @@
       { "letra": "D", "texto": "$18$." }
     ],
     "gabarito": "A"
+  },
+
+  {
+    "id": "q10_d28",
+    "codigoDescritor": "D28",
+    "texto": "Uma empresa aérea realizou uma pesquisa entre seus clientes para saber quais eram os seus destinos preferidos. Dos $300$ clientes entrevistados, $40\\%$ optaram pela Irlanda. Quantos clientes entrevistados preferem a Irlanda como destino?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$40$" },
+      { "letra": "B", "texto": "$180$" },
+      { "letra": "C", "texto": "$260$" },
+      { "letra": "D", "texto": "$120$" }
+    ],
+    "gabarito": "D"
   }
-]
+]  
+
 
