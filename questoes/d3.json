@@ -105,5 +105,23 @@
       { "letra": "D", "texto": "$400\\sqrt{5}\\, m$" }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q7_d3",
+    "codigoDescritor": "D3",
+    "texto": "<b>(SPAECE)</b> Ao avistar um ninho de pombinhos no alto de um poste de $6\\, m$ de altura, um ciclista parou a uma distância de $6\\, m$ do poste para visualizar o ninho, conforme ilustra o desenho abaixo.<br>[IMAGEM]A distância “$x$” do ninho até o ciclista é igual a",
+    "imagem": "imagens/imgq7_d3.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$5,7\\, m$." },
+      { "letra": "B", "texto": "$6,0\\, m$." },
+      { "letra": "C", "texto": "$7,5\\, m$." },
+      { "letra": "D", "texto": "$10,5\\, m$." }
+    ],
+    "gabarito": "C"
   }
-]  
+]   
