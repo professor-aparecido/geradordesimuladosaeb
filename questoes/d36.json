@@ -81,6 +81,23 @@
       { "letra": "D", "texto": "259" }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q6_d36",
+    "codigoDescritor": "D36",
+    "texto": "<b>(SPAECE)</b> O gráfico abaixo mostra o número de alunos participantes de uma gincana e suas respectivas idades.<br>[IMAGEM]De acordo com os dados desse gráfico, qual foi a quantidade de alunos participantes dessa gincana?",
+    "imagem": "imagens/imgq6_d36.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "45" },
+      { "letra": "B", "texto": "75" },
+      { "letra": "C", "texto": "150" },
+      { "letra": "D", "texto": "165" }
+    ],
+    "gabarito": "D"
   }
 ]  
-  
