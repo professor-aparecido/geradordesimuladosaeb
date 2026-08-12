@@ -108,11 +108,30 @@
     "disposicao": "vertical",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$\\text{R\\$ 14,45$" },
-      { "letra": "B", "texto": "$\\text{R\\$ 14,50$" },
-      { "letra": "C", "texto": "$\\text{R\\$ 15,00$" },
-      { "letra": "D", "texto": "$\\text{R\\$ 15,50$" }
+      { "letra": "A", "texto": "$\\text{R\\$ 14,45}$" },
+      { "letra": "B", "texto": "$\\text{R\\$ 14,50}$" },
+      { "letra": "C", "texto": "$\\text{R\\$ 15,00}$" },
+      { "letra": "D", "texto": "$\\text{R\\$ 15,50}$" }
+    ],
+    "gabarito": "A"
+  },
+  
+  {
+    "id": "q8_d26",
+    "codigoDescritor": "D26",
+    "texto": "Observe abaixo o preço do porta-retratos, da luminária e do porta-lápis que Amanda comprou em uma loja.<br>[IMAGEM]<br>Ela pagou essa compra com uma nota de $\\text{R\\$ 100,00}$. Quanto Amanda recebeu de troco por essa compra?",
+    "imagem": "imagens/imgq8_d26.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\text{R\\$ 10,00}$" },
+      { "letra": "B", "texto": "$\\text{R\\$ 90,00}$" },
+      { "letra": "C", "texto": "$\\text{R\\$ 100,00}$" },
+      { "letra": "D", "texto": "$\\text{R\\$ 190,00}$" }
     ],
     "gabarito": "A"
   }
-]  
+]
+  
