@@ -73,7 +73,7 @@
   {
     "id": "q5_d22",
     "codigoDescritor": "D22",
-    "texto": "<b>(SPAECE)</b> Observe a fração apresentada no quadro abaixo.$\\frac{3}{4}$A representação dessa fração na forma de porcentagem corresponde a",
+    "texto": "<b>(SPAECE)</b> Observe a fração apresentada no quadro abaixo.$$\\boxed{\\frac{3}{4}}$$A representação dessa fração na forma de porcentagem corresponde a",
     "imagem": "",
     "tipo": "alternativas",
     "disposicao": "grade2x2",
