@@ -97,6 +97,22 @@
       { "letra": "D", "texto": "$\\frac{3}{4}$." }
     ],
     "gabarito": "A"
+  },
+  
+  {
+    "id": "q7_d26",
+    "codigoDescritor": "D26",
+    "texto": "<b>(SPAECE)</b> Patrício ganhou de seu pai $\\text{R\\$ 25,50}$ para comprar um tênis, porém acabou comprando um que custava $\\text{R\\$ 39,95}$. Quanto Patrício teve que completar de seu próprio dinheiro para comprar esse tênis?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\text{R\\$ 14,45$" },
+      { "letra": "B", "texto": "$\\text{R\\$ 14,50$" },
+      { "letra": "C", "texto": "$\\text{R\\$ 15,00$" },
+      { "letra": "D", "texto": "$\\text{R\\$ 15,50$" }
+    ],
+    "gabarito": "A"
   }
 ]  
-
