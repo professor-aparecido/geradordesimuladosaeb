@@ -50,6 +50,24 @@
       { "letra": "D", "texto": "96 000 cm³." }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q4_d14",
+    "codigoDescritor": "D14",
+    "texto": "<b>(SPAECE)</b> Amanda comprou uma forma de bolo com formato de bloco retangular, cujas medidas internas estão representadas na figura abaixo.<br>[IMAGEM]<br>A capacidade máxima, em $cm^3$, dessa forma é",
+    "imagem": "imagens/imgq4_d14.png",
+    "escalaImagem": 80,
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$220$." },
+      { "letra": "B", "texto": "$500$." },
+      { "letra": "C", "texto": "$600$." },
+      { "letra": "D", "texto": "$3\\,000$." }
+    ],
+    "gabarito": "D"
   }
-]  
+]
 
