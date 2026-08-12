@@ -210,7 +210,23 @@
       { "letra": "D", "texto": "$5$ garrafas." }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q14_d15",
+    "codigoDescritor": "D15",
+    "texto": "<b>(SPAECE)</b> Janaína ganhou um conjunto de $24$ copos iguais. Cada um deles tem capacidade máxima de $100\\, mL$. Qual é a capacidade máxima, em litros, correspondente a esse conjunto de copos?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "1,24" },
+      { "letra": "B", "texto": "2,4" },
+      { "letra": "C", "texto": "124" },
+      { "letra": "D", "texto": "2400" }
+    ],
+    "gabarito": "B"
   }
-]  
-  
+]
 
