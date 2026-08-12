@@ -180,6 +180,24 @@
       { "letra": "D", "texto": "$10$." }
     ],
     "gabarito": "D"
+  },
+  
+  {
+    "id": "q12_d28",
+    "codigoDescritor": "D28",
+    "texto": "<b>(SPAECE)</b> Em uma pesquisa sobre a preferência musical dos jovens, foram entrevistados $220$ jovens, entre meninos e meninas. Do total de entrevistados, $60\\%$ eram meninos. Qual foi o número de meninos entrevistados nessa pesquisa?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$180$" },
+      { "letra": "B", "texto": "$160$" },
+      { "letra": "C", "texto": "$132$" },
+      { "letra": "D", "texto": "$88$" }
+    ],
+    "gabarito": "C"
   }
-]
+]  
+
   
