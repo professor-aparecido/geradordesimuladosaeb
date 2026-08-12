@@ -176,6 +176,23 @@
       { "letra": "D", "texto": "3 000 mL." }
     ],
     "gabarito": "D"
+  },
+  
+  {
+    "id": "q12_d15",
+    "codigoDescritor": "D15",
+    "texto": "Para minimizar os problemas de abastecimento de água de um vilarejo com $700$ habitantes, foram instaladas $3$ cisternas, com volume interno de $50\\, m^3$ cada. Em um dia, essas $3$ cisternas estavam abastecidas em sua capacidade máxima e o consumo médio por habitante foi de $150\\, L$. Nesse dia, quantos litros de água restaram nessas cisternas?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$45\\, L$" },
+      { "letra": "B", "texto": "$100\\, L$" },
+      { "letra": "C", "texto": "$45\\, 000\\, L$" },
+      { "letra": "D", "texto": "$105\\, 000\\, L$" }
+    ],
+    "gabarito": "C"
   }
 ]  
   
