@@ -85,9 +85,22 @@
       { "letra": "D", "texto": "$75\\%$." }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q6_d22",
+    "codigoDescritor": "D22",
+    "texto": "<b>(SPAECE)</b> Observe o número no quadro abaixo.$$\\boxed{3,8}$$Qual é a representação fracionária desse número?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\frac{10}{38}$" },
+      { "letra": "B", "texto": "$\\frac{3}{8}$" },
+      { "letra": "C", "texto": "$\\frac{8}{3}$" },
+      { "letra": "D", "texto": "$\\frac{38}{10}$" }
+    ],
+    "gabarito": "D"
   }
 ]  
-
-
-
-
