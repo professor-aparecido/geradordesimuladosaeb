@@ -167,6 +167,23 @@
       { "letra": "D", "texto": "$4,10$." }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q11_d21",
+    "codigoDescritor": "D21",
+    "texto": "<b>(SPAECE)</b> Qual é a representação fracionária do número decimal $0,275$?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\frac{275}{1\\ 000}$" },
+      { "letra": "B", "texto": "$\\frac{275}{100}$" },
+      { "letra": "C", "texto": "$\\frac{275}{10}$" },
+      { "letra": "D", "texto": "$\\frac{1\\ 000}{275}$" }
+    ],
+    "gabarito": "A"
   }
-]  
+]   
 
