@@ -221,10 +221,10 @@
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "1,24" },
-      { "letra": "B", "texto": "2,4" },
-      { "letra": "C", "texto": "124" },
-      { "letra": "D", "texto": "2400" }
+      { "letra": "A", "texto": "$1,24$" },
+      { "letra": "B", "texto": "$2,4$" },
+      { "letra": "C", "texto": "$124$" },
+      { "letra": "D", "texto": "$2400$" }
     ],
     "gabarito": "B"
   }
