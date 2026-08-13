@@ -69,7 +69,26 @@
       { "letra": "D", "texto": "Q, R e P." }
     ],
     "gabarito": "C"
+  },
+
+  {
+    "id": "q5_d9",
+    "codigoDescritor": "D9",
+    "texto": "<b>(SPAECE)</b> No plano cartesiano abaixo, foram marcados 4 pontos.<br>[IMAGEM]<br>Quais são as coordenadas do ponto $Q$?",
+    "imagem": "imagens/imgq5_d9.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$(– 1, – 3)$" },
+      { "letra": "B", "texto": "$(– 1, 3)$" },
+      { "letra": "C", "texto": "$(1, 3)$" },
+      { "letra": "D", "texto": "$(3, – 1)$" }
+    ],
+    "gabarito": "B"
   }
 ]  
+
     
 
