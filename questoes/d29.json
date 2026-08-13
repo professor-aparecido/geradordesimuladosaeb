@@ -15,21 +15,22 @@
   "gabarito": "D"
 },
 
-{
-  "id": "q2_d29",
-  "codigoDescritor": "D29",
-  "texto": "<b>(ENCCEJA)</b> Uma mãe precisa administrar um remédio a seu filho, cuja massa corpórea é de 24 kg. A dosagem desse remédio é baseada na massa corpórea da criança. Esse remédio tem dosagem de 9 mL para crianças com até 5 kg de massa. Para indivíduos com mais de 5 kg de massa, a dosagem, em mililitro, é proporcional à massa corpórea, e o quadro a seguir apresenta as dosagens para algumas massas corpóreas.<br><br><table style=\"margin: 10px auto; border-collapse: collapse; text-align: center; border: 1px solid #000;\"><thead><tr style=\"background-color: #e5e7eb; border-bottom: 1px solid #000;\"><th style=\"padding: 6px 14px; border-right: 1px solid #000;\">Massa (kg)</th><th style=\"padding: 6px 14px;\">Dosagem (mL)</th></tr></thead><tbody><tr style=\"border-bottom: 1px solid #ccc;\"><td style=\"padding: 4px 14px; border-right: 1px solid #000;\">até 5</td><td style=\"padding: 4px 14px;\">9</td></tr><tr style=\"border-bottom: 1px solid #ccc;\"><td style=\"padding: 4px 14px; border-right: 1px solid #000;\">8</td><td style=\"padding: 4px 14px;\">12</td></tr><tr style=\"border-bottom: 1px solid #ccc;\"><td style=\"padding: 4px 14px; border-right: 1px solid #000;\">10</td><td style=\"padding: 4px 14px;\">15</td></tr><tr><td style=\"padding: 4px 14px; border-right: 1px solid #000;\">12</td><td style=\"padding: 4px 14px;\">18</td></tr></tbody></table><br>A dosagem desse remédio, em mililitro, que a mãe deverá dar ao seu filho é",
-  "tipo": "alternativas",
-  "disposicao": "vertical",
-  "espacoCalculo": 5,
-  "alternativas": [
-    { "letra": "A", "texto": "16." },
-    { "letra": "B", "texto": "36." },
-    { "letra": "C", "texto": "43." },
-    { "letra": "D", "texto": "45." }
-  ],
-  "gabarito": "B"
-},
+  {
+    "id": "q2_d29",
+    "codigoDescritor": "D29",
+    "texto": "<b>(SPAECE)</b> Maria gasta $80$ gramas de sabão em pó para lavar 6 quilogramas de roupa. Mantendo a mesma proporção, quantos quilogramas de roupa Maria consegue lavar com $240$ gramas desse sabão em pó?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$2$" },
+      { "letra": "B", "texto": "$3$" },
+      { "letra": "C", "texto": "$18$" },
+      { "letra": "D", "texto": "$30$" }
+    ],
+    "gabarito": "C"
+  },
 
   {
     "id": "q3_d29",
