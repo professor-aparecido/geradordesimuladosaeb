@@ -157,5 +157,23 @@
       { "letra": "D", "texto": "12" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q10_d2",
+    "codigoDescritor": "D2",
+    "texto": "Observe a planificação abaixo.<br>[IMAGEM]<br>A figura planificada é um",
+    "imagem": "imagens/imgq10_d2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "cilindro." },
+      { "letra": "B", "texto": "cone." },
+      { "letra": "C", "texto": "pirâmide." },
+      { "letra": "D", "texto": "prisma." }
+    ],
+    "gabarito": "A"
   }
-]  
+]   
