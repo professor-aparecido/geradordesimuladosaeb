@@ -189,7 +189,7 @@
   {
     "id": "q12_d21",
     "codigoDescritor": "D21",
-    "texto": "A fração $\\frac{13}{4}$ corresponde ao número",
+    "texto": "<b>(SPAECE)</b> A fração $\\frac{13}{4}$ corresponde ao número",
     "imagem": "",
     "tipo": "alternativas",
     "disposicao": "horizontal",
@@ -201,6 +201,22 @@
       { "letra": "D", "texto": "$3,25$" }
     ],
     "gabarito": "D"
+  },
+  
+  {
+    "id": "q13_d21",
+    "codigoDescritor": "D21",
+    "texto": "<b>(SPAECE)</b> A representação fracionária do número $1,7$ é",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "horizontal",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$\\frac{1}{7}$" },
+      { "letra": "B", "texto": "$\\frac{1}{10}$" },
+      { "letra": "C", "texto": "$\\frac{17}{10}$" },
+      { "letra": "D", "texto": "$\\frac{17}{100}$" }
+    ],
+    "gabarito": "C"
   }
-]
-   
+]  
