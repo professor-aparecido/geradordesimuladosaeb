@@ -195,10 +195,10 @@
     "disposicao": "horizontal",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$13,4$" },
-      { "letra": "B", "texto": "$9,00$" },
-      { "letra": "C", "texto": "$4,13$" },
-      { "letra": "D", "texto": "$3,25$" }
+      { "letra": "A", "texto": "$13,4$." },
+      { "letra": "B", "texto": "$9,00$." },
+      { "letra": "C", "texto": "$4,13$." },
+      { "letra": "D", "texto": "$3,25$." }
     ],
     "gabarito": "D"
   },
@@ -212,10 +212,10 @@
     "disposicao": "horizontal",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "$\\frac{1}{7}$" },
-      { "letra": "B", "texto": "$\\frac{1}{10}$" },
-      { "letra": "C", "texto": "$\\frac{17}{10}$" },
-      { "letra": "D", "texto": "$\\frac{17}{100}$" }
+      { "letra": "A", "texto": "$\\frac{1}{7}$." },
+      { "letra": "B", "texto": "$\\frac{1}{10}$." },
+      { "letra": "C", "texto": "$\\frac{17}{10}$." },
+      { "letra": "D", "texto": "$\\frac{17}{100}$." }
     ],
     "gabarito": "C"
   }
