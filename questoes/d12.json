@@ -119,6 +119,23 @@
       { "letra": "D", "texto": "$720\\, m$" }
     ],
     "gabarito": "B"
+  },
+
+  {
+    "id": "q8_d12",
+    "codigoDescritor": "D12",
+    "texto": "<b>(SPAECE)</b> Três cartões retangulares e com as mesmas dimensões foram colocados lado a lado e sem sobreposição, como mostra o desenho abaixo.<br>[IMAGEM]<br>Qual é a medida do perímetro do retângulo formado pelos três cartões?",
+    "imagem": "imagens/imgq8_d12.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade3x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "864" },
+      { "letra": "B", "texto": "288" },
+      { "letra": "C", "texto": "216" },
+      { "letra": "D", "texto": "168" }
+    ],
+    "gabarito": "D"
   }
 ]  
-
