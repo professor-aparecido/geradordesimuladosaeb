@@ -175,5 +175,24 @@
       { "letra": "D", "texto": "prisma." }
     ],
     "gabarito": "A"
+  },
+  
+  {
+    "id": "q11_d2",
+    "codigoDescritor": "D2",
+    "texto": "Na aula de matemática, a professora Rita desenhou no quadro o sólido abaixo.<br>[IMAGEM]<br>Quantos vértices e faces, respectivamente, tem esse sólido?",
+    "imagem": "imagens/imgq11_d2.png",
+    "escalaImagem": 100,
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "5 e 8." },
+      { "letra": "B", "texto": "5 e 11." },
+      { "letra": "C", "texto": "7 e 4." },
+      { "letra": "D", "texto": "9 e 9." }
+    ],
+    "gabarito": "D"
   }
-]   
+]  
+
