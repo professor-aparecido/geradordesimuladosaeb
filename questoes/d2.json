@@ -180,7 +180,7 @@
   {
     "id": "q11_d2",
     "codigoDescritor": "D2",
-    "texto": "Na aula de matemática, a professora Rita desenhou no quadro o sólido abaixo.<br>[IMAGEM]<br>Quantos vértices e faces, respectivamente, tem esse sólido?",
+    "texto": "<b>(SPAECE)</b> Na aula de matemática, a professora Rita desenhou no quadro o sólido abaixo.<br>[IMAGEM]<br>Quantos vértices e faces, respectivamente, tem esse sólido?",
     "imagem": "imagens/imgq11_d2.png",
     "escalaImagem": 100,
     "tipo": "alternativas",
