@@ -137,11 +137,22 @@
       { "letra": "D", "texto": "135°" }
     ],
     "gabarito": "D"
+  },
+
+  {
+    "id": "q9_d8",
+    "codigoDescritor": "D8",
+    "texto": "<b>(SPAECE)</b> Beatriz desenhou um pentágono regular. Qual é a medida da soma dos ângulos internos desse pentágono?",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "grade2x2",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "108°" },
+      { "letra": "B", "texto": "252°" },
+      { "letra": "C", "texto": "540°" },
+      { "letra": "D", "texto": "720°" }
+    ],
+    "gabarito": "C"
   }
 ]  
-
-
-
-
- 
-
