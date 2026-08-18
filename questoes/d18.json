@@ -1,0 +1,18 @@
+[
+  {
+    "id": "q1_d18",
+    "codigoDescritor": "D18",
+    "texto": "<b>(CAED)</b> Observe a expressão numérica destacada no quadro abaixo.$$\\boxed{6 \\cdot 4 + (2^3 - 3)}$$O resultado dessa expressão é",
+    "imagem": "",
+    "tipo": "alternativas",
+    "disposicao": "vertical",
+    "espacoCalculo": 0,
+    "alternativas": [
+      { "letra": "A", "texto": "$23$." },
+      { "letra": "B", "texto": "$27$." },
+      { "letra": "C", "texto": "$29$." },
+      { "letra": "D", "texto": "$54$." }
+    ],
+    "gabarito": "C"
+  }
+]
