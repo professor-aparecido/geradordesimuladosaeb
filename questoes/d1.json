@@ -63,7 +63,7 @@
     "disposicao": "grade2x2",
     "espacoCalculo": 0,
     "alternativas": [
-      { "letra": "A", "texto": "Este." },
+      { "letra": "A", "texto": "Leste." },
       { "letra": "B", "texto": "Oeste." },
       { "letra": "C", "texto": "Sul." },
       { "letra": "D", "texto": "Norte." }
